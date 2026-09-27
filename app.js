@@ -1002,6 +1002,9 @@ function renderParentHomeDashboard() {
               <button type="button" class="btn-solid-child btn-sm" onclick="startChildQuestionEdit()" style="display:inline-flex; align-items:center; gap:6px;">
                 🎒 お子さまの質問に答える
               </button>
+              <button type="button" class="btn-outline btn-sm" onclick="loadDemoData()" style="color:#4F46E5; border-color:#818CF8; background:#EEF2FF; font-weight:700;">
+                💡 デモデータで体験する
+              </button>
             </div>
           </div>
         `;
@@ -1020,9 +1023,14 @@ function renderParentHomeDashboard() {
               ${stationText}の条件設定が完了しました！<br>
               お子さまが「すきなことを見つけるワーク（全7問）」に答えると、AIがふたりの希望をマッチングして要約と食卓での会話提案をお届けします。
             </p>
-            <button type="button" class="btn-solid-child btn-sm" onclick="startChildQuestionEdit()" style="display:inline-flex; align-items:center; gap:6px;">
-              ✦ お子さまの質問に答えてみる
-            </button>
+            <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
+              <button type="button" class="btn-solid-child btn-sm" onclick="startChildQuestionEdit()" style="display:inline-flex; align-items:center; gap:6px;">
+                ✦ お子さまの質問に答えてみる
+              </button>
+              <button type="button" class="btn-outline btn-sm" onclick="loadDemoData()" style="color:#4F46E5; border-color:#818CF8; background:#EEF2FF; font-weight:700;">
+                💡 デモデータで体験する
+              </button>
+            </div>
           </div>
         `;
       } else {
@@ -1042,9 +1050,14 @@ function renderParentHomeDashboard() {
               ${childName}さんの興味関心（${intSummary}）が届いています！<br>
               保護者さまの希望条件（最寄駅・通学時間・学費など）を設定すると、通学圏や進路をふまえた総合AI要約レポートが完成します。
             </p>
-            <button type="button" class="btn-solid-parent btn-sm" onclick="startParentConditionEdit()" style="display:inline-flex; align-items:center; gap:6px;">
-              ✦ 保護者の条件を設定する
-            </button>
+            <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
+              <button type="button" class="btn-solid-parent btn-sm" onclick="startParentConditionEdit()" style="display:inline-flex; align-items:center; gap:6px;">
+                ✦ 保護者の条件を設定する
+              </button>
+              <button type="button" class="btn-outline btn-sm" onclick="loadDemoData()" style="color:#4F46E5; border-color:#818CF8; background:#EEF2FF; font-weight:700;">
+                💡 デモデータで体験する
+              </button>
+            </div>
           </div>
         `;
       }
@@ -1361,15 +1374,20 @@ function renderHomeRecommendedSchools() {
         <p style="font-size: 13px; color: #64748B; margin-bottom: 14px; line-height: 1.6; max-width: 440px; margin-left: auto; margin-right: auto;">
           ${!childReady ? "「すきなことを見つけるワーク（全7問）」に答えると、あなたにぴったりの学校が見つかります。" : "おうちの方の条件設定が完了すると、通学圏に合った学校が提案されます。"}
         </p>
-        ${!childReady ? `
-          <button type="button" class="btn-solid-child" onclick="startChildQuestionEdit()" style="display: inline-block; padding: 10px 22px; font-weight: 800;">
-            ✦ 質問に答えてみる
+        <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
+          ${!childReady ? `
+            <button type="button" class="btn-solid-child" onclick="startChildQuestionEdit()" style="display:inline-block; padding:10px 20px; font-weight:800;">
+              ✦ 質問に答えてみる
+            </button>
+          ` : `
+            <button type="button" class="btn-solid-parent" onclick="switchUserMode('parent'); startParentConditionEdit();" style="display:inline-block; padding:10px 20px; font-weight:800;">
+              📋 おうちの方の条件を設定する
+            </button>
+          `}
+          <button type="button" class="btn-outline btn-sm" onclick="loadDemoData()" style="color:#4F46E5; border-color:#818CF8; background:#EEF2FF; font-weight:700; padding:10px 18px; border-radius:12px;">
+            💡 デモデータで体験する
           </button>
-        ` : `
-          <button type="button" class="btn-solid-parent" onclick="switchUserMode('parent'); startParentConditionEdit();" style="display: inline-block; padding: 10px 22px; font-weight: 800;">
-            📋 おうちの方の条件を設定する
-          </button>
-        `}
+        </div>
       </div>
     `;
     return;
@@ -2866,8 +2884,8 @@ function startParentConditionEdit() {
   if (commuteSlider) commuteSlider.value = commuteTime;
   if (commuteDisplay) commuteDisplay.textContent = `${commuteTime}分`;
 
-  // 設問4: 許容通学手段
-  const transports = prof.transport_methods || ['train', 'bicycle', 'walk'];
+  // 設問4: 許容通学手段（未設定時はすべて未選択）
+  const transports = prof.transport_methods || (prof.conditions && prof.conditions.transportation) || [];
   document.querySelectorAll('#groupTransport input[type="checkbox"]').forEach(chk => {
     const isChecked = transports.includes(chk.value);
     chk.checked = isChecked;
@@ -2878,10 +2896,12 @@ function startParentConditionEdit() {
     }
   });
 
-  // 設問5: 学費上限（チェックボックス）
-  const tuitionCap = prof.tuition_cap !== undefined ? prof.tuition_cap : (prof.conditions?.tuition_max ? prof.conditions.tuition_max / 10000 : 100);
+  // 設問5: 学費上限（未設定時は未選択）
+  const tuitionCap = prof.tuition_cap !== undefined 
+    ? prof.tuition_cap 
+    : (prof.conditions && prof.conditions.tuition_max ? prof.conditions.tuition_max / 10000 : null);
   document.querySelectorAll('#groupTuition input[type="checkbox"]').forEach(chk => {
-    const isChecked = Number(chk.value) === Number(tuitionCap);
+    const isChecked = tuitionCap !== null && Number(chk.value) === Number(tuitionCap);
     chk.checked = isChecked;
     const parentLabel = chk.closest('.big-tile-checkbox');
     if (parentLabel) {
@@ -2890,10 +2910,10 @@ function startParentConditionEdit() {
     }
   });
 
-  // 設問6: 学校形態（チェックボックス）
-  const genderType = prof.gender_type || prof.conditions?.school_gender_type || 'coed';
+  // 設問6: 学校形態（未設定時は未選択）
+  const genderType = prof.gender_type || (prof.conditions && prof.conditions.school_gender_type) || '';
   document.querySelectorAll('#groupGender input[type="checkbox"]').forEach(chk => {
-    const isChecked = chk.value === genderType;
+    const isChecked = genderType !== '' && chk.value === genderType;
     chk.checked = isChecked;
     const parentLabel = chk.closest('.big-tile-checkbox');
     if (parentLabel) {
@@ -2902,8 +2922,8 @@ function startParentConditionEdit() {
     }
   });
 
-  // 設問7: 学校種別
-  const categories = prof.school_categories || prof.conditions?.school_category || ['private'];
+  // 設問7: 学校種別（未設定時は未選択）
+  const categories = prof.school_categories || (prof.conditions && prof.conditions.school_category) || [];
   document.querySelectorAll('#groupCategory input[type="checkbox"]').forEach(chk => {
     const isChecked = categories.includes(chk.value);
     chk.checked = isChecked;
@@ -2914,10 +2934,10 @@ function startParentConditionEdit() {
     }
   });
 
-  // 設問8: 宗教教育（チェックボックス）
-  const religion = prof.religious_pref || prof.conditions?.religion_policy || 'none';
+  // 設問8: 宗教教育（未設定時は未選択）
+  const religion = prof.religious_pref || (prof.conditions && prof.conditions.religion_policy) || '';
   document.querySelectorAll('#groupReligion input[type="checkbox"]').forEach(chk => {
-    const isChecked = chk.value === religion;
+    const isChecked = religion !== '' && chk.value === religion;
     chk.checked = isChecked;
     const parentLabel = chk.closest('.big-tile-checkbox');
     if (parentLabel) {
@@ -2926,10 +2946,10 @@ function startParentConditionEdit() {
     }
   });
 
-  // 設問9: 進学傾向（チェックボックス）
-  const univPath = prof.university_path || prof.conditions?.university_path || 'attached';
+  // 設問9: 進学傾向（未設定時は未選択）
+  const univPath = prof.university_path || (prof.conditions && prof.conditions.university_path) || '';
   document.querySelectorAll('#groupUnivPath input[type="checkbox"]').forEach(chk => {
-    const isChecked = chk.value === univPath;
+    const isChecked = univPath !== '' && chk.value === univPath;
     chk.checked = isChecked;
     const parentLabel = chk.closest('.big-tile-checkbox');
     if (parentLabel) {
@@ -2938,8 +2958,8 @@ function startParentConditionEdit() {
     }
   });
 
-  // 設問10: 求める校風
-  const vibes = prof.atmosphere_keywords || ['free', 'stem'];
+  // 設問10: 求める校風（未設定時は未選択）
+  const vibes = prof.atmosphere_keywords || (prof.conditions && prof.conditions.desired_atmospheres) || [];
   document.querySelectorAll('#groupAtmosphere input[type="checkbox"]').forEach(chk => {
     const isChecked = vibes.includes(chk.value);
     chk.checked = isChecked;
@@ -4495,7 +4515,7 @@ function renderMypageProfileHeader() {
   const roleBadgeEl = document.getElementById('mypageUserRoleBadge');
 
   const avatar = isParent ? (AppSchema.parent_avatar || "👤") : (AppSchema.child_avatar || "👦");
-  const name = isParent ? (AppSchema.parent_name || "保護者さま") : (AppSchema.child_name || "お子さま");
+  const name = isParent ? (AppSchema.parent_name || "未設定") : (AppSchema.child_name || "未設定");
   const roleText = isParent ? "保護者アカウント" : "お子さまアカウント";
 
   if (avatarEl) avatarEl.textContent = avatar;
@@ -4634,14 +4654,152 @@ function handleChildProfileUpdate(event) {
   renderHomeInterestAlternativeSchools();
 }
 
+// 全フォーム入力・選択状態の完全初期化（未回答のゼロ状態にする）
+function resetAllFormInputs() {
+  // 保護者スライド入力欄
+  const pName = document.getElementById('pInputParentName');
+  if (pName) pName.value = "";
+  const pAddr = document.getElementById('pInputAddress');
+  if (pAddr) pAddr.value = "";
+  const pStn = document.getElementById('pInputStation');
+  if (pStn) pStn.value = "";
+  const pCommute = document.getElementById('pInputCommute');
+  if (pCommute) pCommute.value = "60";
+  const pCommuteDisp = document.getElementById('valCommuteDisplay');
+  if (pCommuteDisp) pCommuteDisp.textContent = "60分";
+
+  // 保護者チェックボックス・ラジオの選択全解除
+  document.querySelectorAll('#groupTransport input, #groupTuition input, #groupGender input, #groupCategory input, #groupReligion input, #groupUnivPath input, #groupAtmosphere input').forEach(input => {
+    input.checked = false;
+    const parentLabel = input.closest('.big-tile-checkbox');
+    if (parentLabel) parentLabel.classList.remove('active');
+  });
+
+  const vibeNotice = document.getElementById('vibeCountNotice');
+  if (vibeNotice) vibeNotice.textContent = "選択中: 0 / 3";
+
+  // 子供ニックネーム・性別
+  const cNick = document.getElementById('cInputNickname');
+  if (cNick) cNick.value = "";
+
+  const btnBoy = document.getElementById('btnChildGenderBoy');
+  const btnGirl = document.getElementById('btnChildGenderGirl');
+  const labelBoy = document.getElementById('labelChildGenderBoy');
+  const labelGirl = document.getElementById('labelChildGenderGirl');
+  if (btnBoy && btnGirl) {
+    btnBoy.classList.remove('selected');
+    btnBoy.style.border = '2px solid #CBD5E1';
+    btnBoy.style.background = '#FFFFFF';
+    if (labelBoy) labelBoy.style.color = '#475569';
+    btnGirl.classList.remove('selected');
+    btnGirl.style.border = '2px solid #CBD5E1';
+    btnGirl.style.background = '#FFFFFF';
+    if (labelGirl) labelGirl.style.color = '#475569';
+  }
+
+  // 子供選択ボタン・自由記述
+  document.querySelectorAll('#momentOptionsGrid .moment-choice-btn, #lifestyleOptionsGrid .moment-choice-btn, #studyOptionsGrid .moment-choice-btn, #facilityOptionsGrid .moment-choice-btn, #relationOptionsGrid .moment-choice-btn').forEach(btn => {
+    btn.classList.remove('active');
+  });
+
+  ['childFreeComment_step1', 'childFreeComment_q1', 'childFreeComment_q2', 'childFreeComment_q3', 'childFreeComment_q4', 'childFreeComment_q5'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = "";
+  });
+
+  const urlInput = document.getElementById('inputGeneratedUrl');
+  if (urlInput) urlInput.value = "";
+
+  renderInterestSelectionGrid();
+}
+
+// 動作確認・ポートフォリオ閲覧用のデモデータ（ユーザーがボタンを押したときのみロード）
+const DEMO_SAMPLE_DATA = {
+  household_id: "demo_household_101",
+  parent_name: "保護者（デモ）",
+  parent_avatar: "👤",
+  child_name: "そうた",
+  child_avatar: "👦",
+  child_grade: "5",
+  parent_profile: {
+    is_completed: true,
+    custom_entered: true,
+    address: "東京都世田谷区",
+    station: "用賀駅",
+    commute_time: 60,
+    tuition_cap: 100,
+    gender_type: "coed",
+    school_categories: ["private"],
+    religious_pref: "none",
+    university_path: "prep",
+    atmosphere_keywords: ["free", "stem"],
+    conditions: {
+      commute_time_max: 60,
+      tuition_max: 1000000,
+      transportation: ["train", "walk"],
+      school_gender_type: "coed",
+      school_category: ["private"],
+      religion_policy: "none",
+      university_path: "prep",
+      desired_atmospheres: ["free", "stem"]
+    },
+    strict_filters: ["commute_time", "tuition_cap", "school_category"]
+  },
+  child_profile: {
+    is_completed: true,
+    gender: "boy",
+    interests: ["interest_science_space", "interest_puzzle_math", "interest_digital_tech"],
+    moment: "moment_discovery",
+    lifestyle: "afterschool_lab",
+    study: "study_experiment",
+    facility: "place_lab",
+    relation: "relation_specialist",
+    free_comments: {
+      step1: "宇宙やロボットのことをもっと知りたい",
+      q1: "実験で新しい発見ができたとき",
+      q2: "パソコン室でプログラミングしたい",
+      q3: "理科の実験がたくさんある授業",
+      q4: "実験設備がすごいところ",
+      q5: "なんでも質問に答えてくれる面白い先生"
+    }
+  },
+  favorites: ["sch_shibaura", "sch_sakura"],
+  visit_planned_events: [],
+  visit_reviews: []
+};
+
+// デモデータの明示的読み込み関数
+function loadDemoData() {
+  if (confirm("💡 動作確認用のデモデータを読み込みますか？\n（保護者とお子さま双方のサンプル回答が入り、学校提案やAI会話提案、比較機能などをすぐにお試しいただけます）")) {
+    AppSchema = JSON.parse(JSON.stringify(DEMO_SAMPLE_DATA));
+    saveAppStateToLocalStorage();
+    executeSchoolMatching();
+    renderMypageProfileHeader();
+    renderMypageFavorites();
+    renderParentConditionsSummary();
+    renderMypageChildProfile();
+    renderHomeRecommendedSchools();
+    renderHomeInterestAlternativeSchools();
+    renderParentDashboard();
+    alert("💡 デモデータを読み込みました！\nホーム画面の学校提案やマイページ、AI会話提案などをぜひご覧ください。");
+    switchAppView('home');
+  }
+}
+
+// ユーザー入力データのリセット（初期化してゼロから再設定）
 function resetAppData() {
-  if (confirm("アカウント情報（お名前、住所、最寄り駅、アンケート回答、お気に入り等）をすべて初期化して、最初から新しく設定しますか？\n（別の方が新しく使う場合や最初からやり直す場合にご利用ください）")) {
+  if (confirm("入力したデータ（お名前、住所、条件、質問回答、お気に入りなど）をすべて削除して、初期状態に戻しますか？\n（ゼロから新しく設定を始める場合にご利用ください）")) {
     try {
-      localStorage.clear();
+      localStorage.removeItem(APP_STORAGE_KEY);
+      localStorage.removeItem("koko_school_user_data_v4");
+      localStorage.removeItem("koko_user_data_v3");
+      localStorage.removeItem("koko_app_data_v1");
+      localStorage.removeItem("koko_app_data_v2");
       sessionStorage.clear();
     } catch(e) {}
     AppSchema = JSON.parse(JSON.stringify(DEFAULT_EMPTY_SCHEMA));
-    alert("アカウント情報を初期化しました。新しいアカウント設定を始めてください。");
+    resetAllFormInputs();
+    alert("すべてのデータを初期化しました。最初から新しく設定できます。");
     location.reload();
   }
 }
@@ -4831,7 +4989,7 @@ function getSolidIconSvg(iconType) {
 // ==========================================
 // 10. マイページ：質問回答データ描画 ＆ ローカルストレージ連携
 // ==========================================
-const APP_STORAGE_KEY = "koko_user_data_v3";
+const APP_STORAGE_KEY = "koko_school_user_data_v4";
 
 function saveAppStateToLocalStorage() {
   try {
@@ -4860,21 +5018,25 @@ function loadAppStateFromLocalStorage() {
     try {
       localStorage.removeItem("koko_app_data_v1");
       localStorage.removeItem("koko_app_data_v2");
+      localStorage.removeItem("koko_user_data_v3");
     } catch(e) {}
 
     const saved = localStorage.getItem(APP_STORAGE_KEY);
-    if (!saved) return;
+    if (!saved) {
+      // 初回アクセス時：一切サンプルの事前入力をロードせず、完全に未回答の状態で開始
+      AppSchema = JSON.parse(JSON.stringify(DEFAULT_EMPTY_SCHEMA));
+      resetAllFormInputs();
+      return;
+    }
+
     const parsed = JSON.parse(saved);
     if (parsed.household_id) AppSchema.household_id = parsed.household_id;
-    if (parsed.parent_name && parsed.parent_name !== "いろは" && parsed.parent_name !== "いろはさん") {
-      AppSchema.parent_name = parsed.parent_name;
-    }
+    if (parsed.parent_name) AppSchema.parent_name = parsed.parent_name;
     if (parsed.parent_avatar) AppSchema.parent_avatar = parsed.parent_avatar;
-    if (parsed.child_name && parsed.child_name !== "いろは") {
-      AppSchema.child_name = parsed.child_name;
-    }
+    if (parsed.child_name) AppSchema.child_name = parsed.child_name;
     if (parsed.child_avatar) AppSchema.child_avatar = parsed.child_avatar;
     if (parsed.child_grade) AppSchema.child_grade = parsed.child_grade;
+
     if (parsed.child_profile && parsed.child_profile.is_completed) {
       AppSchema.child_profile = Object.assign(AppSchema.child_profile, parsed.child_profile);
       AppSchema.child_profile.is_completed = true;
@@ -4884,24 +5046,20 @@ function loadAppStateFromLocalStorage() {
     }
 
     if (parsed.parent_profile && parsed.parent_profile.is_completed) {
-      // 旧テストデータ「茨城県土浦市」「荒川沖駅」が混入していた場合はクリア
-      if (parsed.parent_profile.address === "茨城県土浦市" && !parsed.parent_profile.custom_entered) {
-        parsed.parent_profile.address = "";
-      }
-      if (parsed.parent_profile.station === "荒川沖駅" && !parsed.parent_profile.custom_entered) {
-        parsed.parent_profile.station = "";
-      }
       AppSchema.parent_profile = Object.assign(AppSchema.parent_profile, parsed.parent_profile);
       AppSchema.parent_profile.is_completed = true;
     } else {
       AppSchema.parent_profile = JSON.parse(JSON.stringify(DEFAULT_EMPTY_SCHEMA.parent_profile));
       AppSchema.parent_name = "";
     }
+
     if (Array.isArray(parsed.favorites)) AppSchema.favorites = parsed.favorites;
     if (Array.isArray(parsed.visit_planned_events)) AppSchema.visit_planned_events = parsed.visit_planned_events;
     if (Array.isArray(parsed.visit_reviews)) AppSchema.visit_reviews = parsed.visit_reviews;
   } catch (e) {
     console.warn("localStorage load failed", e);
+    AppSchema = JSON.parse(JSON.stringify(DEFAULT_EMPTY_SCHEMA));
+    resetAllFormInputs();
   }
 }
 
@@ -5009,11 +5167,18 @@ function switchDesignTheme(themeName) {
 document.addEventListener('DOMContentLoaded', () => {
   loadAppStateFromLocalStorage();
   initDesignTheme();
+
   if (isParentConfigured() && isChildConfigured()) {
     executeSchoolMatching();
   } else {
     AppSchema.recommended_schools = [];
+    resetAllFormInputs();
   }
+
+  renderMypageProfileHeader();
+  renderParentConditionsSummary();
+  renderMypageChildProfile();
+
   updateParentProgressIndicator(1);
   updateChildProgressIndicator(0);
   switchUserMode('parent');

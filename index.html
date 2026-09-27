@@ -356,7 +356,12 @@
             <!-- 親問1：保護者のお名前 -->
             <div id="pSlide1" class="question-slide active">
               <div class="card-surface single-focus-card">
-                <span class="badge-phase">質問 1 / 10</span>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                  <span class="badge-phase">質問 1 / 10</span>
+                  <button type="button" class="btn-outline btn-sm" onclick="loadDemoData()" style="padding: 4px 10px; font-size: 11px; color: #4F46E5; border-color: #A5B4FC; background: #EEF2FF; font-weight: 700; border-radius: 20px;">
+                    💡 デモデータで体験する
+                  </button>
+                </div>
                 <h2 class="slide-question-title text-parent">保護者様のお名前（ニックネーム）を教えてください</h2>
                 <p class="slide-question-desc text-parent-muted">
                   アプリ内でお呼びするお名前です。入力したら「次へ進む」を押してください。
@@ -896,7 +901,7 @@
                   <div class="token-url-info">
                     <label class="form-label text-parent">お子さま専用アクセスURL</label>
                     <div class="url-copy-row">
-                      <input type="text" id="inputGeneratedUrl" class="input-field-readonly" readonly value="https://kokogaii.app/?child_access=koko_child_direct">
+                      <input type="text" id="inputGeneratedUrl" class="input-field-readonly" readonly value="" placeholder="（URL発行ボタンを押すと表示されます）">
                       <button type="button" class="btn-copy" onclick="copyChildUrl()">URLコピー</button>
                     </div>
                     <p class="copy-notice" id="copyNoticeMsg"></p>
@@ -1623,8 +1628,8 @@
             </div>
             <div class="profile-meta-info">
               <div class="profile-name-line">
-                <h3 class="profile-user-title" id="mypageUserNameDisplay">いろは</h3>
-                <span class="badge-role-pill" id="mypageUserRoleBadge">お子さま</span>
+                <h3 class="profile-user-title" id="mypageUserNameDisplay">未設定</h3>
+                <span class="badge-role-pill" id="mypageUserRoleBadge">保護者</span>
               </div>
             </div>
             <button type="button" class="btn-outline btn-sm btn-edit-profile-action" onclick="openProfileEditModal()">
@@ -1686,18 +1691,21 @@
         <!-- アカウント・データ管理設定カード -->
         <div class="card-surface" id="mypageAccountSection" style="margin-top: 20px;">
           <div class="phase-header">
-            <span class="badge-phase">アカウント</span>
-            <h3 class="title-h2">アカウント・個別データ管理</h3>
+            <span class="badge-phase">データ管理</span>
+            <h3 class="title-h2">データ管理・体験モード</h3>
           </div>
           <p style="font-size: 13px; color: #475569; margin: 8px 0 14px; line-height: 1.5;">
-            この端末に保存されているアカウント情報（お名前、最寄り駅、希望条件、質問回答）を管理します。別の方が新しく使う場合や最初からやり直したい場合は以下のボタンからリセットできます。
+            この端末（ブラウザ）に保存されている入力データを管理します。訪問された方がゼロから設定し直す場合や、動作確認用のサンプルで試したい場合は以下をご利用ください。
           </p>
           <div style="margin-top: 12px; display: flex; flex-direction: column; gap: 10px;">
+            <button type="button" class="btn-outline btn-sm" onclick="loadDemoData()" style="color: #4F46E5; border-color: #6366F1; background: #EEF2FF; text-align: center; font-weight: 700; padding: 12px; border-radius: 12px; font-size: 14px;">
+              💡 デモデータで体験する（サンプルの入力値を読み込む）
+            </button>
             <button type="button" class="btn-outline btn-sm" onclick="openProfileEditModal()" style="text-align: center; font-weight: 700;">
               ✎ アカウント名・アイコンを変更する
             </button>
-            <button type="button" class="btn-outline btn-sm" onclick="resetAppData()" style="color: #DC2626; border-color: #F87171; background: #FFF5F5; text-align: center; font-weight: 700;">
-              🔄 アカウントをリセット（最初から新しく設定する）
+            <button type="button" class="btn-outline btn-sm" onclick="resetAppData()" style="color: #DC2626; border-color: #F87171; background: #FFF5F5; text-align: center; font-weight: 700; padding: 12px; border-radius: 12px; font-size: 14px;">
+              🗑️ データをリセット（初期化して最初からやり直す）
             </button>
           </div>
         </div>
@@ -1751,7 +1759,7 @@
 
           <div class="profile-edit-field-group" style="margin-top: 16px;">
             <label class="edit-field-label" for="editProfileNameInput">お名前・ニックネーム</label>
-            <input type="text" id="editProfileNameInput" class="input-field large-input" placeholder="例：いろは、いろはさん">
+            <input type="text" id="editProfileNameInput" class="input-field large-input" placeholder="ニックネームを入力">
           </div>
 
           <div class="slide-actions-bar between" style="margin-top: 24px;">
