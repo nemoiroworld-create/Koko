@@ -407,7 +407,7 @@
                 </div>
 
                 <div class="slide-actions-bar between">
-                  <button type="button" class="btn-outline" onclick="prevParentSlide(1)">前に戻る</button>
+                  <button type="button" class="btn-outline" onclick="prevParentSlide(1)">← 前に戻る</button>
                   <button type="button" class="btn-solid-parent" onclick="nextParentSlide(3)">次へ進む</button>
                 </div>
               </div>
@@ -427,16 +427,17 @@
                     <span class="slider-large-val text-parent" id="valCommuteDisplay">60分</span>
                     <span class="slider-note text-parent-muted">片道の上限時間</span>
                   </div>
-                  <input type="range" id="pInputCommute" min="30" max="90" step="5" value="60" class="range-slider-parent" oninput="updateCommuteSlider(this.value)">
+                  <input type="range" id="pInputCommute" min="30" max="120" step="5" value="60" class="range-slider-parent" oninput="updateCommuteSlider(this.value)">
                   <div class="range-ticks">
-                    <span>30分（近場・徒歩自転車重視）</span>
-                    <span>60分（一般的上限）</span>
-                    <span>90分（遠距離許容）</span>
+                    <span>30分（近場）</span>
+                    <span>60分（一般的）</span>
+                    <span>90分</span>
+                    <span>120分（遠距離許容）</span>
                   </div>
                 </div>
 
                 <div class="slide-actions-bar between">
-                  <button type="button" class="btn-outline" onclick="prevParentSlide(2)">前に戻る</button>
+                  <button type="button" class="btn-outline" onclick="prevParentSlide(2)">← 前に戻る</button>
                   <button type="button" class="btn-solid-parent" onclick="nextParentSlide(4)">次へ進む</button>
                 </div>
               </div>
@@ -502,7 +503,7 @@
                 </div>
 
                 <div class="slide-actions-bar between">
-                  <button type="button" class="btn-outline" onclick="prevParentSlide(3)">前に戻る</button>
+                  <button type="button" class="btn-outline" onclick="prevParentSlide(3)">← 前に戻る</button>
                   <button type="button" class="btn-solid-parent" onclick="nextParentSlide(5)">次へ進む</button>
                 </div>
               </div>
@@ -568,7 +569,7 @@
                 </div>
 
                 <div class="slide-actions-bar between">
-                  <button type="button" class="btn-outline" onclick="prevParentSlide(4)">前に戻る</button>
+                  <button type="button" class="btn-outline" onclick="prevParentSlide(4)">← 前に戻る</button>
                   <button type="button" class="btn-solid-parent" onclick="nextParentSlide(6)">次へ進む</button>
                 </div>
               </div>
@@ -625,7 +626,7 @@
                 </div>
 
                 <div class="slide-actions-bar between">
-                  <button type="button" class="btn-outline" onclick="prevParentSlide(5)">前に戻る</button>
+                  <button type="button" class="btn-outline" onclick="prevParentSlide(5)">← 前に戻る</button>
                   <button type="button" class="btn-solid-parent" onclick="nextParentSlide(7)">次へ進む</button>
                 </div>
               </div>
@@ -673,7 +674,7 @@
                 </div>
 
                 <div class="slide-actions-bar between">
-                  <button type="button" class="btn-outline" onclick="prevParentSlide(6)">前に戻る</button>
+                  <button type="button" class="btn-outline" onclick="prevParentSlide(6)">← 前に戻る</button>
                   <button type="button" class="btn-solid-parent" onclick="nextParentSlide(8)">次へ進む</button>
                 </div>
               </div>
@@ -730,7 +731,7 @@
                 </div>
 
                 <div class="slide-actions-bar between">
-                  <button type="button" class="btn-outline" onclick="prevParentSlide(7)">前に戻る</button>
+                  <button type="button" class="btn-outline" onclick="prevParentSlide(7)">← 前に戻る</button>
                   <button type="button" class="btn-solid-parent" onclick="nextParentSlide(9)">次へ進む</button>
                 </div>
               </div>
@@ -778,7 +779,7 @@
                 </div>
 
                 <div class="slide-actions-bar between">
-                  <button type="button" class="btn-outline" onclick="prevParentSlide(8)">前に戻る</button>
+                  <button type="button" class="btn-outline" onclick="prevParentSlide(8)">← 前に戻る</button>
                   <button type="button" class="btn-solid-parent" onclick="nextParentSlide(10)">次へ進む</button>
                 </div>
               </div>
@@ -854,7 +855,7 @@
                 </div>
 
                 <div class="slide-actions-bar between">
-                  <button type="button" class="btn-outline" onclick="prevParentSlide(9)">前に戻る</button>
+                  <button type="button" class="btn-outline" onclick="prevParentSlide(9)">← 前に戻る</button>
                   <button type="button" class="btn-solid-parent" onclick="goToParentPhase2Slide()">
                     フェーズ2（絶対に譲れない条件の選定）へ進む
                   </button>
@@ -877,7 +878,7 @@
                 </div>
 
                 <div class="slide-actions-bar between">
-                  <button type="button" class="btn-outline" onclick="prevParentSlide(10)">質問に戻る</button>
+                  <button type="button" class="btn-outline" onclick="prevParentSlide(10)">← 質問に戻る</button>
                   <button type="button" class="btn-solid-parent" onclick="saveAndGenerateChildUrl()">
                     保存して子供用URLを発行する
                   </button>
@@ -1051,7 +1052,7 @@
               </div>
 
               <div class="slide-actions-bar between">
-                <button type="button" class="btn-outline-child" onclick="prevChildSlide(1)">まえにもどる</button>
+                <button type="button" class="btn-outline-child" onclick="prevChildSlide(1)">← まえにもどる</button>
                 <button type="button" class="btn-solid-child" id="btnChildStep1Next" onclick="nextChildSlide(3)">
                   次へ進む
                 </button>
@@ -1097,7 +1098,7 @@
               </div>
 
               <div class="slide-actions-bar between">
-                <button type="button" class="btn-outline-child" onclick="prevChildSlide(2)">まえにもどる</button>
+                <button type="button" class="btn-outline-child" onclick="prevChildSlide(2)">← まえにもどる</button>
                 <button type="button" class="btn-solid-child" onclick="nextChildSlide(4)">次へ進む</button>
               </div>
             </div>
@@ -1141,7 +1142,7 @@
               </div>
 
               <div class="slide-actions-bar between">
-                <button type="button" class="btn-outline-child" onclick="prevChildSlide(3)">まえにもどる</button>
+                <button type="button" class="btn-outline-child" onclick="prevChildSlide(3)">← まえにもどる</button>
                 <button type="button" class="btn-solid-child" onclick="nextChildSlide(5)">次へ進む</button>
               </div>
             </div>
@@ -1185,7 +1186,7 @@
               </div>
 
               <div class="slide-actions-bar between">
-                <button type="button" class="btn-outline-child" onclick="prevChildSlide(4)">まえにもどる</button>
+                <button type="button" class="btn-outline-child" onclick="prevChildSlide(4)">← まえにもどる</button>
                 <button type="button" class="btn-solid-child" onclick="nextChildSlide(6)">次へ進む</button>
               </div>
             </div>
@@ -1229,7 +1230,7 @@
               </div>
 
               <div class="slide-actions-bar between">
-                <button type="button" class="btn-outline-child" onclick="prevChildSlide(5)">まえにもどる</button>
+                <button type="button" class="btn-outline-child" onclick="prevChildSlide(5)">← まえにもどる</button>
                 <button type="button" class="btn-solid-child" onclick="nextChildSlide(7)">次へ進む</button>
               </div>
             </div>
@@ -1273,7 +1274,7 @@
               </div>
 
               <div class="slide-actions-bar between">
-                <button type="button" class="btn-outline-child" onclick="prevChildSlide(6)">まえにもどる</button>
+                <button type="button" class="btn-outline-child" onclick="prevChildSlide(6)">← まえにもどる</button>
                 <button type="button" class="btn-solid-child" onclick="finishChildQuestionsAndSlideToResult()">
                   ぴったりな学校を見る！（完了）
                 </button>
@@ -1549,7 +1550,7 @@
                 </div>
 
                 <div class="slide-actions-bar between">
-                  <button type="button" class="btn-outline-child" onclick="prevReviewSlide(1)">前に戻る</button>
+                  <button type="button" class="btn-outline-child" onclick="prevReviewSlide(1)">← 前に戻る</button>
                   <button type="button" class="btn-solid-child" onclick="nextReviewSlide(3)">次へ進む</button>
                 </div>
               </div>
@@ -1567,7 +1568,7 @@
                 </div>
 
                 <div class="slide-actions-bar between">
-                  <button type="button" class="btn-outline-child" onclick="prevReviewSlide(2)">前に戻る</button>
+                  <button type="button" class="btn-outline-child" onclick="prevReviewSlide(2)">← 前に戻る</button>
                   <button type="button" class="btn-solid-child" onclick="nextReviewSlide(4)">次へ進む</button>
                 </div>
               </div>
@@ -1599,7 +1600,7 @@
                 </div>
 
                 <div class="slide-actions-bar between">
-                  <button type="button" class="btn-outline-child" onclick="prevReviewSlide(3)">前に戻る</button>
+                  <button type="button" class="btn-outline-child" onclick="prevReviewSlide(3)">← 前に戻る</button>
                   <button type="button" class="btn-solid-child" id="btnSubmitReviewWizard" onclick="saveReviewWizardRecord()">✦ 期待を記録する</button>
                 </div>
               </div>

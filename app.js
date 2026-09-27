@@ -1250,8 +1250,7 @@ function renderParentHomeDashboard() {
       interestsBox.innerHTML = `
         <div style="padding:18px 16px; background:#F8FAFC; border:2px dashed #CBD5E1; border-radius:12px; text-align:center;">
           <p style="font-weight:700; color:#334155; margin-bottom:4px;">まだ質問に答えていません</p>
-          <p style="font-size:13px; color:#64748B; margin-bottom:12px;">お子さまが「すきなことを見つけるワーク」に答えると、ワクワクする分野がここに並びます。</p>
-          <button type="button" class="btn-solid-child btn-sm" onclick="startChildQuestionEdit()" style="display:inline-block;">✦ 質問に答えてみる</button>
+          <p style="font-size:13px; color:#64748B; margin:0;">お子さまが「すきなことを見つけるワーク」に答えると、ワクワクする分野がここに並びます。</p>
         </div>
       `;
     } else {
