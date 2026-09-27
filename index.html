@@ -1715,6 +1715,18 @@
     </main>
 
     <!-- ========================================================
+         学校詳細情報ポップアップモーダル（オーバーレイ展開）
+         ======================================================== -->
+    <div id="schoolDetailModalOverlay" class="school-modal-overlay school-detail-popup-overlay" onclick="closeSchoolDetailModalOnBackdrop(event)" style="display: none;" role="dialog" aria-modal="true" aria-labelledby="schoolDetailModalTitle">
+      <div class="school-modal-dialog school-detail-popup-dialog" style="max-width: 680px; width: 95%; max-height: 90vh; background-color: var(--koko-cream, #FFFDF8); padding: 0;">
+        <button type="button" class="btn-modal-close" onclick="closeSchoolDetailModal()" aria-label="閉じる">×</button>
+        <div id="schoolDetailModalContent" class="school-detail-screen-content" style="padding: 16px; max-height: 90vh; overflow-y: auto;">
+          <!-- JavaScriptで動的生成 -->
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================================================
          プロフィール編集モーダル（アイコン選択・お名前編集）
          ======================================================== -->
     <div id="profileEditModalOverlay" class="school-modal-overlay" onclick="closeProfileEditModalOnBackdrop(event)" style="display: none;">

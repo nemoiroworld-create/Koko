@@ -1872,7 +1872,43 @@ function renderMypageFavorites() {
 }
 
 // ==========================================
-// 学校詳細画面（独立した専用画面：背景に他画面を表示しない）
+// Googleマップ通学経路URL生成ヘルパー（無料Maps URLs形式・公共交通機関）
+// ==========================================
+function getGoogleMapsTransitUrl(school) {
+  if (!school) return '';
+  const destination = `${school.name} ${school.prefecture || ''} ${school.district || ''}`.trim();
+  return `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(destination)}&travelmode=transit`;
+}
+
+function handleMapLinkClick(event, url) {
+  // アプリ環境（Tauri等）の外部ブラウザ起動APIに対応
+  if (window.__TAURI__?.shell?.open) {
+    if (event) event.preventDefault();
+    window.__TAURI__.shell.open(url);
+    return;
+  }
+  if (window.__TAURI__?.core?.invoke) {
+    if (event) event.preventDefault();
+    try {
+      window.__TAURI__.core.invoke('open_browser', { url });
+      return;
+    } catch (e) {
+      window.open(url, '_blank', 'noopener,noreferrer');
+      return;
+    }
+  }
+  // 通常のWebブラウザ環境では target="_blank" rel="noopener noreferrer" により別タブで遷移
+}
+
+// ESCキーによるモーダル閉じるイベント管理
+function handleDetailModalKeyDown(e) {
+  if (e.key === 'Escape' || e.key === 'Esc') {
+    closeSchoolDetailModal();
+  }
+}
+
+// ==========================================
+// 学校詳細情報のポップアップ展開（モーダル表示・開閉状態管理）
 // ==========================================
 function openSchoolDetailModal(schoolId) {
   const school = SCHOOL_DATABASE.find(s => s.school_id === schoolId);
@@ -1884,15 +1920,13 @@ function openSchoolDetailModal(schoolId) {
   }
   currentDetailSchoolId = schoolId;
 
-  const contentContainer = document.getElementById('schoolDetailScreenContent');
-  if (!contentContainer) return;
-
   const isChild = currentUserMode === 'child';
   const heartActive = school.is_favorite ? 'active' : '';
   const genderText = school.gender_type === 'girls' ? '女子校' : school.gender_type === 'boys' ? '男子校' : '共学';
   const events = school.events || [];
   const currentStation = (AppSchema.parent_profile && AppSchema.parent_profile.station) ? AppSchema.parent_profile.station : 'ご自宅最寄駅';
   const commuteMin = school.calculated_commute_time || school.commute_time || 30;
+  const mapRouteUrl = getGoogleMapsTransitUrl(school);
 
   // 上部固定ヘッダーのお気に入りボタン状態を同期
   const btnTopFav = document.getElementById('btnDetailFavTop');
@@ -1904,8 +1938,8 @@ function openSchoolDetailModal(schoolId) {
     }
   }
 
-  contentContainer.innerHTML = `
-    <!-- 学校写真プレースホルダー（大体のあたり） -->
+  const detailHtml = `
+    <!-- 学校写真プレースホルダー（枠のみ表示） -->
     ${renderSchoolPhotoPlaceholder(school, '200px')}
 
     <!-- 学校ヘッダー情報カード -->
@@ -1913,7 +1947,7 @@ function openSchoolDetailModal(schoolId) {
       <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:12px;">
         <div style="flex:1;">
           <span style="font-size:12px; color:#64748B; font-weight:700; display:block;">${school.name_ruby || ''}</span>
-          <h1 style="margin: 4px 0 10px; font-size:24px; font-weight:800; color:var(--text-main); line-height:1.3;">${school.name}</h1>
+          <h1 id="schoolDetailModalTitle" style="margin: 4px 0 10px; font-size:24px; font-weight:800; color:var(--text-main); line-height:1.3;">${school.name}</h1>
           
           <div style="display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin: 8px 0 12px;">
             ${getCommuteBadgeHtml(school)}
@@ -1935,13 +1969,17 @@ function openSchoolDetailModal(schoolId) {
         </button>
       </div>
 
-      ${school.official_url ? `
-        <div style="margin-top: 8px; padding-top: 10px; border-top: 1px dashed #E2E8F0;">
+      <!-- アクションボタン群（公式HP ＆ Googleマップ通学経路表示） -->
+      <div style="margin-top: 10px; padding-top: 12px; border-top: 1px dashed #E2E8F0; display:flex; flex-wrap:wrap; gap:10px;">
+        ${school.official_url ? `
           <a href="${school.official_url}" target="_blank" rel="noopener noreferrer" class="btn-official-detail-link" style="display:inline-flex; align-items:center; gap:6px; background:#EEF4FF; color:var(--koko-blue-main); border:2px solid var(--koko-blue-main); border-radius:20px; padding:8px 16px; font-size:13px; font-weight:800; text-decoration:none; box-shadow:2px 2px 0px var(--koko-blue-main);">
             🌐 公式ホームページを見る（外部サイト） ↗
           </a>
-        </div>
-      ` : ''}
+        ` : ''}
+        <a href="${mapRouteUrl}" target="_blank" rel="noopener noreferrer" onclick="handleMapLinkClick(event, '${mapRouteUrl}')" class="btn-map-transit-link" style="display:inline-flex; align-items:center; gap:6px; background:#F0FDF4; color:#15803D; border:2px solid #86EFAC; border-radius:20px; padding:8px 16px; font-size:13px; font-weight:800; text-decoration:none; box-shadow:2px 2px 0px #15803D;">
+          🗺️ Googleマップで通学ルートを見る（公共交通機関） ↗
+        </a>
+      </div>
     </div>
 
     <!-- コンテンツボディ各セクション -->
@@ -2007,7 +2045,7 @@ function openSchoolDetailModal(schoolId) {
         </ul>
       </section>
 
-      <!-- 4. キミが通うイメージ（通学シミュレーション ＆ 具体的なルート案内） -->
+      <!-- 4. キミが通うイメージ（通学シミュレーション ＆ 具体的なルート案内 ＆ Googleマップ連携） -->
       <section class="modal-section-card simulation-section">
         <div class="modal-section-title-wrap">
           <span class="section-star">✦</span>
@@ -2016,11 +2054,19 @@ function openSchoolDetailModal(schoolId) {
         ${school.calculated_route_summary ? `
           <div style="margin-bottom: 14px; padding: 12px 14px; background: #EFF6FF; border: 2px solid #93C5FD; border-radius: 8px;">
             <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:6px;">
-              <strong style="color: #1E40AF; font-size: 13px;">🚉 具体的な通学ルート・交通手段（${AppSchema.parent_profile.station || 'ご自宅最寄駅'}より）</strong>
+              <strong style="color: #1E40AF; font-size: 13px;">🚉 具体的な通学ルート・交通手段（${currentStation}より）</strong>
             </div>
             <p style="margin:0; font-size:13px; color:#1E3A8A; line-height:1.5;">${school.calculated_route_summary}</p>
           </div>
         ` : ''}
+        
+        <!-- Googleマップ通学ルート案内ボタン -->
+        <div style="margin-bottom: 14px;">
+          <a href="${mapRouteUrl}" target="_blank" rel="noopener noreferrer" onclick="handleMapLinkClick(event, '${mapRouteUrl}')" class="btn-map-transit-link full-width" style="display:flex; align-items:center; justify-content:center; gap:8px; background:#F0FDF4; color:#15803D; border:2px solid #86EFAC; border-radius:12px; padding:10px 16px; font-size:13px; font-weight:800; text-decoration:none; box-shadow:2px 2px 0px #15803D; text-align:center;">
+            🗺️ 現在地からこの学校までの通学ルートをGoogleマップで調べる（公共交通機関） ↗
+          </a>
+        </div>
+
         <div class="simulation-text-box">
           <p class="simulation-desc">${school.life_simulation || ''}</p>
         </div>
@@ -2048,25 +2094,61 @@ function openSchoolDetailModal(schoolId) {
 
     <!-- 画面下部の一覧に戻るボタン -->
     <div style="margin-top: 28px; text-align: center;">
-      <button type="button" class="btn-solid-parent full-width" onclick="goBackFromSchoolDetail()" style="display:flex; align-items:center; justify-content:center; gap:8px; font-size:15px; padding:14px;">
-        <span>← 一覧にもどる</span>
+      <button type="button" class="btn-solid-parent full-width" onclick="closeSchoolDetailModal()" style="display:flex; align-items:center; justify-content:center; gap:8px; font-size:15px; padding:14px;">
+        <span>← 一覧にもどる（閉じる）</span>
       </button>
     </div>
   `;
 
-  // 画面全体を「学校詳細専用画面」に切り替え（他画面は全て非表示になるため背景に何も映らない）
-  switchAppView('school-detail');
+  // ポップアップモーダルコンテナと全画面ビューの両方にコンテンツを設定
+  const modalContentContainer = document.getElementById('schoolDetailModalContent');
+  if (modalContentContainer) {
+    modalContentContainer.innerHTML = detailHtml;
+  }
+  const screenContentContainer = document.getElementById('schoolDetailScreenContent');
+  if (screenContentContainer) {
+    screenContentContainer.innerHTML = detailHtml;
+  }
+
+  // ポップアップオーバーレイ（モーダル）を開く
+  const modalOverlay = document.getElementById('schoolDetailModalOverlay');
+  if (modalOverlay) {
+    modalOverlay.style.display = 'flex';
+    modalOverlay.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', handleDetailModalKeyDown);
+    // モーダル内部のスクロールを一番上へリセット
+    if (modalContentContainer) modalContentContainer.scrollTop = 0;
+  }
 }
 
 // エイリアス
 const openSchoolDetailScreen = openSchoolDetailModal;
 
 function goBackFromSchoolDetail() {
-  switchAppView(previousRoleBeforeDetail || 'home');
+  closeSchoolDetailModal();
 }
 
+// ポップアップモーダルの閉じる処理（開閉状態の適切な管理）
 function closeSchoolDetailModal() {
-  goBackFromSchoolDetail();
+  const modalOverlay = document.getElementById('schoolDetailModalOverlay');
+  if (modalOverlay) {
+    modalOverlay.style.display = 'none';
+    modalOverlay.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+    window.removeEventListener('keydown', handleDetailModalKeyDown);
+  }
+  // もし独立した画面ビューとして開かれていた場合のみ元の画面に戻す
+  if (currentRole === 'school-detail') {
+    switchAppView(previousRoleBeforeDetail || 'home');
+  }
+}
+
+// モーダルの背景（バックドロップ）クリックで閉じる
+function closeSchoolDetailModalOnBackdrop(event) {
+  if (event && event.target && event.target.id === 'schoolDetailModalOverlay') {
+    closeSchoolDetailModal();
+  }
 }
 
 function toggleDetailFavFromTop(btnEl) {
@@ -3356,6 +3438,9 @@ function renderChildRecommendedSchools() {
           <button type="button" class="btn-solid-child" onclick="openSchoolDetailModal('${s.school_id}')">
             ✦ 授業や学校生活を詳しく見る
           </button>
+          <a href="${getGoogleMapsTransitUrl(s)}" target="_blank" rel="noopener noreferrer" onclick="handleMapLinkClick(event, '${getGoogleMapsTransitUrl(s)}')" class="btn-outline-child" style="display:inline-flex; align-items:center; gap:4px; text-decoration:none; font-weight:700;">
+            🗺️ 通学ルート ↗
+          </a>
           ${s.official_url ? `
             <a href="${s.official_url}" target="_blank" rel="noopener noreferrer" class="btn-outline-child" style="display:inline-flex; align-items:center; gap:4px; text-decoration:none; font-weight:700;">
               🌐 公式HP ↗
