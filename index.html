@@ -363,7 +363,7 @@
                 </p>
 
                 <div class="slide-input-wrap">
-                  <input type="text" id="pInputParentName" class="input-field large-input" value="いろはさん" placeholder="例：いろはさん、お父さん、お母さん" autofocus>
+                  <input type="text" id="pInputParentName" class="input-field large-input" value="" placeholder="例：お父さん、お母さん、ニックネーム" autofocus>
                   <p class="form-hint-subnote" style="margin-top: 8px; font-size: 13px; color: var(--koko-blue-main); font-weight: 700;">
                     💡 入力されたお名前はマイページからいつでも変更できます。
                   </p>
@@ -448,8 +448,8 @@
 
                 <div class="slide-input-wrap">
                   <div class="big-tiles-group vertical-list" id="groupTransport">
-                    <label class="big-tile-checkbox active">
-                      <input type="checkbox" name="transport" value="train" checked onchange="handleTransportCheckboxChange(this)">
+                    <label class="big-tile-checkbox">
+                      <input type="checkbox" name="transport" value="train" onchange="handleTransportCheckboxChange(this)">
                       <span class="custom-check-box"><span class="check-icon">✓</span></span>
                       <div class="tile-text-wrap">
                         <strong class="tile-title">電車利用</strong>
@@ -475,8 +475,8 @@
                       </div>
                       <span class="tile-checked-badge">選択中</span>
                     </label>
-                    <label class="big-tile-checkbox active">
-                      <input type="checkbox" name="transport" value="bicycle" checked onchange="handleTransportCheckboxChange(this)">
+                    <label class="big-tile-checkbox">
+                      <input type="checkbox" name="transport" value="bicycle" onchange="handleTransportCheckboxChange(this)">
                       <span class="custom-check-box"><span class="check-icon">✓</span></span>
                       <div class="tile-text-wrap">
                         <strong class="tile-title">自転車通学</strong>
@@ -484,8 +484,8 @@
                       </div>
                       <span class="tile-checked-badge">選択中</span>
                     </label>
-                    <label class="big-tile-checkbox active">
-                      <input type="checkbox" name="transport" value="walk" checked onchange="handleTransportCheckboxChange(this)">
+                    <label class="big-tile-checkbox">
+                      <input type="checkbox" name="transport" value="walk" onchange="handleTransportCheckboxChange(this)">
                       <span class="custom-check-box"><span class="check-icon">✓</span></span>
                       <div class="tile-text-wrap">
                         <strong class="tile-title">徒歩通学のみ</strong>
@@ -523,8 +523,8 @@
                       </div>
                       <span class="tile-checked-badge">選択中</span>
                     </label>
-                    <label class="big-tile-checkbox active">
-                      <input type="checkbox" name="tuition_radio" value="100" checked onchange="handleSingleCheckboxSelect('tuition', 100, this)">
+                    <label class="big-tile-checkbox">
+                      <input type="checkbox" name="tuition_radio" value="100" onchange="handleSingleCheckboxSelect('tuition', 100, this)">
                       <span class="custom-check-box"><span class="check-icon">✓</span></span>
                       <div class="tile-text-wrap">
                         <strong class="tile-title">100万円未満</strong>
@@ -580,8 +580,8 @@
 
                 <div class="slide-input-wrap">
                   <div class="big-tiles-group vertical-list" id="groupGender">
-                    <label class="big-tile-checkbox active">
-                      <input type="checkbox" name="gender_radio" value="coed" checked onchange="handleSingleCheckboxSelect('gender', 'coed', this)">
+                    <label class="big-tile-checkbox">
+                      <input type="checkbox" name="gender_radio" value="coed" onchange="handleSingleCheckboxSelect('gender', 'coed', this)">
                       <span class="custom-check-box"><span class="check-icon">✓</span></span>
                       <div class="tile-text-wrap">
                         <strong class="tile-title">共学校のみ</strong>
@@ -637,8 +637,8 @@
 
                 <div class="slide-input-wrap">
                   <div class="big-tiles-group vertical-list" id="groupCategory">
-                    <label class="big-tile-checkbox active">
-                      <input type="checkbox" name="category" value="private" checked onchange="handleCategoryCheckboxChange(this)">
+                    <label class="big-tile-checkbox">
+                      <input type="checkbox" name="category" value="private" onchange="handleCategoryCheckboxChange(this)">
                       <span class="custom-check-box"><span class="check-icon">✓</span></span>
                       <div class="tile-text-wrap">
                         <strong class="tile-title">私立中高一貫校</strong>
@@ -685,8 +685,8 @@
 
                 <div class="slide-input-wrap">
                   <div class="big-tiles-group vertical-list" id="groupReligion">
-                    <label class="big-tile-checkbox active">
-                      <input type="checkbox" name="religion_radio" value="none" checked onchange="handleSingleCheckboxSelect('religion', 'none', this)">
+                    <label class="big-tile-checkbox">
+                      <input type="checkbox" name="religion_radio" value="none" onchange="handleSingleCheckboxSelect('religion', 'none', this)">
                       <span class="custom-check-box"><span class="check-icon">✓</span></span>
                       <div class="tile-text-wrap">
                         <strong class="tile-title">無宗教が良い</strong>
@@ -742,8 +742,8 @@
 
                 <div class="slide-input-wrap">
                   <div class="big-tiles-group vertical-list" id="groupUnivPath">
-                    <label class="big-tile-checkbox active">
-                      <input type="checkbox" name="univpath_radio" value="attached" checked onchange="handleSingleCheckboxSelect('univpath', 'attached', this)">
+                    <label class="big-tile-checkbox">
+                      <input type="checkbox" name="univpath_radio" value="attached" onchange="handleSingleCheckboxSelect('univpath', 'attached', this)">
                       <span class="custom-check-box"><span class="check-icon">✓</span></span>
                       <div class="tile-text-wrap">
                         <strong class="tile-title">大学附属系</strong>
@@ -790,8 +790,8 @@
 
                 <div class="slide-input-wrap">
                   <div class="big-tiles-group vertical-list" id="groupAtmosphere">
-                    <label class="big-tile-checkbox vibe-check-tile active">
-                      <input type="checkbox" name="vibe" value="free" checked onchange="toggleVibeCheckbox(this, 'free')">
+                    <label class="big-tile-checkbox vibe-check-tile">
+                      <input type="checkbox" name="vibe" value="free" onchange="toggleVibeCheckbox(this, 'free')">
                       <span class="custom-check-box"><span class="check-icon">✓</span></span>
                       <div class="tile-text-wrap">
                         <strong class="tile-title">自由・自主性</strong>
@@ -799,8 +799,8 @@
                       </div>
                       <span class="tile-checked-badge">選択中</span>
                     </label>
-                    <label class="big-tile-checkbox vibe-check-tile active">
-                      <input type="checkbox" name="vibe" value="stem" checked onchange="toggleVibeCheckbox(this, 'stem')">
+                    <label class="big-tile-checkbox vibe-check-tile">
+                      <input type="checkbox" name="vibe" value="stem" onchange="toggleVibeCheckbox(this, 'stem')">
                       <span class="custom-check-box"><span class="check-icon">✓</span></span>
                       <div class="tile-text-wrap">
                         <strong class="tile-title">理数探究</strong>
@@ -845,7 +845,7 @@
                       <span class="tile-checked-badge">選択中</span>
                     </label>
                   </div>
-                  <div class="vibe-count-pill" id="vibeCountNotice">選択中: 2 / 3</div>
+                  <div class="vibe-count-pill" id="vibeCountNotice">選択中: 0 / 3</div>
                 </div>
 
                 <div class="slide-actions-bar between">
@@ -997,15 +997,15 @@
                 <label for="cInputNickname" style="display:block; font-size:14px; font-weight:800; color:var(--text-main); margin-bottom:6px;">
                   ニックネーム（呼び名）
                 </label>
-                <input type="text" id="cInputNickname" class="input-field large-input" value="いろは" placeholder="例：いろは、そうた、ゆい" autofocus>
+                <input type="text" id="cInputNickname" class="input-field large-input" value="" placeholder="例：そうた、ゆい、ニックネーム" autofocus>
                 
                 <label style="display:block; font-size:14px; font-weight:800; color:var(--text-main); margin-top:20px; margin-bottom:8px;">
                   性別をおしえてね（どちらか選んでね）
                 </label>
                 <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px;" id="childGenderSelectGroup">
-                  <button type="button" class="child-gender-choice selected" id="btnChildGenderBoy" onclick="selectChildGender('boy')" style="padding:14px; text-align:center; border:2px solid var(--koko-blue-main); border-radius:12px; background:#EFF6FF; cursor:pointer; transition:all 0.2s ease;">
+                  <button type="button" class="child-gender-choice" id="btnChildGenderBoy" onclick="selectChildGender('boy')" style="padding:14px; text-align:center; border:2px solid #CBD5E1; border-radius:12px; background:#FFFFFF; cursor:pointer; transition:all 0.2s ease;">
                     <span style="font-size:32px; display:block; margin-bottom:4px;">👦</span>
-                    <strong id="labelChildGenderBoy" style="font-size:16px; color:var(--koko-blue-main);">男の子</strong>
+                    <strong id="labelChildGenderBoy" style="font-size:16px; color:#475569;">男の子</strong>
                   </button>
                   <button type="button" class="child-gender-choice" id="btnChildGenderGirl" onclick="selectChildGender('girl')" style="padding:14px; text-align:center; border:2px solid #CBD5E1; border-radius:12px; background:#FFFFFF; cursor:pointer; transition:all 0.2s ease;">
                     <span style="font-size:32px; display:block; margin-bottom:4px;">👧</span>
@@ -1636,7 +1636,7 @@
         <!-- いいねした学校カード（お気に入りリスト） -->
         <div class="card-surface mypage-favorites-card" id="mypageFavoritesCard" style="margin-bottom: 20px;">
           <div class="phase-header">
-            <h3 class="title-h2"><span style="color: var(--koko-pink); margin-right: 4px;">♥</span>あなたがいいねした学校</h3>
+            <h3 class="title-h2"><span style="color: var(--koko-pink); margin-right: 4px;">♥</span>いいねした学校</h3>
             <p class="desc-text text-muted">
               ハートをつけて保存した学校の一覧です。いつでも見返して比較できます。
             </p>

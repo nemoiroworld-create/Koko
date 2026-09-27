@@ -464,17 +464,17 @@ const CHILD_CHOICE_LABEL_MAP = {
   "relation_passionate_teachers": "自分の教科への情熱や大好きなことを語ってくれる先生"
 };
 
-// 設定完了判定ヘルパー
+// 設定完了判定ヘルパー（保護者・子供ともに全設定を完了したか厳格にチェック）
 function isParentConfigured() {
   const p = AppSchema.parent_profile;
   if (!p) return false;
-  return !!(p.is_completed || (p.station && p.station.trim().length > 0) || (p.address && p.address.trim().length > 0));
+  return !!p.is_completed;
 }
 
 function isChildConfigured() {
   const c = AppSchema.child_profile;
   if (!c) return false;
-  return !!(c.is_completed || (Array.isArray(c.interests) && c.interests.length > 0));
+  return !!c.is_completed;
 }
 
 // ==========================================
@@ -482,28 +482,29 @@ function isChildConfigured() {
 // ==========================================
 const DEFAULT_EMPTY_SCHEMA = {
   household_id: "",
-  parent_name: "保護者さま",
+  parent_name: "",
   parent_avatar: "👤",
-  child_name: "お子さま",
+  child_name: "",
   child_avatar: "👦",
   parent_profile: {
+    is_completed: false, // 条件設定がすべて完了したか
     address: "",
     station: "",
     conditions: {
       commute_time_max: 60,
-      tuition_max: 1000000,
-      transportation: ["train", "bicycle", "walk"],
-      school_gender_type: "coed",
-      school_category: ["private"],
-      religion_policy: "none",
-      university_path: "attached",
-      desired_atmospheres: ["free", "stem"]
+      tuition_max: 0,
+      transportation: [],
+      school_gender_type: "",
+      school_category: [],
+      religion_policy: "",
+      university_path: "",
+      desired_atmospheres: []
     },
     strict_filters: []
   },
   child_profile: {
     is_completed: false, // 質問に回答完了したかどうかのフラグ
-    gender: "boy", // "boy" | "girl"
+    gender: "", // 初期は未選択 ("" | "boy" | "girl")
     interests: [],
     moment: "",
     lifestyle: "",
@@ -1049,17 +1050,13 @@ function renderParentHomeDashboard() {
       }
     }
 
-    if (aiPromptsEl) {
-      aiPromptsEl.innerHTML = `
-        <li class="conversation-prompt-item unconfigured-prompt" style="background:#F8FAFC; border:1px dashed #CBD5E1; padding:16px; border-radius:12px; list-style:none; text-align:center; color:#64748B;">
-          <span style="font-size:24px; display:block; margin-bottom:4px;">🍽️💬</span>
-          <p style="font-size:13px; font-weight:700; color:#475569; margin:0 0 4px;">設定完了後に、今夜の食卓で使える問いかけフレーズが届きます</p>
-          <span style="font-size:12px; color:#94A3B8;">お子さまの『すきなこと』や放課後の過ごし方に合わせた会話のヒントが3つ自動生成されます。</span>
-        </li>
-      `;
-    }
+    const convoBox = document.querySelector('.ai-conversation-box');
+    if (convoBox) convoBox.style.display = 'none';
   } else {
     // 保護者もお子さまも設定完了している場合：実際の回答データを元に動的生成！
+    const convoBox = document.querySelector('.ai-conversation-box');
+    if (convoBox) convoBox.style.display = 'block';
+
     const interestNames = (childProf.interests || []).map(id => CHILD_INTEREST_LABEL_MAP[id] || id);
     const leadInterests = interestNames.length > 0
       ? `<strong>「${interestNames.slice(0, 2).join('」</strong>や<strong>「')}」</strong>`
@@ -1350,16 +1347,40 @@ function renderHomeRecommendedSchools() {
   if (!container) return;
   container.innerHTML = '';
 
-  let recommendedList = [];
-  if (AppSchema.recommended_schools && AppSchema.recommended_schools.length > 0) {
-    recommendedList = AppSchema.recommended_schools.map(item => item.school_data);
-  } else {
-    executeSchoolMatching();
-    recommendedList = (AppSchema.recommended_schools && AppSchema.recommended_schools.length > 0)
-      ? AppSchema.recommended_schools.map(item => item.school_data)
-      : getFilteredSchoolsByParentStrictRules(SCHOOL_DATABASE).slice(0, 3);
+  const parentReady = isParentConfigured();
+  const childReady = isChildConfigured();
+
+  // 保護者または子どもの質問回答が完了していない場合は学校を提案せず案内ガイダンスを表示
+  if (!parentReady || !childReady) {
+    container.innerHTML = `
+      <div style="padding: 28px 16px; background: #F8FAFC; border: 2px dashed #CBD5E1; border-radius: 16px; text-align: center; width: 100%;">
+        <span style="font-size: 36px; display: block; margin-bottom: 8px;">🎒✦</span>
+        <h4 style="font-size: 16px; font-weight: 800; color: #1E293B; margin-bottom: 6px;">
+          質問に回答すると、あなたにぴったりの学校が提案されます！
+        </h4>
+        <p style="font-size: 13px; color: #64748B; margin-bottom: 14px; line-height: 1.6; max-width: 440px; margin-left: auto; margin-right: auto;">
+          ${!childReady ? "「すきなことを見つけるワーク（全7問）」に答えると、あなたにぴったりの学校が見つかります。" : "おうちの方の条件設定が完了すると、通学圏に合った学校が提案されます。"}
+        </p>
+        ${!childReady ? `
+          <button type="button" class="btn-solid-child" onclick="startChildQuestionEdit()" style="display: inline-block; padding: 10px 22px; font-weight: 800;">
+            ✦ 質問に答えてみる
+          </button>
+        ` : `
+          <button type="button" class="btn-solid-parent" onclick="switchUserMode('parent'); startParentConditionEdit();" style="display: inline-block; padding: 10px 22px; font-weight: 800;">
+            📋 おうちの方の条件を設定する
+          </button>
+        `}
+      </div>
+    `;
+    return;
   }
 
+  // 両方完了している場合のみマッチングを実行して上位3校を描画
+  if (AppSchema.recommended_schools.length === 0) {
+    executeSchoolMatching();
+  }
+
+  const recommendedList = AppSchema.recommended_schools.map(item => item.school_data);
   container.innerHTML = recommendedList.map(school => renderStandardSchoolCardHtml(school)).join('');
 }
 
@@ -1370,6 +1391,21 @@ function renderHomeInterestAlternativeSchools() {
   const container = document.getElementById('homeInterestAlternativeContainer');
   if (!container) return;
   container.innerHTML = '';
+
+  const parentReady = isParentConfigured();
+  const childReady = isChildConfigured();
+
+  // 保護者または子どもの質問回答が完了していない場合は提案しない
+  if (!parentReady || !childReady) {
+    container.innerHTML = `
+      <div style="padding: 20px 16px; background: #F8FAFC; border: 2px dashed #CBD5E1; border-radius: 16px; text-align: center; width: 100%;">
+        <p style="font-size: 13px; color: #64748B; margin: 0; line-height: 1.5;">
+          質問に回答すると、あなたの興味関心に合わせた別の学校がここに提案されます。
+        </p>
+      </div>
+    `;
+    return;
+  }
 
   // 上部のおすすめ校リストに含まれる学校IDを収集（重複を100%防止）
   let recommendedIds = [];
@@ -1589,24 +1625,34 @@ function renderMypageFavorites() {
     const genderText = school.gender_type === 'girls' ? '女子校' : school.gender_type === 'boys' ? '男子校' : '共学';
 
     item.innerHTML = `
-      <div class="mypage-fav-item-badge" style="width:48px; height:48px; border-radius:12px; background:#EFF6FF; border:2px solid #BFDBFE; display:flex; align-items:center; justify-content:center; font-size:24px; flex-shrink:0;">
-        🏫
+      <!-- 上段：学校アイコン ＆ 学校名 ＆ 基本情報（横幅いっぱい使えるレイアウト） -->
+      <div class="mypage-fav-item-top" style="display:flex; align-items:flex-start; gap:12px; width:100%;">
+        <div class="mypage-fav-item-badge" style="width:48px; height:48px; border-radius:12px; background:#EFF6FF; border:2px solid #BFDBFE; display:flex; align-items:center; justify-content:center; font-size:24px; flex-shrink:0;">
+          🏫
+        </div>
+        <div class="mypage-fav-item-main" style="flex:1; min-width:0;">
+          <h4 class="mypage-fav-item-name" style="font-size:17px; font-weight:800; color:var(--text-main); margin:0 0 4px; line-height:1.35; word-break:break-word;">${school.name}</h4>
+          <p class="mypage-fav-item-meta" style="font-size:12px; color:var(--text-muted); margin:0 0 6px;">📍 ${school.prefecture}（${school.station_name}） ・ ${genderText}</p>
+          <div style="display:flex; flex-wrap:wrap; gap:6px; align-items:center;">
+            ${isChild 
+              ? `<span class="child-match-pill-mini" style="font-size:11px; font-weight:800; background:var(--koko-yellow); color:var(--koko-blue-main); padding:2px 8px; border-radius:6px;">★ マッチ度 ${school.match_rate_child || 95}%</span>` 
+              : `<span class="parent-meta-pill-mini" style="font-size:11px; font-weight:800; background:#FEF3C7; color:#92400E; padding:2px 8px; border-radius:6px; border:1px solid #FDE68A;">偏差値 ${school.deviation_score}</span>`
+            }
+          </div>
+        </div>
       </div>
-      <div class="mypage-fav-item-main">
-        <h4 class="mypage-fav-item-name">${school.name}</h4>
-        <p class="mypage-fav-item-meta">📍 ${school.prefecture}（${school.station_name}） ・ ${genderText}</p>
-        ${isChild ? `<span class="child-match-pill-mini">★ マッチ度 ${school.match_rate_child || 95}%</span>` : `<span class="parent-meta-pill-mini">偏差値 ${school.deviation_score}</span>`}
-      </div>
-      <div class="mypage-fav-item-actions">
-        <button type="button" class="${isChild ? 'btn-solid-child' : 'btn-solid-parent'} btn-sm" onclick="openSchoolDetailScreen('${school.school_id}')">
+
+      <!-- 下段：操作ボタングループ（押しやすい横並び・折り返し対応） -->
+      <div class="mypage-fav-item-actions" style="display:flex; flex-wrap:wrap; gap:8px; align-items:center; justify-content:flex-end; padding-top:10px; border-top:1px dashed #E2E8F0; width:100%;">
+        <button type="button" class="${isChild ? 'btn-solid-child' : 'btn-solid-parent'} btn-sm" onclick="openSchoolDetailScreen('${school.school_id}')" style="white-space:nowrap;">
           学校を詳しく見る
         </button>
         ${school.official_url ? `
-          <a href="${school.official_url}" target="_blank" rel="noopener noreferrer" class="btn-outline btn-sm btn-official-card-link" style="display:inline-flex; align-items:center; gap:4px; text-decoration:none; font-weight:700;">
+          <a href="${school.official_url}" target="_blank" rel="noopener noreferrer" class="btn-outline btn-sm btn-official-card-link" style="display:inline-flex; align-items:center; gap:4px; text-decoration:none; font-weight:700; white-space:nowrap;">
             🌐 公式HP ↗
           </a>
         ` : ''}
-        <button type="button" class="btn-compare-mypage btn-sm" onclick="goToCompareFromMypage('${school.school_id}')">
+        <button type="button" class="btn-compare-mypage btn-sm" onclick="goToCompareFromMypage('${school.school_id}')" style="white-space:nowrap;">
           ⚖️ 他校と比較する
         </button>
       </div>
@@ -1953,8 +1999,8 @@ function renderCompareTable(id1 = "sch_shibushibu", id2 = "sch_hiroo") {
   if (name2El) name2El.textContent = s2.name;
 
   const isChild = currentUserMode === 'child';
-  const devRowHeader = document.querySelector('.koko-compare-table tr:nth-child(2) th');
-  const tuiRowHeader = document.querySelector('.koko-compare-table tr:nth-child(3) th');
+  const devRowHeader = document.querySelector('.koko-compare-table tr:nth-child(1) th');
+  const tuiRowHeader = document.querySelector('.koko-compare-table tr:nth-child(2) th');
 
   const dev1 = document.getElementById('cmpDev1');
   const dev2 = document.getElementById('cmpDev2');
@@ -1996,8 +2042,25 @@ function openCompareDetailModal() {
 
 function syncChildQuestionChoices() {
   const profile = AppSchema.child_profile || {};
-  const curGender = profile.gender || "boy";
-  selectChildGender(curGender);
+  const curGender = profile.gender || "";
+  if (curGender) {
+    selectChildGender(curGender);
+  } else {
+    const btnBoy = document.getElementById('btnChildGenderBoy');
+    const btnGirl = document.getElementById('btnChildGenderGirl');
+    const labelBoy = document.getElementById('labelChildGenderBoy');
+    const labelGirl = document.getElementById('labelChildGenderGirl');
+    if (btnBoy && btnGirl) {
+      btnBoy.classList.remove('selected');
+      btnBoy.style.border = '2px solid #CBD5E1';
+      btnBoy.style.background = '#FFFFFF';
+      if (labelBoy) labelBoy.style.color = '#475569';
+      btnGirl.classList.remove('selected');
+      btnGirl.style.border = '2px solid #CBD5E1';
+      btnGirl.style.background = '#FFFFFF';
+      if (labelGirl) labelGirl.style.color = '#475569';
+    }
+  }
 
   const map = {
     '#cSlide2': profile.moment,
@@ -2091,6 +2154,18 @@ function updateParentProgressIndicator(step) {
   }
 }
 
+function handleAddressStationInput() {
+  const addrInput = document.getElementById('pInputAddress');
+  const stnInput = document.getElementById('pInputStation');
+  if (addrInput && addrInput.value !== undefined) {
+    AppSchema.parent_profile.address = addrInput.value.trim();
+  }
+  if (stnInput && stnInput.value !== undefined) {
+    AppSchema.parent_profile.station = stnInput.value.trim();
+  }
+  saveAppStateToLocalStorage();
+}
+
 function nextParentSlide(targetStep) {
   // 質問1：保護者のお名前保存（一人一人の入力値を反映）
   if (parentCurrentStep === 1) {
@@ -2104,18 +2179,6 @@ function nextParentSlide(targetStep) {
     renderMypageProfileHeader();
     saveAppStateToLocalStorage();
   }
-
-function handleAddressStationInput() {
-  const addrInput = document.getElementById('pInputAddress');
-  const stnInput = document.getElementById('pInputStation');
-  if (addrInput && addrInput.value !== undefined) {
-    AppSchema.parent_profile.address = addrInput.value.trim();
-  }
-  if (stnInput && stnInput.value !== undefined) {
-    AppSchema.parent_profile.station = stnInput.value.trim();
-  }
-  saveAppStateToLocalStorage();
-}
 
   // 質問2：住所（市区町村）＆ 最寄り駅保存
   if (parentCurrentStep === 2) {
@@ -2513,7 +2576,48 @@ function selectChildGender(gender) {
   saveAppStateToLocalStorage();
 }
 
+function resetChildQuestionFormIfUncompleted() {
+  if (!AppSchema.child_profile || !AppSchema.child_profile.is_completed) {
+    AppSchema.child_profile = JSON.parse(JSON.stringify(DEFAULT_EMPTY_SCHEMA.child_profile));
+    AppSchema.child_name = "";
+
+    const nickInput = document.getElementById('cInputNickname');
+    if (nickInput) nickInput.value = "";
+
+    const btnBoy = document.getElementById('btnChildGenderBoy');
+    const btnGirl = document.getElementById('btnChildGenderGirl');
+    const labelBoy = document.getElementById('labelChildGenderBoy');
+    const labelGirl = document.getElementById('labelChildGenderGirl');
+    if (btnBoy && btnGirl) {
+      btnBoy.classList.remove('selected');
+      btnBoy.style.border = '2px solid #CBD5E1';
+      btnBoy.style.background = '#FFFFFF';
+      if (labelBoy) labelBoy.style.color = '#475569';
+      btnGirl.classList.remove('selected');
+      btnGirl.style.border = '2px solid #CBD5E1';
+      btnGirl.style.background = '#FFFFFF';
+      if (labelGirl) labelGirl.style.color = '#475569';
+    }
+
+    document.querySelectorAll('#momentOptionsGrid .moment-choice-btn, #lifestyleOptionsGrid .moment-choice-btn, #studyOptionsGrid .moment-choice-btn, #facilityOptionsGrid .moment-choice-btn, #relationOptionsGrid .moment-choice-btn').forEach(btn => {
+      btn.classList.remove('active');
+    });
+
+    ['childFreeComment_step1', 'childFreeComment_q1', 'childFreeComment_q2', 'childFreeComment_q3', 'childFreeComment_q4', 'childFreeComment_q5'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.value = "";
+    });
+
+    renderInterestSelectionGrid();
+  }
+}
+
 function nextChildSlide(targetStep) {
+  // スライド0（開始画面）から質問1へ進むとき、未完了なら初期化
+  if (childCurrentStep === 0 && targetStep === 1) {
+    resetChildQuestionFormIfUncompleted();
+  }
+
   // 質問1：ニックネーム・性別保存（一人一人の入力値を反映）
   if (childCurrentStep === 1) {
     const nickInput = document.getElementById('cInputNickname');
@@ -2528,7 +2632,8 @@ function nextChildSlide(targetStep) {
       AppSchema.child_profile = {};
     }
     if (!AppSchema.child_profile.gender) {
-      AppSchema.child_profile.gender = "boy";
+      alert("性別（男の子または女の子）をどちらか選んでね！");
+      return;
     }
 
     renderMypageProfileHeader();
@@ -2695,6 +2800,13 @@ function startChildQuestionEdit() {
   }
   childCurrentStep = 1;
   updateChildProgressIndicator(1);
+
+  if (!AppSchema.child_profile || !AppSchema.child_profile.is_completed) {
+    resetChildQuestionFormIfUncompleted();
+  } else {
+    syncChildQuestionChoices();
+  }
+
   if (document.getElementById('cInputNickname')) {
     document.getElementById('cInputNickname').value = (AppSchema.child_name && AppSchema.child_name !== "お子さま") ? AppSchema.child_name : "";
   }
@@ -3147,14 +3259,18 @@ function renderChildRecommendedSchools() {
   if (!container) return;
   container.innerHTML = '';
 
-  if (AppSchema.recommended_schools.length === 0) {
+  if (!isChildConfigured() || AppSchema.recommended_schools.length === 0) {
     container.innerHTML = `
       <div style="padding:36px; text-align:center; background:#fff; border:2px dashed #E2E8F0; border-radius:24px;">
         <div style="margin-bottom:12px;">
           <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
         </div>
-        <p style="font-size:18px; font-weight:800; color:var(--text-main);">おうちの人の条件に合う学校が見つかりませんでした。</p>
-        <p style="font-size:14px; color:var(--text-muted); margin-top:8px;">保護者の方に通学時間や学費の上限を少し広げてもらってください。</p>
+        <p style="font-size:18px; font-weight:800; color:var(--text-main);">
+          ${!isChildConfigured() ? "質問に回答すると、あなたにぴったりの学校が提案されます！" : "おうちの人の条件に合う学校が見つかりませんでした。"}
+        </p>
+        <p style="font-size:14px; color:var(--text-muted); margin-top:8px;">
+          ${!isChildConfigured() ? "「すきなことを見つけるワーク」を最後まで答えてみてね。" : "保護者の方に通学時間や学費の上限を少し広げてもらってください。"}
+        </p>
       </div>
     `;
     return;
@@ -4187,8 +4303,8 @@ function renderParentConditionsSummary() {
   const prof = AppSchema.parent_profile || {};
   const cond = prof.conditions || {};
 
-  // まだ住所・最寄り駅や条件が設定されていない場合
-  if (!prof.is_completed && !prof.address && !prof.station) {
+  // まだ条件設定がすべて完了していない場合
+  if (!prof.is_completed) {
     mypageEl.innerHTML = `
       <div style="padding: 20px; background: #F8FAFC; border: 2px dashed #94A3B8; border-radius: 12px; text-align: center;">
         <span style="font-size: 28px; display: block; margin-bottom: 6px;">📋</span>
@@ -4759,8 +4875,15 @@ function loadAppStateFromLocalStorage() {
     }
     if (parsed.child_avatar) AppSchema.child_avatar = parsed.child_avatar;
     if (parsed.child_grade) AppSchema.child_grade = parsed.child_grade;
-    if (parsed.child_profile) AppSchema.child_profile = Object.assign(AppSchema.child_profile, parsed.child_profile);
-    if (parsed.parent_profile) {
+    if (parsed.child_profile && parsed.child_profile.is_completed) {
+      AppSchema.child_profile = Object.assign(AppSchema.child_profile, parsed.child_profile);
+      AppSchema.child_profile.is_completed = true;
+    } else {
+      AppSchema.child_profile = JSON.parse(JSON.stringify(DEFAULT_EMPTY_SCHEMA.child_profile));
+      AppSchema.child_name = "";
+    }
+
+    if (parsed.parent_profile && parsed.parent_profile.is_completed) {
       // 旧テストデータ「茨城県土浦市」「荒川沖駅」が混入していた場合はクリア
       if (parsed.parent_profile.address === "茨城県土浦市" && !parsed.parent_profile.custom_entered) {
         parsed.parent_profile.address = "";
@@ -4769,6 +4892,10 @@ function loadAppStateFromLocalStorage() {
         parsed.parent_profile.station = "";
       }
       AppSchema.parent_profile = Object.assign(AppSchema.parent_profile, parsed.parent_profile);
+      AppSchema.parent_profile.is_completed = true;
+    } else {
+      AppSchema.parent_profile = JSON.parse(JSON.stringify(DEFAULT_EMPTY_SCHEMA.parent_profile));
+      AppSchema.parent_name = "";
     }
     if (Array.isArray(parsed.favorites)) AppSchema.favorites = parsed.favorites;
     if (Array.isArray(parsed.visit_planned_events)) AppSchema.visit_planned_events = parsed.visit_planned_events;
@@ -4882,7 +5009,11 @@ function switchDesignTheme(themeName) {
 document.addEventListener('DOMContentLoaded', () => {
   loadAppStateFromLocalStorage();
   initDesignTheme();
-  executeSchoolMatching();
+  if (isParentConfigured() && isChildConfigured()) {
+    executeSchoolMatching();
+  } else {
+    AppSchema.recommended_schools = [];
+  }
   updateParentProgressIndicator(1);
   updateChildProgressIndicator(0);
   switchUserMode('parent');

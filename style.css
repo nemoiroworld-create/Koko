@@ -3771,13 +3771,21 @@ body {
 
 .mypage-fav-item-card {
   display: flex;
-  align-items: center;
+  flex-direction: column;
   gap: 12px;
   background-color: #FFFFFF;
   border: 2px solid var(--koko-blue-main);
   border-radius: var(--radius-md);
-  padding: 10px;
-  box-shadow: 2px 2px 0px var(--koko-blue-main);
+  padding: 16px;
+  box-shadow: 3px 3px 0px var(--koko-blue-main);
+  margin-bottom: 14px;
+}
+
+.mypage-fav-item-top {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  width: 100%;
 }
 
 .mypage-fav-item-photo {
