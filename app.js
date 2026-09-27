@@ -503,6 +503,7 @@ const DEFAULT_EMPTY_SCHEMA = {
   },
   child_profile: {
     is_completed: false, // 質問に回答完了したかどうかのフラグ
+    gender: "boy", // "boy" | "girl"
     interests: [],
     moment: "",
     lifestyle: "",
@@ -820,6 +821,17 @@ function renderStandardSchoolCardHtml(school, options = {}) {
 
   return `
     <div class="school-card-compact-item card-surface" style="padding: 16px; border-radius: var(--radius-card); border: 2px solid var(--koko-blue-main); box-shadow: 4px 4px 0px var(--koko-blue-main); background: #FFFFFF; margin-bottom: 16px;">
+      ${options.rankInfo ? `
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; padding-bottom:10px; border-bottom:1px dashed #E2E8F0;">
+          <span style="background:${options.rankInfo.bg}; box-shadow:${options.rankInfo.glow}; font-size:12px; padding:4px 10px; border-radius:12px; color:#fff; font-weight:800;">
+            ${options.rankInfo.label}
+          </span>
+          <span style="font-size:12px; font-weight:800; color:var(--koko-blue-main); background:#EFF6FF; padding:4px 10px; border-radius:12px; border:1px solid #BFDBFE;">
+            ★ ぴったり度: ${options.matchScore || 95}%
+          </span>
+        </div>
+      ` : ''}
+
       <!-- 学校写真（枠） -->
       <div style="margin-bottom: 12px;">
         ${renderSchoolPhotoPlaceholder(school, '150px')}
@@ -1359,26 +1371,39 @@ function renderHomeInterestAlternativeSchools() {
   if (!container) return;
   container.innerHTML = '';
 
-  const isChild = currentUserMode === 'child';
-  // 保護者の譲れない条件を満たす通学可能な学校群を取得
+  // 上部のおすすめ校リストに含まれる学校IDを収集（重複を100%防止）
+  let recommendedIds = [];
+  if (AppSchema.recommended_schools && AppSchema.recommended_schools.length > 0) {
+    recommendedIds = AppSchema.recommended_schools.map(item => item.school_data ? item.school_data.school_id : item.school_id);
+  }
+
+  // 通学条件を満たす学校群を取得
   const commutableSchools = getFilteredSchoolsByParentStrictRules(SCHOOL_DATABASE);
   const childInterests = (AppSchema.child_profile && AppSchema.child_profile.interests) || [];
 
-  // 通学可能校の中から、子どもの興味関心タグに合致する学校を抽出
-  let alternativeList = commutableSchools.filter(s => {
+  // 上のおすすめ校に含まれない学校のみを対象にする
+  const remainingSchools = commutableSchools.filter(s => !recommendedIds.includes(s.school_id));
+
+  // 子どもの興味関心タグに合致する別の学校を抽出
+  let alternativeList = remainingSchools.filter(s => {
     return s.tags && s.tags.some(t => childInterests.includes(t));
   });
 
-  // 候補が少ない場合は、通学可能な学校群の中から補充
+  // 候補が少ない場合は、上のおすすめ校以外の学校群の中から補充
   if (alternativeList.length < 3) {
-    commutableSchools.forEach(s => {
+    remainingSchools.forEach(s => {
       if (!alternativeList.some(item => item.school_id === s.school_id)) {
         alternativeList.push(s);
       }
     });
   }
 
-  container.innerHTML = alternativeList.slice(0, 4).map(school => renderStandardSchoolCardHtml(school)).join('');
+  // 万が一、上のおすすめ校以外に1校もない特殊ケースのみ通学可能校全体から表示
+  if (alternativeList.length === 0) {
+    alternativeList = commutableSchools;
+  }
+
+  container.innerHTML = alternativeList.slice(0, 3).map(school => renderStandardSchoolCardHtml(school)).join('');
 }
 
 // ==========================================
@@ -1970,7 +1995,10 @@ function openCompareDetailModal() {
 }
 
 function syncChildQuestionChoices() {
-  const profile = AppSchema.child_profile;
+  const profile = AppSchema.child_profile || {};
+  const curGender = profile.gender || "boy";
+  selectChildGender(curGender);
+
   const map = {
     '#cSlide2': profile.moment,
     '#cSlide3': profile.lifestyle,
@@ -2436,8 +2464,57 @@ function getChildSlideEl(step) {
   return null;
 }
 
+function selectChildGender(gender) {
+  const chosen = (gender === 'girl') ? 'girl' : 'boy';
+  if (!AppSchema.child_profile) {
+    AppSchema.child_profile = {};
+  }
+  AppSchema.child_profile.gender = chosen;
+
+  const btnBoy = document.getElementById('btnChildGenderBoy');
+  const btnGirl = document.getElementById('btnChildGenderGirl');
+  const labelBoy = document.getElementById('labelChildGenderBoy');
+  const labelGirl = document.getElementById('labelChildGenderGirl');
+
+  if (btnBoy && btnGirl) {
+    if (chosen === 'boy') {
+      btnBoy.classList.add('selected');
+      btnBoy.style.border = '2px solid var(--koko-blue-main)';
+      btnBoy.style.background = '#EFF6FF';
+      if (labelBoy) labelBoy.style.color = 'var(--koko-blue-main)';
+
+      btnGirl.classList.remove('selected');
+      btnGirl.style.border = '2px solid #CBD5E1';
+      btnGirl.style.background = '#FFFFFF';
+      if (labelGirl) labelGirl.style.color = '#475569';
+    } else {
+      btnGirl.classList.add('selected');
+      btnGirl.style.border = '2px solid var(--koko-pink)';
+      btnGirl.style.background = '#FFF1F2';
+      if (labelGirl) labelGirl.style.color = 'var(--koko-pink)';
+
+      btnBoy.classList.remove('selected');
+      btnBoy.style.border = '2px solid #CBD5E1';
+      btnBoy.style.background = '#FFFFFF';
+      if (labelBoy) labelBoy.style.color = '#475569';
+    }
+  }
+
+  // すでに回答済みの場合は、性別変更に伴いマッチング＆おすすめ校と探す一覧を再計算
+  if (AppSchema.child_profile.is_completed) {
+    executeSchoolMatching();
+    renderChildRecommendedSchools();
+    renderHomeInterestAlternativeSchools();
+    if (typeof renderSchoolSearchList === 'function') {
+      renderSchoolSearchList(currentQuickTag || 'all');
+    }
+  }
+
+  saveAppStateToLocalStorage();
+}
+
 function nextChildSlide(targetStep) {
-  // 質問1：ニックネーム保存（一人一人の入力値を反映）
+  // 質問1：ニックネーム・性別保存（一人一人の入力値を反映）
   if (childCurrentStep === 1) {
     const nickInput = document.getElementById('cInputNickname');
     const nickVal = nickInput ? nickInput.value.trim() : "";
@@ -2446,6 +2523,14 @@ function nextChildSlide(targetStep) {
     } else {
       AppSchema.child_name = "お子さま";
     }
+
+    if (!AppSchema.child_profile) {
+      AppSchema.child_profile = {};
+    }
+    if (!AppSchema.child_profile.gender) {
+      AppSchema.child_profile.gender = "boy";
+    }
+
     renderMypageProfileHeader();
     saveAppStateToLocalStorage();
   }
@@ -2771,6 +2856,15 @@ function getFilteredSchoolsByParentStrictRules(baseSchoolList = SCHOOL_DATABASE)
   const parentCond = AppSchema.parent_profile.conditions || {};
   const strictKeys = AppSchema.parent_profile.strict_filters || [];
 
+  // ★重要：子供の性別フィルター（男の子なら女子校は100%除外、女の子なら男子校は100%除外）
+  const childGender = (AppSchema.child_profile && AppSchema.child_profile.gender) || "boy";
+  let targetSchoolList = baseSchoolList;
+  if (childGender === "boy") {
+    targetSchoolList = targetSchoolList.filter(school => school.gender_type !== "girls");
+  } else if (childGender === "girl") {
+    targetSchoolList = targetSchoolList.filter(school => school.gender_type !== "boys");
+  }
+
   const addrInputEl = document.getElementById('pInputAddress');
   const stnInputEl = document.getElementById('pInputStation');
   if (addrInputEl && addrInputEl.value && addrInputEl.value.trim()) {
@@ -2785,7 +2879,7 @@ function getFilteredSchoolsByParentStrictRules(baseSchoolList = SCHOOL_DATABASE)
   const allowedTransports = parentCond.transportation || ['train', 'bicycle', 'walk', 'school_bus', 'bus'];
 
   // 全学校に対して最新の通学時間・ルート・通学圏可否を動的算出
-  baseSchoolList.forEach(school => {
+  targetSchoolList.forEach(school => {
     if (typeof calculateDetailedCommuteRoute === 'function') {
       const routeInfo = calculateDetailedCommuteRoute(userAddr, userStation, school, allowedTransports);
       school.calculated_commute_time = routeInfo.total_minutes;
@@ -2807,7 +2901,7 @@ function getFilteredSchoolsByParentStrictRules(baseSchoolList = SCHOOL_DATABASE)
   const isStrictReligion = strictKeys.includes("religion_policy") || strictKeys.includes("religion");
   const isStrictUniv = strictKeys.includes("university_path") || strictKeys.includes("univ_path");
 
-  return baseSchoolList.filter(school => {
+  return targetSchoolList.filter(school => {
     // 1. 日常通学不可能（北海道・青森・九州・関西などの遠隔地）は100%完全に除外
     if (school.is_commutable === false) {
       return false;
@@ -2881,11 +2975,15 @@ function executeSchoolMatching() {
   // 1. 足切り処理：保護者の絶対に譲れない条件＆通学可能圏に合致する学校のみを抽出
   let survivedSchools = getFilteredSchoolsByParentStrictRules(SCHOOL_DATABASE);
 
-  // もし条件が厳格すぎて0校になった場合でも、絶対に遠隔地（北海道や青森等）は復活させない
+  // もし条件が厳格すぎて0校になった場合でも、絶対に遠隔地（北海道や青森等）や性別不一致（男の子に対する女子校等）は復活させない
   if (survivedSchools.length === 0) {
+    const childGender = (childProfile && childProfile.gender) || "boy";
     survivedSchools = SCHOOL_DATABASE.filter(school => {
       // 日常の通学可能圏内（is_commutable === true）であること
       if (school.is_commutable === false) return false;
+      // 子供の性別による除外（男の子なら女子校は100%除外、女の子なら男子校は100%除外）
+      if (childGender === "boy" && school.gender_type === "girls") return false;
+      if (childGender === "girl" && school.gender_type === "boys") return false;
       // 性別形態の不一致は除外
       if (parentCond.school_gender_type && parentCond.school_gender_type !== "any" && school.gender_type !== parentCond.school_gender_type) {
         return false;
@@ -3073,29 +3171,11 @@ function renderChildRecommendedSchools() {
   AppSchema.recommended_schools.forEach((item, index) => {
     const s = item.school_data;
     const rankInfo = rankBadges[index] || rankBadges[2];
-    const card = document.createElement('article');
-    card.className = 'rec-school-card';
-
-    // 順位バッジとぴったり度ヘッダー
-    const rankHeader = `
-      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;">
-        <span class="rec-school-rank-label" style="background:${rankInfo.bg}; box-shadow:${rankInfo.glow}; position:static; display:inline-block; font-size:12px; padding:4px 10px; border-radius:12px; color:#fff; font-weight:800;">
-          ${rankInfo.label}
-        </span>
-        <span class="rec-school-score-label" style="position:static; display:inline-block; font-size:12px; font-weight:800; color:var(--koko-blue-main); background:#EFF6FF; padding:4px 10px; border-radius:12px; border:1px solid #BFDBFE;">
-          ★ ぴったり度: ${item.match_score}%
-        </span>
-      </div>
-    `;
-
-    const cardContent = renderStandardSchoolCardHtml(s);
-    card.innerHTML = `
-      <div style="margin-bottom: 8px;">
-        ${rankHeader}
-      </div>
-      ${cardContent}
-    `;
-    container.appendChild(card);
+    const temp = document.createElement('div');
+    temp.innerHTML = renderStandardSchoolCardHtml(s, { rankInfo, matchScore: item.match_score });
+    if (temp.firstElementChild) {
+      container.appendChild(temp.firstElementChild);
+    }
   });
 }
 
@@ -4401,8 +4481,11 @@ function initMypageProfile() {
   const favCard = document.getElementById('mypageFavoritesCard');
   if (favCard) favCard.style.display = 'block';
 
+  // 質問回答データ：保護者画面マイページからは削除（非表示）
   const childAnswersCard = document.getElementById('mypageChildAnswersCard');
-  if (childAnswersCard) childAnswersCard.style.display = 'block';
+  if (childAnswersCard) {
+    childAnswersCard.style.display = isParent ? 'none' : 'block';
+  }
 
   const accountSection = document.getElementById('mypageAccountSection');
   if (accountSection) accountSection.style.display = 'block';

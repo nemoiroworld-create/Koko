@@ -984,23 +984,37 @@
             </div>
           </div>
 
-          <!-- 子供・質問1：ニックネームを教えてね -->
+          <!-- 子供・質問1：ニックネームと性別を教えてね -->
           <div id="cSlide1" class="question-slide">
             <div class="card-surface single-focus-card">
               <span class="badge-child">質問 1 / 7</span>
-              <h2 class="slide-question-title text-child">あなたのニックネームを教えてね！</h2>
+              <h2 class="slide-question-title text-child">あなたのことを教えてね！</h2>
               <p class="slide-question-desc text-child-muted">
-                アプリの中であなたをお呼びするなまえだよ。入力したら「次へ進む」を押してね。
+                あなたにぴったりの学校（男子校・女子校・共学校）を見つけるために教えてね。
               </p>
 
               <div class="slide-input-wrap">
+                <label for="cInputNickname" style="display:block; font-size:14px; font-weight:800; color:var(--text-main); margin-bottom:6px;">
+                  ニックネーム（呼び名）
+                </label>
                 <input type="text" id="cInputNickname" class="input-field large-input" value="いろは" placeholder="例：いろは、そうた、ゆい" autofocus>
-                <p class="nickname-hint-note" style="margin-top: 8px; font-size: 13px; color: var(--koko-blue-main); font-weight: 700;">
-                  💡 ニックネームはいつでもマイページから変えられるよ！
-                </p>
+                
+                <label style="display:block; font-size:14px; font-weight:800; color:var(--text-main); margin-top:20px; margin-bottom:8px;">
+                  性別をおしえてね（どちらか選んでね）
+                </label>
+                <div style="display:grid; grid-template-columns: 1fr 1fr; gap:12px;" id="childGenderSelectGroup">
+                  <button type="button" class="child-gender-choice selected" id="btnChildGenderBoy" onclick="selectChildGender('boy')" style="padding:14px; text-align:center; border:2px solid var(--koko-blue-main); border-radius:12px; background:#EFF6FF; cursor:pointer; transition:all 0.2s ease;">
+                    <span style="font-size:32px; display:block; margin-bottom:4px;">👦</span>
+                    <strong id="labelChildGenderBoy" style="font-size:16px; color:var(--koko-blue-main);">男の子</strong>
+                  </button>
+                  <button type="button" class="child-gender-choice" id="btnChildGenderGirl" onclick="selectChildGender('girl')" style="padding:14px; text-align:center; border:2px solid #CBD5E1; border-radius:12px; background:#FFFFFF; cursor:pointer; transition:all 0.2s ease;">
+                    <span style="font-size:32px; display:block; margin-bottom:4px;">👧</span>
+                    <strong id="labelChildGenderGirl" style="font-size:16px; color:#475569;">女の子</strong>
+                  </button>
+                </div>
               </div>
 
-              <div class="slide-actions-bar">
+              <div class="slide-actions-bar" style="margin-top: 24px;">
                 <button type="button" class="btn-solid-child" onclick="nextChildSlide(2)">
                   次へ進む
                 </button>
