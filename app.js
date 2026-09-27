@@ -761,17 +761,113 @@ function renderSchoolPhotoPlaceholder(school, height = '140px') {
 }
 
 // ==========================================
-// 通学時間バッジ生成ヘルパー（自宅最寄り駅の設定有無に応じて表示を切替）
+// 通学時間バッジ生成ヘルパー（※Googleマップのリアルタイム所要時間と差異が出るため削除）
 // ==========================================
 function getCommuteBadgeHtml(school) {
-  if (!school) return '';
-  const station = (AppSchema.parent_profile && AppSchema.parent_profile.station) ? AppSchema.parent_profile.station.trim() : "";
-  const commuteMin = school.calculated_commute_time || school.commute_time || 30;
+  return '';
+}
 
-  if (!station) {
-    return `<span style="font-size:12px; background:#F1F5F9; color:#475569; border:1px solid #CBD5E1; padding:3px 8px; border-radius:6px; font-weight:700;">⏱ 最寄駅未設定（目安約${commuteMin}分）</span>`;
+// ==========================================
+// 学校特徴ハッシュタグ生成ヘルパー（例: ＃自主性 ＃部活が盛ん）
+// ==========================================
+function getSchoolHashtags(school) {
+  if (!school) return ['#自主性', '#部活が盛ん'];
+  const tags = [];
+
+  // 1. 自主性・校風タグ
+  const vibe = school.vibe_label || '';
+  if (vibe.includes('自由') || vibe.includes('自立') || vibe.includes('自主')) {
+    tags.push('#自主性');
+  } else if (vibe.includes('探究') || vibe.includes('理系') || vibe.includes('先端')) {
+    tags.push('#探究学習');
+  } else if (vibe.includes('文武両道') || vibe.includes('剛健')) {
+    tags.push('#文武両道');
+  } else if (vibe.includes('知性') || vibe.includes('気品')) {
+    tags.push('#自主自律');
+  } else {
+    tags.push('#自主性');
   }
-  return `<span style="font-size:12px; background:#EFF6FF; color:#1D4ED8; border:1px solid #BFDBFE; padding:3px 8px; border-radius:6px; font-weight:800;">⏱ 自宅（${station}）より 片道約${commuteMin}分</span>`;
+
+  // 2. 部活動タグ
+  const club = school.club_label || '';
+  if (club.includes('盛ん') || club.includes('活発') || club.includes('両道')) {
+    tags.push('#部活が盛ん');
+  } else if (school.school_strengths && school.school_strengths.some(st => st.includes('部活') || st.includes('クラブ'))) {
+    tags.push('#部活が盛ん');
+  } else {
+    tags.push('#部活が盛ん');
+  }
+
+  // 3. 特色タグ（もしあれば）
+  if (vibe.includes('国際') || (school.special_classes && school.special_classes.some(c => c.title && (c.title.includes('英語') || c.title.includes('国際'))))) {
+    tags.push('#国際教育');
+  }
+
+  return [...new Set(tags)];
+}
+
+// ==========================================
+// 標準学校カードHTML生成（要件：写真枠、学校名、私立/男子/女子/共学、#ハッシュタグ、偏差値[保護者のみ]、❤️いいね、詳しくみるボタン）
+// ==========================================
+function renderStandardSchoolCardHtml(school, options = {}) {
+  if (!school) return '';
+  const isParent = currentUserMode === 'parent';
+  const isChild = !isParent;
+  const genderText = school.gender_type === 'girls' ? '女子校' : school.gender_type === 'boys' ? '男子校' : '共学';
+  const categoryText = school.category === 'private' ? '私立' : school.category === 'public' ? '公立一貫' : '国立附属';
+  const hashtags = getSchoolHashtags(school);
+  const heartActive = school.is_favorite ? 'active' : '';
+
+  return `
+    <div class="school-card-compact-item card-surface" style="padding: 16px; border-radius: var(--radius-card); border: 2px solid var(--koko-blue-main); box-shadow: 4px 4px 0px var(--koko-blue-main); background: #FFFFFF; margin-bottom: 16px;">
+      <!-- 学校写真（枠） -->
+      <div style="margin-bottom: 12px;">
+        ${renderSchoolPhotoPlaceholder(school, '150px')}
+      </div>
+
+      <!-- 学校名 ＆ ❤️（いいねボタン） -->
+      <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:10px; margin-bottom: 8px;">
+        <div style="flex:1;">
+          <span style="font-size:11px; color:#64748B; font-weight:700; display:block;">${school.name_ruby || ''}</span>
+          <h3 style="margin:2px 0 0; font-size:20px; font-weight:800; color:var(--text-main); line-height:1.3;">${school.name}</h3>
+        </div>
+        <button type="button" class="btn-heart-favorite ${heartActive}" onclick="toggleSchoolFavorite('${school.school_id}', this); this.classList.toggle('active');" title="お気に入り" style="flex-shrink:0;">
+          ${getHeartSvg(school.is_favorite)}
+        </button>
+      </div>
+
+      <!-- 私立/男子校/女子校/共学 ＆ 偏差値（保護者画面のみ） -->
+      <div style="display:flex; flex-wrap:wrap; gap:6px; align-items:center; margin-bottom: 10px;">
+        <span style="font-size:11px; font-weight:800; background:#E0F2FE; color:#0369A1; padding:3px 8px; border-radius:6px;">
+          ${categoryText}
+        </span>
+        <span style="font-size:11px; font-weight:800; background:#F1F5F9; color:#334155; padding:3px 8px; border-radius:6px;">
+          ${genderText}
+        </span>
+        ${isParent ? `
+          <span style="font-size:11px; font-weight:800; background:#FEF3C7; color:#92400E; padding:3px 8px; border-radius:6px; border:1px solid #FDE68A;">
+            偏差値 ${school.deviation_score}
+          </span>
+        ` : ''}
+      </div>
+
+      <!-- ＃ハッシュタグ表記（例: ＃自主性 ＃部活が盛ん） -->
+      <div style="display:flex; flex-wrap:wrap; gap:6px; margin-bottom: 14px;">
+        ${hashtags.map(tag => `
+          <span style="font-size:12px; font-weight:700; color:var(--koko-blue-main); background:#EFF6FF; border:1px solid #BFDBFE; padding:3px 10px; border-radius:14px;">
+            ${tag}
+          </span>
+        `).join('')}
+      </div>
+
+      <!-- 学校を詳しくみるボタン -->
+      <div style="margin-top: 8px;">
+        <button type="button" class="${isChild ? 'btn-solid-child' : 'btn-solid-parent'} full-width" onclick="openSchoolDetailScreen('${school.school_id}')" style="display:flex; align-items:center; justify-content:center; gap:6px; padding:12px; font-size:14px; font-weight:800; border-radius:10px;">
+          ✦ 学校を詳しくみる
+        </button>
+      </div>
+    </div>
+  `;
 }
 
 // ==========================================
@@ -1181,88 +1277,7 @@ function renderParentHomeDashboard() {
       targetSchools = commutableSchools.slice(0, 3);
     }
     targetSchools = targetSchools.slice(0, 3);
-
-    const currentStation = AppSchema.parent_profile.station || "ご自宅最寄り";
-
-    targetSchools.forEach(school => {
-      const card = document.createElement('div');
-      card.className = 'home-recommend-school-card search-card-synced';
-      const genderText = school.gender_type === 'girls' ? '女子校' : school.gender_type === 'boys' ? '男子校' : '共学';
-      const heartActive = school.is_favorite ? 'active' : '';
-      const firstEvent = (school.events && school.events.length > 0) ? school.events[0] : null;
-      const commuteMin = school.calculated_commute_time || school.commute_time || 30;
-      const routeSummary = school.calculated_route_summary || '';
-
-      card.innerHTML = `
-        <div class="card-school-badge-header" style="display:flex; align-items:center; justify-content:space-between; padding:14px 16px 0; gap:8px;">
-          <div style="display:flex; gap:6px; flex-wrap:wrap; align-items:center;">
-            <span style="font-size:11px; font-weight:800; background:#E0F2FE; color:#0369A1; padding:2px 8px; border-radius:4px;">
-              ${school.category === 'private' ? '私立' : school.category === 'public' ? '公立一貫' : '国立附属'}
-            </span>
-            <span style="font-size:11px; font-weight:800; background:#F1F5F9; color:#334155; padding:2px 8px; border-radius:4px;">
-              ${genderText}
-            </span>
-            <span style="font-size:11px; font-weight:700; background:#FEF3C7; color:#92400E; padding:2px 8px; border-radius:4px;">
-              ${school.vibe_label}
-            </span>
-          </div>
-          <div style="display:flex; align-items:center; gap:8px;">
-            <span class="parent-dev-pill-hero" style="position:static;">偏差値 ${school.deviation_score}</span>
-            <button type="button" class="btn-heart-hero-corner ${heartActive}" style="position:static;" onclick="toggleSchoolFavorite('${school.school_id}', this)" title="お気に入り">
-              ${getHeartSvg(school.is_favorite)}
-            </button>
-          </div>
-        </div>
-
-        <div class="home-card-main-body" style="padding-top:10px;">
-          ${renderSchoolPhotoPlaceholder(school, '140px')}
-
-          <div class="home-card-header-row">
-            <div class="school-name-col">
-              <span style="font-size:11px; color:#64748B; font-weight:700; display:block;">${school.name_ruby || ''}</span>
-              <h3 class="home-school-title" style="margin:2px 0 6px; font-size:20px; font-weight:800; color:var(--text-main);">${school.name}</h3>
-              
-              <div style="display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin:6px 0 10px;">
-                <span style="font-size:12px; background:#F8FAFC; color:#475569; border:1px solid #E2E8F0; padding:3px 8px; border-radius:6px; font-weight:700;">
-                  📍 所在地：${school.prefecture} ${school.district || ''}（最寄：${school.station_name}）
-                </span>
-                ${getCommuteBadgeHtml(school)}
-              </div>
-            </div>
-          </div>
-
-          <p class="home-school-catch" style="font-weight:700; color:var(--text-main); margin-bottom:8px;">「${school.catchphrase}」</p>
-
-          <div class="home-school-tags-row" style="margin: 8px 0 10px;">
-            <span class="search-tag-pill">${school.vibe_label}</span>
-            <span class="search-tag-pill">部活 ${school.club_label}</span>
-            <span class="search-tag-pill">学費 約${Math.round(school.tuition / 10000)}万円/年</span>
-          </div>
-
-          ${firstEvent ? `
-            <div class="home-card-event-banner">
-              <div class="event-banner-text">
-                <span class="event-pill-mini">${firstEvent.type}</span>
-                <strong class="event-date-mini">${firstEvent.date}</strong>
-                <span class="event-name-mini">${firstEvent.title}</span>
-              </div>
-            </div>
-          ` : ''}
-
-          <div class="home-card-actions">
-            <button type="button" class="btn-solid-parent btn-sm" onclick="openSchoolDetailModal('${school.school_id}');">
-              学校を詳しく見る
-            </button>
-            ${school.official_url ? `
-              <a href="${school.official_url}" target="_blank" rel="noopener noreferrer" class="btn-outline btn-sm btn-official-card-link" style="display:inline-flex; align-items:center; gap:4px; text-decoration:none; font-weight:700;">
-                🌐 公式HP ↗
-              </a>
-            ` : ''}
-          </div>
-        </div>
-      `;
-      favSchoolsBox.appendChild(card);
-    });
+    favSchoolsBox.innerHTML = targetSchools.map(school => renderStandardSchoolCardHtml(school)).join('');
   }
 
   // 5. オーキャン・説明会の振り返りまとめ
@@ -1323,8 +1338,6 @@ function renderHomeRecommendedSchools() {
   if (!container) return;
   container.innerHTML = '';
 
-  const isChild = currentUserMode === 'child';
-  // 質問回答によるマッチング結果があれば、その上位校を優先してホーム画面に提示
   let recommendedList = [];
   if (AppSchema.recommended_schools && AppSchema.recommended_schools.length > 0) {
     recommendedList = AppSchema.recommended_schools.map(item => item.school_data);
@@ -1335,110 +1348,7 @@ function renderHomeRecommendedSchools() {
       : getFilteredSchoolsByParentStrictRules(SCHOOL_DATABASE).slice(0, 3);
   }
 
-  const currentStation = AppSchema.parent_profile.station || "ご自宅最寄り";
-
-  recommendedList.forEach(school => {
-    const card = document.createElement('div');
-    card.className = 'home-recommend-school-card';
-    const genderText = school.gender_type === 'girls' ? '女子校' : school.gender_type === 'boys' ? '男子校' : '共学';
-
-    // 画面モードに応じた説明文とラベル
-    const summaryText = isChild ? school.child_summary : school.parent_summary;
-    const summaryLabel = isChild ? 'ここがワクワク！' : '保護者向けポイント（教育・進路・環境）';
-
-    // 直近イベントの取得
-    const firstEvent = (school.events && school.events.length > 0) ? school.events[0] : null;
-    const heartActive = school.is_favorite ? 'active' : '';
-    const commuteMin = school.calculated_commute_time || school.commute_time || 30;
-    const routeSummary = school.calculated_route_summary || '';
-
-    card.innerHTML = `
-      <div class="card-school-badge-header" style="display:flex; align-items:center; justify-content:space-between; padding:14px 16px 0; gap:8px;">
-        <div style="display:flex; gap:6px; flex-wrap:wrap; align-items:center;">
-          <span style="font-size:11px; font-weight:800; background:#E0F2FE; color:#0369A1; padding:2px 8px; border-radius:4px;">
-            ${school.category === 'private' ? '私立' : school.category === 'public' ? '公立一貫' : '国立附属'}
-          </span>
-          <span style="font-size:11px; font-weight:800; background:#F1F5F9; color:#334155; padding:2px 8px; border-radius:4px;">
-            ${genderText}
-          </span>
-          <span style="font-size:11px; font-weight:700; background:#FEF3C7; color:#92400E; padding:2px 8px; border-radius:4px;">
-            ${school.vibe_label}
-          </span>
-        </div>
-        <div style="display:flex; align-items:center; gap:8px;">
-          ${isChild ? `<span class="child-match-pill-hero" style="position:static;">★ ぴったり度 ${school.match_rate_child || 98}%</span>` : `<span class="parent-dev-pill-hero" style="position:static;">偏差値 ${school.deviation_score}</span>`}
-          <button type="button" class="btn-heart-hero-corner ${heartActive}" style="position:static;" onclick="toggleSchoolFavorite('${school.school_id}', this)" title="お気に入り">
-            ${getHeartSvg(school.is_favorite)}
-          </button>
-        </div>
-      </div>
-
-      <div class="home-card-main-body" style="padding-top:10px;">
-        ${renderSchoolPhotoPlaceholder(school, '140px')}
-
-        <div class="home-card-header-row">
-          <div class="school-name-col">
-            <span style="font-size:11px; color:#64748B; font-weight:700; display:block;">${school.name_ruby || ''}</span>
-            <h3 class="home-school-title" style="margin:2px 0 6px; font-size:20px; font-weight:800; color:var(--text-main);">${school.name}</h3>
-            
-            <div style="display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin:6px 0 10px;">
-              <span style="font-size:12px; background:#F8FAFC; color:#475569; border:1px solid #E2E8F0; padding:3px 8px; border-radius:6px; font-weight:700;">
-                📍 所在地：${school.prefecture} ${school.district || ''}（最寄：${school.station_name}）
-              </span>
-              ${getCommuteBadgeHtml(school)}
-            </div>
-          </div>
-        </div>
-
-        ${isChild ? `
-          <div class="child-catchphrase-banner">
-            「${getChildCatchphrase(school)}」
-          </div>
-          <div class="home-school-mode-summary-box child-theme">
-            <span class="summary-badge-mini">★ ここがワクワク！</span>
-            <p class="summary-text-mini">${school.child_summary}</p>
-          </div>
-        ` : `
-          <p class="home-school-catch" style="font-weight:700; color:var(--text-main); margin-bottom:8px;">「${school.catchphrase}」</p>
-        `}
-
-        <!-- タグ（子ども画面では学費は非表示） -->
-        <div class="home-school-tags-row" style="margin: 8px 0 10px;">
-          <span class="search-tag-pill">${school.vibe_label}</span>
-          <span class="search-tag-pill">部活 ${school.club_label}</span>
-          ${!isChild ? `<span class="search-tag-pill">学費 約${Math.round(school.tuition / 10000)}万円/年</span>` : ''}
-        </div>
-
-        <!-- イベント情報＆行ってみるボタン（子ども画面のみボタン表示） -->
-        ${firstEvent ? `
-          <div class="home-card-event-banner">
-            <div class="event-banner-text">
-              <span class="event-pill-mini">${firstEvent.type}</span>
-              <strong class="event-date-mini">${firstEvent.date}</strong>
-              <span class="event-name-mini">${firstEvent.title}</span>
-            </div>
-            ${isChild ? `
-              <button type="button" class="btn-event-quick-plan" onclick="addEventToVisitSchedule('${school.school_id}', '${firstEvent.id}', this)">
-                ✦ 行ってみる
-              </button>
-            ` : ''}
-          </div>
-        ` : ''}
-
-        <div class="home-card-actions">
-          <button type="button" class="${isChild ? 'btn-solid-child' : 'btn-solid-parent'} btn-sm" onclick="openSchoolDetailModal('${school.school_id}');">
-            学校を詳しく見る
-          </button>
-          ${school.official_url ? `
-            <a href="${school.official_url}" target="_blank" rel="noopener noreferrer" class="btn-outline btn-sm btn-official-card-link" style="display:inline-flex; align-items:center; gap:4px; text-decoration:none; font-weight:700;">
-              🌐 公式HP ↗
-            </a>
-          ` : ''}
-        </div>
-      </div>
-    `;
-    container.appendChild(card);
-  });
+  container.innerHTML = recommendedList.map(school => renderStandardSchoolCardHtml(school)).join('');
 }
 
 // ==========================================
@@ -1468,104 +1378,7 @@ function renderHomeInterestAlternativeSchools() {
     });
   }
 
-  const currentStation = AppSchema.parent_profile.station || "ご自宅最寄り";
-
-  alternativeList.slice(0, 4).forEach(school => {
-    const card = document.createElement('div');
-    card.className = 'home-recommend-school-card';
-    const genderText = school.gender_type === 'girls' ? '女子校' : school.gender_type === 'boys' ? '男子校' : '共学';
-    const summaryText = isChild ? school.child_summary : school.parent_summary;
-    const summaryLabel = isChild ? 'ここがワクワク！' : '保護者向けポイント';
-    const firstEvent = (school.events && school.events.length > 0) ? school.events[0] : null;
-    const heartActive = school.is_favorite ? 'active' : '';
-    const commuteMin = school.calculated_commute_time || school.commute_time || 30;
-    const routeSummary = school.calculated_route_summary || '';
-
-    card.innerHTML = `
-      <div class="card-school-badge-header" style="display:flex; align-items:center; justify-content:space-between; padding:14px 16px 0; gap:8px;">
-        <div style="display:flex; gap:6px; flex-wrap:wrap; align-items:center;">
-          <span style="font-size:11px; font-weight:800; background:#E0F2FE; color:#0369A1; padding:2px 8px; border-radius:4px;">
-            ${school.category === 'private' ? '私立' : school.category === 'public' ? '公立一貫' : '国立附属'}
-          </span>
-          <span style="font-size:11px; font-weight:800; background:#F1F5F9; color:#334155; padding:2px 8px; border-radius:4px;">
-            ${genderText}
-          </span>
-          <span style="font-size:11px; font-weight:700; background:#FEF3C7; color:#92400E; padding:2px 8px; border-radius:4px;">
-            ${school.vibe_label}
-          </span>
-        </div>
-        <div style="display:flex; align-items:center; gap:8px;">
-          ${isChild ? `<span class="child-match-pill-hero" style="position:static;">★ ぴったり度 ${school.match_rate_child || 95}%</span>` : `<span class="parent-dev-pill-hero" style="position:static;">偏差値 ${school.deviation_score}</span>`}
-          <button type="button" class="btn-heart-hero-corner ${heartActive}" style="position:static;" onclick="toggleSchoolFavorite('${school.school_id}', this)" title="お気に入り">
-            ${getHeartSvg(school.is_favorite)}
-          </button>
-        </div>
-      </div>
-
-      <div class="home-card-main-body" style="padding-top:10px;">
-        ${renderSchoolPhotoPlaceholder(school, '140px')}
-
-        <div class="home-card-header-row">
-          <div class="school-name-col">
-            <span style="font-size:11px; color:#64748B; font-weight:700; display:block;">${school.name_ruby || ''}</span>
-            <h3 class="home-school-title" style="margin:2px 0 6px; font-size:20px; font-weight:800; color:var(--text-main);">${school.name}</h3>
-            
-            <div style="display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin:6px 0 10px;">
-              <span style="font-size:12px; background:#F8FAFC; color:#475569; border:1px solid #E2E8F0; padding:3px 8px; border-radius:6px; font-weight:700;">
-                📍 所在地：${school.prefecture} ${school.district || ''}（最寄：${school.station_name}）
-              </span>
-              ${getCommuteBadgeHtml(school)}
-            </div>
-          </div>
-        </div>
-
-        ${isChild ? `
-          <div class="child-catchphrase-banner">
-            「${getChildCatchphrase(school)}」
-          </div>
-          <div class="home-school-mode-summary-box child-theme">
-            <span class="summary-badge-mini">★ ここがワクワク！</span>
-            <p class="summary-text-mini">${school.child_summary}</p>
-          </div>
-        ` : `
-          <p class="home-school-catch" style="font-weight:700; color:var(--text-main); margin-bottom:8px;">「${school.catchphrase}」</p>
-        `}
-
-        <div class="home-school-tags-row" style="margin: 8px 0 10px;">
-          <span class="search-tag-pill">部活 ${school.club_label}</span>
-          <span class="search-tag-pill">合格実績 ${school.record_label}</span>
-          ${!isChild ? `<span class="search-tag-pill">学費 約${Math.round(school.tuition / 10000)}万円/年</span>` : ''}
-        </div>
-
-        ${firstEvent ? `
-          <div class="home-card-event-banner">
-            <div class="event-banner-text">
-              <span class="event-pill-mini">${firstEvent.type}</span>
-              <strong class="event-date-mini">${firstEvent.date}</strong>
-              <span class="event-name-mini">${firstEvent.title}</span>
-            </div>
-            ${isChild ? `
-              <button type="button" class="btn-event-quick-plan" onclick="addEventToVisitSchedule('${school.school_id}', '${firstEvent.id}', this)">
-                ✦ 行ってみる
-              </button>
-            ` : ''}
-          </div>
-        ` : ''}
-
-        <div class="home-card-actions">
-          <button type="button" class="btn-solid-child btn-sm" onclick="openSchoolDetailModal('${school.school_id}');">
-            学校を詳しく見る
-          </button>
-          ${school.official_url ? `
-            <a href="${school.official_url}" target="_blank" rel="noopener noreferrer" class="btn-outline btn-sm btn-official-card-link" style="display:inline-flex; align-items:center; gap:4px; text-decoration:none; font-weight:700;">
-              🌐 公式HP ↗
-            </a>
-          ` : ''}
-        </div>
-      </div>
-    `;
-    container.appendChild(card);
-  });
+  container.innerHTML = alternativeList.slice(0, 4).map(school => renderStandardSchoolCardHtml(school)).join('');
 }
 
 // ==========================================
@@ -1688,104 +1501,12 @@ function renderSchoolSearchList(filterType = 'all') {
     return;
   }
 
-  const currentStation = AppSchema.parent_profile.station || "ご自宅最寄り";
-
   list.forEach(school => {
-    const card = document.createElement('div');
-    card.className = 'home-recommend-school-card search-card-synced';
-
-    const genderText = school.gender_type === 'girls' ? '女子校' : school.gender_type === 'boys' ? '男子校' : '共学';
-    const heartActive = school.is_favorite ? 'active' : '';
-    const summaryText = isChild ? school.child_summary : school.parent_summary;
-    const summaryLabel = isChild ? 'ここがワクワク！' : '保護者向けポイント（教育・進路・環境）';
-    const firstEvent = (school.events && school.events.length > 0) ? school.events[0] : null;
-    const commuteMin = school.calculated_commute_time || school.commute_time || 30;
-    const routeSummary = school.calculated_route_summary || '';
-
-    card.innerHTML = `
-      <div class="card-school-badge-header" style="display:flex; align-items:center; justify-content:space-between; padding:14px 16px 0; gap:8px;">
-        <div style="display:flex; gap:6px; flex-wrap:wrap; align-items:center;">
-          <span style="font-size:11px; font-weight:800; background:#E0F2FE; color:#0369A1; padding:2px 8px; border-radius:4px;">
-            ${school.category === 'private' ? '私立' : school.category === 'public' ? '公立一貫' : '国立附属'}
-          </span>
-          <span style="font-size:11px; font-weight:800; background:#F1F5F9; color:#334155; padding:2px 8px; border-radius:4px;">
-            ${genderText}
-          </span>
-          <span style="font-size:11px; font-weight:700; background:#FEF3C7; color:#92400E; padding:2px 8px; border-radius:4px;">
-            ${school.vibe_label}
-          </span>
-        </div>
-        <div style="display:flex; align-items:center; gap:8px;">
-          ${isChild ? `<span class="child-match-pill-hero" style="position:static;">★ ぴったり度 ${school.match_rate_child || 95}%</span>` : `<span class="parent-dev-pill-hero" style="position:static;">偏差値 ${school.deviation_score}</span>`}
-          <button type="button" class="btn-heart-hero-corner ${heartActive}" style="position:static;" onclick="toggleSchoolFavorite('${school.school_id}', this)" title="お気に入り">
-            ${getHeartSvg(school.is_favorite)}
-          </button>
-        </div>
-      </div>
-
-      <div class="home-card-main-body" style="padding-top:10px;">
-        ${renderSchoolPhotoPlaceholder(school, '140px')}
-
-        <div class="home-card-header-row">
-          <div class="school-name-col">
-            <span style="font-size:11px; color:#64748B; font-weight:700; display:block;">${school.name_ruby || ''}</span>
-            <h3 class="home-school-title" style="margin:2px 0 6px; font-size:20px; font-weight:800; color:var(--text-main);">${school.name}</h3>
-            
-            <div style="display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin:6px 0 10px;">
-              <span style="font-size:12px; background:#F8FAFC; color:#475569; border:1px solid #E2E8F0; padding:3px 8px; border-radius:6px; font-weight:700;">
-                📍 所在地：${school.prefecture} ${school.district || ''}（最寄：${school.station_name}）
-              </span>
-              ${getCommuteBadgeHtml(school)}
-            </div>
-          </div>
-        </div>
-
-        ${isChild ? `
-          <div class="child-catchphrase-banner">
-            「${getChildCatchphrase(school)}」
-          </div>
-          <div class="home-school-mode-summary-box child-theme">
-            <span class="summary-badge-mini">★ ここがワクワク！</span>
-            <p class="summary-text-mini">${school.child_summary}</p>
-          </div>
-        ` : `
-          <p class="home-school-catch" style="font-weight:700; color:var(--text-main); margin-bottom:8px;">「${school.catchphrase}」</p>
-        `}
-
-        <div class="home-school-tags-row" style="margin: 8px 0 10px;">
-          <span class="search-tag-pill">${school.vibe_label}</span>
-          <span class="search-tag-pill">部活 ${school.club_label}</span>
-          ${!isChild ? `<span class="search-tag-pill">学費 約${Math.round(school.tuition / 10000)}万円/年</span>` : ''}
-        </div>
-
-        ${firstEvent ? `
-          <div class="home-card-event-banner">
-            <div class="event-banner-text">
-              <span class="event-pill-mini">${firstEvent.type}</span>
-              <strong class="event-date-mini">${firstEvent.date}</strong>
-              <span class="event-name-mini">${firstEvent.title}</span>
-            </div>
-            ${isChild ? `
-              <button type="button" class="btn-event-quick-plan" onclick="addEventToVisitSchedule('${school.school_id}', '${firstEvent.id}', this)">
-                ✦ 行ってみる
-              </button>
-            ` : ''}
-          </div>
-        ` : ''}
-
-        <div class="home-card-actions">
-          <button type="button" class="${isChild ? 'btn-solid-child' : 'btn-solid-parent'} btn-sm" onclick="openSchoolDetailModal('${school.school_id}');">
-            学校を詳しく見る
-          </button>
-          ${school.official_url ? `
-            <a href="${school.official_url}" target="_blank" rel="noopener noreferrer" class="btn-outline btn-sm btn-official-card-link" style="display:inline-flex; align-items:center; gap:4px; text-decoration:none; font-weight:700;">
-              🌐 公式HP ↗
-            </a>
-          ` : ''}
-        </div>
-      </div>
-    `;
-    container.appendChild(card);
+    const temp = document.createElement('div');
+    temp.innerHTML = renderStandardSchoolCardHtml(school);
+    if (temp.firstElementChild) {
+      container.appendChild(temp.firstElementChild);
+    }
   });
 }
 
@@ -1841,8 +1562,6 @@ function renderMypageFavorites() {
     const item = document.createElement('div');
     item.className = 'mypage-fav-item-card';
     const genderText = school.gender_type === 'girls' ? '女子校' : school.gender_type === 'boys' ? '男子校' : '共学';
-    const currentStation = (AppSchema.parent_profile && AppSchema.parent_profile.station) ? AppSchema.parent_profile.station : 'ご自宅最寄駅';
-    const commuteMin = school.calculated_commute_time || school.commute_time || 30;
 
     item.innerHTML = `
       <div class="mypage-fav-item-badge" style="width:48px; height:48px; border-radius:12px; background:#EFF6FF; border:2px solid #BFDBFE; display:flex; align-items:center; justify-content:center; font-size:24px; flex-shrink:0;">
@@ -1850,11 +1569,11 @@ function renderMypageFavorites() {
       </div>
       <div class="mypage-fav-item-main">
         <h4 class="mypage-fav-item-name">${school.name}</h4>
-        <p class="mypage-fav-item-meta">📍 ${school.prefecture}（${school.station_name}） ・ ${genderText} ・ ⏱ 自宅より約${commuteMin}分</p>
-        ${isChild ? `<span class="child-match-pill-mini">★ マッチ度 ${school.match_rate_child || 95}%</span>` : `<span class="parent-meta-pill-mini">偏差値 ${school.deviation_score} ・ 学費 約${Math.round(school.tuition / 10000)}万円</span>`}
+        <p class="mypage-fav-item-meta">📍 ${school.prefecture}（${school.station_name}） ・ ${genderText}</p>
+        ${isChild ? `<span class="child-match-pill-mini">★ マッチ度 ${school.match_rate_child || 95}%</span>` : `<span class="parent-meta-pill-mini">偏差値 ${school.deviation_score}</span>`}
       </div>
       <div class="mypage-fav-item-actions">
-        <button type="button" class="${isChild ? 'btn-solid-child' : 'btn-solid-parent'} btn-sm" onclick="openSchoolDetailModal('${school.school_id}')">
+        <button type="button" class="${isChild ? 'btn-solid-child' : 'btn-solid-parent'} btn-sm" onclick="openSchoolDetailScreen('${school.school_id}')">
           学校を詳しく見る
         </button>
         ${school.official_url ? `
@@ -1900,23 +1619,29 @@ function handleMapLinkClick(event, url) {
   // 通常のWebブラウザ環境では target="_blank" rel="noopener noreferrer" により別タブで遷移
 }
 
-// ESCキーによるモーダル閉じるイベント管理
+// ESCキーによる詳細画面から一覧に戻るイベント管理
 function handleDetailModalKeyDown(e) {
   if (e.key === 'Escape' || e.key === 'Esc') {
-    closeSchoolDetailModal();
+    if (currentRole === 'school-detail') {
+      goBackFromSchoolDetail();
+    }
   }
 }
 
+const closeSchoolDetailModal = goBackFromSchoolDetail;
+let previousScrollBeforeDetail = 0;
+
 // ==========================================
-// 学校詳細情報のポップアップ展開（モーダル表示・開閉状態管理）
+// 学校詳細画面（背景に他画面を表示しない独立した専用画面への切り替え）
 // ==========================================
-function openSchoolDetailModal(schoolId) {
+function openSchoolDetailScreen(schoolId) {
   const school = SCHOOL_DATABASE.find(s => s.school_id === schoolId);
   if (!school) return;
 
-  // 直前の画面を記憶（戻るボタンで使用）
+  // 直前の画面とスクロール位置を記憶（戻るボタンで使用）
   if (currentRole !== 'school-detail') {
     previousRoleBeforeDetail = currentRole || 'home';
+    previousScrollBeforeDetail = window.scrollY || document.documentElement.scrollTop || 0;
   }
   currentDetailSchoolId = schoolId;
 
@@ -1924,8 +1649,6 @@ function openSchoolDetailModal(schoolId) {
   const heartActive = school.is_favorite ? 'active' : '';
   const genderText = school.gender_type === 'girls' ? '女子校' : school.gender_type === 'boys' ? '男子校' : '共学';
   const events = school.events || [];
-  const currentStation = (AppSchema.parent_profile && AppSchema.parent_profile.station) ? AppSchema.parent_profile.station : 'ご自宅最寄駅';
-  const commuteMin = school.calculated_commute_time || school.commute_time || 30;
   const mapRouteUrl = getGoogleMapsTransitUrl(school);
 
   // 上部固定ヘッダーのお気に入りボタン状態を同期
@@ -1950,7 +1673,6 @@ function openSchoolDetailModal(schoolId) {
           <h1 id="schoolDetailModalTitle" style="margin: 4px 0 10px; font-size:24px; font-weight:800; color:var(--text-main); line-height:1.3;">${school.name}</h1>
           
           <div style="display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin: 8px 0 12px;">
-            ${getCommuteBadgeHtml(school)}
             <span style="font-size:12px; background:#F8FAFC; color:#334155; border:1px solid #CBD5E1; padding:4px 10px; border-radius:8px; font-weight:700;">
               📍 所在地：${school.prefecture} ${school.district || ''}（最寄：${school.station_name}駅）
             </span>
@@ -1960,6 +1682,11 @@ function openSchoolDetailModal(schoolId) {
             <span style="font-size:12px; background:#F1F5F9; color:#475569; border:1px solid #E2E8F0; padding:4px 10px; border-radius:8px; font-weight:700;">
               ${school.category === 'private' ? '私立' : school.category === 'public' ? '公立一貫' : '国立附属'}
             </span>
+            ${school.vibe_label ? `
+              <span style="font-size:12px; background:#EFF6FF; color:#1D4ED8; border:1px solid #BFDBFE; padding:4px 10px; border-radius:8px; font-weight:700;">
+                ✦ ${school.vibe_label}
+              </span>
+            ` : ''}
           </div>
         </div>
 
@@ -2045,25 +1772,17 @@ function openSchoolDetailModal(schoolId) {
         </ul>
       </section>
 
-      <!-- 4. キミが通うイメージ（通学シミュレーション ＆ 具体的なルート案内 ＆ Googleマップ連携） -->
+      <!-- 4. キミが通うイメージ（Googleマップ連携） -->
       <section class="modal-section-card simulation-section">
         <div class="modal-section-title-wrap">
           <span class="section-star">✦</span>
           <h3 class="modal-section-title">通学アクセス ＆ 通う1日のイメージ</h3>
         </div>
-        ${school.calculated_route_summary ? `
-          <div style="margin-bottom: 14px; padding: 12px 14px; background: #EFF6FF; border: 2px solid #93C5FD; border-radius: 8px;">
-            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:6px;">
-              <strong style="color: #1E40AF; font-size: 13px;">🚉 具体的な通学ルート・交通手段（${currentStation}より）</strong>
-            </div>
-            <p style="margin:0; font-size:13px; color:#1E3A8A; line-height:1.5;">${school.calculated_route_summary}</p>
-          </div>
-        ` : ''}
         
         <!-- Googleマップ通学ルート案内ボタン -->
         <div style="margin-bottom: 14px;">
-          <a href="${mapRouteUrl}" target="_blank" rel="noopener noreferrer" onclick="handleMapLinkClick(event, '${mapRouteUrl}')" class="btn-map-transit-link full-width" style="display:flex; align-items:center; justify-content:center; gap:8px; background:#F0FDF4; color:#15803D; border:2px solid #86EFAC; border-radius:12px; padding:10px 16px; font-size:13px; font-weight:800; text-decoration:none; box-shadow:2px 2px 0px #15803D; text-align:center;">
-            🗺️ 現在地からこの学校までの通学ルートをGoogleマップで調べる（公共交通機関） ↗
+          <a href="${mapRouteUrl}" target="_blank" rel="noopener noreferrer" onclick="handleMapLinkClick(event, '${mapRouteUrl}')" class="btn-map-transit-link full-width" style="display:flex; align-items:center; justify-content:center; gap:8px; background:#F0FDF4; color:#15803D; border:2px solid #86EFAC; border-radius:12px; padding:12px 16px; font-size:14px; font-weight:800; text-decoration:none; box-shadow:2px 2px 0px #15803D; text-align:center;">
+            🗺️ Googleマップで現在地からの通学ルートを調べる（公共交通機関） ↗
           </a>
         </div>
 
@@ -2094,61 +1813,39 @@ function openSchoolDetailModal(schoolId) {
 
     <!-- 画面下部の一覧に戻るボタン -->
     <div style="margin-top: 28px; text-align: center;">
-      <button type="button" class="btn-solid-parent full-width" onclick="closeSchoolDetailModal()" style="display:flex; align-items:center; justify-content:center; gap:8px; font-size:15px; padding:14px;">
-        <span>← 一覧にもどる（閉じる）</span>
+      <button type="button" class="btn-solid-parent full-width" onclick="goBackFromSchoolDetail()" style="display:flex; align-items:center; justify-content:center; gap:8px; font-size:15px; padding:14px;">
+        <span>← 一覧にもどる</span>
       </button>
     </div>
   `;
 
-  // ポップアップモーダルコンテナと全画面ビューの両方にコンテンツを設定
-  const modalContentContainer = document.getElementById('schoolDetailModalContent');
-  if (modalContentContainer) {
-    modalContentContainer.innerHTML = detailHtml;
+  // モーダルオーバーレイは非表示
+  const modalOverlay = document.getElementById('schoolDetailModalOverlay');
+  if (modalOverlay) {
+    modalOverlay.style.display = 'none';
   }
+  document.body.style.overflow = '';
+
+  // 専用画面コンテナ（#schoolDetailScreenContent）にコンテンツを設定
   const screenContentContainer = document.getElementById('schoolDetailScreenContent');
   if (screenContentContainer) {
     screenContentContainer.innerHTML = detailHtml;
   }
 
-  // ポップアップオーバーレイ（モーダル）を開く
-  const modalOverlay = document.getElementById('schoolDetailModalOverlay');
-  if (modalOverlay) {
-    modalOverlay.style.display = 'flex';
-    modalOverlay.setAttribute('aria-hidden', 'false');
-    document.body.style.overflow = 'hidden';
-    window.addEventListener('keydown', handleDetailModalKeyDown);
-    // モーダル内部のスクロールを一番上へリセット
-    if (modalContentContainer) modalContentContainer.scrollTop = 0;
-  }
+  // 画面全体を「学校詳細専用画面（roleSchoolDetailView）」に切り替え
+  // （他画面はすべて非表示になるため、背景には何もない状態になります）
+  switchAppView('school-detail');
 }
 
-// エイリアス
-const openSchoolDetailScreen = openSchoolDetailModal;
+// 互換エイリアス
+const openSchoolDetailModal = openSchoolDetailScreen;
 
 function goBackFromSchoolDetail() {
-  closeSchoolDetailModal();
-}
-
-// ポップアップモーダルの閉じる処理（開閉状態の適切な管理）
-function closeSchoolDetailModal() {
-  const modalOverlay = document.getElementById('schoolDetailModalOverlay');
-  if (modalOverlay) {
-    modalOverlay.style.display = 'none';
-    modalOverlay.setAttribute('aria-hidden', 'true');
-    document.body.style.overflow = '';
-    window.removeEventListener('keydown', handleDetailModalKeyDown);
-  }
-  // もし独立した画面ビューとして開かれていた場合のみ元の画面に戻す
-  if (currentRole === 'school-detail') {
-    switchAppView(previousRoleBeforeDetail || 'home');
-  }
-}
-
-// モーダルの背景（バックドロップ）クリックで閉じる
-function closeSchoolDetailModalOnBackdrop(event) {
-  if (event && event.target && event.target.id === 'schoolDetailModalOverlay') {
-    closeSchoolDetailModal();
-  }
+  switchAppView(previousRoleBeforeDetail || 'home');
+  // スクロール位置の復帰
+  setTimeout(() => {
+    window.scrollTo({ top: previousScrollBeforeDetail, behavior: 'auto' });
+  }, 10);
 }
 
 function toggleDetailFavFromTop(btnEl) {
@@ -3378,79 +3075,25 @@ function renderChildRecommendedSchools() {
     const rankInfo = rankBadges[index] || rankBadges[2];
     const card = document.createElement('article');
     card.className = 'rec-school-card';
-    const commuteMin = s.calculated_commute_time || s.commute_time || 30;
-    const routeSummary = s.calculated_route_summary || '';
-    const genderText = s.gender_type === 'girls' ? '女子校' : s.gender_type === 'boys' ? '男子校' : '共学';
 
+    // 順位バッジとぴったり度ヘッダー
+    const rankHeader = `
+      <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px;">
+        <span class="rec-school-rank-label" style="background:${rankInfo.bg}; box-shadow:${rankInfo.glow}; position:static; display:inline-block; font-size:12px; padding:4px 10px; border-radius:12px; color:#fff; font-weight:800;">
+          ${rankInfo.label}
+        </span>
+        <span class="rec-school-score-label" style="position:static; display:inline-block; font-size:12px; font-weight:800; color:var(--koko-blue-main); background:#EFF6FF; padding:4px 10px; border-radius:12px; border:1px solid #BFDBFE;">
+          ★ ぴったり度: ${item.match_score}%
+        </span>
+      </div>
+    `;
+
+    const cardContent = renderStandardSchoolCardHtml(s);
     card.innerHTML = `
-      <div class="card-school-badge-header" style="display:flex; align-items:center; justify-content:space-between; padding:16px 20px 0; gap:8px;">
-        <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
-          <span class="rec-school-rank-label" style="background:${rankInfo.bg}; box-shadow:${rankInfo.glow}; position:static; display:inline-block;">
-            ${rankInfo.label}
-          </span>
-          <span style="font-size:11px; font-weight:800; background:#E0F2FE; color:#0369A1; padding:3px 8px; border-radius:4px;">
-            ${s.category === 'private' ? '私立' : s.category === 'public' ? '公立一貫' : '国立附属'}
-          </span>
-          <span style="font-size:11px; font-weight:800; background:#F1F5F9; color:#334155; padding:3px 8px; border-radius:4px;">
-            ${genderText}
-          </span>
-        </div>
-        <div style="display:flex; align-items:center; gap:8px;">
-          <span class="rec-school-score-label" style="position:static; display:inline-block;">ぴったり度: ${item.match_score}%</span>
-          <button type="button" class="btn-heart-favorite ${s.is_favorite ? 'active' : ''}" onclick="toggleSchoolFavorite('${s.school_id}', this); this.classList.toggle('active');" title="お気に入り">
-            ${getHeartSvg(s.is_favorite)}
-          </button>
-        </div>
+      <div style="margin-bottom: 8px;">
+        ${rankHeader}
       </div>
-
-      <div class="rec-school-body" style="padding-top:12px;">
-        ${renderSchoolPhotoPlaceholder(s, '150px')}
-
-        <div class="rec-school-header-row">
-          <div>
-            <span style="font-size:11px; color:#64748B; font-weight:700; display:block;">${s.name_ruby || ''}</span>
-            <h3 class="rec-school-name" style="margin:2px 0 6px; font-size:22px; font-weight:800;">${s.name}</h3>
-            
-            <div style="display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin:6px 0 10px;">
-              <span style="font-size:12px; background:#F8FAFC; color:#475569; border:1px solid #E2E8F0; padding:3px 8px; border-radius:6px; font-weight:700;">
-                📍 所在地：${s.prefecture} ${s.district || ''}（最寄：${s.station_name}）
-              </span>
-              ${getCommuteBadgeHtml(s)}
-            </div>
-          </div>
-        </div>
-        
-        <div class="child-catchphrase-banner">
-          「${getChildCatchphrase(s)}」
-        </div>
-
-        <!-- 一目でわかるおすすめポイント（ここがワクワク！） -->
-        <div class="rec-school-recommend-box">
-          <span class="rec-badge-point">★ ここがワクワク！</span>
-          <p class="rec-point-text">${s.recommend_phrase}</p>
-        </div>
-
-        <div class="rec-school-desc-100" style="margin: 8px 0 12px; font-size: 15px; line-height: 1.65; color: #1E293B;">
-          ${item.child_summary}
-        </div>
-
-        <div class="rec-school-actions-row">
-          <button type="button" class="btn-solid-child" onclick="openSchoolDetailModal('${s.school_id}')">
-            ✦ 授業や学校生活を詳しく見る
-          </button>
-          <a href="${getGoogleMapsTransitUrl(s)}" target="_blank" rel="noopener noreferrer" onclick="handleMapLinkClick(event, '${getGoogleMapsTransitUrl(s)}')" class="btn-outline-child" style="display:inline-flex; align-items:center; gap:4px; text-decoration:none; font-weight:700;">
-            🗺️ 通学ルート ↗
-          </a>
-          ${s.official_url ? `
-            <a href="${s.official_url}" target="_blank" rel="noopener noreferrer" class="btn-outline-child" style="display:inline-flex; align-items:center; gap:4px; text-decoration:none; font-weight:700;">
-              🌐 公式HP ↗
-            </a>
-          ` : ''}
-          <button type="button" class="btn-outline-child" onclick="goToVisitReviewForSchool('${s.school_id}')">
-            見学メモを書く
-          </button>
-        </div>
-      </div>
+      ${cardContent}
     `;
     container.appendChild(card);
   });
