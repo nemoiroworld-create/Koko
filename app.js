@@ -1300,52 +1300,76 @@ function renderParentHomeDashboard() {
     targetSchools = targetSchools.slice(0, 3);
     favSchoolsBox.innerHTML = targetSchools.map(school => renderStandardSchoolCardHtml(school)).join('');
   }
+}
 
-  // 5. オーキャン・説明会の振り返りまとめ
+// ==========================================
+// 記録画面：オーキャン・説明会の振り返りまとめ（保護者用）
+// ==========================================
+function renderParentSummaryReviews() {
   const reviewsBox = document.getElementById('parentSummaryReviews');
-  if (reviewsBox) {
-    const reviews = AppSchema.visit_reviews || [];
-    if (reviews.length === 0) {
-      reviewsBox.innerHTML = `
-        <div style="padding:20px; background:#F8FAFC; border:2px dashed #CBD5E1; border-radius:12px; text-align:center;">
-          <span style="font-size:28px; display:block; margin-bottom:4px;">🏫📝</span>
-          <p style="font-weight:700; color:#334155; margin-bottom:4px; font-size:14px;">まだ見学・説明会の振り返りメモがありません</p>
-          <p style="font-size:12px; color:#64748B; margin-bottom:12px; line-height:1.5;">
-            学校説明会やオープンキャンパスに行った後、お子さまの生の感想を記録すると、ここに比較まとめが表示されます。
-          </p>
-          <button type="button" class="btn-outline btn-sm" onclick="switchAppView('review')">✦ 見学を記録する</button>
-        </div>
-      `;
-    } else {
-      reviewsBox.innerHTML = `
-        <div class="review-summary-cards-list">
-          ${reviews.map(rev => {
-            const revSchool = SCHOOL_DATABASE.find(s => s.school_id === rev.school_id);
-            const schoolName = revSchool ? revSchool.name : (rev.school_name || "見学校");
-            return `
-              <div class="review-summary-card">
-                <div class="review-card-top">
-                  <span class="review-school-tag">${schoolName}</span>
-                  <span class="review-type-badge">${rev.event_type || '学校見学'}</span>
-                  <span class="review-date-badge">${rev.visit_date || '最近訪問'}</span>
-                </div>
-                <div class="review-ratings-row">
-                  <span class="rating-item">生徒の雰囲気: <strong>${'★'.repeat(rev.rating_atmosphere || 4)}${'☆'.repeat(5 - (rev.rating_atmosphere || 4))}</strong></span>
-                  <span class="rating-item">設備・環境: <strong>${'★'.repeat(rev.rating_facility || 4)}${'☆'.repeat(5 - (rev.rating_facility || 4))}</strong></span>
-                </div>
-                ${rev.child_comment ? `
-                  <p class="review-child-quote">
-                    <strong>お子さまの感想メモ：</strong><br>
-                    「${rev.child_comment}」
-                  </p>
-                ` : ''}
-              </div>
-            `;
-          }).join('')}
-        </div>
-      `;
-    }
+  if (!reviewsBox) return;
+
+  // 1. visit_reviews と visit_plans 内の参加後レビューを収集
+  const list = [];
+  if (Array.isArray(AppSchema.visit_reviews)) {
+    list.push(...AppSchema.visit_reviews);
   }
+  if (Array.isArray(AppSchema.visit_plans)) {
+    AppSchema.visit_plans.forEach(p => {
+      if (p.review_data) {
+        list.push({
+          school_name: p.school_name,
+          school_id: p.school_id,
+          event_type: p.event_type || '学校見学',
+          visit_date: p.event_date || '参加済み',
+          rating_atmosphere: p.rating || 4,
+          rating_facility: p.rating || 4,
+          child_comment: p.review_data.emotion ? `「${p.review_data.emotion}」（印象的：${p.review_data.place || '施設・設備'}）` : p.review_data.memo
+        });
+      }
+    });
+  }
+
+  if (list.length === 0) {
+    reviewsBox.innerHTML = `
+      <div style="padding:24px 16px; background:#F8FAFC; border:2px dashed #CBD5E1; border-radius:12px; text-align:center;">
+        <span style="font-size:32px; display:block; margin-bottom:6px;">🏫📝</span>
+        <p style="font-weight:700; color:#334155; margin-bottom:4px; font-size:14px;">まだ見学・説明会の振り返りメモがありません</p>
+        <p style="font-size:12px; color:#64748B; margin:0; line-height:1.5;">
+          学校説明会やオープンキャンパスに行った後、お子さまの生の感想を記録すると、ここに比較まとめが表示されます。
+        </p>
+      </div>
+    `;
+    return;
+  }
+
+  reviewsBox.innerHTML = `
+    <div class="review-summary-cards-list">
+      ${list.map(rev => {
+        const revSchool = SCHOOL_DATABASE.find(s => s.school_id === rev.school_id);
+        const schoolName = revSchool ? revSchool.name : (rev.school_name || "見学校");
+        return `
+          <div class="review-summary-card">
+            <div class="review-card-top">
+              <span class="review-school-tag">${schoolName}</span>
+              <span class="review-type-badge">${rev.event_type || '学校見学'}</span>
+              <span class="review-date-badge">${rev.visit_date || '最近訪問'}</span>
+            </div>
+            <div class="review-ratings-row">
+              <span class="rating-item">生徒の雰囲気: <strong>${'★'.repeat(rev.rating_atmosphere || 4)}${'☆'.repeat(5 - (rev.rating_atmosphere || 4))}</strong></span>
+              <span class="rating-item">設備・環境: <strong>${'★'.repeat(rev.rating_facility || 4)}${'☆'.repeat(5 - (rev.rating_facility || 4))}</strong></span>
+            </div>
+            ${rev.child_comment ? `
+              <p class="review-child-quote">
+                <strong>お子さまの感想メモ：</strong><br>
+                「${rev.child_comment}」
+              </p>
+            ` : ''}
+          </div>
+        `;
+      }).join('')}
+    </div>
+  `;
 }
 
 // ==========================================
@@ -3507,6 +3531,7 @@ function renderReviewView() {
     if (parentDashboard) parentDashboard.style.display = 'block';
     if (parentEditor) parentEditor.style.display = 'none';
     renderParentVisitPlansList();
+    renderParentSummaryReviews();
   }
 }
 
@@ -4764,7 +4789,17 @@ const DEMO_SAMPLE_DATA = {
   },
   favorites: ["sch_shibaura", "sch_sakura"],
   visit_planned_events: [],
-  visit_reviews: []
+  visit_reviews: [
+    {
+      school_id: "sch_shibaura",
+      school_name: "芝浦工業大学附属中学校",
+      event_type: "オープンキャンパス",
+      visit_date: "9月20日(日)",
+      rating_atmosphere: 5,
+      rating_facility: 5,
+      child_comment: "ものづくりラボの3Dプリンタと大きな実験室がすごかった！先輩たちも優しくプログラミングを教えてくれたよ。"
+    }
+  ]
 };
 
 // デモデータの明示的読み込み関数
@@ -4780,6 +4815,7 @@ function loadDemoData() {
     renderHomeRecommendedSchools();
     renderHomeInterestAlternativeSchools();
     renderParentDashboard();
+    renderParentSummaryReviews();
     alert("💡 デモデータを読み込みました！\nホーム画面の学校提案やマイページ、AI会話提案などをぜひご覧ください。");
     switchAppView('home');
   }
