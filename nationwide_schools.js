@@ -2681,6 +2681,4320 @@ const NATIONWIDE_SCHOOL_LIST = [
     tags: ["interest_science_space", "interest_puzzle_math", "interest_sports_athletics"],
     interest_category_label: "宮崎名門・医進・広域通学バス",
     is_favorite: false
+  },
+  // ==================== Z会公立中高一貫校 ＆ インターエデュ主要私立校 新規拡充データ ====================,
+  {
+    school_id: "sch_koishikawa",
+    name: "東京都立小石川中等教育学校",
+    name_ruby: "とうきょうとりつこいしかわちゅうとうきょういくがっこう",
+    official_url: "https://www.metro.ed.jp/koishikawa-s/",
+    catchphrase: "立志・開拓・創作の精神。小石川フィロソフィーで世界に羽ばたくリーダーを育成",
+    recommend_phrase: "★ 科学的な探究や国際交流に情熱を燃やし、深い思考力と行動力を磨きたい人におすすめ！",
+    photo_url: "assets/images/real_shibushibu.jpg",
+    prefecture: "東京都",
+    district: "文京区本駒込",
+    station_name: "巣鴨駅",
+    access_info: {
+      primary_line: "JR山手線・都営三田線",
+      hub_station: "池袋駅・大手町駅",
+      walk_minutes: 3,
+      bus_minutes: 0,
+      school_bus: false,
+      school_bus_note: "都営三田線「千石駅」徒歩3分、JR山手線「巣鴨駅」徒歩10分"
+    },
+    can_walk: true,
+    can_bicycle: false,
+    course_name: "中等教育課程（前期・後期6年一貫）",
+    commute_time: 25,
+    tuition: 150000,
+    gender_type: "coed",
+    category: "public",
+    religion: "none",
+    university_path: "prep",
+    atmospheres: ["stem", "academics"],
+    vibe_label: "理数探究・自由闊達",
+    club_label: "盛ん",
+    record_label: "◎",
+    deviation_score: 67,
+    match_rate_child: 96,
+    recent_passed_records: "東京大学・京都大学・国公立大学医学部等への現役合格多数",
+    events: [
+      {
+            "id": "ev_koi_1",
+            "title": "学校説明会・施設見学",
+            "date": "10月18日(土)",
+            "type": "学校説明会",
+            "desc": "探究授業の実演や6年一貫のカリキュラムについて詳しくご紹介します。"
+      },
+      {
+            "id": "ev_koi_2",
+            "title": "創作展（文化祭）",
+            "date": "9月13日(土)",
+            "type": "文化祭",
+            "desc": "各学年の自由研究や部活動の成果を公開する伝統の創作展です。"
+      }
+],
+    special_classes: [
+      {
+            "title": "小石川フィロソフィー",
+            "desc": "自然科学・社会課題を自ら問い立て実験・検証し論文にまとめる独自プログラム！"
+      }
+],
+    school_strengths: [
+      "公立最高峰の理数・探究教育と圧倒的な国公立難関大合格実績！",
+      "千石駅・巣鴨駅から至近の抜群のアクセスと安全な学習環境！",
+      "授業料無償（公立一貫校）で私学トップレベルの高度な教育を展開！"
+],
+    life_simulation: "巣鴨・千石駅から徒歩数分で登校。午前はレベルの高い理数・語学の授業、午後は広大な実験室での課題研究に没頭し、放課後は部活動や自習室で仲間と語り合います。",
+    parent_summary: "【教育方針・進学】都立中高一貫のフラッグシップ校。「小石川フィロソフィー」を通じた課題解決型学習と高い学力養成により、東大をはじめとする最難関国立大学に多数の合格者を輩出。【環境・費用】文京区の文教エリアに位置し、公立のため学費負担が極めて抑えられます。",
+    child_summary: "実験設備がすごい！「なぜだろう？」と思った疑問をとことん研究して、自分だけの自由研究や大発見に挑戦できるワクワクする学校だよ！",
+    tags: ["interest_science_space", "interest_puzzle_math", "interest_nature_biology"],
+    interest_category_label: "自然科学・高度探究",
+    is_favorite: false
+  },
+  {
+    school_id: "sch_oshukan",
+    name: "東京都立桜修館中等教育学校",
+    name_ruby: "とうきょうとりつおうしゅうかんちゅうとうきょういくがっこう",
+    official_url: "https://www.metro.ed.jp/oshukan-s/",
+    catchphrase: "「論理的思考力」を磨き、高い知性と豊かな情操を育む目黒の都立名門校",
+    recommend_phrase: "★ 国語力やディベート、多面的なものの見方を深め、自分の意見をしっかり発信したい人におすすめ！",
+    photo_url: "assets/images/real_shibushibu.jpg",
+    prefecture: "東京都",
+    district: "目黒区八雲",
+    station_name: "都立大学駅",
+    access_info: {
+      primary_line: "東急東横線",
+      hub_station: "渋谷駅・横浜駅",
+      walk_minutes: 10,
+      bus_minutes: 0,
+      school_bus: false,
+      school_bus_note: "東急東横線「都立大学駅」より徒歩10分"
+    },
+    can_walk: true,
+    can_bicycle: false,
+    course_name: "中等教育課程（6年一貫）",
+    commute_time: 30,
+    tuition: 150000,
+    gender_type: "coed",
+    category: "public",
+    religion: "none",
+    university_path: "prep",
+    atmospheres: ["academics", "arts"],
+    vibe_label: "論理表現・自主自律",
+    club_label: "活発",
+    record_label: "◎",
+    deviation_score: 62,
+    match_rate_child: 94,
+    recent_passed_records: "東京大学・東京工業大学・一橋大学など国公立難関大に安定した進学実績",
+    events: [
+      {
+            "id": "ev_oshu_1",
+            "title": "学校公開・授業見学",
+            "date": "10月25日(土)",
+            "type": "学校説明会",
+            "desc": "独自の論理表現指導や生き生きとした生徒の様子を公開します。"
+      },
+      {
+            "id": "ev_oshu_2",
+            "title": "記念祭（文化祭）",
+            "date": "9月20日(土)",
+            "type": "文化祭",
+            "desc": "生徒主体の企画展や舞台発表が盛り上がる桜修館最大のイベントです。"
+      }
+],
+    special_classes: [
+      {
+            "title": "論理国語・探究ゼミ",
+            "desc": "物事を多角的に検証し、自分の言葉で説得力ある小論文や発表に落とし込む独自授業！"
+      }
+],
+    school_strengths: [
+      "東横線沿線の緑豊かで落ち着いた住環境と学習に適したキャンパス！",
+      "「国語力」をベースにした論理的思考力の徹底指導！",
+      "文武両道を重んじ、運動部・文化部ともに生徒が主体的に活躍！"
+],
+    life_simulation: "都立大学駅から緑豊かな呑川緑道を歩いて登校。論理的なディスカッションが多い授業で思考を深め、放課後は部活動や図書館で仲間と切磋琢磨します。",
+    parent_summary: "【教育方針・進学】府立高校の系譜を継ぐ都立中高一貫校。徹底した論理的思考・文章作成能力の育成に定評があり、東大をはじめ難関国公立大学への高い進学実績を誇ります。【環境・費用】目黒区八雲の閑静な住宅街に位置。公立のため学費負担が少なく充実した6年教育を受けられます。",
+    child_summary: "自分の考えを文章に書いたり友達と話し合ったりするのが大好きな子にぴったり！図書室の本も豊富で、文化祭も部活もみんなで熱中できるよ！",
+    tags: ["interest_history_culture", "interest_drawing_create", "interest_puzzle_math"],
+    interest_category_label: "論理思考・人文表現",
+    is_favorite: false
+  },
+  {
+    school_id: "sch_ryogoku",
+    name: "東京都立両国高等学校附属中学校",
+    name_ruby: "とうきょうとりつりょうごくこうとうがっこうふぞくちゅうがっこう",
+    official_url: "https://www.metro.ed.jp/ryogoku-h/",
+    catchphrase: "「自律自修」「愛と正義」。下町の伝統と先進探究が息づく都立の伝統進学校",
+    recommend_phrase: "★ 深い歴史とリーダーシップを学び、仲間とともに高い志を持って挑戦したい人におすすめ！",
+    photo_url: "assets/images/real_shibushibu.jpg",
+    prefecture: "東京都",
+    district: "墨田区江東橋",
+    station_name: "錦糸町駅",
+    access_info: {
+      primary_line: "JR総武線・東京メトロ半蔵門線",
+      hub_station: "東京駅・錦糸町駅",
+      walk_minutes: 5,
+      bus_minutes: 0,
+      school_bus: false,
+      school_bus_note: "JR総武線「錦糸町駅」南口・半蔵門線錦糸町駅より徒歩5分"
+    },
+    can_walk: true,
+    can_bicycle: false,
+    course_name: "普通科（中高一貫課程）",
+    commute_time: 25,
+    tuition: 150000,
+    gender_type: "coed",
+    category: "public",
+    religion: "none",
+    university_path: "prep",
+    atmospheres: ["both", "academics"],
+    vibe_label: "文武両道・質実剛健",
+    club_label: "盛ん",
+    record_label: "◎",
+    deviation_score: 61,
+    match_rate_child: 93,
+    recent_passed_records: "東京大学・東京工業大学・東北大学等に多数の現役合格者",
+    events: [
+      {
+            "id": "ev_ryo_1",
+            "title": "学校説明会",
+            "date": "10月11日(土)",
+            "type": "学校説明会",
+            "desc": "両国独自のリーダー教育と進学指導方針を解説します。"
+      }
+],
+    special_classes: [
+      {
+            "title": "両国フィールドワーク＆志学",
+            "desc": "芥川龍之介の母校としての教養教育と、自ら課題を設定する探究学習！"
+      }
+],
+    school_strengths: [
+      "錦糸町駅から徒歩5分の圧倒的交通至便な立地！",
+      "芥川龍之介をはじめ数多の英才を輩出した120年の歴史と伝統！",
+      "手厚い進路指導と公立ならではの安心の教育環境！"
+],
+    life_simulation: "錦糸町駅から徒歩5分で登校。活気ある下町の風情と緑に囲まれた校舎で学び、放課後は運動部や文化部で先輩・後輩と協力しながら成長します。",
+    parent_summary: "【教育方針・進学】名門旧制三中を前身とする都立中高一貫校。創立以来の「自律自修」の精神のもと、手厚い個別進路指導により東大・難関国立大への確かな合格実績を誇ります。【環境・費用】錦糸町駅徒歩5分で通学利便性抜群。公立校のため学費は授業料無償です。",
+    child_summary: "駅のすぐ近くで通いやすい！有名な作家や科学者の先輩がたくさんいる伝統校で、勉強も運動会もみんなで全力で盛り上がるよ！",
+    tags: ["interest_history_culture", "interest_sports_outdoor", "interest_puzzle_math"],
+    interest_category_label: "歴史・教養・文武両道",
+    is_favorite: false
+  },
+  {
+    school_id: "sch_musashikou_jh",
+    name: "東京都立武蔵高等学校附属中学校",
+    name_ruby: "とうきょうとりつむさしこうとうがっこうふぞくちゅうがっこう",
+    official_url: "https://www.metro.ed.jp/musashi-h/",
+    catchphrase: "「地球学」で世界を見つめる。武蔵野の緑豊かなキャンパスで探究心を育む名門校",
+    recommend_phrase: "★ 地球規模の課題や自然環境に興味があり、じっくり深く研究したい人におすすめ！",
+    photo_url: "assets/images/real_shibushibu.jpg",
+    prefecture: "東京都",
+    district: "武蔵野市境",
+    station_name: "武蔵境駅",
+    access_info: {
+      primary_line: "JR中央線・西武多摩川線",
+      hub_station: "新宿駅・吉祥寺駅",
+      walk_minutes: 10,
+      bus_minutes: 0,
+      school_bus: false,
+      school_bus_note: "JR中央線「武蔵境駅」北口より徒歩10分"
+    },
+    can_walk: true,
+    can_bicycle: true,
+    course_name: "普通科（中高一貫課程）",
+    commute_time: 30,
+    tuition: 150000,
+    gender_type: "coed",
+    category: "public",
+    religion: "none",
+    university_path: "prep",
+    atmospheres: ["stem", "academics"],
+    vibe_label: "地球科学・自然探究",
+    club_label: "盛ん",
+    record_label: "◎",
+    deviation_score: 64,
+    match_rate_child: 95,
+    recent_passed_records: "東京大学・京都大学・一橋大学・東工大など難関国公立大へ多数合格",
+    events: [
+      {
+            "id": "ev_mus_1",
+            "title": "学校説明会・施設見学",
+            "date": "10月4日(土)",
+            "type": "学校説明会",
+            "desc": "地球学の実践と緑あふれるキャンパス環境をご案内します。"
+      }
+],
+    special_classes: [
+      {
+            "title": "独自探究プログラム「地球学」",
+            "desc": "環境・宇宙・国際社会を多面的に調査・研究する都立武蔵の看板プログラム！"
+      }
+],
+    school_strengths: [
+      "中央線沿線の便利で安全な教育エリア！",
+      "自然科学・環境問題に強い独自の「地球学」教育！",
+      "難関国立大への抜群の現役進学率！"
+],
+    life_simulation: "武蔵境駅から木立を抜けて登校。豊かな自然が残る校舎で最先端の環境探究やディベートに取り組み、放課後は広大なグラウンドで部活に打ち込みます。",
+    parent_summary: "【教育方針・進学】多摩地区を代表する都立中高一貫進学校。「地球学」に象徴される探究型教育と確かな基礎学力向上指導により、難関国公立大学への高い現役進学実績を築いています。【環境・費用】緑豊かな武蔵野エリア。公立のため授業料無償でハイレベルな教育が享受できます。",
+    child_summary: "地球や宇宙、生き物の不思議を調べるのが好きな子に最高！学校のまわりも緑がいっぱいで、広々としたグラウンドで元気に過ごせるよ！",
+    tags: ["interest_nature_biology", "interest_science_space", "interest_puzzle_math"],
+    interest_category_label: "環境・地球科学・探究",
+    is_favorite: false
+  },
+  {
+    school_id: "sch_hakuo",
+    name: "東京都立白鷗高等学校附属中学校",
+    name_ruby: "とうきょうとりつはくおうこうとうがっこうふぞくちゅうがっこう",
+    official_url: "https://www.metro.ed.jp/hakuo-h/",
+    catchphrase: "日本初の公立中高一貫校。伝統文化とグローバルリーダーシップの融合",
+    recommend_phrase: "★ 日本の伝統文化（和太鼓・百人一首・茶道など）を愛し、世界と対話できる広い視野を持ちたい人におすすめ！",
+    photo_url: "assets/images/real_shibushibu.jpg",
+    prefecture: "東京都",
+    district: "台東区元浅草",
+    station_name: "新御徒町駅",
+    access_info: {
+      primary_line: "つくばエクスプレス・都営大江戸線・銀座線",
+      hub_station: "上野駅・秋葉原駅",
+      walk_minutes: 5,
+      bus_minutes: 0,
+      school_bus: false,
+      school_bus_note: "新御徒町駅徒歩5分、稲荷町駅徒歩7分、浅草駅徒歩10分"
+    },
+    can_walk: true,
+    can_bicycle: false,
+    course_name: "普通科（中高一貫課程）",
+    commute_time: 25,
+    tuition: 150000,
+    gender_type: "coed",
+    category: "public",
+    religion: "none",
+    university_path: "prep",
+    atmospheres: ["arts", "academics"],
+    vibe_label: "伝統文化・国際理解",
+    club_label: "盛ん",
+    record_label: "◎",
+    deviation_score: 60,
+    match_rate_child: 92,
+    recent_passed_records: "東京大学・東京外国語大学・早慶上理など難関大への確かな進学実績",
+    events: [
+      {
+            "id": "ev_haku_1",
+            "title": "学校説明会・体験講座",
+            "date": "10月18日(土)",
+            "type": "学校説明会",
+            "desc": "日本の伝統文化理解教育と6年一貫カリキュラムの特長を解説します。"
+      }
+],
+    special_classes: [
+      {
+            "title": "日本の伝統文化体験・発信プログラム",
+            "desc": "和太鼓・長唄・囲碁・百人一首など本物の文化に触れ、英語で世界に発信！"
+      }
+],
+    school_strengths: [
+      "都立中高一貫校第1号としての20年近い豊富な一貫教育ノウハウ！",
+      "浅野・上野・浅草エリアの多路線アクセスで通学至便！",
+      "伝統文化と英語イマージョン教育の両輪による真の国際人育成！"
+],
+    life_simulation: "浅草・上野の情緒ある街並みを歩いて登校。午前は基礎・応用を鍛える授業、午後は伝統芸能体験やネイティブ教員とのディスカッションを楽しみます。",
+    parent_summary: "【教育方針・進学】都立中高一貫教育のパイオニア。日本の伝統文化への深い理解を礎に、高度な語学力と国際感覚を育成。国公立難関大・早慶上理への安定した進学実績を誇ります。【環境・費用】台東区の交通至便な立地。公立のため費用負担が極めて少ないのも大きな魅力です。",
+    child_summary: "和太鼓を叩いたり百人一首大会をしたり、日本の楽しい伝統がたくさん体験できるよ！外国の先生とお話しする英語の授業もワクワクするよ！",
+    tags: ["interest_history_culture", "interest_drawing_create", "interest_nature_biology"],
+    interest_category_label: "伝統文化・グローバル",
+    is_favorite: false
+  },
+  {
+    school_id: "sch_kudan",
+    name: "千代田区立九段中等教育学校",
+    name_ruby: "ちよだくりつくだんちゅうとうきょういくがっこう",
+    official_url: "https://www.kudan.ed.jp/school",
+    catchphrase: "皇居・千代田の都心で学ぶ「九段自立」。世界に羽ばたく豊かな人間力を涵養",
+    recommend_phrase: "★ 都心の文化・歴史に囲まれた最高の環境で、グローバルな探究学習に打ち込みたい人におすすめ！",
+    photo_url: "assets/images/real_shibushibu.jpg",
+    prefecture: "東京都",
+    district: "千代田区九段北",
+    station_name: "九段下駅",
+    access_info: {
+      primary_line: "東京メトロ東西線・半蔵門線・都営新宿線",
+      hub_station: "大手町駅・新宿駅",
+      walk_minutes: 3,
+      bus_minutes: 0,
+      school_bus: false,
+      school_bus_note: "東京メトロ・都営地下鉄「九段下駅」1番出口より徒歩3分"
+    },
+    can_walk: true,
+    can_bicycle: false,
+    course_name: "中等教育課程（前期・後期6年一貫）",
+    commute_time: 25,
+    tuition: 150000,
+    gender_type: "coed",
+    category: "public",
+    religion: "none",
+    university_path: "prep",
+    atmospheres: ["academics", "arts"],
+    vibe_label: "都心探究・国際教養",
+    club_label: "盛ん",
+    record_label: "◎",
+    deviation_score: 63,
+    match_rate_child: 94,
+    recent_passed_records: "東京大学・東京外大・筑波大・早慶上理などへ高い現役合格率",
+    events: [
+      {
+            "id": "ev_kudan_1",
+            "title": "学校説明会（千代田区外受検者向け）",
+            "date": "10月25日(土)",
+            "type": "学校説明会",
+            "desc": "九段独自の6年一貫カリキュラムと入学者決定方針を説明します。"
+      }
+],
+    special_classes: [
+      {
+            "title": "千代田学＆グローバルスタディーズ",
+            "desc": "近隣の大学・大使館・研究機関と連携したハイレベルな探究授業！"
+      }
+],
+    school_strengths: [
+      "九段下駅徒歩3分、都心文教エリアの比類なき好立地！",
+      "千代田区立ならではの手厚い教育ICT設備と少人数指導！",
+      "区民枠と都民枠があり、都内全域から志高い仲間が集う！"
+],
+    life_simulation: "九段下駅から皇居のお堀を眺めながら登校。先進的なICT環境で海外校とのオンライン交流やプレゼンテーションを行い、放課後は部活に打ち込みます。",
+    parent_summary: "【教育方針・進学】全国唯一の区立中高一貫校。千代田区の豊富な教育リソースを活かした独自の探究教育を展開し、難関国立大・早慶等への確実な進学実績を上げています。【環境・費用】九段下駅徒歩3分の圧倒的アクセス。公立（区立）のため授業料無償で手厚い教育を受けられます。",
+    child_summary: "お城のお堀や大きな日本武道館のすぐそばにあるキレイな学校！パソコンを使った授業や、海外の友達とお話しする時間がたくさんあるよ！",
+    tags: ["interest_history_culture", "interest_drawing_create", "interest_puzzle_math"],
+    interest_category_label: "国際教養・都心探究",
+    is_favorite: false
+  },
+  {
+    school_id: "sch_fuji_jh",
+    name: "東京都立富士高等学校附属中学校",
+    name_ruby: "とうきょうとりつふじこうとうがっこうふぞくちゅうがっこう",
+    official_url: "https://www.metro.ed.jp/fuji-s/",
+    catchphrase: "「自主自律」「日進日歩」。探究「富士未来学」で未来を切り拓く",
+    recommend_phrase: "★ 落ち着いた環境で科学や社会の未来をじっくり考え、確かな基礎学力を身につけたい人におすすめ！",
+    photo_url: "assets/images/real_shibushibu.jpg",
+    prefecture: "東京都",
+    district: "中野区弥生町",
+    station_name: "中野富士見町駅",
+    access_info: {
+      primary_line: "東京メトロ丸ノ内線（方南町支線）",
+      hub_station: "新宿駅・中野坂上駅",
+      walk_minutes: 3,
+      bus_minutes: 0,
+      school_bus: false,
+      school_bus_note: "東京メトロ丸ノ内線「中野富士見町駅」より徒歩3分"
+    },
+    can_walk: true,
+    can_bicycle: false,
+    course_name: "普通科（中高一貫課程）",
+    commute_time: 25,
+    tuition: 150000,
+    gender_type: "coed",
+    category: "public",
+    religion: "none",
+    university_path: "prep",
+    atmospheres: ["academics", "stem"],
+    vibe_label: "誠実探究・アットホーム",
+    club_label: "活発",
+    record_label: "◎",
+    deviation_score: 59,
+    match_rate_child: 91,
+    recent_passed_records: "東京農工大・東京学芸大・早稲田・明治・立教など堅実な進学実績",
+    events: [
+      {
+            "id": "ev_fuji_1",
+            "title": "学校説明会",
+            "date": "10月11日(土)",
+            "type": "学校説明会",
+            "desc": "富士未来学の実践と6年間の学習計画をご案内します。"
+      }
+],
+    special_classes: [
+      {
+            "title": "探究授業「富士未来学」",
+            "desc": "身近な課題から未来の持続可能な社会を構想する6年間の探究カリキュラム！"
+      }
+],
+    school_strengths: [
+      "丸ノ内線中野富士見町駅徒歩3分の安心・快適な通学ルート！",
+      "アットホームで面倒見のよい指導方針と丁寧な学習フォロー！",
+      "完全中高一貫化によるきめ細かな進路・キャリア指導！"
+],
+    life_simulation: "丸ノ内線の駅から歩いてすぐ登校。明るい教室で友達と意見を交わしながら課題に取り組み、放課後は部活や補習・自習で充実した時間を過ごします。",
+    parent_summary: "【教育方針・進学】府立五中の流れを汲む伝統の都立中高一貫校。独自探究「富士未来学」を通じて論理的思考力と表現力を育成し、国公立大学や難関私大への安定した合格実績を上げています。【環境・費用】駅近の閑静な住宅街で治安も良好。公立校のため費用面も安心です。",
+    child_summary: "駅から近くて通いやすい！先生や先輩たちが優しく教えてくれて、未来のロボットや環境について考える楽しい探究授業がたくさんあるよ！",
+    tags: ["interest_nature_biology", "interest_science_space", "interest_puzzle_math"],
+    interest_category_label: "未来探究・堅実学習",
+    is_favorite: false
+  },
+  {
+    school_id: "sch_oizumi",
+    name: "東京都立大泉高等学校附属中学校",
+    name_ruby: "とうきょうとりつおおいずみこうとうがっこうふぞくちゅうがっこう",
+    official_url: "https://www.metro.ed.jp/oizumi-h/",
+    catchphrase: "国際理解と理数探究の拠点。緑多き広大なキャンパスで世界基準の学びを",
+    recommend_phrase: "★ 広々としたグラウンドで伸び伸び学び、英語や理科の実験に情熱を注ぎたい人におすすめ！",
+    photo_url: "assets/images/real_shibushibu.jpg",
+    prefecture: "東京都",
+    district: "練馬区東大泉",
+    station_name: "大泉学園駅",
+    access_info: {
+      primary_line: "西武池袋線",
+      hub_station: "池袋駅・所沢駅",
+      walk_minutes: 10,
+      bus_minutes: 0,
+      school_bus: false,
+      school_bus_note: "西武池袋線「大泉学園駅」北口より徒歩10分"
+    },
+    can_walk: true,
+    can_bicycle: true,
+    course_name: "普通科（中高一貫課程）",
+    commute_time: 30,
+    tuition: 150000,
+    gender_type: "coed",
+    category: "public",
+    religion: "none",
+    university_path: "prep",
+    atmospheres: ["both", "stem"],
+    vibe_label: "国際理解・自然探究",
+    club_label: "活発",
+    record_label: "◎",
+    deviation_score: 60,
+    match_rate_child: 92,
+    recent_passed_records: "東京大学・東京工業大学・筑波大学・早慶などへ多数合格",
+    events: [
+      {
+            "id": "ev_oiz_1",
+            "title": "学校説明会",
+            "date": "10月18日(土)",
+            "type": "学校説明会",
+            "desc": "国際理解教育と理数探究プログラムの成果をご紹介します。"
+      }
+],
+    special_classes: [
+      {
+            "title": "大泉グローバル＆サイエンス探究",
+            "desc": "帰国生と一般生が切磋琢磨する高度な英語授業と理科実験フィールドワーク！"
+      }
+],
+    school_strengths: [
+      "広大な敷地と充実した体育館・グラウンド・特別教室棟！",
+      "帰国生受け入れ校としての長い伝統とハイレベルな英語・国際教育！",
+      "完全中高一貫化に伴う6年間の体系的な難関大進学カリキュラム！"
+],
+    life_simulation: "大泉学園駅から桜並木を通って登校。海外経験豊かな仲間と一緒に英語劇や科学実験を行い、放課後は広いグラウンドで思い切り部活に汗を流します。",
+    parent_summary: "【教育方針・進学】国際理解教育と理数教育に強みを持つ都立中高一貫校。帰国生と一般生が共に学ぶ多文化環境の中で高い進学実績を実現しています。【環境・費用】練馬区の広々とした緑豊かな敷地。公立のため学費負担が小さく安心です。",
+    child_summary: "校庭がすごく広くて気持ちいい！外国で暮らしていた友達も多くて、いろんな国の文化や本格的な実験を楽しく学べるよ！",
+    tags: ["interest_sports_outdoor", "interest_science_space", "interest_drawing_create"],
+    interest_category_label: "国際共生・理数探究",
+    is_favorite: false
+  },
+  {
+    school_id: "sch_minamitama",
+    name: "東京都立南多摩中等教育学校",
+    name_ruby: "とうきょうとりつみなみたまちゅうとうきょういくがっこう",
+    official_url: "https://www.metro.ed.jp/minamitama-s/",
+    catchphrase: "「心・知・体」の調和。フィールドワーク活動で地域と未来をデザインする",
+    recommend_phrase: "★ 仲間と協力して地域の課題を調べたり、プレゼンテーションを堂々と発表したい人におすすめ！",
+    photo_url: "assets/images/real_shibushibu.jpg",
+    prefecture: "東京都",
+    district: "八王子市明神町",
+    station_name: "京王八王子駅",
+    access_info: {
+      primary_line: "京王線・JR中央線・横浜線・八高線",
+      hub_station: "新宿駅・立川駅・八王子駅",
+      walk_minutes: 3,
+      bus_minutes: 0,
+      school_bus: false,
+      school_bus_note: "京王八王子駅中央口より徒歩3分、JR八王子駅北口より徒歩12分"
+    },
+    can_walk: true,
+    can_bicycle: true,
+    course_name: "中等教育課程（6年一貫）",
+    commute_time: 30,
+    tuition: 150000,
+    gender_type: "coed",
+    category: "public",
+    religion: "none",
+    university_path: "prep",
+    atmospheres: ["academics", "both"],
+    vibe_label: "地域探究・自主自律",
+    club_label: "盛ん",
+    record_label: "◎",
+    deviation_score: 60,
+    match_rate_child: 91,
+    recent_passed_records: "東京大学・東京農工大・首都大（東京都立大）・早慶上理などへ堅実な実績",
+    events: [
+      {
+            "id": "ev_minami_1",
+            "title": "学校説明会",
+            "date": "10月11日(土)",
+            "type": "学校説明会",
+            "desc": "南多摩独自のフィールドワーク活動と進路実績をご紹介します。"
+      }
+],
+    special_classes: [
+      {
+            "title": "フィールドワーク活動（FW）",
+            "desc": "自ら現地に足を運んで調査・取材し、課題解決策を提言する体験型探究！"
+      }
+],
+    school_strengths: [
+      "京王八王子駅徒歩3分の圧倒的アクセス！多摩地区全域から通学容易！",
+      "140年の伝統を誇る名門校の精神と先進中等教育の融合！",
+      "公立校ならではの低負担と高い難関国公立大学合格実績！"
+],
+    life_simulation: "京王八王子駅から歩いて3分で校門へ。フィールドワークの準備や熱気あるグループワークを行い、放課後は部活や図書館の個別自習ブースで勉強します。",
+    parent_summary: "【教育方針・進学】多摩地区最古の伝統を誇る都立中等教育学校。「フィールドワーク活動」を通じた主体的な探究学習と手厚い進学指導で、国公立大学への高い合格率を維持しています。【環境・費用】八王子中心街の駅近立地。公立のため安心の費用体系です。",
+    child_summary: "街や自然に出かけてインタビューや調査をする探究学習がとても楽しい！駅からもすぐ近くて、部活動にも力いっぱい取り組めるよ！",
+    tags: ["interest_history_culture", "interest_nature_biology", "interest_puzzle_math"],
+    interest_category_label: "地域探究・体験学習",
+    is_favorite: false
+  },
+  {
+    school_id: "sch_mitaka_chuto",
+    name: "東京都立三鷹中等教育学校",
+    name_ruby: "とうきょうとりつみたかちゅうとうきょういくがっこう",
+    official_url: "https://www.metro.ed.jp/mitaka-s/",
+    catchphrase: "「思いやり・創造・自立」。豊かな自然に囲まれ、探究力と人間力を磨く",
+    recommend_phrase: "★ 緑あふれる環境でじっくり学び、科学や社会のテーマを深く掘り下げたい人におすすめ！",
+    photo_url: "assets/images/real_shibushibu.jpg",
+    prefecture: "東京都",
+    district: "三鷹市新川",
+    station_name: "三鷹駅",
+    access_info: {
+      primary_line: "JR中央線・京王線",
+      hub_station: "吉祥寺駅・三鷹駅・調布駅",
+      walk_minutes: 0,
+      bus_minutes: 10,
+      school_bus: false,
+      school_bus_note: "三鷹駅・吉祥寺駅・仙川駅・調布駅より路線バス「三鷹中等教育学校」下車すぐ"
+    },
+    can_walk: false,
+    can_bicycle: true,
+    course_name: "中等教育課程（6年一貫）",
+    commute_time: 35,
+    tuition: 150000,
+    gender_type: "coed",
+    category: "public",
+    religion: "none",
+    university_path: "prep",
+    atmospheres: ["both", "academics"],
+    vibe_label: "緑豊か・自主自律",
+    club_label: "盛ん",
+    record_label: "◎",
+    deviation_score: 60,
+    match_rate_child: 92,
+    recent_passed_records: "東京大・東工大・一橋大・筑波大・早慶上理などへ堅実な合格実績",
+    events: [
+      {
+            "id": "ev_mit_1",
+            "title": "学校説明会・見学会",
+            "date": "10月18日(土)",
+            "type": "学校説明会",
+            "desc": "6年一貫の体系的カリキュラムと探究活動をご説明します。"
+      }
+],
+    special_classes: [
+      {
+            "title": "三鷹探究プログラム（MSS）",
+            "desc": "データ分析と論理構成を徹底的に身につけ、自らの研究論文を執筆する授業！"
+      }
+],
+    school_strengths: [
+      "武蔵野・三鷹の緑豊かな文教エリアに位置する広大な敷地！",
+      "完全6年一貫教育による高校受験のない伸び伸びとした成長！",
+      "文武両道の校風で、部活動・学校行事ともに生徒が主役！"
+],
+    life_simulation: "バス停を降りると緑に包まれた明るい校舎。最新の理科実験室やメディアセンターで探究を深め、放課後は広いグラウンドでサッカーやテニスに熱中します。",
+    parent_summary: "【教育方針・進学】三鷹市に位置する都立中等教育学校。6年間の計画的な指導により、国公立大学・難関私立大学への安定した進学実績を上げています。【環境・費用】閑静な住宅街で学習環境抜群。公立のため学費負担が極めて抑えられます。",
+    child_summary: "校庭が広くて木がいっぱい！サッカーやバスケ、吹奏楽など部活動がとても盛んで、仲間と一緒に勉強も行事も全力で楽しめるよ！",
+    tags: ["interest_sports_outdoor", "interest_nature_biology", "interest_science_space"],
+    interest_category_label: "自然環境・文武両道",
+    is_favorite: false
+  },
+  {
+    school_id: "sch_tachikawa_kokusai",
+    name: "東京都立立川国際中等教育学校",
+    name_ruby: "とうきょうとりつたちかわこくさいちゅうとうきょういくがっこう",
+    official_url: "https://www.metro.ed.jp/tachikawa-s/",
+    catchphrase: "日本初の公立小中高一貫校。多文化共生と高度な語学力で世界とつながる",
+    recommend_phrase: "★ 外国語や異文化交流が大好きで、世界中の人々と対等に意見を交わしたい人におすすめ！",
+    photo_url: "assets/images/real_shibushibu.jpg",
+    prefecture: "東京都",
+    district: "立川市曙町",
+    station_name: "立川駅",
+    access_info: {
+      primary_line: "JR中央線・青梅線・南武線・多摩都市モノレール",
+      hub_station: "立川駅・八王子駅・新宿駅",
+      walk_minutes: 15,
+      bus_minutes: 5,
+      school_bus: false,
+      school_bus_note: "JR立川駅北口より徒歩15分、またはバス5分「立川国際中等教育学校」下車"
+    },
+    can_walk: true,
+    can_bicycle: true,
+    course_name: "中等教育課程（国際教育6年一貫）",
+    commute_time: 30,
+    tuition: 150000,
+    gender_type: "coed",
+    category: "public",
+    religion: "none",
+    university_path: "prep",
+    atmospheres: ["arts", "academics"],
+    vibe_label: "国際理解・多文化共生",
+    club_label: "活発",
+    record_label: "◎",
+    deviation_score: 61,
+    match_rate_child: 93,
+    recent_passed_records: "東京外国語大・国際教養大・東大・早慶上智・海外名門大などへ多数進学",
+    events: [
+      {
+            "id": "ev_tachi_1",
+            "title": "学校説明会・国際プログラム紹介",
+            "date": "10月25日(土)",
+            "type": "学校説明会",
+            "desc": "充実した語学教育と附属小学校との連携、海外研修プログラムを解説します。"
+      }
+],
+    special_classes: [
+      {
+            "title": "第2外国語＆国際ディベート講座",
+            "desc": "英語に加えドイツ語・フランス語・中国語等を学び、世界基準のディベートに挑戦！"
+      }
+],
+    school_strengths: [
+      "公立校トップクラスのネイティブ教員数と圧倒的な語学教育環境！",
+      "附属小学校を併設する公立初の12年一貫教育の先進拠点！",
+      "多摩の拠点・立川駅からの充実したアクセス網！"
+],
+    life_simulation: "立川駅から明るい街並みを歩いて登校。校内では日常的に英語が飛び交い、海外の学校とのオンライン討論やプレゼンテーションを日常的に体験します。",
+    parent_summary: "【教育方針・進学】国際教育のフロントランナーとして設立された都立中等教育学校。圧倒的な語学力養成と多文化共生マインドを育み、難関国公立大学・難関私大・海外大学への進学実績が年々向上。【環境・費用】立川市。公立のため私学と同等以上の国際教育を低負担で受けられます。",
+    child_summary: "英語で話すのが楽しくなる！英語だけでなくいろんな国の言葉や文化を学べて、将来世界で活躍したい人にぴったりの学校だよ！",
+    tags: ["interest_drawing_create", "interest_history_culture", "interest_puzzle_math"],
+    interest_category_label: "グローバル・多言語探究",
+    is_favorite: false
+  },
+  {
+    school_id: "sch_ysfh",
+    name: "横浜市立横浜サイエンスフロンティア高等学校附属中学校",
+    name_ruby: "よこはましりつよこはまさいえんすふろんてぃあこうとうがっこうふぞくちゅうがっこう",
+    official_url: "https://www.edu.city.yokohama.lg.jp/school/jhs/hs-sf/",
+    catchphrase: "最先端科学技術の拠点。ノーベル賞学者や研究機関と連携する理数英才教育",
+    recommend_phrase: "★ 宇宙・生命科学・ロボット・情報技術に夢中になれる、日本最高峰の理数環境で学びたい人におすすめ！",
+    photo_url: "assets/images/real_shibushibu.jpg",
+    prefecture: "神奈川県",
+    district: "横浜市鶴見区小野町",
+    station_name: "鶴見小野駅",
+    access_info: {
+      primary_line: "JR鶴見線",
+      hub_station: "鶴見駅・横浜駅・川崎駅",
+      walk_minutes: 2,
+      bus_minutes: 0,
+      school_bus: false,
+      school_bus_note: "JR鶴見線「鶴見小野駅」より徒歩2分"
+    },
+    can_walk: true,
+    can_bicycle: true,
+    course_name: "理数科（中高一貫課程）",
+    commute_time: 30,
+    tuition: 150000,
+    gender_type: "coed",
+    category: "public",
+    religion: "none",
+    university_path: "prep",
+    atmospheres: ["stem", "academics"],
+    vibe_label: "最先端科学・研究探究",
+    club_label: "盛ん",
+    record_label: "◎",
+    deviation_score: 65,
+    match_rate_child: 97,
+    recent_passed_records: "東京大学・東京工業大学・国公立大学医学部・難関理系学部へ圧倒的な実績",
+    events: [
+      {
+            "id": "ev_ysfh_1",
+            "title": "科学体験ラボ＆学校説明会",
+            "date": "10月11日(土)",
+            "type": "学校説明会",
+            "desc": "大学・企業顔負けの電子顕微鏡や最先端研究設備を体感できます。"
+      },
+      {
+            "id": "ev_ysfh_2",
+            "title": "蒼煌祭（文化祭）",
+            "date": "9月27日(土)",
+            "type": "文化祭",
+            "desc": "生徒たちによるハイレベルな科学研究発表やロボット実演が必見！"
+      }
+],
+    special_classes: [
+      {
+            "title": "サイエンス・リサーチ（課題研究）",
+            "desc": "理化学研究所や先端企業の研究者から直接指導を受け、自らの研究論文を執筆！"
+      }
+],
+    school_strengths: [
+      "大学院レベルの電子顕微鏡やクリーンルームを備えた国内最高峰の実験設備！",
+      "理化学研究所横浜キャンパス等との強力な産官学連携！",
+      "鶴見小野駅徒歩2分の好立地と公立一貫校ならではの学費無償！"
+],
+    life_simulation: "鶴見小野駅から徒歩2分。白衣に着替えて本格的な顕微鏡や実験装置に向かい、放課後は科学部やロボットコンテストのチームで深夜まで熱中します。",
+    parent_summary: "【教育方針・進学】横浜市が世界レベルの科学者・技術者育成を目指して設立したフラッグシップ校。理化学研究所等の最先端研究機関と直結した教育を行い、東大・東工大・医学部等に抜群の合格実績を誇ります。【環境・費用】公立校のため学費は格安で、私学を凌駕する設備を利用可能です。",
+    child_summary: "理科や実験が大好きな人には夢のような学校！本物の科学者が使うすごい実験器具や電子顕微鏡を使って、宇宙や生物の秘密を解き明かそう！",
+    tags: ["interest_science_space", "interest_nature_biology", "interest_puzzle_math"],
+    interest_category_label: "最先端科学・理数特化",
+    is_favorite: false
+  },
+  {
+    school_id: "sch_minami_fuzoku",
+    name: "横浜市立南高等学校附属中学校",
+    name_ruby: "よこはましりつみなみこうとうがっこうふぞくちゅうがっこう",
+    official_url: "https://www.edu.city.yokohama.lg.jp/school/jhs/hs-minami/",
+    catchphrase: "自立と探究の「南風」。高い学力と豊かな人間性を育む横浜の公立トップ校",
+    recommend_phrase: "★ 文武両道で仲間と高め合い、国際社会でリーダーシップを発揮したい人におすすめ！",
+    photo_url: "assets/images/real_shibushibu.jpg",
+    prefecture: "神奈川県",
+    district: "横浜市港南区東永谷",
+    station_name: "上大岡駅",
+    access_info: {
+      primary_line: "京急本線・横浜市営地下鉄ブルーライン",
+      hub_station: "横浜駅・上大岡駅",
+      walk_minutes: 0,
+      bus_minutes: 10,
+      school_bus: false,
+      school_bus_note: "上大岡駅・弘明寺駅より路線バス約10分「南高校前」下車すぐ"
+    },
+    can_walk: false,
+    can_bicycle: true,
+    course_name: "普通科（中高一貫課程）",
+    commute_time: 30,
+    tuition: 150000,
+    gender_type: "coed",
+    category: "public",
+    religion: "none",
+    university_path: "prep",
+    atmospheres: ["both", "academics"],
+    vibe_label: "文武両道・高い志",
+    club_label: "盛ん",
+    record_label: "◎",
+    deviation_score: 63,
+    match_rate_child: 94,
+    recent_passed_records: "東京大学・横浜国立大学・横浜市立大学医学部・早慶上理へ多数進学",
+    events: [
+      {
+            "id": "ev_sminami_1",
+            "title": "学校説明会・オープンスクール",
+            "date": "10月18日(土)",
+            "type": "学校説明会",
+            "desc": "南高独自の探究「EGG」と6年間の一貫指導について説明します。"
+      }
+],
+    special_classes: [
+      {
+            "title": "探究活動「EGG（未来への挑戦）」",
+            "desc": "グローバルな課題に対して多角的にアプローチし、提言する探究型カリキュラム！"
+      }
+],
+    school_strengths: [
+      "横浜市立大・横浜国立大をはじめとする難関国公立大学への高い進学実績！",
+      "活気あふれる生徒自治と文武両道を体現する充実した部活動！",
+      "公立校のため学費の心配なく6年間の高水準教育を完結！"
+],
+    life_simulation: "上大岡駅からバスで丘の上の緑豊かなキャンパスへ。活発な討論と確かな基礎演習を両立し、放課後は部活動に全力投球して心身を鍛えます。",
+    parent_summary: "【教育方針・進学】横浜市立屈指の進学校。6年一貫教育の完成により、東大・横国大・医学部など難関大への現役進学率が極めて高く推移しています。【環境・費用】丘陵地の広々としたキャンパス。公立のため授業料無償でコストパフォーマンスが抜群です。",
+    child_summary: "運動も勉強もどっちも一生懸命頑張りたい子に最高！先輩後輩の仲がとても良くて、文化祭や体育祭もみんなで本気で熱狂できる学校だよ！",
+    tags: ["interest_sports_outdoor", "interest_history_culture", "interest_puzzle_math"],
+    interest_category_label: "文武両道・リーダーシップ",
+    is_favorite: false
+  },
+  {
+    school_id: "sch_sagamihara_chuto",
+    name: "神奈川県立相模原中等教育学校",
+    name_ruby: "かながわけんりつさがみはらちゅうとうきょういくがっこう",
+    official_url: "https://www.pen-kanagawa.ed.jp/sagamihara-chuto-ss/",
+    catchphrase: "「信愛・調和・開拓」。相模原の緑の中で未来を拓く県立中等教育の旗手",
+    recommend_phrase: "★ 落ち着いた環境の中で自ら課題を見つけて探究し、国公立難関大を目指したい人におすすめ！",
+    photo_url: "assets/images/real_shibushibu.jpg",
+    prefecture: "神奈川県",
+    district: "相模原市南区相模大野",
+    station_name: "相模大野駅",
+    access_info: {
+      primary_line: "小田急小田原線・江ノ島線",
+      hub_station: "新宿駅・町田駅・相模大野駅",
+      walk_minutes: 15,
+      bus_minutes: 5,
+      school_bus: false,
+      school_bus_note: "小田急線「相模大野駅」北口より徒歩15分（またはバス約5分）"
+    },
+    can_walk: true,
+    can_bicycle: true,
+    course_name: "中等教育課程（6年一貫）",
+    commute_time: 30,
+    tuition: 150000,
+    gender_type: "coed",
+    category: "public",
+    religion: "none",
+    university_path: "prep",
+    atmospheres: ["academics", "stem"],
+    vibe_label: "自主自立・探究学習",
+    club_label: "盛ん",
+    record_label: "◎",
+    deviation_score: 63,
+    match_rate_child: 94,
+    recent_passed_records: "東京大学・東京工業大学・東北大学・横浜国立大学などへ毎年多数合格",
+    events: [
+      {
+            "id": "ev_saga_1",
+            "title": "学校説明会・見学会",
+            "date": "10月4日(土)",
+            "type": "学校説明会",
+            "desc": "6年間を見通したカリキュラムと探究学習の成果を展示します。"
+      }
+],
+    special_classes: [
+      {
+            "title": "相模原探究プロジェクト",
+            "desc": "宇宙科学研究所（JAXA相模原）等の立地を活かした先端科学と地域探究！"
+      }
+],
+    school_strengths: [
+      "JAXA相模原キャンパスとの連携など科学教育のリソースが充実！",
+      "相模大野駅からの徒歩圏で町田・新宿方面からもアクセス良好！",
+      "県立中等教育学校として安定した最難関大学合格実績！"
+],
+    life_simulation: "相模大野駅から緑道を通って登校。自習室や探究スペースを活用して仲間と議論を重ね、放課後は部活動や実験のまとめに打ち込みます。",
+    parent_summary: "【教育方針・進学】神奈川県が誇る県立中等教育学校の代表格。6年間一貫した論理的探究指導と学習管理により、東大・東工大など難関国公立大学への高い現役進学実績を確立。【環境・費用】小田急線相模大野駅徒歩圏。公立のため授業料無償です。",
+    child_summary: "JAXA（宇宙の研究所）の近くにあって、星やロケット、科学の探究が大好きな仲間が集まるよ！先生もみんな親切で楽しく学べるよ！",
+    tags: ["interest_science_space", "interest_nature_biology", "interest_puzzle_math"],
+    interest_category_label: "宇宙・先端科学探究",
+    is_favorite: false
+  },
+  {
+    school_id: "sch_saitama_urawa",
+    name: "さいたま市立浦和中学校",
+    name_ruby: "さいたましりつうらわちゅうがっこう",
+    official_url: "http://www.m-urawa.ed.jp/",
+    catchphrase: "文武両道・自由闊達。埼玉の文教都市・浦和で未来のグローバルリーダーを育む",
+    recommend_phrase: "★ 高い学力と強い団結力を持ち、部活も勉強も行事も全力で打ち込みたい人におすすめ！",
+    photo_url: "assets/images/real_shibushibu.jpg",
+    prefecture: "埼玉県",
+    district: "さいたま市浦和区元町",
+    station_name: "北浦和駅",
+    access_info: {
+      primary_line: "JR京浜東北線",
+      hub_station: "大宮駅・赤羽駅・東京駅",
+      walk_minutes: 10,
+      bus_minutes: 0,
+      school_bus: false,
+      school_bus_note: "JR京浜東北線「北浦和駅」東口より徒歩10分"
+    },
+    can_walk: true,
+    can_bicycle: true,
+    course_name: "普通科（中高一貫課程）",
+    commute_time: 25,
+    tuition: 150000,
+    gender_type: "coed",
+    category: "public",
+    religion: "none",
+    university_path: "prep",
+    atmospheres: ["both", "academics"],
+    vibe_label: "文武両道・高い志",
+    club_label: "非常に活発",
+    record_label: "◎",
+    deviation_score: 65,
+    match_rate_child: 96,
+    recent_passed_records: "東京大学・京都大学・国公立医学部・早慶上理へ圧倒的な合格者数",
+    events: [
+      {
+            "id": "ev_surawa_1",
+            "title": "学校説明会・授業公開",
+            "date": "10月11日(土)",
+            "type": "学校説明会",
+            "desc": "高い合格実績を支えるカリキュラムと部活動の両立を語ります。"
+      }
+],
+    special_classes: [
+      {
+            "title": "市立浦和探究ゼミ＆インターナショナルプログラム",
+            "desc": "高度な英語コミュニケーションと世界的な社会課題の解決策を模索する授業！"
+      }
+],
+    school_strengths: [
+      "埼玉県内公立一貫校最高峰の偏差値と抜群の東大・難関大合格実績！",
+      "北浦和駅徒歩10分の通学利便性と浦和の文教地区に位置する安心環境！",
+      "サッカー部をはじめとする名門部活動と学業の完璧な両立！"
+],
+    life_simulation: "北浦和駅から街路樹の並ぶ道を歩いて登校。高い意欲を持つ仲間と熱気あふれる授業を受け、放課後は部活に汗を流したあと自習室で集中して学習します。",
+    parent_summary: "【教育方針・進学】「市立浦和」の名で親しまれる名門中高一貫校。高い学力指導と生徒自治を両輪とし、東大・難関国立大・早慶に驚異的な合格実績を残しています。【環境・費用】浦和の閑静な住宅街。公立校のため費用対効果が極めて優れています。",
+    child_summary: "勉強もサッカーや部活動も全部本気！学校全体が活気にあふれていて、頼もしい先輩たちと一緒に大きな夢に向かって走れる学校だよ！",
+    tags: ["interest_sports_outdoor", "interest_history_culture", "interest_puzzle_math"],
+    interest_category_label: "文武両道・リーダーシップ",
+    is_favorite: false
+  },
+  {
+    school_id: "sch_ohmiya_kokusai",
+    name: "さいたま市立大宮国際中等教育学校",
+    name_ruby: "さいたましりつおおみやこくさいちゅうとうきょういくがっこう",
+    official_url: "https://www.city-saitama.ed.jp/ohmiyakokusai-h/",
+    catchphrase: "国際バカロレア（IB）認定校。グローバル社会で価値を創造するリーダーへ",
+    recommend_phrase: "★ 世界基準の探究学習（IBプログラム）や英語でのコミュニケーションを存分に体験したい人におすすめ！",
+    photo_url: "assets/images/real_shibushibu.jpg",
+    prefecture: "埼玉県",
+    district: "さいたま市大宮区三橋",
+    station_name: "大宮駅",
+    access_info: {
+      primary_line: "JR各線・東武野田線・ニューシャトル",
+      hub_station: "大宮駅",
+      walk_minutes: 0,
+      bus_minutes: 10,
+      school_bus: false,
+      school_bus_note: "大宮駅西口より路線バス約10分「並木南町」下車徒歩2分"
+    },
+    can_walk: false,
+    can_bicycle: true,
+    course_name: "中等教育課程（IB国際バカロレアコース併設）",
+    commute_time: 30,
+    tuition: 150000,
+    gender_type: "coed",
+    category: "public",
+    religion: "none",
+    university_path: "prep",
+    atmospheres: ["arts", "academics"],
+    vibe_label: "国際バカロレア・自由闊達",
+    club_label: "活発",
+    record_label: "◎",
+    deviation_score: 61,
+    match_rate_child: 93,
+    recent_passed_records: "東京外大・筑波大・早慶上智・海外有名大学へ多数進学",
+    events: [
+      {
+            "id": "ev_omiya_ib_1",
+            "title": "IBプログラム説明会・体験授業",
+            "date": "10月25日(土)",
+            "type": "学校説明会",
+            "desc": "世界基準の国際バカロレア教育と英語イマージョン授業を体験！"
+      }
+],
+    special_classes: [
+      {
+            "title": "IB（国際バカロレア）MYP/DPプログラム",
+            "desc": "教科を横断した課題探究と英語による論文執筆・プレゼンテーション！"
+      }
+],
+    school_strengths: [
+      "公立中等教育学校として国内屈指の本格的国際バカロレア認定校！",
+      "巨大ターミナル大宮駅からの抜群のアクセス！",
+      "海外大学・国内最難関大の総合型選抜に圧倒的な強み！"
+],
+    life_simulation: "大宮駅からバスで登校。多国籍な先生たちと英語で会話し、答えが一つではない社会問題についてディスカッションを重ねます。",
+    parent_summary: "【教育方針・進学】国際バカロレア（IB）の中等教育プログラム（MYP）およびディプロマプログラム（DP）を導入する公立中等教育学校。海外名門大学や国内最難関大の推薦・総合型選抜で抜群の実績を上げています。【環境・費用】大宮エリア。公立のためIB教育を破格の低費用で受講可能。",
+    child_summary: "教科書の丸暗記じゃない、世界とつながる楽しい勉強ができる！英語を使って自分の意見をみんなの前で堂々と発表できるようになるよ！",
+    tags: ["interest_drawing_create", "interest_history_culture", "interest_puzzle_math"],
+    interest_category_label: "国際バカロレア・探究",
+    is_favorite: false
+  },
+  {
+    school_id: "sch_kenritsu_chiba",
+    name: "千葉県立千葉中学校",
+    name_ruby: "ちばけんりつちばちゅうがっこう",
+    official_url: "https://cms1.chiba-c.ed.jp/chiba-j/",
+    catchphrase: "名門・県立千葉の伝統。高い知性と高潔な人格を培う公立の最高峰",
+    recommend_phrase: "★ 千葉県最高峰の環境で、学問の本質を深く探究し社会をリードする人材になりたい人におすすめ！",
+    photo_url: "assets/images/real_shibushibu.jpg",
+    prefecture: "千葉県",
+    district: "千葉市中央区葛城",
+    station_name: "本千葉駅",
+    access_info: {
+      primary_line: "JR外房線・内房線・千葉都市モノレール",
+      hub_station: "千葉駅・蘇我駅",
+      walk_minutes: 10,
+      bus_minutes: 0,
+      school_bus: false,
+      school_bus_note: "JR「本千葉駅」より徒歩10分、モノレール「県庁前駅」徒歩9分"
+    },
+    can_walk: true,
+    can_bicycle: true,
+    course_name: "普通科（中高一貫課程）",
+    commute_time: 30,
+    tuition: 150000,
+    gender_type: "coed",
+    category: "public",
+    religion: "none",
+    university_path: "prep",
+    atmospheres: ["academics", "stem"],
+    vibe_label: "自由・真理探究",
+    club_label: "活発",
+    record_label: "◎",
+    deviation_score: 66,
+    match_rate_child: 96,
+    recent_passed_records: "東京大学・京都大学・千葉大学医学部など最難関国立大学に多数合格",
+    events: [
+      {
+            "id": "ev_kchiba_1",
+            "title": "学校説明会・教育活動紹介",
+            "date": "10月11日(土)",
+            "type": "学校説明会",
+            "desc": "伝統ある県立千葉の一貫教育と高い進学成果を説明します。"
+      }
+],
+    special_classes: [
+      {
+            "title": "未来を拓くリベラルアーツ探究",
+            "desc": "哲学・数理科学・社会思想の古典から現代の諸問題までを幅広く探究！"
+      }
+],
+    school_strengths: [
+      "千葉県公立ナンバーワンの歴史・伝統と圧倒的な東大・難関大合格実績！",
+      "生徒の自主性を重んじる自由な校風とハイレベルな切磋琢磨の環境！",
+      "本千葉駅徒歩10分で千葉県内全域から無理なく通学可能！"
+],
+    life_simulation: "本千葉駅から歴史ある坂道を登って登校。大学レベルの講義やゼミ形式の授業を受け、放課後は文化部や運動部、自習室で充実した放課後を過ごします。",
+    parent_summary: "【教育方針・進学】千葉県公立校の頂点に君臨する名門校。中高一貫化によりさらに進学実績が伸長し、東大・京大・国公立医学部に安定した多数の合格者を誇ります。【環境・費用】県庁至近の歴史ある文教の地。公立校のため学費は格安です。",
+    child_summary: "千葉県で一番勉強ができるすごい先輩や友達が集まる場所！教科書の先にある面白い学問の世界を思いきり探究できるよ！",
+    tags: ["interest_puzzle_math", "interest_science_space", "interest_history_culture"],
+    interest_category_label: "高度学術・リベラルアーツ",
+    is_favorite: false
+  },
+  {
+    school_id: "sch_toukatsu",
+    name: "千葉県立東葛飾中学校",
+    name_ruby: "ちばけんりつとうかつしかちゅうがっこう",
+    official_url: "https://cms1.chiba-c.ed.jp/tohkatsu-jh/",
+    catchphrase: "「自主自律」。東葛の自由な気風の中で創造力と知性を羽ばたかせる",
+    recommend_phrase: "★ 校則に縛られず自由な雰囲気の中で、自分の好きな研究や行事に熱中したい人におすすめ！",
+    photo_url: "assets/images/real_shibushibu.jpg",
+    prefecture: "千葉県",
+    district: "柏市旭町",
+    station_name: "柏駅",
+    access_info: {
+      primary_line: "JR常磐線・東武アーバンパークライン",
+      hub_station: "上野駅・船橋駅・松戸駅",
+      walk_minutes: 8,
+      bus_minutes: 0,
+      school_bus: false,
+      school_bus_note: "JR常磐線・東武野田線「柏駅」西口より徒歩8分"
+    },
+    can_walk: true,
+    can_bicycle: true,
+    course_name: "普通科（中高一貫課程）",
+    commute_time: 25,
+    tuition: 150000,
+    gender_type: "coed",
+    category: "public",
+    religion: "none",
+    university_path: "prep",
+    atmospheres: ["both", "academics"],
+    vibe_label: "自由闊達・自主自立",
+    club_label: "盛ん",
+    record_label: "◎",
+    deviation_score: 64,
+    match_rate_child: 95,
+    recent_passed_records: "東京大学・東北大学・筑波大学・東京理科大などへ多数合格",
+    events: [
+      {
+            "id": "ev_toukatsu_1",
+            "title": "学校説明会・見学会",
+            "date": "10月18日(土)",
+            "type": "学校説明会",
+            "desc": "東葛独自の探究「東葛リサーチ」と活気ある学校生活をご紹介します。"
+      }
+],
+    special_classes: [
+      {
+            "title": "東葛リサーチ（課題研究）",
+            "desc": "自ら設定したテーマについて3年間かけて調査・実験・論文執筆を行う本格探究！"
+      }
+],
+    school_strengths: [
+      "柏駅西口徒歩8分の抜群の交通アクセス！",
+      "私服通学も可能な極めて自由で自主性を尊重する伝統の校風！",
+      "県立千葉と並び称される千葉県公立トップクラスの難関大合格実績！"
+],
+    life_simulation: "柏駅から賑やかな商店街を抜けてすぐ登校。生徒自らが企画する行事やハイレベルな探究授業を楽しみ、放課後は部活や自習に自由に取り組みます。",
+    parent_summary: "【教育方針・進学】東葛エリアを代表する名門校。徹底した自主自律の校風のもと、深い探究心と高い教養を身につけ、難関国立大・早慶理科大等へ高い現役合格実績を残しています。【環境・費用】柏駅至近で利便性抜群。公立のため授業料無償です。",
+    child_summary: "制服がなくて私服で通える自由でかっこいい学校！文化祭や体育祭も生徒たちがゼロから作り上げて、思い切り熱中できるよ！",
+    tags: ["interest_puzzle_math", "interest_drawing_create", "interest_nature_biology"],
+    interest_category_label: "自由闊達・自律探究",
+    is_favorite: false
+  },
+  {
+    school_id: "sch_sakuyakonohana",
+    name: "大阪府立咲くやこの花中学校",
+    name_ruby: "おおさかふりつさくやこのはなちゅうがっこう",
+    official_url: "https://www3.osaka-c.ed.jp/sakuyakonohana-js/",
+    catchphrase: "ものづくり・スポーツ・言語・芸術。4つの分野で個性を輝かせる公立中高一貫校",
+    recommend_phrase: "★ ロボットや絵画、言葉の表現など自分の「大好きな分野」をとことん極めたい人におすすめ！",
+    photo_url: "assets/images/real_shibushibu.jpg",
+    prefecture: "大阪府",
+    district: "大阪市此花区西九条",
+    station_name: "西九条駅",
+    access_info: {
+      primary_line: "JR大阪環状線・阪神なんば線",
+      hub_station: "大阪（梅田）駅・なんば駅・天王寺駅",
+      walk_minutes: 5,
+      bus_minutes: 0,
+      school_bus: false,
+      school_bus_note: "JR大阪環状線・阪神なんば線「西九条駅」より徒歩5分"
+    },
+    can_walk: true,
+    can_bicycle: true,
+    course_name: "総合学科（ものづくり・スポーツ・言語・芸術分野）",
+    commute_time: 25,
+    tuition: 150000,
+    gender_type: "coed",
+    category: "public",
+    religion: "none",
+    university_path: "prep",
+    atmospheres: ["stem", "arts"],
+    vibe_label: "個性伸長・専門探究",
+    club_label: "盛ん",
+    record_label: "◎",
+    deviation_score: 60,
+    match_rate_child: 93,
+    recent_passed_records: "大阪大学・神戸大学・大阪公立大学・芸術大学など多彩な進路実績",
+    events: [
+      {
+            "id": "ev_sakuya_1",
+            "title": "4分野別体験フェスタ＆説明会",
+            "date": "10月4日(土)",
+            "type": "学校説明会",
+            "desc": "ロボット工作・造形芸術・英語スピーチなどの専門施設を体験できます。"
+      }
+],
+    special_classes: [
+      {
+            "title": "ものづくり・理工探究ゼミ",
+            "desc": "最新の3Dプリンタやプログラミング環境を活用した本格的な作品制作！"
+      }
+],
+    school_strengths: [
+      "西九条駅徒歩5分の抜群の交通至便立地！大阪市内外から通学容易！",
+      "全国的にも珍しい「ものづくり・芸術・言語・スポーツ」の専門分野別指導！",
+      "公立校のため学費の心配なく専門的な施設・機材を存分に活用可能！"
+],
+    life_simulation: "西九条駅から徒歩5分。アトリエや工房、広いアリーナなど専門設備が揃う校舎で好きな研究に打ち込み、放課後はコンテストに向けて仲間と制作を進めます。",
+    parent_summary: "【教育方針・進学】大阪府立の中高一貫校。4つの専門分野（ものづくり、スポーツ、言語、芸術）を設置し、生徒の才能を早期から開花させ、国公立大・難関私大への確実な進学を実現。【環境・費用】西九条駅すぐ。公立のため授業料無償で専門教育が受けられます。",
+    child_summary: "工作やロボット、絵を描くこと、英語が好きな子にはたまらない！専門の工房や広い体育館で、自分の得意なことを毎日思いきり楽しめるよ！",
+    tags: ["interest_drawing_create", "interest_science_space", "interest_sports_outdoor"],
+    interest_category_label: "専門探究・ものづくり芸術",
+    is_favorite: false
+  },
+  {
+    school_id: "sch_rakuhoku_fuzoku",
+    name: "京都府立洛北高等学校附属中学校",
+    name_ruby: "きょうとふりつらくほくこうとうがっこうふぞくちゅうがっこう",
+    official_url: "http://www.kyoto-be.ne.jp/rakuhoku-hs/",
+    catchphrase: "ノーベル賞学者・湯川秀樹の母校。「あくなき真理探究」の精神が息づく京都の名門",
+    recommend_phrase: "★ 数学や自然科学の謎を解き明かし、京都の落ち着いた学術環境で深く学びたい人におすすめ！",
+    photo_url: "assets/images/real_shibushibu.jpg",
+    prefecture: "京都府",
+    district: "京都市左京区下鴨梅ノ木町",
+    station_name: "北山駅",
+    access_info: {
+      primary_line: "京都市営地下鉄烏丸線",
+      hub_station: "京都駅・四条駅",
+      walk_minutes: 10,
+      bus_minutes: 0,
+      school_bus: false,
+      school_bus_note: "地下鉄烏丸線「北山駅」または「松ヶ崎駅」より徒歩10分"
+    },
+    can_walk: true,
+    can_bicycle: true,
+    course_name: "普通科（中高一貫コース）",
+    commute_time: 25,
+    tuition: 150000,
+    gender_type: "coed",
+    category: "public",
+    religion: "none",
+    university_path: "prep",
+    atmospheres: ["stem", "academics"],
+    vibe_label: "科学探究・学術思索",
+    club_label: "盛ん",
+    record_label: "◎",
+    deviation_score: 64,
+    match_rate_child: 95,
+    recent_passed_records: "京都大学・大阪大学・国公立大学医学部に毎年多数の現役合格",
+    events: [
+      {
+            "id": "ev_rakuhoku_1",
+            "title": "学校説明会・洛北サイエンス体験",
+            "date": "10月11日(土)",
+            "type": "学校説明会",
+            "desc": "湯川秀樹博士の伝統を受け継ぐ理数探究教育の魅力を伝えます。"
+      }
+],
+    special_classes: [
+      {
+            "title": "洛北サイエンス＆フロンティア探究",
+            "desc": "京都大学など研究機関と連携し、身の回りの物理・化学の謎を実験解明！"
+      }
+],
+    school_strengths: [
+      "湯川秀樹・朝永振一郎両ノーベル賞博士を育んだ旧制京都一中の誇り高き伝統！",
+      "京都大学への現役合格率をはじめとする圧倒的な国公立難関大実績！",
+      "下鴨神社の緑にほど近い静謐でアカデミックな教育環境！"
+],
+    life_simulation: "北山駅から鴨川の風を感じながら登校。ハイレベルな理数ゼミや文学の読解に集中し、放課後は実験室や自習室で仲間と知的な議論を交わします。",
+    parent_summary: "【教育方針・進学】府立一中を前身とする京都最古の公立名門校。伝統の「洛北サイエンス」を通じて論理的・科学的思考力を徹底的に磨き、京大をはじめとする難関国公立大学へ抜群の実績を誇ります。【環境・費用】左京区下鴨の文教エリア。公立のため学費負担も最小限です。",
+    child_summary: "ノーベル賞をもらった湯川秀樹先生の母校！理科の実験や算数のパズルが大好きな仲間と一緒に、宇宙や自然の不思議をとことん探究できるよ！",
+    tags: ["interest_science_space", "interest_puzzle_math", "interest_nature_biology"],
+    interest_category_label: "科学真理探究・学術",
+    is_favorite: false
+  },
+  {
+    school_id: "sch_azabu",
+    name: "麻布中学校",
+    name_ruby: "あざぶちゅうがっこう",
+    official_url: "https://www.azabu-jh.ed.jp/",
+    catchphrase: "「自由闊達・自主自立」。校則のない学び舎で、自らの頭で考え抜く個性を育む男子御三家",
+    recommend_phrase: "★ 何事にも縛られず、自分の興味をトコトン突き詰めて深い議論を楽しみたい人におすすめ！",
+    photo_url: "assets/images/real_shibushibu.jpg",
+    prefecture: "東京都",
+    district: "港区南麻布",
+    station_name: "広尾駅",
+    access_info: {
+      primary_line: "東京メトロ日比谷線",
+      hub_station: "恵比寿駅・六本木駅・中目黒駅",
+      walk_minutes: 10,
+      bus_minutes: 0,
+      school_bus: false,
+      school_bus_note: "東京メトロ日比谷線「広尾駅」より徒歩10分"
+    },
+    can_walk: true,
+    can_bicycle: false,
+    course_name: "普通科（中高一貫課程）",
+    commute_time: 25,
+    tuition: 980000,
+    gender_type: "boys",
+    category: "private",
+    religion: "none",
+    university_path: "prep",
+    atmospheres: ["both", "academics"],
+    vibe_label: "自由奔放・徹底思考",
+    club_label: "極めて活発",
+    record_label: "◎",
+    deviation_score: 71,
+    match_rate_child: 98,
+    recent_passed_records: "東京大学・京都大学・国公立大学医学部に毎年100名以上の合格者を輩出",
+    events: [
+      {
+            "id": "ev_azabu_1",
+            "title": "麻布学園文化祭",
+            "date": "5月2日(土)〜4日(月)",
+            "type": "文化祭",
+            "desc": "生徒たちだけで完全に運営される伝説の文化祭。展示・論文・髪染めまで圧巻の熱量！"
+      },
+      {
+            "id": "ev_azabu_2",
+            "title": "学校説明会",
+            "date": "10月18日(土)",
+            "type": "学校説明会",
+            "desc": "麻布の自由教育の真髄と教育方針を語る説明会です。"
+      }
+],
+    special_classes: [
+      {
+            "title": "オリジナル教養テキスト＆自由研究ゼミ",
+            "desc": "検定教科書にとらわれず、教員自作の本格教材で学問の深奥を議論！"
+      }
+],
+    school_strengths: [
+      "開成・武蔵と並ぶ男子御三家筆頭！圧倒的な東大合格実績と独自の学風！",
+      "細かな校則がなく、髪型や服装も含め生徒自身の自己責任と自主性を徹底尊重！",
+      "政財界・学術・文化界の第一線で活躍する個性豊かなOBネットワーク！"
+],
+    life_simulation: "広尾駅から有栖川公園の緑を抜けて登校。教室では教員と生徒が対等に学問を論じ合い、放課後は部活動や文化祭の準備に夜遅くまで熱中します。",
+    parent_summary: "【教育方針・進学】東京男子御三家の一角。明文化された校則を持たず、徹底した自由と自立のもとで自ら思考・判断する力を養成。東大をはじめとする最難関大学へ毎年多数の合格者を輩出。【環境・費用】港区南麻布の閑静な邸宅街。私立男子進学校の最高峰です。",
+    child_summary: "校則がなくてとにかく自由！自分の好きなことや面白いと思ったことをとことん研究できて、ユニークで頭のいい最高の仲間と出会える学校だよ！",
+    tags: ["interest_puzzle_math", "interest_history_culture", "interest_science_space"],
+    interest_category_label: "自由闊達・本質思考",
+    is_favorite: false
+  },
+  {
+    school_id: "sch_musashi_boys",
+    name: "武蔵中学校",
+    name_ruby: "むさしちゅうがっこう",
+    official_url: "https://www.musashi.ed.jp/",
+    catchphrase: "「自ら調べ自ら考える」。豊かな緑の武蔵野で本物に触れる男子御三家の名門",
+    recommend_phrase: "★ 広大な自然の中で本物の実験や原典講読を楽しみ、学問の根本をじっくり学びたい人におすすめ！",
+    photo_url: "assets/images/real_shibushibu.jpg",
+    prefecture: "東京都",
+    district: "練馬区豊玉上",
+    station_name: "江古田駅",
+    access_info: {
+      primary_line: "西武池袋線・都営大江戸線・西武有楽町線",
+      hub_station: "池袋駅・新宿駅・練馬駅",
+      walk_minutes: 6,
+      bus_minutes: 0,
+      school_bus: false,
+      school_bus_note: "西武池袋線「江古田駅」徒歩6分、都営大江戸線「新江古田駅」徒歩7分"
+    },
+    can_walk: true,
+    can_bicycle: false,
+    course_name: "普通科（中高一貫課程）",
+    commute_time: 25,
+    tuition: 950000,
+    gender_type: "boys",
+    category: "private",
+    religion: "none",
+    university_path: "prep",
+    atmospheres: ["stem", "academics"],
+    vibe_label: "本物志向・自調自考",
+    club_label: "盛ん",
+    record_label: "◎",
+    deviation_score: 68,
+    match_rate_child: 96,
+    recent_passed_records: "東京大学・東京工業大学・国公立大学医学部に高い合格率",
+    events: [
+      {
+            "id": "ev_musashi_1",
+            "title": "記念祭（文化祭）",
+            "date": "4月26日(土)〜27日(日)",
+            "type": "文化祭",
+            "desc": "生物部や物理部による本格的な研究展示が全国的に有名な伝統の祭典！"
+      }
+],
+    special_classes: [
+      {
+            "title": "本物に触れる野外実習＆原典購読",
+            "desc": "校内の川や林でのフィールドワークや、一人一台の顕微鏡を使った本格実験！"
+      }
+],
+    school_strengths: [
+      "広大な武蔵野の自然林と小川が流れる都内随一の緑豊かなキャンパス！",
+      "男子御三家の一角。少人数教育と記述・対話を重視したハイレベルな学問指導！",
+      "江古田駅徒歩6分のアクセスと池袋・新宿からの至近な通学環境！"
+],
+    life_simulation: "江古田駅から緑の木立へ。授業では顕微鏡で生きたプランクトンを観察したり、歴史の原典資料を読み解いたり。放課後は自然に囲まれた校庭で仲間と過ごします。",
+    parent_summary: "【教育方針・進学】男子御三家の一角。「自ら調べ自ら考える」自調自考の精神のもと、詰め込みを排し、本物に触れる実体験と徹底した記述指導を展開。東大をはじめとする難関大学へ多数の進学者を送り出しています。【環境・費用】広大な自然林を抱える贅沢な学習環境。",
+    child_summary: "学校の中に本物の小川や森がある！理科の授業では一人に一つずつ顕微鏡があって、生き物や星を心ゆくまで調べられるワクワクいっぱいの学校だよ！",
+    tags: ["interest_nature_biology", "interest_science_space", "interest_puzzle_math"],
+    interest_category_label: "自然体験・本物探究",
+    is_favorite: false
+  },
+  {
+    school_id: "sch_komaba_toho",
+    name: "駒場東邦中学校",
+    name_ruby: "こまばとうほうちゅうがっこう",
+    official_url: "https://www.komabatoho-jh.ed.jp/",
+    catchphrase: "「自主・理愛・勤勉」。駒場の緑の中で確かな知性と友愛を育む名門男子進学校",
+    recommend_phrase: "★ 仲間と団結して体育祭や文化祭に燃え、理科の実験や東大進学に全力で挑戦したい人におすすめ！",
+    photo_url: "assets/images/real_shibushibu.jpg",
+    prefecture: "東京都",
+    district: "世田谷区池尻",
+    station_name: "駒場東大前駅",
+    access_info: {
+      primary_line: "京王井の頭線・東急田園都市線",
+      hub_station: "渋谷駅・吉祥寺駅・二子玉川駅",
+      walk_minutes: 10,
+      bus_minutes: 0,
+      school_bus: false,
+      school_bus_note: "京王井の頭線「駒場東大前駅」徒歩10分、田園都市線「池尻大橋駅」徒歩10分"
+    },
+    can_walk: true,
+    can_bicycle: false,
+    course_name: "普通科（中高一貫課程）",
+    commute_time: 25,
+    tuition: 970000,
+    gender_type: "boys",
+    category: "private",
+    religion: "none",
+    university_path: "prep",
+    atmospheres: ["both", "stem"],
+    vibe_label: "文武両道・熱い絆",
+    club_label: "非常に活発",
+    record_label: "◎",
+    deviation_score: 69,
+    match_rate_child: 97,
+    recent_passed_records: "東京大学・国公立大学医学部に毎年圧倒的な合格実績（東大合格者数全国トップクラス）",
+    events: [
+      {
+            "id": "ev_kt_1",
+            "title": "文化祭（駒東祭）",
+            "date": "9月20日(土)〜21日(日)",
+            "type": "文化祭",
+            "desc": "男子校ならではの活気と知的な展示、熱狂的なステージが魅力の文化祭！"
+      },
+      {
+            "id": "ev_kt_2",
+            "title": "体育祭",
+            "date": "5月17日(土)",
+            "type": "学校行事",
+            "desc": "全校が色別に分かれて激突する駒東名物の熱い体育祭！"
+      }
+],
+    special_classes: [
+      {
+            "title": "充実の理科4分野実験＆東邦大医学部連携講座",
+            "desc": "中学3年間で100回以上の実験を実施し、科学的思考力を徹底的に鍛え上げる！"
+      }
+],
+    school_strengths: [
+      "東大合格者数・医学部合格実績で常に全国最上位を維持！",
+      "渋谷から至近（駒場東大前・池尻大橋）の極めて良好な都心アクセス！",
+      "充実した実験室と圧倒的な実験回数で理系・医学部に強い！"
+],
+    life_simulation: "渋谷から井の頭線で数分、駒場東大前駅から歩いて登校。午前はレベルの高い数学や英語の授業、午後は本格的な実験を行い、放課後は部活と自習に熱中します。",
+    parent_summary: "【教育方針・進学】東大合格者数で全国屈指の実績を誇る最難関男子進学校。医学部系大学との連携もあり、医学部進学実績も突出。面倒見の良さと自由な活気が見事に調和しています。【環境・費用】世田谷区池尻・目黒区境の緑豊かな教育地区に位置。",
+    child_summary: "体育祭や文化祭の熱気がすごい！理科の実験が中学だけで100回以上もあって、面白い実験をしながら仲間と本気で競い合える学校だよ！",
+    tags: ["interest_puzzle_math", "interest_science_space", "interest_sports_outdoor"],
+    interest_category_label: "理数科学・文武両道",
+    is_favorite: false
+  },
+  {
+    school_id: "sch_kaijo",
+    name: "海城中学校",
+    name_ruby: "かいじょうちゅうがっこう",
+    official_url: "https://www.kaijo.ed.jp/",
+    catchphrase: "「新しい紳士の手ほどき」。先進のサイエンスセンターとドラマ教育で人間力を磨く",
+    recommend_phrase: "★ 先進的な理科実験やグローバル社会課題の解決に興味があり、確かな難関大進学力をつけたい人におすすめ！",
+    photo_url: "assets/images/real_shibushibu.jpg",
+    prefecture: "東京都",
+    district: "新宿区大久保",
+    station_name: "新大久保駅",
+    access_info: {
+      primary_line: "JR山手線・中央総武線・東京メトロ副都心線",
+      hub_station: "新宿駅・高田馬場駅・池袋駅",
+      walk_minutes: 5,
+      bus_minutes: 0,
+      school_bus: false,
+      school_bus_note: "JR山手線「新大久保駅」徒歩5分、総武線「大久保駅」徒歩10分"
+    },
+    can_walk: true,
+    can_bicycle: false,
+    course_name: "普通科（中高一貫課程）",
+    commute_time: 20,
+    tuition: 980000,
+    gender_type: "boys",
+    category: "private",
+    religion: "none",
+    university_path: "prep",
+    atmospheres: ["stem", "academics"],
+    vibe_label: "先進科学・紳士教育",
+    club_label: "活発",
+    record_label: "◎",
+    deviation_score: 69,
+    match_rate_child: 96,
+    recent_passed_records: "東京大学・京都大学・国公立大医学部へ安定して50名以上の東大合格実績",
+    events: [
+      {
+            "id": "ev_kaijo_1",
+            "title": "海原祭（文化祭）",
+            "date": "9月13日(土)〜14日(日)",
+            "type": "文化祭",
+            "desc": "サイエンスセンターでの公開実験や生徒の研究論文発表が見どころ！"
+      }
+],
+    special_classes: [
+      {
+            "title": "サイエンスセンター探究＆PA（プロジェクトアドベンチャー）",
+            "desc": "大学水準の実験棟での課題研究と、協調性・リーダーシップを養う体験教育！"
+      }
+],
+    school_strengths: [
+      "最新鋭の理科教育施設「サイエンスセンター」による圧倒的な実験環境！",
+      "新大久保駅徒歩5分、新宿・池袋からすぐの抜群の通学アクセス！",
+      "社会科総合学習やドラマ教育など「発信力・対話力」を高める独自の人間教育！"
+],
+    life_simulation: "山手線新大久保駅から歩いて5分。ガラス張りのサイエンスセンターで高度な生物・化学の実験を行い、放課後は体育館や自習ラウンジで仲間と過ごします。",
+    parent_summary: "【教育方針・進学】「新しい紳士の育成」を掲げる名門男子進学校。対話力・表現力を鍛える社会科探究やドラマ教育、最新鋭のサイエンスセンターでの実験教育が高い評価を獲得。東大・医学部実績も盤石です。【環境・費用】山手線新大久保駅徒歩5分で極めて良好な通学利便性。",
+    child_summary: "超ハイテクな理科実験ビル（サイエンスセンター）があって実験が最高に楽しい！仲間と協力して体を動かすアドベンチャープログラムもワクワクするよ！",
+    tags: ["interest_science_space", "interest_puzzle_math", "interest_drawing_create"],
+    interest_category_label: "先進理数・人間力探究",
+    is_favorite: false
+  },
+  {
+    school_id: "sch_waseda_jh",
+    name: "早稲田中学校",
+    name_ruby: "わせだちゅうがっこう",
+    official_url: "https://www.waseda-h.ed.jp/",
+    catchphrase: "大隈重信の志を継ぐ。「誠実・剛毅・雄弁」で東大・早大の両方を狙える名門男子校",
+    recommend_phrase: "★ 早稲田大学の推薦枠を確保しつつ、東京大学や国公立医学部にも果敢に挑戦したい人におすすめ！",
+    photo_url: "assets/images/real_shibushibu.jpg",
+    prefecture: "東京都",
+    district: "新宿区馬場下町",
+    station_name: "早稲田駅",
+    access_info: {
+      primary_line: "東京メトロ東西線",
+      hub_station: "大手町駅・飯田橋駅・高田馬場駅",
+      walk_minutes: 1,
+      bus_minutes: 0,
+      school_bus: false,
+      school_bus_note: "東京メトロ東西線「早稲田駅」3b出口より徒歩1分"
+    },
+    can_walk: true,
+    can_bicycle: false,
+    course_name: "普通科（中高一貫課程）",
+    commute_time: 20,
+    tuition: 940000,
+    gender_type: "boys",
+    category: "private",
+    religion: "none",
+    university_path: "prep",
+    atmospheres: ["both", "academics"],
+    vibe_label: "質実剛健・高い志",
+    club_label: "盛ん",
+    record_label: "◎",
+    deviation_score: 68,
+    match_rate_child: 96,
+    recent_passed_records: "東京大学40名前後合格＋早稲田大学へ約50%が推薦進学する抜群の進学力",
+    events: [
+      {
+            "id": "ev_waseda_1",
+            "title": "興風祭（文化祭）",
+            "date": "9月27日(土)〜28日(日)",
+            "type": "文化祭",
+            "desc": "早稲田魂あふれる熱気ある展示やクラブ発表が盛り上がる名物行事！"
+      }
+],
+    special_classes: [
+      {
+            "title": "早稲田大学連携講義＆グローバルゼミ",
+            "desc": "早大理工学部・法学部などの教授陣による特別授業や研究室見学！"
+      }
+],
+    school_strengths: [
+      "東西線早稲田駅徒歩1分の至近距離！雨の日も快適に通学可能！",
+      "早稲田大学への推薦枠を約5割保持しながら、東大・国公立大へ多数挑戦できる独自ポジション！",
+      "文武両道の質実剛健な男子校カルチャーと熱い絆！"
+],
+    life_simulation: "地下鉄早稲田駅を出てわずか1分で校舎へ。早稲田大学のキャンパスを隣に見ながら学問に励み、放課後はグラウンドや道場で部活に汗を流します。",
+    parent_summary: "【教育方針・進学】大隈重信の創設精神を受け継ぐ系属校。早稲田大学への約50％の推薦枠を保持しつつ、東大をはじめとする難関国公立大学への一般受験指導にも徹底注力。安全弁と高い挑戦意欲を兼ね備えた屈指の人気校です。【環境・費用】早稲田駅徒歩1分。",
+    child_summary: "地下鉄の駅から歩いて1分！早稲田大学のすぐ隣にあって、大学の先生のお話を聞いたり、部活も勉強もかっこいい先輩たちと全力で頑張れるよ！",
+    tags: ["interest_sports_outdoor", "interest_puzzle_math", "interest_history_culture"],
+    interest_category_label: "質実剛健・早大連携",
+    is_favorite: false
+  },
+  {
+    school_id: "sch_waseda_jitsugyo",
+    name: "早稲田実業学校中等部",
+    name_ruby: "わせだじつぎょうがっこうちゅうとうぶ",
+    official_url: "https://www.wasedajg.ed.jp/",
+    catchphrase: "「去華就実」「三敬主義」。国分寺の緑の中で早稲田の精神を受け継ぐ伝統共学校",
+    recommend_phrase: "★ 早稲田大学へ全員進学を目指し、勉学もスポーツも行事も一生モノの仲間と謳歌したい人におすすめ！",
+    photo_url: "assets/images/real_shibushibu.jpg",
+    prefecture: "東京都",
+    district: "国分寺市本町",
+    station_name: "国分寺駅",
+    access_info: {
+      primary_line: "JR中央線・西武国分寺線・多摩湖線",
+      hub_station: "新宿駅・立川駅・吉祥寺駅",
+      walk_minutes: 7,
+      bus_minutes: 0,
+      school_bus: false,
+      school_bus_note: "JR中央線・西武線「国分寺駅」北口より徒歩7分"
+    },
+    can_walk: true,
+    can_bicycle: false,
+    course_name: "普通科（早稲田大学系属小中高一貫）",
+    commute_time: 30,
+    tuition: 1050000,
+    gender_type: "coed",
+    category: "private",
+    religion: "none",
+    university_path: "attached",
+    atmospheres: ["both", "academics"],
+    vibe_label: "去華就実・文武両道",
+    club_label: "非常に活発",
+    record_label: "◎",
+    deviation_score: 67,
+    match_rate_child: 95,
+    recent_passed_records: "卒業生のほぼ全員（約98%以上）が早稲田大学の各学部へ進学",
+    events: [
+      {
+            "id": "ev_wj_1",
+            "title": "稲実祭（文化祭）",
+            "date": "10月4日(土)〜5日(日)",
+            "type": "文化祭",
+            "desc": "小中高合同の巨大文化祭。活気あふれる模擬店や応援指導部の熱演！"
+      }
+],
+    special_classes: [
+      {
+            "title": "早稲田大学直結リサーチプログラム",
+            "desc": "大学の各学部との連携講座や論文作成を通じた先取り高等教育！"
+      }
+],
+    school_strengths: [
+      "早稲田大学へのほぼ100%の推薦進学保証と豊富な学部選択肢！",
+      "JR中央線特快停車駅・国分寺駅徒歩7分の抜群の通学利便性！",
+      "甲子園優勝の硬式野球部をはじめとする全国トップレベルのクラブ活動！"
+],
+    life_simulation: "国分寺駅から歩いて7分。広々としたグラウンドと近代的な校舎で学び、大学受験にとらわれずに部活や自分の好きな研究に全力投球します。",
+    parent_summary: "【教育方針・進学】早稲田大学系属の名門共学校。ほぼ全生徒が早稲田大学の政経・法・理工・商などの主要学部へ内部推薦進学。受験勉強に追われることなく、幅広い教養と強靭な人間力を養えます。【環境・費用】国分寺駅徒歩7分。充実した教育施設とスポーツ環境。",
+    child_summary: "憧れの早稲田大学にみんなで進学できる！受験のプレッシャーなしに、野球やサッカー、音楽や研究など、やりたいことに思いきり熱中できるよ！",
+    tags: ["interest_sports_outdoor", "interest_history_culture", "interest_drawing_create"],
+    interest_category_label: "早稲田大学直結・文武両道",
+    is_favorite: false
+  },
+  {
+    school_id: "sch_keio_chutobu",
+    name: "慶應義塾中等部",
+    name_ruby: "けいおうぎじゅくちゅうとうぶ",
+    official_url: "https://www.kgc.keio.ac.jp/",
+    catchphrase: "「独立自尊」。福澤諭吉の精神を受け継ぐ三田の杜の共学校",
+    recommend_phrase: "★ 慶應義塾の誇りと自由を胸に、自立した個性的な仲間と伸び伸びと学校生活を楽しみたい人におすすめ！",
+    photo_url: "assets/images/real_shibushibu.jpg",
+    prefecture: "東京都",
+    district: "港区三田",
+    station_name: "田町駅",
+    access_info: {
+      primary_line: "JR山手線・京浜東北線・都営浅草線・三田線",
+      hub_station: "東京駅・品川駅・渋谷駅",
+      walk_minutes: 10,
+      bus_minutes: 0,
+      school_bus: false,
+      school_bus_note: "JR田町駅徒歩10分、都営浅草線・三田線「三田駅」徒歩8分"
+    },
+    can_walk: true,
+    can_bicycle: false,
+    course_name: "普通科（慶應義塾一貫教育）",
+    commute_time: 25,
+    tuition: 1100000,
+    gender_type: "coed",
+    category: "private",
+    religion: "none",
+    university_path: "attached",
+    atmospheres: ["both", "arts"],
+    vibe_label: "独立自尊・自由共学",
+    club_label: "盛ん",
+    record_label: "◎",
+    deviation_score: 68,
+    match_rate_child: 96,
+    recent_passed_records: "慶應義塾高校・慶應女子高校等を経て全員が慶應義塾大学各学部へ進学",
+    events: [
+      {
+            "id": "ev_kc_1",
+            "title": "中等部展覧会（文化祭）",
+            "date": "10月25日(土)〜26日(日)",
+            "type": "文化祭",
+            "desc": "生徒一人ひとりの個性的な作品や研究が展示される伝統の展覧会！"
+      }
+],
+    special_classes: [
+      {
+            "title": "福澤心訓と総合探究学習",
+            "desc": "福澤諭吉の思想を学び、自ら課題を見つけて解決する独立自尊の学び！"
+      }
+],
+    school_strengths: [
+      "慶應義塾大学（医学部含む）への確実な内部進学ルート！",
+      "三田の慶應義塾大学本部に隣接する都心最高峰のアカデミックな立地！",
+      "男子も女子も互いの個性を尊重し合う自由で洗練された校風！"
+],
+    life_simulation: "田町・三田駅から慶應大学の赤レンガ図書館を眺めながら登校。自由でアットホームな教室で学び、放課後は部活や展覧会の準備に笑顔で取り組みます。",
+    parent_summary: "【教育方針・進学】慶應義塾の共学中等教育機関。福澤諭吉の「独立自尊」のもと、豊かな個性と自主性を尊重。慶應義塾の一貫教育により、医学部を含む慶應義塾大学全学部への推薦進学が約束されています。【環境・費用】港区三田。国内最高峰のブランドと教育環境を誇ります。",
+    child_summary: "慶應義塾大学のすぐお隣にあって、おしゃれで自由な雰囲気！制服も素敵で、優しい先生や一生の親友と一緒に楽しく大人へと成長できるよ！",
+    tags: ["interest_history_culture", "interest_drawing_create", "interest_sports_outdoor"],
+    interest_category_label: "慶應義塾一貫・独立自尊",
+    is_favorite: false
+  },
+  {
+    school_id: "sch_joshigakuin",
+    name: "女子学院中学校",
+    name_ruby: "じょしがくいんちゅうがっこう",
+    official_url: "https://www.joshigakuin.ed.jp/",
+    catchphrase: "自らを治める自由。プロテスタント精神と高い知性を育む女子御三家の名門",
+    recommend_phrase: "★ 制服や細かな校則に縛られず、自分の意志で判断し、学問も議論も深く究めたい人におすすめ！",
+    photo_url: "assets/images/real_shibushibu.jpg",
+    prefecture: "東京都",
+    district: "千代田区一番町",
+    station_name: "市ヶ谷駅",
+    access_info: {
+      primary_line: "JR総武線・東京メトロ有楽町線・南北線・都営新宿線",
+      hub_station: "新宿駅・飯田橋駅・四ツ谷駅",
+      walk_minutes: 8,
+      bus_minutes: 0,
+      school_bus: false,
+      school_bus_note: "JR・地下鉄各線「市ヶ谷駅」徒歩8分、有楽町線「麹町駅」徒歩3分"
+    },
+    can_walk: true,
+    can_bicycle: false,
+    course_name: "普通科（中高一貫課程）",
+    commute_time: 25,
+    tuition: 920000,
+    gender_type: "girls",
+    category: "private",
+    religion: "christian",
+    university_path: "prep",
+    atmospheres: ["academics", "arts"],
+    vibe_label: "自主自立・キリスト教精神",
+    club_label: "盛ん",
+    record_label: "◎",
+    deviation_score: 70,
+    match_rate_child: 97,
+    recent_passed_records: "東京大学・京都大学・国公立医学部・早慶上理へ全国トップクラスの現役進学率",
+    events: [
+      {
+            "id": "ev_jg_1",
+            "title": "マグノリア祭（文化祭）",
+            "date": "10月11日(土)〜13日(月)",
+            "type": "文化祭",
+            "desc": "生徒たちの知的な研究発表や熱い討論、演劇が光る女子学院最大の祭典！"
+      }
+],
+    special_classes: [
+      {
+            "title": "聖書科＆リベラルアーツ探究ゼミ",
+            "desc": "聖書の教えを通じて自己と他者を深く見つめ、社会問題の本質を問う授業！"
+      }
+],
+    school_strengths: [
+      "桜蔭・雙葉と並ぶ女子御三家の一角！圧倒的な難関国立大・医学部実績！",
+      "制服がなく私服通学。自立した個性を育む「自由と責任」の伝統！",
+      "千代田区一番町（市ヶ谷・麹町）の閑静で治安抜群の文教エリア！"
+],
+    life_simulation: "麹町・市ヶ谷駅から落ち着いた街並みを歩いて登校。毎朝の礼拝で心を落ち着かせた後、活発な意見が飛び交う授業に参加し、放課後は部活に熱中します。",
+    parent_summary: "【教育方針・進学】女子御三家を代表するプロテスタント校。細かな規則を設けず「自らを治める自由」を重んじ、高い知性と社会貢献への責任感を育成。東大・医学部・難関国立大に抜群の現役合格実績を誇ります。【環境・費用】千代田区一番町の格式高い環境。",
+    child_summary: "私服で通えるとても自由な女子校！自分の好きなファッションで通えて、何でも本音で語り合える一生の親友がたくさんできる素敵な学校だよ！",
+    tags: ["interest_history_culture", "interest_puzzle_math", "interest_drawing_create"],
+    interest_category_label: "自由自立・女子最高峰",
+    is_favorite: false
+  },
+  {
+    school_id: "sch_futaba",
+    name: "雙葉中学校",
+    name_ruby: "ふたばちゅうがっこう",
+    official_url: "https://www.futabagakuen-jh.ed.jp/",
+    catchphrase: "「徳においては純真に、義務においては堅実に」。気品と高い知性を育む女子御三家",
+    recommend_phrase: "★ カトリックの温かい愛に包まれ、美しい言葉遣いと高い学力、確かな品性を身につけたい人におすすめ！",
+    photo_url: "assets/images/real_shibushibu.jpg",
+    prefecture: "東京都",
+    district: "千代田区六番町",
+    station_name: "四ツ谷駅",
+    access_info: {
+      primary_line: "JR中央線・総武線・東京メトロ丸ノ内線・南北線",
+      hub_station: "新宿駅・東京駅・四ツ谷駅",
+      walk_minutes: 2,
+      bus_minutes: 0,
+      school_bus: false,
+      school_bus_note: "JR・東京メトロ「四ツ谷駅」より徒歩2分"
+    },
+    can_walk: true,
+    can_bicycle: false,
+    course_name: "普通科（中高一貫課程）",
+    commute_time: 25,
+    tuition: 930000,
+    gender_type: "girls",
+    category: "private",
+    religion: "christian",
+    university_path: "prep",
+    atmospheres: ["academics", "arts"],
+    vibe_label: "純真堅実・カトリック精神",
+    club_label: "盛ん",
+    record_label: "◎",
+    deviation_score: 68,
+    match_rate_child: 96,
+    recent_passed_records: "東京大学・国公立大学医学部・慶應義塾大学・早稲田大学へ多数合格",
+    events: [
+      {
+            "id": "ev_futaba_1",
+            "title": "雙葉祭（文化祭）",
+            "date": "9月20日(土)〜21日(日)",
+            "type": "文化祭",
+            "desc": "伝統ある展示や美しい合唱、温かいおもてなしが息づく雙葉祭！"
+      }
+],
+    special_classes: [
+      {
+            "title": "フランス語教育＆奉仕活動",
+            "desc": "創立以来受け継がれるフランス語の学習と、他者のために尽くすボランティア！"
+      }
+],
+    school_strengths: [
+      "四ツ谷駅徒歩2分の圧倒的至便な立地と万全のセキュリティ！",
+      "女子御三家の一角。少人数で行き届いた温かいカトリック教育と高い医学部実績！",
+      "英語だけでなくフランス語も学べる格式高い語学教育！"
+],
+    life_simulation: "四ツ谷駅から歩いてすぐの校門へ。聖堂の鐘の音を聞きながら祈りを捧げ、きめ細かな授業で学問を深め、放課後はクラブ活動や聖歌隊の練習に励みます。",
+    parent_summary: "【教育方針・進学】女子御三家を構成するカトリックの名門校。「徳においては純真に、義務においては堅実に」の校訓のもと、高い知性と品性を兼ね備えた女性を育成。東大・国公立医学部への安定した高い進学実績を築いています。【環境・費用】四ツ谷駅徒歩2分で通学安心。",
+    child_summary: "四ツ谷駅の目の前にあるとてもキレイな学校！セーラー服が上品で、優しいお友達やシスターたちと一緒に温かい気持ちで楽しく過ごせるよ！",
+    tags: ["interest_drawing_create", "interest_history_culture", "interest_puzzle_math"],
+    interest_category_label: "品性・カトリック教育",
+    is_favorite: false
+  },
+  {
+    school_id: "sch_toshimagaoka",
+    name: "豊島岡女子学園中学校",
+    name_ruby: "としまがおかじょしがくえんちゅうがっこう",
+    official_url: "https://www.toshimagaoka.ed.jp/",
+    catchphrase: "「道義実践・勤勉努力・一能専心」。「運針」で集中力を磨き、理系・医学部へ飛躍する名門",
+    recommend_phrase: "★ 毎日の努力を積み重ね、医学部や難関国立大に挑戦したい、目標に向かってひたむきに頑張りたい人におすすめ！",
+    photo_url: "assets/images/real_shibushibu.jpg",
+    prefecture: "東京都",
+    district: "豊島区東池袋",
+    station_name: "池袋駅",
+    access_info: {
+      primary_line: "JR各線・東武東上線・西武池袋線・東京メトロ有楽町線",
+      hub_station: "池袋駅",
+      walk_minutes: 7,
+      bus_minutes: 0,
+      school_bus: false,
+      school_bus_note: "各線「池袋駅」東口徒歩7分、有楽町線「東池袋駅」徒歩1分"
+    },
+    can_walk: true,
+    can_bicycle: false,
+    course_name: "普通科（中高一貫課程）",
+    commute_time: 25,
+    tuition: 950000,
+    gender_type: "girls",
+    category: "private",
+    religion: "none",
+    university_path: "prep",
+    atmospheres: ["academics", "stem"],
+    vibe_label: "勤勉努力・理系医学部",
+    club_label: "非常に活発",
+    record_label: "◎",
+    deviation_score: 70,
+    match_rate_child: 97,
+    recent_passed_records: "東京大学・国公立大学医学部・難関理系学部合格者数で全国女子校トップクラス",
+    events: [
+      {
+            "id": "ev_toshima_1",
+            "title": "桃李祭（文化祭）",
+            "date": "10月4日(土)〜5日(日)",
+            "type": "文化祭",
+            "desc": "理科部やコーラス部など強豪クラブのハイレベルな展示・発表！"
+      }
+],
+    special_classes: [
+      {
+            "title": "毎朝5分間の「運針」＆アカデミック・デイ",
+            "desc": "無心になって白い布に針を通す集中力の訓練と、最先端の学術探究！"
+      }
+],
+    school_strengths: [
+      "東大合格者数および医学部現役合格実績で全国女子校トップを争う抜群の実績！",
+      "池袋駅徒歩7分・東池袋駅徒歩1分のアクセス至便なキャンパス！",
+      "コーラス部・マンドリン部・囲碁部など全国レベルの部活動が多数！"
+],
+    life_simulation: "池袋駅から歩いて登校。毎朝5分間の運針で心を整えてから集中して授業に臨み、放課後は部活に打ち込み、充実した自習室で勉強します。",
+    parent_summary: "【教育方針・進学】女子トップクラスの進学実績を誇る完全中高一貫校。伝統の「運針」による集中力養成と、徹底した理数教育により、東大・国公立医学部に毎年圧倒的な合格者を輩出。面倒見の良さも抜群です。【環境・費用】池袋駅・東池袋駅から至近で通学至便。",
+    child_summary: "毎朝みんなでチクチク針を縫う「運針」で集中力がつくよ！科学部や音楽系のクラブも全国トップクラスで、優しくて頑張り屋の友達がたくさんできるよ！",
+    tags: ["interest_puzzle_math", "interest_science_space", "interest_drawing_create"],
+    interest_category_label: "理系医学部・勤勉努力",
+    is_favorite: false
+  },
+  {
+    school_id: "sch_aoyama_gakuin",
+    name: "青山学院中等部",
+    name_ruby: "あおやまがくいんちゅうとうぶ",
+    official_url: "https://www.jh.aoyama.ed.jp/",
+    catchphrase: "「地の塩、世の光」。渋谷の杜でキリスト教の愛と洗練された知性を育む伝統付属校",
+    recommend_phrase: "★ 渋谷・表参道の素晴らしい環境で、青山学院大学進学を見据えながら多彩な文化・芸術活動を楽しみたい人におすすめ！",
+    photo_url: "assets/images/real_shibushibu.jpg",
+    prefecture: "東京都",
+    district: "渋谷区渋谷",
+    station_name: "渋谷駅",
+    access_info: {
+      primary_line: "JR各線・東急東横線・田園都市線・東京メトロ半蔵門線・銀座線",
+      hub_station: "渋谷駅・表参道駅",
+      walk_minutes: 10,
+      bus_minutes: 0,
+      school_bus: false,
+      school_bus_note: "各線「渋谷駅」東口徒歩10分、地下鉄「表参道駅」B1出口徒歩10分"
+    },
+    can_walk: true,
+    can_bicycle: false,
+    course_name: "普通科（中高大一貫教育）",
+    commute_time: 25,
+    tuition: 1080000,
+    gender_type: "coed",
+    category: "private",
+    religion: "christian",
+    university_path: "attached",
+    atmospheres: ["both", "arts"],
+    vibe_label: "地の塩世の光・洗練共学",
+    club_label: "盛ん",
+    record_label: "◎",
+    deviation_score: 66,
+    match_rate_child: 95,
+    recent_passed_records: "卒業生のほぼ全員が青山学院大学（各学部）へ進学、他大学進学枠も充実",
+    events: [
+      {
+            "id": "ev_ag_1",
+            "title": "中等部祭（文化祭）",
+            "date": "10月18日(土)〜19日(日)",
+            "type": "文化祭",
+            "desc": "緑豊かな渋谷キャンパスで生徒が主役となって輝く華やかな学園祭！"
+      }
+],
+    special_classes: [
+      {
+            "title": "キリスト教平和教育＆英語イマージョン",
+            "desc": "毎日の礼拝とネイティブ教員による豊かなコミュニケーション授業！"
+      }
+],
+    school_strengths: [
+      "青山学院大学への確実な内部推薦進学ルート！",
+      "渋谷・表参道という都心随一のトレンド・文化の発信地に位置するキャンパス！",
+      "気品ある校風と高い英語力・グローバル教育！"
+],
+    life_simulation: "表参道や渋谷の街並みを歩いて緑豊かな青山キャンパスへ。チャペルでの賛美歌で一日を始め、英語や芸術の授業を楽しみ、放課後は部活に汗を流します。",
+    parent_summary: "【教育方針・進学】「地の塩、世の光」をスクールモットーとするキリスト教名門共学校。ほぼ全員が青山学院大学へ進学可能。充実した英語教育と教養教育により、国際感覚と品格ある人格を育成します。【環境・費用】渋谷・表参道至近。都内随一の洗練された教育環境。",
+    child_summary: "渋谷や表参道の近くにあるとってもキレイで緑がいっぱいの学校！英語の歌を歌ったり、部活動も行事もみんなで仲良く思いきり楽しめるよ！",
+    tags: ["interest_drawing_create", "interest_history_culture", "interest_sports_outdoor"],
+    interest_category_label: "青学一貫・国際教養",
+    is_favorite: false
+  },
+  {
+    school_id: "sch_asano",
+    name: "浅野中学校",
+    name_ruby: "あさのちゅうがっこう",
+    official_url: "https://www.asano.ed.jp/",
+    catchphrase: "「愛と和と誠実」「九転十起」。広大な緑の丘で文武両道を極める神奈川男子名門",
+    recommend_phrase: "★ 広大なグラウンドで部活動に打ち込みながら、東大・難関国立大を本気で目指したい人におすすめ！",
+    photo_url: "assets/images/real_shibushibu.jpg",
+    prefecture: "神奈川県",
+    district: "横浜市神奈川区子安台",
+    station_name: "新子安駅",
+    access_info: {
+      primary_line: "JR京浜東北線・京急本線",
+      hub_station: "横浜駅・川崎駅・品川駅",
+      walk_minutes: 8,
+      bus_minutes: 0,
+      school_bus: false,
+      school_bus_note: "JR京浜東北線「新子安駅」・京急新子安駅より徒歩8分"
+    },
+    can_walk: true,
+    can_bicycle: false,
+    course_name: "普通科（中高一貫課程）",
+    commute_time: 25,
+    tuition: 920000,
+    gender_type: "boys",
+    category: "private",
+    religion: "none",
+    university_path: "prep",
+    atmospheres: ["both", "academics"],
+    vibe_label: "文武両道・質実剛健",
+    club_label: "非常に活発",
+    record_label: "◎",
+    deviation_score: 67,
+    match_rate_child: 96,
+    recent_passed_records: "東京大学・東京工業大学・国公立大学医学部に毎年多数の現役合格（東大合格40名前後）",
+    events: [
+      {
+            "id": "ev_asano_1",
+            "title": "打越祭（文化祭）",
+            "date": "9月20日(土)〜21日(日)",
+            "type": "文化祭",
+            "desc": "打越の丘が熱気に包まれる男子校ならではの活気ある文化祭！"
+      }
+],
+    special_classes: [
+      {
+            "title": "浅野サイエンス探究＆広大な銅像山フィールドワーク",
+            "desc": "校内の豊かな自然林「銅像山」を活用した地学・生物の体験型学習！"
+      }
+],
+    school_strengths: [
+      "神奈川男子御三家（聖光・栄光・浅野）の一角。抜群の東大・難関国立大合格実績！",
+      "新子安駅徒歩8分の至近アクセス！品川・横浜から10分圏内！",
+      "敷地内に広大な自然林（銅像山）と全面人工芝グラウンドを備えた贅沢な環境！"
+],
+    life_simulation: "新子安駅から坂を登って広大な緑の丘へ。午前は集中して授業を受け、午後は人工芝グラウンドで仲間と部活に励み、放課後は自習室で勉強します。",
+    parent_summary: "【教育方針・進学】神奈川男子御三家の代表校。「文武両道」を徹底実践し、ほぼ全生徒が運動部・文化部に所属しながら東大・難関国立大へ高い現役合格率を誇ります。面倒見の良い指導にも定評があります。【環境・費用】新子安駅徒歩8分。緑豊かな高台に位置し環境抜群。",
+    child_summary: "緑の山が丸ごと学校の中に！サッカー場や野球場も広くて、思い切り走って部活をしながら、勉強もどんどん得意になれるかっこいい学校だよ！",
+    tags: ["interest_sports_outdoor", "interest_nature_biology", "interest_puzzle_math"],
+    interest_category_label: "文武両道・男子御三家",
+    is_favorite: false
+  },
+  {
+    school_id: "sch_nishiyamato",
+    name: "西大和学園中学校",
+    name_ruby: "にしやまとがくえんちゅうがっこう",
+    official_url: "https://www.nishiyamato.ed.jp/",
+    catchphrase: "「探究・挑戦・飛躍」。次代を担うリーダーを育てる日本屈指の最難関共学校",
+    recommend_phrase: "★ 全国から集まるハイレベルな仲間と切磋琢磨し、東大・京大・海外大を目指して圧倒的に成長したい人におすすめ！",
+    photo_url: "assets/images/real_shibushibu.jpg",
+    prefecture: "奈良県",
+    district: "北葛城郡河合町薬井",
+    station_name: "王寺駅",
+    access_info: {
+      primary_line: "近鉄田原本線・JR大和路線",
+      hub_station: "天王寺駅・大阪駅・奈良駅",
+      walk_minutes: 5,
+      bus_minutes: 0,
+      school_bus: true,
+      school_bus_note: "近鉄大輪田駅徒歩5分、JR王寺駅より直通スクールバス約10分"
+    },
+    can_walk: true,
+    can_bicycle: true,
+    course_name: "普通科（中高一貫課程）",
+    commute_time: 35,
+    tuition: 960000,
+    gender_type: "coed",
+    category: "private",
+    religion: "none",
+    university_path: "prep",
+    atmospheres: ["stem", "academics"],
+    vibe_label: "知的好奇心・圧倒的進学力",
+    club_label: "盛ん",
+    record_label: "◎",
+    deviation_score: 71,
+    match_rate_child: 98,
+    recent_passed_records: "東京大学・京都大学・国公立医学部合計200名超（東大合格者数全国トップ3常連）",
+    events: [
+      {
+            "id": "ev_ny_1",
+            "title": "青雲祭（文化祭）",
+            "date": "9月6日(土)〜7日(日)",
+            "type": "文化祭",
+            "desc": "全国から生徒が集う西大和のエネルギーが大爆発する大文化祭！"
+      }
+],
+    special_classes: [
+      {
+            "title": "アクションプロジェクト＆海外探究プログラム",
+            "desc": "模擬国連への挑戦や国内外の第一線で活躍するリーダーとの対話セッション！"
+      }
+],
+    school_strengths: [
+      "東大・京大・国公立大医学部合格者数で全国屈指の実績！",
+      "全国から志高い生徒が集う充実した学生寮を完備！",
+      "大阪・奈良・京都から好アクセスの立地とスクールバス運行！"
+],
+    life_simulation: "王寺駅からのスクールバスや大輪田駅から登校。高い意欲を持つ仲間たちと最先端の講義を受け、放課後は夜間学習支援や部活動で高め合います。",
+    parent_summary: "【教育方針・進学】関西のみならず全国屈指の進学校。手厚い学習指導体制と先進的な探究・国際教育により、東大・京大・国公立医学部合格者数で全国トップを争う実績を達成。寮も完備し全国から受検生が集まります。【環境・費用】大輪田駅徒歩5分、王寺駅から直通バス。",
+    child_summary: "全国から一番頭が良くて元気な友達が集まってくる！海外研修や面白い実験、模擬国連など、世界で活躍するためのすごい体験がたくさんできるよ！",
+    tags: ["interest_puzzle_math", "interest_science_space", "interest_history_culture"],
+    interest_category_label: "全国最難関・世界探究",
+    is_favorite: false
+  },
+  {
+    school_id: "sch_koyo_gakuin",
+    name: "甲陽学院中学校",
+    name_ruby: "こうようがくいんちゅうがっこう",
+    official_url: "https://www.koyo.ac.jp/",
+    catchphrase: "「明朗・友愛・剛健」。美しい六甲の麓で深い思索と学問を極める関西男子名門",
+    recommend_phrase: "★ 灘と並び称される関西最高峰の環境で、数学や科学、文学の真理をとことん追究したい人におすすめ！",
+    photo_url: "assets/images/real_shibushibu.jpg",
+    prefecture: "兵庫県",
+    district: "西宮市中葭原町",
+    station_name: "香櫨園駅",
+    access_info: {
+      primary_line: "阪神本線・JR神戸線・阪急神戸線",
+      hub_station: "大阪（梅田）駅・三ノ宮駅",
+      walk_minutes: 7,
+      bus_minutes: 0,
+      school_bus: false,
+      school_bus_note: "阪神本線「香櫨園駅」より徒歩7分、JR「さくら夙川駅」徒歩12分"
+    },
+    can_walk: true,
+    can_bicycle: false,
+    course_name: "普通科（中高一貫課程）",
+    commute_time: 25,
+    tuition: 920000,
+    gender_type: "boys",
+    category: "private",
+    religion: "none",
+    university_path: "prep",
+    atmospheres: ["academics", "stem"],
+    vibe_label: "学問探究・気風明朗",
+    club_label: "盛ん",
+    record_label: "◎",
+    deviation_score: 70,
+    match_rate_child: 97,
+    recent_passed_records: "東京大学・京都大学・国公立大学医学部に毎年圧倒的な合格実績",
+    events: [
+      {
+            "id": "ev_koyo_1",
+            "title": "音楽祭＆文化発表会",
+            "date": "10月25日(土)",
+            "type": "文化祭",
+            "desc": "学問と芸術を愛する甲陽生による洗練された発表会！"
+      }
+],
+    special_classes: [
+      {
+            "title": "高度数理科学ゼミ＆教養講座",
+            "desc": "大学入試の枠を超え、学問の根本原理を思考する独自の少人数ゼミ！"
+      }
+],
+    school_strengths: [
+      "灘・東大寺と並ぶ関西男子御三家の最高峰！",
+      "東大・京大・国公立医学部への現役進学率が極めて高い！",
+      "西宮・香櫨園の閑静で気品ある夙川文教エリアに位置！"
+],
+    life_simulation: "香櫨園駅から夙川のせせらぎ沿いを歩いて登校。質の高い授業と仲間同士の深い議論を楽しみ、放課後は部活や図書室で思い思いに研鑽を積みます。",
+    parent_summary: "【教育方針・進学】関西男子最難関の一角。自由で明るい校風の中、本質的な学問指導を行い、京大・東大・国公立医学部へ圧倒的な進学成果を誇ります。中学と高校でキャンパスが分かれ、発達段階に応じた教育を展開。【環境・費用】西宮市香櫨園の極めて閑静な環境。",
+    child_summary: "夙川のキレイな川のそばにあって、算数や理科が大好きな天才肌の友達がたくさん！面白い研究やスポーツを仲間と一緒に楽しもう！",
+    tags: ["interest_puzzle_math", "interest_science_space", "interest_nature_biology"],
+    interest_category_label: "真理探究・関西最難関",
+    is_favorite: false
+  },
+  {
+    school_id: "sch_kobe_jogakuin",
+    name: "神戸女学院中学部",
+    name_ruby: "こうべじょがくいんちゅうがくぶ",
+    official_url: "https://www.kobe-c.ac.jp/",
+    catchphrase: "「愛神愛隣」。ヴォーリズ建築の重要文化財キャンパスで真の自由と知性を育む",
+    recommend_phrase: "★ 西日本屈指の美しいキャンパスで、キリスト教の愛と深い教養を学び、豊かな自立した女性になりたい人におすすめ！",
+    photo_url: "assets/images/real_shibushibu.jpg",
+    prefecture: "兵庫県",
+    district: "西宮市岡田山",
+    station_name: "門戸厄神駅",
+    access_info: {
+      primary_line: "阪急今津線",
+      hub_station: "西宮北口駅・大阪梅田駅・神戸三宮駅",
+      walk_minutes: 10,
+      bus_minutes: 0,
+      school_bus: false,
+      school_bus_note: "阪急今津線「門戸厄神駅」より徒歩10分"
+    },
+    can_walk: true,
+    can_bicycle: false,
+    course_name: "普通科（中高一貫課程）",
+    commute_time: 25,
+    tuition: 950000,
+    gender_type: "girls",
+    category: "private",
+    religion: "christian",
+    university_path: "prep",
+    atmospheres: ["academics", "arts"],
+    vibe_label: "真の自由・キリスト教精神",
+    club_label: "盛ん",
+    record_label: "◎",
+    deviation_score: 68,
+    match_rate_child: 96,
+    recent_passed_records: "東京大学・京都大学・大阪大学・国公立大学医学部に多数合格（関西女子最高峰）",
+    events: [
+      {
+            "id": "ev_kj_1",
+            "title": "愛校祭（文化祭）",
+            "date": "10月24日(金)〜25日(土)",
+            "type": "文化祭",
+            "desc": "重要文化財の講堂や校舎で開催される品格と熱意あふれる愛校祭！"
+      }
+],
+    special_classes: [
+      {
+            "title": "英語プロテスタント教育＆リベラルアーツ",
+            "desc": "140年の伝統を誇る少人数英語教育と、全人格的な教養プログラム！"
+      }
+],
+    school_strengths: [
+      "国の重要文化財に指定されたヴォーリズ建築の比類なき美しい学び舎！",
+      "関西女子最難関として京大・阪大・医学部に高い合格率！",
+      "西宮北口至近の門戸厄神駅から徒歩10分の通学至便環境！"
+],
+    life_simulation: "門戸厄神駅から岡田山の木立を登って登校。スパニッシュ・ミッション様式の美しい校舎で心静かに礼拝を守り、知的好奇心に満ちた授業を受けます。",
+    parent_summary: "【教育方針・進学】関西女子最難関の伝統プロテスタント校。合格者数を公表しない独自の方針を貫きながらも、京大・阪大・国公立医学部に毎年多数の現役進学者を輩出。全人教育の最高峰です。【環境・費用】西宮市岡田山の緑深い丘の上に広がる重要文化財キャンパス。",
+    child_summary: "まるで映画やお城のような美しい洋館の学校！お庭には四季折々の花が咲き、英語も音楽も勉強も、優しくて素敵な友達と一緒に学べるよ！",
+    tags: ["interest_drawing_create", "interest_history_culture", "interest_nature_biology"],
+    interest_category_label: "歴史建築・全人教育",
+    is_favorite: false
+  },
+  {
+    school_id: "sch_shitennouji",
+    name: "四天王寺中学校",
+    name_ruby: "してんのうじちゅうがっこう",
+    official_url: "https://www.shitennoji.ed.jp/stnnj/",
+    catchphrase: "聖徳太子の和の精神。圧倒的な医学部合格実績を誇る関西女子の最高峰進学校",
+    recommend_phrase: "★ 医学部や最難関国公立大学を目指し、高い志を持つ仲間とともに確かな学力を身につけたい人におすすめ！",
+    photo_url: "assets/images/real_shibushibu.jpg",
+    prefecture: "大阪府",
+    district: "大阪市天王寺区四天王寺",
+    station_name: "四天王寺前夕陽ヶ丘駅",
+    access_info: {
+      primary_line: "大阪メトロ谷町線・JR各線・近鉄線",
+      hub_station: "天王寺駅・東梅田駅・大阪阿部野橋駅",
+      walk_minutes: 5,
+      bus_minutes: 0,
+      school_bus: false,
+      school_bus_note: "大阪メトロ谷町線「四天王寺前夕陽ヶ丘駅」徒歩5分、各線「天王寺駅」徒歩10分"
+    },
+    can_walk: true,
+    can_bicycle: false,
+    course_name: "医志コース・英数Sコース・英数コース",
+    commute_time: 25,
+    tuition: 950000,
+    gender_type: "girls",
+    category: "private",
+    religion: "buddhist",
+    university_path: "prep",
+    atmospheres: ["stem", "academics"],
+    vibe_label: "和の精神・医学部難関大",
+    club_label: "盛ん",
+    record_label: "◎",
+    deviation_score: 67,
+    match_rate_child: 96,
+    recent_passed_records: "国公立大学医学部医学科合格者数で全国屈指（毎年60名前後が医学部に合格）",
+    events: [
+      {
+            "id": "ev_shiten_1",
+            "title": "四天王寺学園祭",
+            "date": "9月20日(土)〜21日(日)",
+            "type": "文化祭",
+            "desc": "活気あるクラブ展示やダンス・演劇発表が盛り上がる大イベント！"
+      }
+],
+    special_classes: [
+      {
+            "title": "医志コース特別プログラム＆聖徳太子和の教育",
+            "desc": "現役医師・先端医学研究者による特別講義と最先端の医療体験！"
+      }
+],
+    school_strengths: [
+      "全国トップクラスの国公立大医学部合格実績を誇る「医志コース」！",
+      "聖徳太子創建の四天王寺境内に隣接する1400年の歴史が息づく文教立地！",
+      "天王寺駅・夕陽ヶ丘駅徒歩圏で大阪・奈良・和歌山から抜群の通学アクセス！"
+],
+    life_simulation: "夕陽ヶ丘駅から四天王寺の厳かな参道を歩いて登校。高い目標を掲げる仲間と切磋琢磨し、放課後はクラブ活動や手厚い補習・自習ブースで勉強します。",
+    parent_summary: "【教育方針・進学】聖徳太子の教えを礎とする関西女子の巨頭。「医志コース」をはじめ、国公立大学医学部医学科への合格者数は全国トップクラス。難関大入試に向けた徹底した個別進路指導が高く評価されています。【環境・費用】天王寺エリア至近で通学至便。",
+    child_summary: "将来お医者さんや科学者になりたい人にぴったりの学校！同じ夢を持つ頼もしい友達がたくさんいて、勉強も行事も全力で支え合えるよ！",
+    tags: ["interest_puzzle_math", "interest_science_space", "interest_history_culture"],
+    interest_category_label: "医学部特化・和の教養",
+    is_favorite: false
+  },
+  {
+    school_id: "sch_aichi_shukutoku",
+    name: "愛知淑徳中学校",
+    name_ruby: "あいちしゅくとくちゅうがっこう",
+    official_url: "http://www.aichishukutoku-h.jp/",
+    catchphrase: "「淑徳の精神」。名古屋の文教地区・星ヶ丘で自立した女性の知性と品格を育む",
+    recommend_phrase: "★ 東海地区屈指の伝統校で、文武両道の伸びやかな環境の中で国公立・難関私大を目指したい人におすすめ！",
+    photo_url: "assets/images/real_shibushibu.jpg",
+    prefecture: "愛知県",
+    district: "名古屋市千種区星が丘元町",
+    station_name: "星ヶ丘駅",
+    access_info: {
+      primary_line: "名古屋市営地下鉄東山線",
+      hub_station: "名古屋駅・栄駅",
+      walk_minutes: 5,
+      bus_minutes: 0,
+      school_bus: false,
+      school_bus_note: "地下鉄東山線「星ヶ丘駅」門号出口より徒歩5分"
+    },
+    can_walk: true,
+    can_bicycle: true,
+    course_name: "普通科（中高一貫課程）",
+    commute_time: 25,
+    tuition: 890000,
+    gender_type: "girls",
+    category: "private",
+    religion: "none",
+    university_path: "prep",
+    atmospheres: ["both", "academics"],
+    vibe_label: "品格知性・文武両道",
+    club_label: "盛ん",
+    record_label: "◎",
+    deviation_score: 61,
+    match_rate_child: 93,
+    recent_passed_records: "名古屋大学・名古屋市立大学・名城大薬学部・早慶上理などへ高い合格率",
+    events: [
+      {
+            "id": "ev_shukutoku_1",
+            "title": "淑徳祭（文化祭）",
+            "date": "9月20日(土)",
+            "type": "文化祭",
+            "desc": "生徒主体の展示や華やかなクラブ公演が彩る伝統の学園祭！"
+      }
+],
+    special_classes: [
+      {
+            "title": "淑徳グローバル探究＆キャリアセミナー",
+            "desc": "女性のキャリア自立を見据えた多彩なフィールドワークと講演会！"
+      }
+],
+    school_strengths: [
+      "名古屋地下鉄東山線「星ヶ丘駅」徒歩5分の好立地と洗練された文教エリア！",
+      "南山女子と並ぶ東海地区女子トップクラスの進学校！",
+      "大学受験に向けた丁寧な習熟度別指導とアットホームな校風！"
+],
+    life_simulation: "人気の星ヶ丘駅から歩いて5分。明るく開放的な校舎で友人と語り合い、午後は実験や探究学習、放課後は部活や自習に充実した日々を送ります。",
+    parent_summary: "【教育方針・進学】創立120年近い歴史を持つ東海地区屈指の名門女子進学校。名大をはじめとする難関国公立大学や医学部・薬学部への進学実績が極めて高く、生徒の進路希望に応える面倒見の良い指導が評判です。【環境・費用】星ヶ丘駅徒歩5分で治安も良好。",
+    child_summary: "星ヶ丘のおしゃれで緑豊かな街にあって通いやすい！先輩たちがとても優しく、勉強も部活動も行事もみんなで仲良く楽しめる温かい学校だよ！",
+    tags: ["interest_history_culture", "interest_drawing_create", "interest_puzzle_math"],
+    interest_category_label: "品格知性・東海女子",
+    is_favorite: false
+  },
+  {
+    school_id: "sch_adachi_gakuen",
+    name: "足立学園中学校",
+    name_ruby: "あだちがくえんちゅうがっこう",
+    official_url: "https://www.adachigakuen-jh.ed.jp/",
+    catchphrase: "「志ある逞しい男子」を育む。北千住駅徒歩1分の温かい教育と抜群の進学伸長力",
+    recommend_phrase: "★ 交通至便な環境で男子校ならではの活気に満ち、勉強も部活動も先生の手厚いサポートを受けたい人におすすめ！",
+    photo_url: "assets/images/real_shibushibu.jpg",
+    prefecture: "東京都",
+    district: "足立区千住旭町",
+    station_name: "北千住駅",
+    access_info: {
+      primary_line: "JR常磐線・東京メトロ日比谷線・千代田線・東武スカイツリーライン・つくばエクスプレス",
+      hub_station: "上野駅・大手町駅・秋葉原駅",
+      walk_minutes: 1,
+      bus_minutes: 0,
+      school_bus: false,
+      school_bus_note: "各線「北千住駅」東口（電大口）より徒歩1分"
+    },
+    can_walk: true,
+    can_bicycle: true,
+    course_name: "特別奨学生コース・文理コース",
+    commute_time: 20,
+    tuition: 850000,
+    gender_type: "boys",
+    category: "private",
+    religion: "none",
+    university_path: "prep",
+    atmospheres: ["both", "academics"],
+    vibe_label: "面倒見・情熱男子教育",
+    club_label: "非常に活発",
+    record_label: "◎",
+    deviation_score: 54,
+    match_rate_child: 92,
+    recent_passed_records: "東京大学・国公立大学・早慶上理・GMARCHへ合格者数急伸中",
+    events: [
+      {
+            "id": "ev_adachi_1",
+            "title": "学園祭（志学祭）",
+            "date": "9月27日(土)〜28日(日)",
+            "type": "文化祭",
+            "desc": "男子校のパワー炸裂！柔道部演武やクラス企画が盛り上がります。"
+      }
+],
+    special_classes: [
+      {
+            "title": "志探究プログラム＆放課後校内予備校",
+            "desc": "校内で夜間まで自習・質問ができる手厚い学習支援体制！"
+      }
+],
+    school_strengths: [
+      "北千住駅東口徒歩1分！雨でも濡れずに通える圧倒的利便性！",
+      "入学後の学力伸長度（お得な学校ランキング）で常に上位評価！",
+      "柔道部をはじめ全国レベルの部活動と男子の成長に合わせたきめ細かな指導！"
+],
+    life_simulation: "北千住駅から徒歩1分で校舎へ。先生と気兼ねなく質問できるアットホームな環境で学び、放課後は部活や校内の夜間学習で仲間と頑張ります。",
+    parent_summary: "【教育方針・進学】「志ある逞しい男子」を育成する男子校。入学時の学力からの伸長度が極めて高く、東大・難関国公立大・早慶への進学実績が躍進中。校内予備校や手厚い補習体制が保護者から絶大な信頼を得ています。【環境・費用】北千住駅徒歩1分で通学安心。",
+    child_summary: "駅から歩いてすぐ！先生たちがとっても熱心で、勉強の質問も優しく教えてくれるよ！柔道やサッカーなどの部活動も大盛り上がり！",
+    tags: ["interest_sports_outdoor", "interest_puzzle_math", "interest_history_culture"],
+    interest_category_label: "駅前至便・面倒見男子校",
+    is_favorite: false
+  },
+  {
+    school_id: "sch_atomi_gakuen",
+    name: "跡見学園中学校",
+    name_ruby: "あとみがくえんちゅうがっこう",
+    official_url: "https://www.atomi.ac.jp/jh/",
+    catchphrase: "日本最古の私立女子校。「ごきげんよう」の挨拶と伝統の「跡見の桜」が息づく文京の学び舎",
+    recommend_phrase: "★ 日本の伝統文化や礼儀作法を大切にし、穏やかで気品ある環境で女性のキャリアを切り拓きたい人におすすめ！",
+    photo_url: "assets/images/real_shibushibu.jpg",
+    prefecture: "東京都",
+    district: "文京区大塚",
+    station_name: "茗荷谷駅",
+    access_info: {
+      primary_line: "東京メトロ丸ノ内線・有楽町線",
+      hub_station: "池袋駅・東京駅",
+      walk_minutes: 2,
+      bus_minutes: 0,
+      school_bus: false,
+      school_bus_note: "東京メトロ丸ノ内線「茗荷谷駅」徒歩2分、有楽町線「護国寺駅」徒歩8分"
+    },
+    can_walk: true,
+    can_bicycle: false,
+    course_name: "特進コース・進学コース",
+    commute_time: 20,
+    tuition: 890000,
+    gender_type: "girls",
+    category: "private",
+    religion: "none",
+    university_path: "prep",
+    atmospheres: ["arts", "academics"],
+    vibe_label: "伝統気品・情操教育",
+    club_label: "活発",
+    record_label: "◎",
+    deviation_score: 52,
+    match_rate_child: 90,
+    recent_passed_records: "国公立大学・早慶上理・GMARCH・跡見学園女子大学など堅実な合格実績",
+    events: [
+      {
+            "id": "ev_atomi_1",
+            "title": "紫祭（文化祭）",
+            "date": "10月11日(土)〜12日(日)",
+            "type": "文化祭",
+            "desc": "和太鼓や器楽、華道・茶道の優美な展示・公演！"
+      }
+],
+    special_classes: [
+      {
+            "title": "書道・礼法・文化講座",
+            "desc": "美しい文字と所作を身につけ、内面から凛とした女性を育てる伝統教育！"
+      }
+],
+    school_strengths: [
+      "丸ノ内線茗荷谷駅徒歩2分、文教の街・文京区の落ち着いた治安最高の環境！",
+      "明治8年創立、日本最古の私立女子校としての揺るぎない品格と歴史！",
+      "手厚い進路指導と特進クラス導入による大学進学実績の向上！"
+],
+    life_simulation: "茗荷谷駅から歩いてすぐ。桜の紋章が掲げられた校舎で「ごきげんよう」の挨拶を交わし、落ち着いた教室で丁寧な授業を受けます。",
+    parent_summary: "【教育方針・進学】1875年創立の日本最初の私立女子校。伝統の礼儀作法と書道・情操教育を土台に、現代社会で活躍する自立した女性を育成。近年は特進クラスを設置し難関大への現役進学にも力を注いでいます。【環境・費用】文京区茗荷谷駅徒歩2分。",
+    child_summary: "「ごきげんよう」と挨拶を交わす、とても優しくて上品な学校！きれいな校舎でお茶や書道を学んだり、お友達と楽しく過ごせるよ！",
+    tags: ["interest_drawing_create", "interest_history_culture", "interest_nature_biology"],
+    interest_category_label: "伝統女子・情操礼儀",
+    is_favorite: false
+  },
+  {
+    school_id: "sch_aoyama_yokohama_eiwa",
+    name: "青山学院横浜英和中学高等学校",
+    name_ruby: "あおやまがくいんよこはまえいわちゅうがくこうとうがっこう",
+    official_url: "https://www.yokohama-eiwa.ac.jp/jh/",
+    catchphrase: "「心を尽くし、思いを尽くして愛せよ」。緑の丘で青山学院大学への進学と豊かな心を育む",
+    recommend_phrase: "★ 青山学院大学への進学を見据え、温かいキリスト教精神のもとで英語や豊かな人間性を身につけたい人におすすめ！",
+    photo_url: "assets/images/real_shibushibu.jpg",
+    prefecture: "神奈川県",
+    district: "横浜市南区蒔田町",
+    station_name: "蒔田駅",
+    access_info: {
+      primary_line: "横浜市営地下鉄ブルーライン・京急本線",
+      hub_station: "横浜駅・上大岡駅",
+      walk_minutes: 8,
+      bus_minutes: 0,
+      school_bus: false,
+      school_bus_note: "市営地下鉄ブルーライン「蒔田駅」徒歩8分、京急「井土ヶ谷駅」徒歩18分"
+    },
+    can_walk: true,
+    can_bicycle: false,
+    course_name: "普通科（青山学院大学系属共学校）",
+    commute_time: 25,
+    tuition: 980000,
+    gender_type: "coed",
+    category: "private",
+    religion: "christian",
+    university_path: "attached",
+    atmospheres: ["both", "arts"],
+    vibe_label: "キリスト教愛・共学共生",
+    club_label: "盛ん",
+    record_label: "◎",
+    deviation_score: 59,
+    match_rate_child: 94,
+    recent_passed_records: "卒業生の約70%以上が青山学院大学へ推薦進学、他大学進学実績も伸長",
+    events: [
+      {
+            "id": "ev_eiwa_1",
+            "title": "英和祭（文化祭）",
+            "date": "10月25日(土)〜26日(日)",
+            "type": "文化祭",
+            "desc": "緑豊かな丘の上のキャンパスで生徒が笑顔で輝く学園祭！"
+      }
+],
+    special_classes: [
+      {
+            "title": "青山学院大学連携教育＆礼拝体験",
+            "desc": "大学の教授陣による出張講義や、豊かな情操を育むキリスト教教育！"
+      }
+],
+    school_strengths: [
+      "青山学院大学への充実した系属校推薦枠（約70%）！",
+      "共学化と新校舎完成により明るく活気あふれるスクールライフ！",
+      "蒔田駅徒歩8分で横浜・桜木町方面からの通学が快適！"
+],
+    life_simulation: "蒔田駅から坂を登って緑の丘へ。チャペルの礼拝で一日を始め、英語やグループワークに熱中し、放課後は部活動やカフェテリアで仲間と交流します。",
+    parent_summary: "【教育方針・進学】青山学院大学の系属校として高い人気を集める共学校。卒業生の約7割が青山学院大学へ推薦進学できる安心感のもと、豊かな人間教育と高度な英語教育を展開しています。【環境・費用】横浜市南区の丘の上に広がる開放的なキャンパス。",
+    child_summary: "青学（青山学院大学）に行ける人気の学校！キレイなチャペルやカフェテリアがあって、男の子も女の子もみんな仲良しだよ！",
+    tags: ["interest_drawing_create", "interest_history_culture", "interest_sports_outdoor"],
+    interest_category_label: "青山学院系属・共学英和",
+    is_favorite: false
+  },
+  {
+    school_id: "sch_urawa_lutheran",
+    name: "青山学院大学系属浦和ルーテル学院中学校",
+    name_ruby: "あおやまがくいんだいがくけいぞくうらわるーてるがくいんちゅうがっこう",
+    official_url: "https://www.uls.ed.jp/",
+    catchphrase: "「神を愛し、人を愛し、自己を愛する」。少人数教育で青山学院大へ進学する緑の美園キャンパス",
+    recommend_phrase: "★ アットホームな少人数指導で一人ひとり手厚く見守られ、青山学院大学への進学を目指したい人におすすめ！",
+    photo_url: "assets/images/real_shibushibu.jpg",
+    prefecture: "埼玉県",
+    district: "さいたま市緑区大門",
+    station_name: "浦和美園駅",
+    access_info: {
+      primary_line: "埼玉高速鉄道・JR武蔵野線",
+      hub_station: "東川口駅・浦和美園駅",
+      walk_minutes: 15,
+      bus_minutes: 5,
+      school_bus: true,
+      school_bus_note: "浦和美園駅徒歩15分、東川口駅・浦和美園駅よりスクールバス運行"
+    },
+    can_walk: true,
+    can_bicycle: true,
+    course_name: "普通科（12年一貫・青山学院大学系属）",
+    commute_time: 30,
+    tuition: 980000,
+    gender_type: "coed",
+    category: "private",
+    religion: "christian",
+    university_path: "attached",
+    atmospheres: ["academics", "arts"],
+    vibe_label: "少人数温情・青学連携",
+    club_label: "活発",
+    record_label: "◎",
+    deviation_score: 56,
+    match_rate_child: 92,
+    recent_passed_records: "希望者のほぼ全員が青山学院大学への推薦進学基準を満たす手厚い体制",
+    events: [
+      {
+            "id": "ev_lutheran_1",
+            "title": "クリスマス礼拝＆オープンキャンパス",
+            "date": "11月15日(土)",
+            "type": "学校説明会",
+            "desc": "少人数教育の温かさと青学推薦制度を詳しく解説します。"
+      }
+],
+    special_classes: [
+      {
+            "title": "ギフト教育＆バイリンガルイングリッシュ",
+            "desc": "神から与えられた一人ひとりの才能（ギフト）を伸ばす少人数ゼミ！"
+      }
+],
+    school_strengths: [
+      "青山学院大学へのほぼ全員規模の系属校進学ルート！",
+      "1学年少人数の家族的な温かい教育環境と確実な目配り！",
+      "浦和美園・東川口駅からのスクールバスで快適アクセス！"
+],
+    life_simulation: "スクールバスで緑豊かな美園キャンパスへ。1クラス少人数で先生との距離が非常に近く、放課後は部活や個別指導で安心して過ごせます。",
+    parent_summary: "【教育方針・進学】青山学院大学の系属校。少人数編成を活かしたきめ細かな「ギフト教育」により、一人ひとりの個性と学力を確実に伸ばし、青山学院大学各学部への進学が可能です。【環境・費用】さいたま市緑区。広大な自然と美しい校舎が調和しています。",
+    child_summary: "先生が一人ひとりをすごく大切にしてくれる温かい学校！クラスのみんなと家族みたいに仲良くなれて、青学への道もひらけているよ！",
+    tags: ["interest_drawing_create", "interest_nature_biology", "interest_history_culture"],
+    interest_category_label: "少人数・青学系属",
+    is_favorite: false
+  },
+  {
+    school_id: "sch_meiden",
+    name: "愛知工業大学名電中学校",
+    name_ruby: "あいちこうぎょうだいがくめいでんちゅうがっこう",
+    official_url: "https://www.meiden.ed.jp/",
+    catchphrase: "「誠実・勤勉・親愛」。ロボット・サイエンス教育と全国屈指の部活動が躍動する名古屋の名門",
+    recommend_phrase: "★ 先端のロボットコンテストや科学実験に打ち込み、吹奏楽やスポーツでも全国を目指したい人におすすめ！",
+    photo_url: "assets/images/real_shibushibu.jpg",
+    prefecture: "愛知県",
+    district: "名古屋市千種区若水",
+    station_name: "自由ヶ丘駅",
+    access_info: {
+      primary_line: "名古屋市営地下鉄名城線・東山線",
+      hub_station: "名古屋駅・栄駅・本山駅",
+      walk_minutes: 10,
+      bus_minutes: 0,
+      school_bus: false,
+      school_bus_note: "地下鉄名城線「自由ヶ丘駅」徒歩10分、東山線「池下駅」徒歩15分"
+    },
+    can_walk: true,
+    can_bicycle: true,
+    course_name: "普通科（中高一貫コース）",
+    commute_time: 25,
+    tuition: 870000,
+    gender_type: "coed",
+    category: "private",
+    religion: "none",
+    university_path: "prep",
+    atmospheres: ["stem", "both"],
+    vibe_label: "ものづくり・文武両道",
+    club_label: "極めて活発",
+    record_label: "◎",
+    deviation_score: 57,
+    match_rate_child: 93,
+    recent_passed_records: "国公立大学・愛知工業大学・難関理系学部へ多数進学",
+    events: [
+      {
+            "id": "ev_meiden_1",
+            "title": "ロボット工作フェスタ＆説明会",
+            "date": "10月18日(土)",
+            "type": "学校説明会",
+            "desc": "名電伝統のロボット製作やプログラミングを体験できます。"
+      }
+],
+    special_classes: [
+      {
+            "title": "ロボットサイエンス探究＆先端プログラミング",
+            "desc": "世界大会を目指すロボット研究とAIプログラミングの実践授業！"
+      }
+],
+    school_strengths: [
+      "ロボットコンテスト世界大会出場常連！ものづくり教育の最高峰！",
+      "全国金賞の吹奏楽部やプロ野球選手を多数輩出した名門スポーツ部！",
+      "愛知工大への内部進学と難関国公立大学進学を両立！"
+],
+    life_simulation: "自由ヶ丘駅から歩いて登校。実験室でロボットやプログラムの試作に熱中し、放課後は大迫力の吹奏楽や部活動で仲間と高みを目指します。",
+    parent_summary: "【教育方針・進学】「名電」の名で全国に轟く伝統校。理数・ものづくり教育に特化した中高一貫指導を行い、愛知工大への推薦枠を活かしつつ国公立大・難関私大理系への進学実績を伸ばしています。【環境・費用】名古屋市千種区の住宅街に位置。",
+    child_summary: "ロボットを作って世界大会に出られるすごい学校！全国金賞の吹奏楽部や野球・卓球など、部活動のレベルも日本一クラスで熱いよ！",
+    tags: ["interest_science_space", "interest_puzzle_math", "interest_sports_outdoor"],
+    interest_category_label: "ロボット技術・ものづくり",
+    is_favorite: false
+  },
+  {
+    school_id: "sch_assumption",
+    name: "アサンプション国際中学校",
+    name_ruby: "あさんぷしょんこくさいちゅうがっこう",
+    official_url: "https://www.assumption.ed.jp/jhs/",
+    catchphrase: "21世紀型グローバル教育。英語イマージョンとPBL探究で未来を拓く箕面の国際校",
+    recommend_phrase: "★ ネイティブ教員と英語で学び、国際バカロレアや海外大学・難関私大進学を目指したい人におすすめ！",
+    photo_url: "assets/images/real_shibushibu.jpg",
+    prefecture: "大阪府",
+    district: "箕面市如意谷",
+    station_name: "箕面萱野駅",
+    access_info: {
+      primary_line: "北大阪急行電鉄（御堂筋線直通）・阪急箕面線",
+      hub_station: "梅田駅・千里中央駅",
+      walk_minutes: 10,
+      bus_minutes: 0,
+      school_bus: true,
+      school_bus_note: "北大阪急行「箕面萱野駅」徒歩10分、千里中央駅等よりスクールバス運行"
+    },
+    can_walk: true,
+    can_bicycle: true,
+    course_name: "グローバルコース・イングリッシュコース・アカデミックコース",
+    commute_time: 30,
+    tuition: 950000,
+    gender_type: "coed",
+    category: "private",
+    religion: "christian",
+    university_path: "prep",
+    atmospheres: ["arts", "academics"],
+    vibe_label: "英語イマージョン・探究共学",
+    club_label: "活発",
+    record_label: "◎",
+    deviation_score: 56,
+    match_rate_child: 92,
+    recent_passed_records: "国公立大学・関関同立・上智大・海外大学などへの進学実績急上昇",
+    events: [
+      {
+            "id": "ev_asum_1",
+            "title": "イマージョン体験フェス",
+            "date": "10月25日(土)",
+            "type": "学校説明会",
+            "desc": "ネイティブ教員による英語での理科・算数体験授業！"
+      }
+],
+    special_classes: [
+      {
+            "title": "英語イマージョン授業＆PBL（課題解決型学習）",
+            "desc": "算数や理科を英語で学び、世界規模の社会課題をチームで解決！"
+      }
+],
+    school_strengths: [
+      "北大阪急行「箕面萱野駅」延伸開業により梅田から直通でアクセス飛躍！",
+      "算数・理科などを英語で学ぶ本格的イマージョン教育！",
+      "カトリックの温かな全人教育と海外大学への推薦パスウェイ！"
+],
+    life_simulation: "新駅・箕面萱野駅から緑豊かな並木道を歩いて登校。ネイティブの先生と英語で談笑し、課題解決プロジェクトに熱中します。",
+    parent_summary: "【教育方針・進学】カトリック聖母被昇天修道会を母体とする共学国際校。英語イマージョン教育や探究PBLを導入し、国内外の難関大学への進学実績を伸ばしています。北大阪急行延伸で通学利便性が大幅に向上しました。【環境・費用】箕面市の緑豊かな高級住宅街。",
+    child_summary: "箕面萱野駅ができて通いやすさ抜群！英語で理科や図工の実験をしたり、外国の先生と友達みたいにお話しできる楽しい学校だよ！",
+    tags: ["interest_drawing_create", "interest_nature_biology", "interest_history_culture"],
+    interest_category_label: "英語イマージョン・国際共学",
+    is_favorite: false
+  },
+  {
+    school_id: "sch_hiratsuka_chuto",
+    name: "神奈川県立平塚中等教育学校",
+    name_ruby: "かながわけんりつひらつかちゅうとうきょういくがっこう",
+    official_url: "https://www.pen-kanagawa.ed.jp/hiratsuka-chuto-ss/",
+    catchphrase: "「自主自律・共生」。湘南の風薫るキャンパスで世界に発信する探究力を磨く",
+    recommend_phrase: "★ 湘南エリアで伸び伸びと学び、仲間とともに課題解決型の探究学習を深めたい人におすすめ！",
+    photo_url: "assets/images/real_shibushibu.jpg",
+    prefecture: "神奈川県",
+    district: "平塚市大東町",
+    station_name: "平塚駅",
+    access_info: {
+      primary_line: "JR東海道線・上野東京ライン・湘南新宿ライン",
+      hub_station: "横浜駅・茅ヶ崎駅・小田原駅",
+      walk_minutes: 0,
+      bus_minutes: 10,
+      school_bus: false,
+      school_bus_note: "JR「平塚駅」北口より路線バス約10分「平塚中等教育学校」下車すぐ"
+    },
+    can_walk: false,
+    can_bicycle: true,
+    course_name: "中等教育課程（6年一貫）",
+    commute_time: 30,
+    tuition: 150000,
+    gender_type: "coed",
+    category: "public",
+    religion: "none",
+    university_path: "prep",
+    atmospheres: ["both", "academics"],
+    vibe_label: "湘南自由・探究共生",
+    club_label: "盛ん",
+    record_label: "◎",
+    deviation_score: 60,
+    match_rate_child: 92,
+    recent_passed_records: "東京大・横浜国立大・早慶上理などへ安定した難関大進学実績",
+    events: [
+      {
+            "id": "ev_hira_1",
+            "title": "学校説明会・公開授業",
+            "date": "10月11日(土)",
+            "type": "学校説明会",
+            "desc": "6年間のキャリア探究プログラムと学校生活を紹介します。"
+      }
+],
+    special_classes: [
+      {
+            "title": "平塚探究プレゼンテーション",
+            "desc": "湘南の地域課題や海洋環境を自らテーマ設定し、深く調査・発表する授業！"
+      }
+],
+    school_strengths: [
+      "神奈川県立2大中等教育学校の一翼を担う安定した一貫教育体制！",
+      "湘南の温暖で広々としたキャンパスと充実した体育・文化設備！",
+      "公立校のため学費負担なく6年間のハイレベル教育を完結！"
+],
+    life_simulation: "平塚駅からバスですぐ登校。広大な敷地で探究活動やグループワークを楽しみ、放課後は部活動に熱中し、自習室で勉強します。",
+    parent_summary: "【教育方針・進学】神奈川県が設置する中等教育学校。相模原中等と並び、公立一貫校ならではの低負担と高い進学実績を両立。東大・横国大・早慶等に堅実な合格者を送り出しています。【環境・費用】平塚市。公立のため授業料無償です。",
+    child_summary: "敷地が広くてとても気持ちいい学校！海の近くで自然も豊か、探究の発表会や体育祭もみんなで本気で盛り上がるよ！",
+    tags: ["interest_nature_biology", "interest_sports_outdoor", "interest_puzzle_math"],
+    interest_category_label: "湘南探究・自立共生",
+    is_favorite: false
+  },
+  {
+    school_id: "sch_kawasaki_fuzoku",
+    name: "川崎市立川崎高等学校附属中学校",
+    name_ruby: "かわさきしりつかわさきこうとうがっこうふぞくちゅうがっこう",
+    official_url: "http://www.kaw-s.ed.jp/jh-school/",
+    catchphrase: "「自立・協働・創造」。川崎の多様性と産業の力を活かす公立中高一貫校",
+    recommend_phrase: "★ 川崎の最先端科学や多文化共生を学び、将来グローバルに活躍したい人におすすめ！",
+    photo_url: "assets/images/real_shibushibu.jpg",
+    prefecture: "神奈川県",
+    district: "川崎市川崎区中島",
+    station_name: "川崎駅",
+    access_info: {
+      primary_line: "JR東海道線・京浜東北線・南武線・京急本線",
+      hub_station: "品川駅・横浜駅・武蔵小杉駅",
+      walk_minutes: 15,
+      bus_minutes: 5,
+      school_bus: false,
+      school_bus_note: "JR「川崎駅」東口より徒歩15分、または臨港バス5分"
+    },
+    can_walk: true,
+    can_bicycle: true,
+    course_name: "普通科（中高一貫課程）",
+    commute_time: 25,
+    tuition: 150000,
+    gender_type: "coed",
+    category: "public",
+    religion: "none",
+    university_path: "prep",
+    atmospheres: ["academics", "stem"],
+    vibe_label: "多文化共生・先端産業探究",
+    club_label: "活発",
+    record_label: "◎",
+    deviation_score: 58,
+    match_rate_child: 91,
+    recent_passed_records: "東京工業大・横浜国立大・筑波大・GMARCHなどへ現役合格多数",
+    events: [
+      {
+            "id": "ev_kaw_1",
+            "title": "学校説明会",
+            "date": "10月18日(土)",
+            "type": "学校説明会",
+            "desc": "川崎独自の産学連携探究と6年一貫指導の成果を公開します。"
+      }
+],
+    special_classes: [
+      {
+            "title": "川崎イノベーション探究",
+            "desc": "殿町国際戦略拠点（キングスカイフロント）等と連携した最先端生命科学学習！"
+      }
+],
+    school_strengths: [
+      "巨大ターミナル川崎駅からの至近アクセス！品川・横浜から好立地！",
+      "キングスカイフロント等の研究機関と連携した高度な科学・産業探究！",
+      "公立校のため学費無償で手厚い進学サポート体制！"
+],
+    life_simulation: "川崎駅から歩いて登校。先端企業の研究者から直接話を聞く授業や理科実験に挑戦し、放課後は部活や自習に仲間と励みます。",
+    parent_summary: "【教育方針・進学】川崎市初の公立中高一貫校。臨海部の最先端研究拠点と連携した理数・探究教育を展開し、国公立大学や難関私大への合格実績を着実に伸ばしています。【環境・費用】川崎駅徒歩圏。公立のため授業料無償です。",
+    child_summary: "川崎駅のすぐ近くにあって便利！ロボットやバイオテクノロジーなど最先端の科学を楽しく学べる授業がたくさんあるよ！",
+    tags: ["interest_science_space", "interest_puzzle_math", "interest_drawing_create"],
+    interest_category_label: "先端産業・科学探究",
+    is_favorite: false
+  },
+  {
+    school_id: "sch_kawaguchi_fuzoku",
+    name: "川口市立高等学校附属中学校",
+    name_ruby: "かわぐちしりつこうとうがっこうふぞくちゅうがっこう",
+    official_url: "https://kawaguchicity-jh.ed.jp/",
+    catchphrase: "最先端の超近代的大キャンパス。未来を創るCIRAT探究と高い知性を育む埼玉の注目公立校",
+    recommend_phrase: "★ 大学並みの最新鋭キャンパスで、科学探究や英語ディベートに思いきり熱中したい人におすすめ！",
+    photo_url: "assets/images/real_shibushibu.jpg",
+    prefecture: "埼玉県",
+    district: "川口市上青木",
+    station_name: "西川口駅",
+    access_info: {
+      primary_line: "JR京浜東北線・埼玉高速鉄道",
+      hub_station: "赤羽駅・大宮駅・上野駅",
+      walk_minutes: 0,
+      bus_minutes: 8,
+      school_bus: false,
+      school_bus_note: "JR「西川口駅」東口・埼玉高速鉄道「鳩ヶ谷駅」より路線バス約8分"
+    },
+    can_walk: false,
+    can_bicycle: true,
+    course_name: "普通科（中高一貫課程）",
+    commute_time: 25,
+    tuition: 150000,
+    gender_type: "coed",
+    category: "public",
+    religion: "none",
+    university_path: "prep",
+    atmospheres: ["stem", "academics"],
+    vibe_label: "最新鋭施設・先進探究",
+    club_label: "盛ん",
+    record_label: "◎",
+    deviation_score: 61,
+    match_rate_child: 94,
+    recent_passed_records: "東京大・東北大・早慶上理など難関大進学へ飛躍的な実績を記録中",
+    events: [
+      {
+            "id": "ev_kawa_1",
+            "title": "学校説明会・施設見学フェスタ",
+            "date": "10月11日(土)",
+            "type": "学校説明会",
+            "desc": "大学顔負けのメディアセンターや理科実験棟を実際に見学できます。"
+      }
+],
+    special_classes: [
+      {
+            "title": "CIRAT探究プログラム",
+            "desc": "大学やSKIPシティと連携した映像・情報技術・科学の最先端課題研究！"
+      }
+],
+    school_strengths: [
+      "全国公立校屈指の美しさと規模を誇る超近代的新キャンパス！",
+      "SKIPシティ（映像・科学の拠点）と直結した先進的な探究カリキュラム！",
+      "都心（赤羽・池袋・東京）からの抜群のアクセスと公立の安心学費！"
+],
+    life_simulation: "西川口駅からバスで美しい大キャンパスへ。ガラス張りの図書館や本格的な大ホール、アリーナで学び、放課後は部活に汗を流します。",
+    parent_summary: "【教育方針・進学】川口市が総力を挙げて創設した公立中高一貫校。大学を彷彿とさせる圧倒的な施設設備と、高度な理数・国際探究プログラムにより、新設校ながら難関大合格実績が急上昇しています。【環境・費用】SKIPシティ至近。公立のため授業料無償。",
+    child_summary: "まるで大学みたいにピッカピカでカッコいい校舎！最新のパソコン室や大きな体育館があって、毎日の学校生活がワクワクするよ！",
+    tags: ["interest_science_space", "interest_puzzle_math", "interest_drawing_create"],
+    interest_category_label: "最新設備・科学情報探究",
+    is_favorite: false
+  },
+  {
+    school_id: "sch_ina_gakuen",
+    name: "埼玉県立伊奈学園中学校",
+    name_ruby: "さいたまけんりついながくえんちゅうがっこう",
+    official_url: "https://inagakuen.spec.ed.jp/jhs/",
+    catchphrase: "日本最大級のメガキャンパス。「学びのバイキング」で広大な可能性を切り拓く",
+    recommend_phrase: "★ 体育館3つ、広大なグラウンドを持つ国内最大級の環境で、自分の好きな学問をとことん選びたい人におすすめ！",
+    photo_url: "assets/images/real_shibushibu.jpg",
+    prefecture: "埼玉県",
+    district: "北足立郡伊奈町学園",
+    station_name: "羽貫駅",
+    access_info: {
+      primary_line: "埼玉新都市交通ニューシャトル",
+      hub_station: "大宮駅",
+      walk_minutes: 10,
+      bus_minutes: 0,
+      school_bus: false,
+      school_bus_note: "ニューシャトル「羽貫駅」より徒歩10分、JR上尾駅・蓮田駅よりバス"
+    },
+    can_walk: true,
+    can_bicycle: true,
+    course_name: "中高一貫普通科（7つのハウス制）",
+    commute_time: 35,
+    tuition: 150000,
+    gender_type: "coed",
+    category: "public",
+    religion: "none",
+    university_path: "prep",
+    atmospheres: ["both", "arts"],
+    vibe_label: "広大自由・総合選択",
+    club_label: "非常に活発",
+    record_label: "◎",
+    deviation_score: 58,
+    match_rate_child: 91,
+    recent_passed_records: "東京大・東北大・埼玉大・早慶上理などへ毎年多数合格",
+    events: [
+      {
+            "id": "ev_ina_1",
+            "title": "学校説明会・ハウス見学",
+            "date": "10月4日(土)",
+            "type": "学校説明会",
+            "desc": "広大なキャンパスと独自のハウス制（小校舎制）をご案内します。"
+      }
+],
+    special_classes: [
+      {
+            "title": "総合選択探究＆語学イマージョン",
+            "desc": "ドイツ語・フランス語・中国語など多彩な第2外国語や高度な芸術選択！"
+      }
+],
+    school_strengths: [
+      "東京ドーム数個分の広大な敷地！体育館3つ・50m公認プール等の圧倒的設備！",
+      "全日本吹奏楽コンクール常連の吹奏楽部など全国最高峰の部活動！",
+      "大学のように自分の進路に合わせて科目を選べる柔軟なカリキュラム！"
+],
+    life_simulation: "ニューシャトル羽貫駅から広大な校地へ。ハウス（小校舎）の仲間と交流し、午後は自分の興味に合わせて選んだ授業を受け、放課後は部活に没頭します。",
+    parent_summary: "【教育方針・進学】国内最大規模を誇る公立総合選択制中高一貫校。ハウス制により大規模校ながら温かい人間関係を維持。埼玉大・東大をはじめ国公立大・難関私大へ安定した実績を誇ります。【環境・費用】伊奈町の広大な敷地。公立のため授業料無償です。",
+    child_summary: "体育館が3つもあって、グラウンドもプールも規格外の広さ！吹奏楽やスポーツが全国レベルで、好きな科目を自分で選んで学べるよ！",
+    tags: ["interest_sports_outdoor", "interest_drawing_create", "interest_history_culture"],
+    interest_category_label: "メガキャンパス・総合選択",
+    is_favorite: false
+  },
+  {
+    school_id: "sch_inage_kokusai",
+    name: "千葉市立稲毛国際中等教育学校",
+    name_ruby: "ちばしりついなげこくさいちゅうとうきょういくがっこう",
+    official_url: "https://www.city.chiba.jp/school/hs/001/index.html",
+    catchphrase: "国際バカロレア（IB）認定。ベイエリアから世界へ飛び立つグローバル中等教育",
+    recommend_phrase: "★ 海に近い開放的なベイエリアで、英語や異文化探究を思いきり学び、世界へ羽ばたきたい人におすすめ！",
+    photo_url: "assets/images/real_shibushibu.jpg",
+    prefecture: "千葉県",
+    district: "千葉市美浜区高洲",
+    station_name: "稲毛海岸駅",
+    access_info: {
+      primary_line: "JR京葉線・総武線",
+      hub_station: "東京駅・海浜幕張駅・千葉駅",
+      walk_minutes: 15,
+      bus_minutes: 5,
+      school_bus: false,
+      school_bus_note: "JR京葉線「稲毛海岸駅」徒歩15分、JR稲毛駅よりバス約10分"
+    },
+    can_walk: true,
+    can_bicycle: true,
+    course_name: "中等教育課程（国際中等教育・IB認定コース併設）",
+    commute_time: 30,
+    tuition: 150000,
+    gender_type: "coed",
+    category: "public",
+    religion: "none",
+    university_path: "prep",
+    atmospheres: ["arts", "academics"],
+    vibe_label: "国際バカロレア・海風キャンパス",
+    club_label: "活発",
+    record_label: "◎",
+    deviation_score: 60,
+    match_rate_child: 92,
+    recent_passed_records: "東京外大・筑波大・千葉大・早慶上智・海外名門大などへ多数合格",
+    events: [
+      {
+            "id": "ev_inage_1",
+            "title": "IBプログラム説明会・学校公開",
+            "date": "10月25日(土)",
+            "type": "学校説明会",
+            "desc": "世界基準のIB教育カリキュラムと英語イマージョン授業を公開！"
+      }
+],
+    special_classes: [
+      {
+            "title": "国際バカロレアMYP/DP探究＆SDGsグローバルリサーチ",
+            "desc": "環境問題や国際紛争の解決策を自ら調べ、英語でプレゼンテーション！"
+      }
+],
+    school_strengths: [
+      "国際バカロレア（IB）認定の千葉市立唯一の中等教育学校！",
+      "海に近い開放的で美しい幕張・稲毛ベイエリアの文教環境！",
+      "公立校のため極めてリーズナブルに世界水準の国際教育を受講可能！"
+],
+    life_simulation: "稲毛海岸駅から海風を感じながら登校。日常的に英語でディスカッションを行い、放課後は部活や国際ボランティア活動に主体的に取り組みます。",
+    parent_summary: "【教育方針・進学】国際バカロレア（IB）プログラムを導入した千葉市立の中等教育学校。高度な英語運用能力と論理的思考力を養成し、難関国立大・難関私立大・海外大学への進学実績が急伸しています。【環境・費用】美浜区の整備された街並み。公立のため授業料無償。",
+    child_summary: "海の近くにあって空が広いキレイな学校！英語で友達と話したり、世界のいろんな国の問題についてみんなで考える楽しい授業があるよ！",
+    tags: ["interest_drawing_create", "interest_nature_biology", "interest_history_culture"],
+    interest_category_label: "国際バカロレア・海風探究",
+    is_favorite: false
+  },
+  {
+    school_id: "sch_mito_first",
+    name: "茨城県立水戸第一高等学校附属中学校",
+    name_ruby: "いばらきけんりつみとだいいちこうとうがっこうふぞくちゅうがっこう",
+    official_url: "http://www.mito1-jh.ibk.ed.jp/",
+    catchphrase: "水戸藩の学問の系譜。「至誠・剛毅」を胸に東大・医学部を目指す茨城の最高峰",
+    recommend_phrase: "★ 水戸城跡の歴史ある学び舎で、学問の本質を深く追究し、高い志を持つ仲間と切磋琢磨したい人におすすめ！",
+    photo_url: "assets/images/real_shibushibu.jpg",
+    prefecture: "茨城県",
+    district: "水戸市三の丸",
+    station_name: "水戸駅",
+    access_info: {
+      primary_line: "JR常磐線・水郡線・水戸線",
+      hub_station: "水戸駅・勝田駅・日立駅",
+      walk_minutes: 10,
+      bus_minutes: 0,
+      school_bus: false,
+      school_bus_note: "JR「水戸駅」北口より徒歩10分（水戸城本丸跡）"
+    },
+    can_walk: true,
+    can_bicycle: true,
+    course_name: "普通科（中高一貫課程）",
+    commute_time: 25,
+    tuition: 150000,
+    gender_type: "coed",
+    category: "public",
+    religion: "none",
+    university_path: "prep",
+    atmospheres: ["academics", "stem"],
+    vibe_label: "水戸学の伝統・最高峰進学",
+    club_label: "盛ん",
+    record_label: "◎",
+    deviation_score: 63,
+    match_rate_child: 94,
+    recent_passed_records: "東京大学・東北大学・筑波大学・国公立大学医学部に毎年圧倒的な合格実績",
+    events: [
+      {
+            "id": "ev_mito1_1",
+            "title": "学校説明会・水戸城史跡見学会",
+            "date": "10月11日(土)",
+            "type": "学校説明会",
+            "desc": "水戸一高附属中の探究カリキュラムと進学指導方針を解説します。"
+      }
+],
+    special_classes: [
+      {
+            "title": "水戸一高メディカル＆アカデミック探究ゼミ",
+            "desc": "筑波大学医学部等と連携した先端医療セミナーや高度理数ゼミ！"
+      }
+],
+    school_strengths: [
+      "茨城県公立ナンバーワンの歴史・伝統と圧倒的な東大・難関大合格実績！",
+      "水戸城本丸跡に位置し、水戸駅徒歩10分の交通至便な立地！",
+      "中高一貫化により先取り学習と医学部特化プログラムがさらに充実！"
+],
+    life_simulation: "水戸駅から歴史ある城跡の坂を登って登校。ハイレベルな仲間と高度な議論を交わし、放課後は部活や伝統の歩く会（行事）に向けて鍛錬します。",
+    parent_summary: "【教育方針・進学】茨城県のトップ校・水戸一高の附属中学校。弘道館・水戸藩の学問精神を継承し、東大・東北大・医学部へ県内屈指の実績を誇ります。医学部志望者向けプログラムも手厚い。【環境・費用】水戸城本丸跡の風格ある環境。公立のため授業料無償。",
+    child_summary: "本物のお城の跡地にあるかっこいい学校！茨城県で一番勉強ができるすごい先輩や友達と一緒に、高い目標に向かって楽しく学べるよ！",
+    tags: ["interest_history_culture", "interest_puzzle_math", "interest_science_space"],
+    interest_category_label: "歴史伝統・茨城最高峰",
+    is_favorite: false
+  },
+  {
+    school_id: "sch_tsuchiura_first",
+    name: "茨城県立土浦第一高等学校附属中学校",
+    name_ruby: "いばらきけんりつつちうらだいいちこうとうがっこうふぞくちゅうがっこう",
+    official_url: "http://www.tsuchiura1-jh.ibk.ed.jp/",
+    catchphrase: "「自主・協同・責任」。旧本館（国重文）の誇りとともに東大・医学部へ躍進する名門",
+    recommend_phrase: "★ 国の重要文化財の校舎を持つ格式ある環境で、全国トップクラスの大学進学を目指したい人におすすめ！",
+    photo_url: "assets/images/real_shibushibu.jpg",
+    prefecture: "茨城県",
+    district: "土浦市真鍋",
+    station_name: "土浦駅",
+    access_info: {
+      primary_line: "JR常磐線",
+      hub_station: "土浦駅・つくば駅・取手駅",
+      walk_minutes: 0,
+      bus_minutes: 10,
+      school_bus: false,
+      school_bus_note: "JR常磐線「土浦駅」西口より路線バス約10分「土浦一高前」下車"
+    },
+    can_walk: false,
+    can_bicycle: true,
+    course_name: "普通科（中高一貫課程）",
+    commute_time: 25,
+    tuition: 150000,
+    gender_type: "coed",
+    category: "public",
+    religion: "none",
+    university_path: "prep",
+    atmospheres: ["academics", "stem"],
+    vibe_label: "歴史格式・東大難関大",
+    club_label: "盛ん",
+    record_label: "◎",
+    deviation_score: 64,
+    match_rate_child: 95,
+    recent_passed_records: "東京大学（毎年30名前後）・国公立大学医学部に圧倒的な合格実績",
+    events: [
+      {
+            "id": "ev_tsuchi1_1",
+            "title": "学校説明会・重要文化財旧本館見学",
+            "date": "10月18日(土)",
+            "type": "学校説明会",
+            "desc": "国の重要文化財に指定された美しい木造校舎と一貫カリキュラムを解説！"
+      }
+],
+    special_classes: [
+      {
+            "title": "土浦一高フロンティアサイエンスゼミ",
+            "desc": "つくばの研究機関（KEK・JAXA・産総研）と連携したハイレベル探究！"
+      }
+],
+    school_strengths: [
+      "東大合格者数で全国公立高校トップクラスの実績を誇る土浦一高の中高一貫校！",
+      "国の重要文化財に指定された壮麗な旧本館が象徴する120年の歴史！",
+      "つくば研究学園都市の研究機関と直結した最先端の科学教育！"
+],
+    life_simulation: "土浦駅からバスで真鍋の丘へ。歴史ある重文校舎を眺めながら登校し、高度な数理・英語の授業を受け、放課後は部活や自習室で仲間と高め合います。",
+    parent_summary: "【教育方針・進学】東大合格者数で全国屈指の土浦一高附属中。筑波研究学園都市に隣接する地の利を活かした高度な理数探究と、徹底した進路指導で医学部・難関国立大に抜群の成果を誇ります。【環境・費用】土浦市真鍋。公立のため授業料無償。",
+    child_summary: "お城や博物館みたいな重文の木造校舎がすごく素敵！つくばの研究所に行って宇宙や素粒子の実験を学べるすごい学校だよ！",
+    tags: ["interest_puzzle_math", "interest_science_space", "interest_history_culture"],
+    interest_category_label: "重要文化財・東大医学部",
+    is_favorite: false
+  },
+  {
+    school_id: "sch_namiki_chuto",
+    name: "茨城県立並木中等教育学校",
+    name_ruby: "いばらきけんりつなみきちゅうとうきょういくがっこう",
+    official_url: "http://www.namiki-cs.ibk.ed.jp/",
+    catchphrase: "つくば研究学園都市の知の拠点。科学と国際理解で未来をデザインする中等教育学校",
+    recommend_phrase: "★ 研究学園都市の恵まれた環境で、科学研究や英語プレゼンに思いきり打ち込みたい人におすすめ！",
+    photo_url: "assets/images/real_shibushibu.jpg",
+    prefecture: "茨城県",
+    district: "つくば市並木",
+    station_name: "つくば駅",
+    access_info: {
+      primary_line: "つくばエクスプレス（TX）",
+      hub_station: "つくば駅・秋葉原駅・北千住駅",
+      walk_minutes: 0,
+      bus_minutes: 10,
+      school_bus: false,
+      school_bus_note: "つくばエクスプレス「つくば駅」より路線バス約10分「並木中等前」下車すぐ"
+    },
+    can_walk: false,
+    can_bicycle: true,
+    course_name: "中等教育課程（6年一貫）",
+    commute_time: 30,
+    tuition: 150000,
+    gender_type: "coed",
+    category: "public",
+    religion: "none",
+    university_path: "prep",
+    atmospheres: ["stem", "academics"],
+    vibe_label: "つくば科学・先端中等教育",
+    club_label: "活発",
+    record_label: "◎",
+    deviation_score: 61,
+    match_rate_child: 93,
+    recent_passed_records: "東京大・筑波大・東工大・国公立医学部・早慶上理へ多数進学",
+    events: [
+      {
+            "id": "ev_namiki_1",
+            "title": "学校説明会・先端サイエンス見学会",
+            "date": "10月25日(土)",
+            "type": "学校説明会",
+            "desc": "6年間一貫の探究論文執筆プログラムと国際教育を紹介します。"
+      }
+],
+    special_classes: [
+      {
+            "title": "並木サイエンスリサーチ＆国際学会発表",
+            "desc": "JAXAや産総研の研究者と協働し、英語で研究論文を書き上げるプログラム！"
+      }
+],
+    school_strengths: [
+      "つくば研究学園都市の中心部に位置し、世界最高峰の研究機関と連携！",
+      "6年一貫中等教育学校としての豊富な探究指導ノウハウ！",
+      "筑波大学・東京大学など難関国立大学への高い現役進学率！"
+],
+    life_simulation: "つくば駅からペデストリアンデッキやバスで登校。緑あふれる学園都市のキャンパスで実験や英語討論に励み、放課後は自習室で勉強します。",
+    parent_summary: "【教育方針・進学】つくば研究学園都市に立地する県立中等教育学校。国際性豊かな土地柄を反映し、科学教育と高度な英語教育に強み。筑波大・東大・国公立医学部等へ安定した現役進学実績を上げています。【環境・費用】つくば市並木。公立のため授業料無償。",
+    child_summary: "JAXAや研究所がまわりにいっぱいある！科学の実験や宇宙の研究を本格的にできて、英語で発表するチャンスもたくさんあるよ！",
+    tags: ["interest_science_space", "interest_puzzle_math", "interest_nature_biology"],
+    interest_category_label: "つくば科学・先端中等教育",
+    is_favorite: false
+  },
+  {
+    school_id: "sch_tondabayashi",
+    name: "大阪府立富田林中学校",
+    name_ruby: "おおさかふりつとんだばやしちゅうがっこう",
+    official_url: "https://tonko.ed.jp/",
+    catchphrase: "「地域と世界をつなぐグローカルリーダー」。南河内の伝統校で育む探究心",
+    recommend_phrase: "★ 地域を愛し、世界の課題を解決する視野を持って、伸び伸びと学習と部活に励みたい人におすすめ！",
+    photo_url: "assets/images/real_shibushibu.jpg",
+    prefecture: "大阪府",
+    district: "富田林市谷川町",
+    station_name: "富田林西口駅",
+    access_info: {
+      primary_line: "近鉄長野線",
+      hub_station: "天王寺（大阪阿部野橋）駅・河内長野駅",
+      walk_minutes: 5,
+      bus_minutes: 0,
+      school_bus: false,
+      school_bus_note: "近鉄長野線「富田林西口駅」より徒歩5分、富田林駅徒歩10分"
+    },
+    can_walk: true,
+    can_bicycle: true,
+    course_name: "普通科（中高一貫課程）",
+    commute_time: 25,
+    tuition: 150000,
+    gender_type: "coed",
+    category: "public",
+    religion: "none",
+    university_path: "prep",
+    atmospheres: ["both", "academics"],
+    vibe_label: "グローカル・自主探究",
+    club_label: "盛ん",
+    record_label: "◎",
+    deviation_score: 59,
+    match_rate_child: 92,
+    recent_passed_records: "大阪大学・神戸大学・大阪公立大学・国公立大学へ高い合格率",
+    events: [
+      {
+            "id": "ev_tonko_1",
+            "title": "学校説明会・探究体験",
+            "date": "10月18日(土)",
+            "type": "学校説明会",
+            "desc": "南河内探究と中高一貫6年間の学習計画をご案内します。"
+      }
+],
+    special_classes: [
+      {
+            "title": "グローカル探究プログラム",
+            "desc": "世界遺産・百舌鳥古市古墳群などを題材に地域と世界の共通課題を探究！"
+      }
+],
+    school_strengths: [
+      "富田林西口駅徒歩5分の通学しやすい好立地！阿部野橋から直通！",
+      "創立120年を超える名門「富高」の伝統と中高一貫教育のシナジー！",
+      "大阪公立大・阪大など地元難関国公立大学への手厚い進学指導！"
+],
+    life_simulation: "富田林西口駅から徒歩5分。緑豊かな歴史あるキャンパスで学び、放課後は部活に汗を流し、図書室で仲間と勉強します。",
+    parent_summary: "【教育方針・進学】府立旧制八中を前身とする名門校の中高一貫校。地域と世界をつなぐグローカル探究を推進し、阪大・神大・大阪公立大をはじめとする国公立大学への高い現役進学実績を誇ります。【環境・費用】富田林市。公立のため授業料無償です。",
+    child_summary: "駅から近くて通いやすい！歴史ある古墳や自然を調べたり、友達と一緒に面白い探究活動や部活を思いきり楽しめるよ！",
+    tags: ["interest_history_culture", "interest_nature_biology", "interest_puzzle_math"],
+    interest_category_label: "地域探究・グローカル",
+    is_favorite: false
+  },
+  {
+    school_id: "sch_suito_kokusai",
+    name: "大阪府立水都国際中学校",
+    name_ruby: "おおさかふりつすいとこくさいちゅうがっこう",
+    official_url: "https://osaka-city-ib.jp/",
+    catchphrase: "日本初の公設民営中高一貫校。国際バカロレア（IB）で世界基準の学びを体現",
+    recommend_phrase: "★ 外国人の先生と英語で学び、国際バカロレアのディプロマや海外大学進学を目指したい人におすすめ！",
+    photo_url: "assets/images/real_shibushibu.jpg",
+    prefecture: "大阪府",
+    district: "大阪市住之江区南港中",
+    station_name: "ポートタウン西駅",
+    access_info: {
+      primary_line: "Osaka Metro南港ポートタウン線（ニュートラム）",
+      hub_station: "コスモスクエア駅・住之江公園駅・梅田駅",
+      walk_minutes: 3,
+      bus_minutes: 0,
+      school_bus: false,
+      school_bus_note: "ニュートラム「ポートタウン西駅」より徒歩3分"
+    },
+    can_walk: true,
+    can_bicycle: true,
+    course_name: "中高一貫国際科（IB認定コース併設）",
+    commute_time: 30,
+    tuition: 150000,
+    gender_type: "coed",
+    category: "public",
+    religion: "none",
+    university_path: "prep",
+    atmospheres: ["arts", "academics"],
+    vibe_label: "国際バカロレア・公設民営",
+    club_label: "活発",
+    record_label: "◎",
+    deviation_score: 61,
+    match_rate_child: 94,
+    recent_passed_records: "大阪大学・京都大学・早慶上智・海外名門大学へ多数の合格実績",
+    events: [
+      {
+            "id": "ev_suito_1",
+            "title": "水都国際フェスタ＆説明会",
+            "date": "10月25日(土)",
+            "type": "学校説明会",
+            "desc": "ネイティブ教員による英語イマージョン授業体験とIBプログラム解説！"
+      }
+],
+    special_classes: [
+      {
+            "title": "国際バカロレア（IB）探究＆英語イマージョン",
+            "desc": "多国籍な教員陣による英語での数学・理科指導とグローバル社会課題研究！"
+      }
+],
+    school_strengths: [
+      "日本初の公設民営学校！学校法人大阪加計学園による先進的な運営！",
+      "全教員の半数近くが外国人教員！圧倒的な英語日常環境！",
+      "公立校のためIB認定校でありながら授業料無償！"
+],
+    life_simulation: "ポートタウン西駅から歩いて3分。校舎内では日常的に英語が飛び交い、海外の学校とのプロジェクトやディスカッションを体験します。",
+    parent_summary: "【教育方針・進学】全国初の公設民営中高一貫校。国際バカロレア（IB）認定校として、世界水準の探究教育と高度な英語イマージョンを実施。海外大学・国内最難関大の推薦入試等で目覚ましい実績を上げています。【環境・費用】住之江区南港。公立のため授業料無償。",
+    child_summary: "学校の中はまるで外国みたい！先生の半分が外国人で、毎日英語でお話ししながら、ワクワクする実験や発表ができる楽しい学校だよ！",
+    tags: ["interest_drawing_create", "interest_history_culture", "interest_puzzle_math"],
+    interest_category_label: "国際バカロレア・公設民営",
+    is_favorite: false
+  },
+  {
+    school_id: "sch_saikyo_fuzoku",
+    name: "京都市立西京高等学校附属中学校",
+    name_ruby: "きょうとしりつさいきょうこうとうがっこうふぞくちゅうがっこう",
+    official_url: "http://cms.edu.city.kyoto.jp/weblog/index.php?id=201605",
+    catchphrase: "「進取・果敢」。エンタープライジングの精神で未来社会を創造する京都の公立トップ校",
+    recommend_phrase: "★ ビジネスや社会イノベーションに興味があり、京都の中心で仲間と刺激し合いたい人におすすめ！",
+    photo_url: "assets/images/real_shibushibu.jpg",
+    prefecture: "京都府",
+    district: "京都市中京区西ノ京東中合町",
+    station_name: "西大路御池駅",
+    access_info: {
+      primary_line: "京都市営地下鉄東西線・JR山陰本線（嵯峨野線）・阪急京都線",
+      hub_station: "京都駅・烏丸御池駅・西院駅",
+      walk_minutes: 1,
+      bus_minutes: 0,
+      school_bus: false,
+      school_bus_note: "地下鉄東西線「西大路御池駅」出口すぐ、JR「円町駅」徒歩8分、阪急「西院駅」徒歩10分"
+    },
+    can_walk: true,
+    can_bicycle: true,
+    course_name: "普通科（エンタープライジング科一貫）",
+    commute_time: 20,
+    tuition: 150000,
+    gender_type: "coed",
+    category: "public",
+    religion: "none",
+    university_path: "prep",
+    atmospheres: ["stem", "academics"],
+    vibe_label: "エンタープライジング・果敢挑戦",
+    club_label: "盛ん",
+    record_label: "◎",
+    deviation_score: 64,
+    match_rate_child: 95,
+    recent_passed_records: "京都大学（毎年50名前後）・大阪大学・東京大学・医学部に圧倒的な現役合格率",
+    events: [
+      {
+            "id": "ev_saikyo_1",
+            "title": "学校説明会・EP探究公開",
+            "date": "10月11日(土)",
+            "type": "学校説明会",
+            "desc": "西京のエンタープライジング教育と高い京大進学実績の秘密を公開！"
+      }
+],
+    special_classes: [
+      {
+            "title": "エンタープライジング（EP）プロジェクト",
+            "desc": "社会起業や新ビジネス・先端科学を想定し、課題発見から解決策を立案する探究！"
+      }
+],
+    school_strengths: [
+      "地下鉄西大路御池駅出口すぐ！京都市内各線から抜群の通学アクセス！",
+      "京都大学合格者数で全国公立トップクラスの実績！",
+      "社会を変革する意欲を育てる独自の「エンタープライジング」教育！"
+],
+    life_simulation: "地下鉄駅を出てわずか1分で近代的な校舎へ。熱気あふれるゼミやプレゼンテーションを行い、放課後は自習ラウンジや部活で仲間と過ごします。",
+    parent_summary: "【教育方針・進学】「エンタープライジング科」を擁する京都公立の雄。起業家精神・果敢な挑戦心を培う探究学習と徹底した進学指導により、京大合格者数で全国最上位を維持。堀川・洛北と並ぶ京都公立御三家の筆頭です。【環境・費用】駅直結至近。公立のため授業料無償。",
+    child_summary: "地下鉄の駅を出たらすぐ目の前！新しいアイデアを考えたり、プレゼン大会をしたり、京都大学を目指すかっこいい先輩たちと学べるよ！",
+    tags: ["interest_puzzle_math", "interest_drawing_create", "interest_science_space"],
+    interest_category_label: "起業家精神・京都大学",
+    is_favorite: false
+  },
+  {
+    school_id: "sch_kobe_fuzoku",
+    name: "神戸大学附属中等教育学校",
+    name_ruby: "こうべだいがくふぞくちゅうとうきょういくがっこう",
+    official_url: "https://www.edu.kobe-u.ac.jp/kuss-top/",
+    catchphrase: "「グローバル・キャリア教育」。神戸の海と山を臨むアカデミックな国立中等教育学校",
+    recommend_phrase: "★ 神戸大学の研究リソースを活用し、最先端の学問や探究に没頭したい人におすすめ！",
+    photo_url: "assets/images/real_shibushibu.jpg",
+    prefecture: "兵庫県",
+    district: "神戸市東灘区住吉山手",
+    station_name: "住吉駅",
+    access_info: {
+      primary_line: "JR神戸線・阪急神戸線・阪神本線",
+      hub_station: "大阪（梅田）駅・三ノ宮駅",
+      walk_minutes: 0,
+      bus_minutes: 10,
+      school_bus: false,
+      school_bus_note: "JR・六甲ライナー「住吉駅」より市バス約10分「渦森台」方面行き"
+    },
+    can_walk: false,
+    can_bicycle: false,
+    course_name: "中等教育課程（6年一貫）",
+    commute_time: 30,
+    tuition: 180000,
+    gender_type: "coed",
+    category: "national",
+    religion: "none",
+    university_path: "prep",
+    atmospheres: ["stem", "academics"],
+    vibe_label: "学術探究・国立一貫",
+    club_label: "活発",
+    record_label: "◎",
+    deviation_score: 65,
+    match_rate_child: 96,
+    recent_passed_records: "東京大学・京都大学・大阪大学・神戸大学医学部等へ多数の現役合格",
+    events: [
+      {
+            "id": "ev_kuf_1",
+            "title": "学校説明会・公開研究発表",
+            "date": "10月18日(土)",
+            "type": "学校説明会",
+            "desc": "神戸大学との高大連携探究と生徒の自由研究展示をご案内します。"
+      }
+],
+    special_classes: [
+      {
+            "title": "Kobeグローバル・リサーチ（KGR）",
+            "desc": "神戸大学の教授陣から直接指導を受け、自ら問いを立てて論文を完成させる探究！"
+      }
+],
+    school_strengths: [
+      "神戸大学直属の国立中等教育学校！大学の最先端研究室と密接連携！",
+      "京大・阪大・神大・医学部への極めて高い現役進学率！",
+      "神戸の街と海を一望する六甲山麓の緑豊かで静謐な教育環境！"
+],
+    life_simulation: "住吉駅からバスで緑あふれる山の手キャンパスへ。神戸の海を眼下に見ながら高度な探究授業を受け、放課後は研究や部活に取り組みます。",
+    parent_summary: "【教育方針・進学】国立・神戸大学の附属中等教育学校。6年間を通じた「KGR（課題研究）」など大学直結のアカデミックな教育を展開。京大・阪大・神大・国公立医学部等へ抜群の合格実績を誇ります。【環境・費用】東灘区住吉山手。国立校のため学費は格安です。",
+    child_summary: "神戸の海や街が見渡せる山の手のキレイな学校！神戸大学のすごい研究室に行ってお話を聞いたり、自分の好きな研究に思いきり熱中できるよ！",
+    tags: ["interest_science_space", "interest_nature_biology", "interest_puzzle_math"],
+    interest_category_label: "国立中等・大学連携探究",
+    is_favorite: false
+  },
+  {
+    school_id: "sch_shiba_jh",
+    name: "芝中学校",
+    name_ruby: "しばちゅうがっこう",
+    official_url: "https://www.shiba.ac.jp/",
+    catchphrase: "「遵法自治」。東京タワーの麓で人を思いやる温かい心を育む伝統男子校",
+    recommend_phrase: "★ アットホームで面倒見の良い先生たちに見守られ、穏やかに伸び伸びと男子校生活を満喫したい人におすすめ！",
+    photo_url: "assets/images/real_shibushibu.jpg",
+    prefecture: "東京都",
+    district: "港区芝公園",
+    station_name: "神谷町駅",
+    access_info: {
+      primary_line: "東京メトロ日比谷線・都営三田線",
+      hub_station: "霞ケ関駅・六本木駅・大手町駅",
+      walk_minutes: 5,
+      bus_minutes: 0,
+      school_bus: false,
+      school_bus_note: "東京メトロ日比谷線「神谷町駅」徒歩5分、都営三田線「御成門駅」徒歩2分"
+    },
+    can_walk: true,
+    can_bicycle: false,
+    course_name: "普通科（中高一貫課程）",
+    commute_time: 20,
+    tuition: 930000,
+    gender_type: "boys",
+    category: "private",
+    religion: "buddhist",
+    university_path: "prep",
+    atmospheres: ["both", "academics"],
+    vibe_label: "遵法自治・温厚篤実",
+    club_label: "非常に活発",
+    record_label: "◎",
+    deviation_score: 64,
+    match_rate_child: 94,
+    recent_passed_records: "東京大学・東京工業大学・国公立大学医学部・早慶上理へ多数進学",
+    events: [
+      {
+            "id": "ev_shiba_1",
+            "title": "芝学園祭",
+            "date": "9月20日(土)〜21日(日)",
+            "type": "文化祭",
+            "desc": "東京タワーのすぐ下で繰り広げられる芝生たちの温かく熱い文化祭！"
+      }
+],
+    special_classes: [
+      {
+            "title": "芝漬（体験学習）＆仏教情操教育",
+            "desc": "増上寺の伝統を受け継ぐ他者への思いやりと、多彩な体験型野外実習！"
+      }
+],
+    school_strengths: [
+      "東京タワーの目の前！神谷町駅徒歩5分・御成門駅徒歩2分の抜群の立地！",
+      "「芝漬」と呼ばれる温かい校風。自己肯定感を高める丁寧な男子教育！",
+      "東大・難関国立大・早慶への堅実で高い現役進学実績！"
+],
+    life_simulation: "神谷町駅から東京タワーを見上げながら登校。温かい先生や朗らかな仲間と笑い合い、放課後は部活に打ち込んで自習室で勉強します。",
+    parent_summary: "【教育方針・進学】増上寺の学寮を起源とする伝統男子進学校。「遵法自治」を標榜し、厳しく押し付けるのではなく生徒自らが気づき成長する「芝温泉」とも称される温かい校風が特長。東大をはじめ難関大へ確固たる実績を残しています。【環境・費用】港区芝公園至近。",
+    child_summary: "東京タワーのすぐ下にあって景色が最高！先生たちも先輩もみんなとっても優しくて、男子校ならではの楽しい毎日を安心して過ごせるよ！",
+    tags: ["interest_sports_outdoor", "interest_history_culture", "interest_puzzle_math"],
+    interest_category_label: "温厚篤実・伝統男子進学校",
+    is_favorite: false
+  },
+  {
+    school_id: "sch_hongo_jh",
+    name: "本郷中学校",
+    name_ruby: "ほんごうちゅうがっこう",
+    official_url: "https://www.hongo.ed.jp/",
+    catchphrase: "「強健・厳正・勤勉」。「本郷ラーニングプラザ」で文武両道を極める名門男子校",
+    recommend_phrase: "★ 巣鴨駅近くの快適な環境で、ラグビーやサッカーに燃えつつ、東大・難関大を真剣に狙いたい人におすすめ！",
+    photo_url: "assets/images/real_shibushibu.jpg",
+    prefecture: "東京都",
+    district: "豊島区駒込",
+    station_name: "巣鴨駅",
+    access_info: {
+      primary_line: "JR山手線・都営三田線・東京メトロ南北線",
+      hub_station: "池袋駅・上野駅・大手町駅",
+      walk_minutes: 3,
+      bus_minutes: 0,
+      school_bus: false,
+      school_bus_note: "JR山手線・都営三田線「巣鴨駅」徒歩3分、南北線「駒込駅」徒歩7分"
+    },
+    can_walk: true,
+    can_bicycle: false,
+    course_name: "普通科（中高一貫課程）",
+    commute_time: 20,
+    tuition: 940000,
+    gender_type: "boys",
+    category: "private",
+    religion: "none",
+    university_path: "prep",
+    atmospheres: ["both", "academics"],
+    vibe_label: "文武両道・強健勤勉",
+    club_label: "非常に活発",
+    record_label: "◎",
+    deviation_score: 65,
+    match_rate_child: 95,
+    recent_passed_records: "東京大学・東京工業大学・国公立大学医学部・早慶上理へ急伸する進学実績",
+    events: [
+      {
+            "id": "ev_hongo_1",
+            "title": "本郷祭（文化祭）",
+            "date": "9月27日(土)〜28日(日)",
+            "type": "文化祭",
+            "desc": "男子校の活気と知的な研究展示、クラブ体験が満載の秋の大イベント！"
+      }
+],
+    special_classes: [
+      {
+            "title": "自学自習力育成「本郷プラザ」＆数学力強化プログラム",
+            "desc": "徹底した基礎反復と放課後の個別チューター指導による盤石な学力形成！"
+      }
+],
+    school_strengths: [
+      "JR山手線・都営三田線「巣鴨駅」徒歩3分の比類なきアクセス！",
+      "花園出場のラグビー部をはじめとする強豪スポーツ部と高い大学実績の両立！",
+      "人工芝グラウンドや「ラーニングプラザ」など最新鋭の学習施設！"
+],
+    life_simulation: "巣鴨駅から歩いてわずか3分。人工芝グラウンドで爽やかに汗を流し、最新の自習センターで夜まで集中して学習に取り組みます。",
+    parent_summary: "【教育方針・進学】山手線巣鴨駅至近の完全中高一貫男子校。「文武両道」を掲げ、運動部への高い加入率を誇りながら、東大・難関国立大・医学部・早慶への進学実績が近年著しく伸長。面倒見の良さでも高い評価を得ています。【環境・費用】巣鴨駅徒歩3分で通学安心。",
+    child_summary: "巣鴨駅から歩いてすぐ！ピカピカの人工芝グラウンドがあって、ラグビーやサッカー、勉強も全部全力でかっこよく頑張れる学校だよ！",
+    tags: ["interest_sports_outdoor", "interest_puzzle_math", "interest_science_space"],
+    interest_category_label: "文武両道・駅近男子名門",
+    is_favorite: false
+  },
+  {
+    school_id: "sch_hiroo_gakuen",
+    name: "広尾学園中学校",
+    name_ruby: "ひろおがくえんちゅうがっこう",
+    official_url: "https://www.hiroogakuen.ed.jp/",
+    catchphrase: "「自律と共生」。医進・サイエンスとインターナショナルで最先端を走る都心共学校",
+    recommend_phrase: "★ 最新のiPadや電子顕微鏡を使った研究、またはオールイングリッシュの国際教育に挑戦したい人におすすめ！",
+    photo_url: "assets/images/real_shibushibu.jpg",
+    prefecture: "東京都",
+    district: "港区南麻布",
+    station_name: "広尾駅",
+    access_info: {
+      primary_line: "東京メトロ日比谷線",
+      hub_station: "恵比寿駅・六本木駅・銀座駅",
+      walk_minutes: 1,
+      bus_minutes: 0,
+      school_bus: false,
+      school_bus_note: "東京メトロ日比谷線「広尾駅」4番出口より徒歩1分"
+    },
+    can_walk: true,
+    can_bicycle: false,
+    course_name: "本科コース・医進サイエンスコース・インターナショナルコース",
+    commute_time: 20,
+    tuition: 1050000,
+    gender_type: "coed",
+    category: "private",
+    religion: "none",
+    university_path: "prep",
+    atmospheres: ["stem", "arts"],
+    vibe_label: "最先端ICT・医進国際",
+    club_label: "活発",
+    record_label: "◎",
+    deviation_score: 67,
+    match_rate_child: 96,
+    recent_passed_records: "東京大学・国公立大学医学部・海外名門大学・早慶上理へ驚異的な進学実績",
+    events: [
+      {
+            "id": "ev_hiroo_1",
+            "title": "けやき祭（文化祭）",
+            "date": "10月4日(土)〜5日(日)",
+            "type": "文化祭",
+            "desc": "医進サイエンスの研究プレゼンやインターナショナルの英語劇が圧巻！"
+      }
+],
+    special_classes: [
+      {
+            "title": "医進・サイエンス研究室＆オールイングリッシュ授業",
+            "desc": "大学研究室レベルの実験機材で自らテーマを探究する先進プログラム！"
+      }
+],
+    school_strengths: [
+      "東京メトロ日比谷線「広尾駅」徒歩1分の超一等地キャンパス！",
+      "一人一台のMac/iPadを活用した先進的ICT教育のパイオニア！",
+      "医学部・海外トップ大学・東大への合格実績が全国屈指の伸び率！"
+],
+    life_simulation: "広尾駅の出口を出てすぐに登校。最新のタブレットを使って国内外の共同研究に取り組み、放課後は実験室や自習ラウンジで仲間と語り合います。",
+    parent_summary: "【教育方針・進学】都内屈指の超人気共学校。医進・サイエンスコースやインターナショナルコースなど時代のニーズを先取りしたコース制を敷き、東大・海外名門大・国公立私立医学部に目覚ましい合格実績を築いています。【環境・費用】港区南麻布・広尾駅徒歩1分。",
+    child_summary: "広尾駅から歩いて1分！一人一台パソコンやタブレットを使って、本格的な科学研究をしたり英語でペラペラ話せるようになる未来の学校だよ！",
+    tags: ["interest_science_space", "interest_puzzle_math", "interest_drawing_create"],
+    interest_category_label: "先端医進・国際イノベーション",
+    is_favorite: false
+  },
+  {
+    school_id: "sch_eiko_gakuen",
+    name: "栄光学園中学校",
+    name_ruby: "えいこうがくえんちゅうがっこう",
+    official_url: "https://eiko.ed.jp/",
+    catchphrase: "「Men for Others, with Others」。大船の豊かな緑の丘で本質的な思索を深める神奈川男子御三家",
+    recommend_phrase: "★ 広大な自然の中で仲間と走り回り、毎朝の体操と深い思考力で一生モノの学問を究めたい人におすすめ！",
+    photo_url: "assets/images/real_shibushibu.jpg",
+    prefecture: "神奈川県",
+    district: "鎌倉市玉縄",
+    station_name: "大船駅",
+    access_info: {
+      primary_line: "JR東海道線・横須賀線・根岸線・湘南新宿ライン",
+      hub_station: "横浜駅・品川駅・藤沢駅",
+      walk_minutes: 15,
+      bus_minutes: 0,
+      school_bus: false,
+      school_bus_note: "JR各線「大船駅」西口より徒歩15分（緑豊かな丘陵地）"
+    },
+    can_walk: true,
+    can_bicycle: false,
+    course_name: "普通科（中高一貫課程）",
+    commute_time: 30,
+    tuition: 910000,
+    gender_type: "boys",
+    category: "private",
+    religion: "christian",
+    university_path: "prep",
+    atmospheres: ["stem", "academics"],
+    vibe_label: "他者のために・自学思索",
+    club_label: "盛ん",
+    record_label: "◎",
+    deviation_score: 69,
+    match_rate_child: 97,
+    recent_passed_records: "東京大学・京都大学・国公立大学医学部に毎年極めて高い合格率（東大合格約50名）",
+    events: [
+      {
+            "id": "ev_eiko_1",
+            "title": "栄光祭（文化祭）",
+            "date": "5月10日(土)〜11日(日)",
+            "type": "文化祭",
+            "desc": "広大な自然キャンパスで生徒がゼロから創り上げる知的好奇心満載の祭典！"
+      }
+],
+    special_classes: [
+      {
+            "title": "栄光体操＆カトリック倫理探究ゼミ",
+            "desc": "心身を鍛える伝統の栄光体操と、深く社会の正義と自己を見つめる対話授業！"
+      }
+],
+    school_strengths: [
+      "神奈川男子御三家の最高峰！圧倒的な東大合格率と知的教育環境！",
+      "隈研吾氏設計の木造新校舎と広大な自然林・総合グラウンド！",
+      "イエズス会教育による「他者のために生きる人間」を育む全人教育！"
+],
+    life_simulation: "大船駅から丘を登って自然に囲まれた校舎へ。毎朝グラウンドで体操をしてから集中して高度な学問を学び、放課後は部活に汗を流します。",
+    parent_summary: "【教育方針・進学】イエズス会を母体とする神奈川男子御三家の名門。詰め込みを排し、深い思索力と倫理観を育成。東大・京大・国公立医学部への現役合格率で常に全国最上位クラスを維持しています。【環境・費用】鎌倉市大船の広大な丘陵地。自然と調和した木造校舎。",
+    child_summary: "木がいっぱいの広い丘の上にあるカッコいい学校！毎朝みんなで体操をして体を鍛えて、算数のパズルや科学の探究をとことん楽しめるよ！",
+    tags: ["interest_puzzle_math", "interest_science_space", "interest_nature_biology"],
+    interest_category_label: "イエズス会・真理探究",
+    is_favorite: false
+  },
+  {
+    school_id: "sch_ferris",
+    name: "フェリス女学院中学校",
+    name_ruby: "ふぇりすじょがくいんちゅうがっこう",
+    official_url: "https://www.ferris.ed.jp/",
+    catchphrase: "「For Others」。横浜山手の丘で高い知性と他者への奉仕の心を育む名門女子校",
+    recommend_phrase: "★ 横浜の美しい歴史ある丘で、音楽や文学を深く愛し、自由と自立の精神を持った女性に成長したい人におすすめ！",
+    photo_url: "assets/images/real_shibushibu.jpg",
+    prefecture: "神奈川県",
+    district: "横浜市中区山手町",
+    station_name: "石川町駅",
+    access_info: {
+      primary_line: "JR根岸線（京浜東北線直通）・みなとみらい線",
+      hub_station: "横浜駅・桜木町駅",
+      walk_minutes: 10,
+      bus_minutes: 0,
+      school_bus: false,
+      school_bus_note: "JR根岸線「石川町駅」南口徒歩10分、みなとみらい線「元町・中華街駅」徒歩15分"
+    },
+    can_walk: true,
+    can_bicycle: false,
+    course_name: "普通科（中高一貫課程）",
+    commute_time: 25,
+    tuition: 930000,
+    gender_type: "girls",
+    category: "private",
+    religion: "christian",
+    university_path: "prep",
+    atmospheres: ["academics", "arts"],
+    vibe_label: "For Others・高い知性",
+    club_label: "盛ん",
+    record_label: "◎",
+    deviation_score: 66,
+    match_rate_child: 95,
+    recent_passed_records: "東京大学・国公立大学医学部・早慶上理などへ極めて高い現役合格率",
+    events: [
+      {
+            "id": "ev_ferris_1",
+            "title": "フェリス祭（文化祭）",
+            "date": "11月1日(土)〜2日(日)",
+            "type": "文化祭",
+            "desc": "山手の丘が華やぐ伝統の学園祭。オルガン演奏や洗練されたクラブ展示！"
+      }
+],
+    special_classes: [
+      {
+            "title": "聖書・オルガン科＆リベラルアーツ探究",
+            "desc": "本物のパイプオルガンに触れる音楽教育と、社会正義を考えるキリスト教倫理！"
+      }
+],
+    school_strengths: [
+      "神奈川女子御三家（フェリス・横浜共立・横浜雙葉）の頂点！",
+      "横浜山手の異国情緒あふれる美しい文教地区に位置！",
+      "細かな規則を設けず生徒の自律と高い学問探究を重んじる自由な校風！"
+],
+    life_simulation: "石川町駅から山手の坂を登って登校。チャペルでパイプオルガンの音色とともに祈りを捧げ、知的好奇心に満ちたハイレベルな授業を受けます。",
+    parent_summary: "【教育方針・進学】1870年創立の日本最古の女子校の一つ。「For Others」の精神のもと、自立した高い知性を持つ女性を育成。東大・難関国立大・医学部・早慶へ安定した高い進学実績を誇ります。【環境・費用】横浜山手の歴史ある景観地区。通学環境抜群。",
+    child_summary: "横浜の山の手のおしゃれな丘の上にある憧れの学校！大きなパイプオルガンの音がとても美しくて、優しくて知的な友達と楽しい毎日を過ごせるよ！",
+    tags: ["interest_drawing_create", "interest_history_culture", "interest_puzzle_math"],
+    interest_category_label: "横浜山手・キリスト教女子最高峰",
+    is_favorite: false
+  },
+  {
+    school_id: "sch_rakusei",
+    name: "洛星中学校",
+    name_ruby: "らくせいちゅうがっこう",
+    official_url: "https://www.rakusei.ac.jp/",
+    catchphrase: "カトリック・ヴィアトール会。「心・知・体」の調和を追求する京都男子の最高峰",
+    recommend_phrase: "★ 京都の歴史ある街で、キリスト教の温かい精神に包まれながら、京大・東大・医学部を目指したい人におすすめ！",
+    photo_url: "assets/images/real_shibushibu.jpg",
+    prefecture: "京都府",
+    district: "京都市北区白梅町",
+    station_name: "北野白梅町駅",
+    access_info: {
+      primary_line: "JR嵯峨野線・京福北野線・京都市バス",
+      hub_station: "京都駅・二条駅",
+      walk_minutes: 10,
+      bus_minutes: 0,
+      school_bus: false,
+      school_bus_note: "京福「北野白梅町駅」徒歩10分、JR「円町駅」徒歩15分、市バス「北野白梅町」下車"
+    },
+    can_walk: true,
+    can_bicycle: true,
+    course_name: "普通科（中高一貫課程）",
+    commute_time: 25,
+    tuition: 920000,
+    gender_type: "boys",
+    category: "private",
+    religion: "christian",
+    university_path: "prep",
+    atmospheres: ["both", "academics"],
+    vibe_label: "温和・京都男子名門",
+    club_label: "非常に活発",
+    record_label: "◎",
+    deviation_score: 66,
+    match_rate_child: 95,
+    recent_passed_records: "京都大学（毎年40〜50名）・東京大学・国公立大学医学部に圧倒的な現役合格実績",
+    events: [
+      {
+            "id": "ev_rakusei_1",
+            "title": "クリスマスページェント＆学校説明会",
+            "date": "10月18日(土)",
+            "type": "学校説明会",
+            "desc": "カトリック教育の温かさとハイレベルな学習環境をご紹介します。"
+      }
+],
+    special_classes: [
+      {
+            "title": "ヴィアトール教養ゼミ＆オーケストラ鑑賞",
+            "desc": "学問の本質と豊かな芸術的感性を養う洛星独自の情操カリキュラム！"
+      }
+],
+    school_strengths: [
+      "洛南と並び称される京都私立男子校のツートップ！",
+      "京大・国公立医学部合格者数において全国屈指の現役進学率！",
+      "全員がクラブ活動に所属し、オーケストラ部など文化系・運動系ともに全国レベル！"
+],
+    life_simulation: "北野天満宮に近い落ち着いた街並みを歩いて登校。質の高い授業で思考を深め、放課後はクラブ活動に汗を流し、図書室で自習します。",
+    parent_summary: "【教育方針・進学】カトリック・ヴィアトール修道会を設立母体とする名門男子校。ほぼ全生徒がクラブ活動に所属する文武両道を実践しつつ、京都大学や国公立医学部へ抜群の合格実績を残しています。【環境・費用】京都市北区の閑静な文教地区。",
+    child_summary: "京都で大人気の男子校！先生がとても温かく、勉強もオーケストラやサッカーなどの部活も、仲間と一緒に思いきり熱中できる素晴らしい学校だよ！",
+    tags: ["interest_puzzle_math", "interest_history_culture", "interest_sports_outdoor"],
+    interest_category_label: "京都男子名門・京都大学医学部",
+    is_favorite: false
+  },
+  {
+    school_id: "sch_sapporo_kaisei",
+    name: "市立札幌開成中等教育学校",
+    name_ruby: "しりつさっぽろかいせいちゅうとうきょういくがっこう",
+    official_url: "https://www.kaisei-s.sapporo-c.ed.jp/",
+    catchphrase: "「一貫教育・国際バカロレア」。探究型学習で未来社会を創造する北海道の公立中等教育校",
+    recommend_phrase: "★ 世界基準の国際バカロレア（IB）探究や課題解決学習で、自ら問いを立てて学びたい人におすすめ！",
+    photo_url: "assets/images/real_shibushibu.jpg",
+    prefecture: "北海道",
+    district: "札幌市東区北22条東",
+    station_name: "元町駅",
+    access_info: {
+      primary_line: "札幌市営地下鉄東豊線",
+      hub_station: "さっぽろ駅・大通駅",
+      walk_minutes: 15,
+      bus_minutes: 5,
+      school_bus: false,
+      school_bus_note: "地下鉄東豊線「元町駅」または「環状通東駅」より徒歩15分（中央バス約5分）"
+    },
+    can_walk: true,
+    can_bicycle: true,
+    course_name: "中等教育課程（IB認定・6年一貫）",
+    commute_time: 30,
+    tuition: 150000,
+    gender_type: "coed",
+    category: "public",
+    religion: "none",
+    university_path: "prep",
+    atmospheres: ["stem", "academics"],
+    vibe_label: "国際バカロレア・探究創造",
+    club_label: "活発",
+    record_label: "◎",
+    deviation_score: 60,
+    match_rate_child: 93,
+    recent_passed_records: "北海道大学・東京大学・京都大学・国公立大医学部へ多数合格",
+    events: [
+      {
+            "id": "ev_skaisei_1",
+            "title": "学校説明会・IB授業体験",
+            "date": "10月11日(土)",
+            "type": "学校説明会",
+            "desc": "北海道初の公立国際バカロレア認定校の探究プログラムを体感！"
+      }
+],
+    special_classes: [
+      {
+            "title": "コズモサイエンス＆IB探究プロジェクト",
+            "desc": "教科を横断した課題解決型学習と英語によるプレゼンテーション！"
+      }
+],
+    school_strengths: [
+      "北海道の公立校として唯一の国際バカロレア（MYP/DP）一貫認定校！",
+      "北海道大学をはじめとする難関国公立大学への高い現役合格実績！",
+      "公立校のため学費無償で最先端のグローバル探究教育を受講可能！"
+],
+    life_simulation: "地下鉄元町駅から登校。答えのない課題について仲間とディスカッションし、放課後は部活や研究論文の執筆に打ち込みます。",
+    parent_summary: "【教育方針・進学】国際バカロレア（IB）を導入した札幌市立の中等教育学校。自律的な探究学習と英語プレゼン力を育成し、北大・東大・国公立医学部への高い合格実績を残しています。【環境・費用】札幌市東区。公立のため授業料無償。",
+    child_summary: "先生からの一方的な授業ではなく、みんなで疑問を出し合って実験や発表をする楽しい学校！英語もたくさん使えて世界が広がるよ！",
+    tags: ["interest_science_space", "interest_drawing_create", "interest_puzzle_math"],
+    interest_category_label: "国際バカロレア・先端探究",
+    is_favorite: false
+  },
+  {
+    school_id: "sch_sendai_seiryo",
+    name: "仙台市立仙台青陵中等教育学校",
+    name_ruby: "せんだいしりつせんだいせいりょうちゅうとうきょういくがっこう",
+    official_url: "https://sites.google.com/g.sendai-c.ed.jp/301-sendaiseiryochuto-ss/%E3%83%9B%E3%83%BC%E3%83%A0",
+    catchphrase: "杜の都の英知。「確かな学力と豊かな人間性」を育む仙台の中等教育学校",
+    recommend_phrase: "★ 東北大学進学を目指し、緑豊かな青葉山を望む落ち着いた環境で6年間じっくり学びたい人におすすめ！",
+    photo_url: "assets/images/real_shibushibu.jpg",
+    prefecture: "宮城県",
+    district: "仙台市青葉区国見ケ丘",
+    station_name: "国見駅",
+    access_info: {
+      primary_line: "JR仙山線・仙台市営バス",
+      hub_station: "仙台駅",
+      walk_minutes: 15,
+      bus_minutes: 0,
+      school_bus: false,
+      school_bus_note: "JR仙山線「国見駅」徒歩15分、仙台駅より市営バス約25分"
+    },
+    can_walk: true,
+    can_bicycle: true,
+    course_name: "中等教育課程（6年一貫）",
+    commute_time: 30,
+    tuition: 150000,
+    gender_type: "coed",
+    category: "public",
+    religion: "none",
+    university_path: "prep",
+    atmospheres: ["both", "academics"],
+    vibe_label: "杜の都・学問探究",
+    club_label: "盛ん",
+    record_label: "◎",
+    deviation_score: 60,
+    match_rate_child: 92,
+    recent_passed_records: "東北大学（毎年多数合格）・東京大学・国公立大学へ高い進学実績",
+    events: [
+      {
+            "id": "ev_sseiryo_1",
+            "title": "学校説明会・施設見学",
+            "date": "10月18日(土)",
+            "type": "学校説明会",
+            "desc": "6年間を見通したカリキュラムと青陵独自の探究活動を紹介します。"
+      }
+],
+    special_classes: [
+      {
+            "title": "青陵サイエンス＆イノベーションゼミ",
+            "desc": "東北大学の研究室や自然環境を活用した課題解決型探究！"
+      }
+],
+    school_strengths: [
+      "仙台二華と並ぶ宮城県内公立一貫校の代表格！",
+      "東北大学への抜群の現役進学実績と徹底した個別学習指導！",
+      "杜の都・仙台の緑に囲まれた美しく静謐な学習環境！"
+],
+    life_simulation: "国見駅から丘を登って登校。広々とした教室でハイレベルな授業を受け、放課後は部活や充実した自習室で勉強します。",
+    parent_summary: "【教育方針・進学】仙台市が設置する完全6年一貫中等教育学校。東北大をはじめ難関国公立大学への高い現役進学率を誇り、手厚い進路指導と公立ならではの安心感が強みです。【環境・費用】青葉区国見ケ丘。公立のため授業料無償。",
+    child_summary: "緑がいっぱいの丘の上にあって空気が気持ちいい！東北大学を目指す仲間と一緒に、理科の実験や楽しい部活動に打ち込めるよ！",
+    tags: ["interest_nature_biology", "interest_puzzle_math", "interest_science_space"],
+    interest_category_label: "東北大学連携・杜の都探究",
+    is_favorite: false
+  },
+  {
+    school_id: "sch_hamamatsu_nishi",
+    name: "静岡県立浜松西高等学校中等部",
+    name_ruby: "しずおかけんりつはままつにしこうとうがっこうちゅうとうぶ",
+    official_url: "http://www.edu.pref.shizuoka.jp/hamamatsunishi-h/home.nsf/IndexFormView?OpenView",
+    catchphrase: "「自主・自律・誠実」。ものづくりの街・浜松で未来の科学者とリーダーを育成",
+    recommend_phrase: "★ 静岡県西部の最高峰で、ものづくりの精神と高い学力を身につけ、難関国立大を目指したい人におすすめ！",
+    photo_url: "assets/images/real_shibushibu.jpg",
+    prefecture: "静岡県",
+    district: "浜松市中区鴨江",
+    station_name: "浜松駅",
+    access_info: {
+      primary_line: "JR東海道新幹線・東海道本線・遠州鉄道",
+      hub_station: "浜松駅・掛川駅・豊橋駅",
+      walk_minutes: 0,
+      bus_minutes: 10,
+      school_bus: false,
+      school_bus_note: "JR浜松駅バスターミナルより遠鉄バス約10分「浜松西高」下車すぐ"
+    },
+    can_walk: false,
+    can_bicycle: true,
+    course_name: "普通科（中高一貫課程）",
+    commute_time: 25,
+    tuition: 150000,
+    gender_type: "coed",
+    category: "public",
+    religion: "none",
+    university_path: "prep",
+    atmospheres: ["both", "stem"],
+    vibe_label: "ものづくり・文武両道",
+    club_label: "非常に活発",
+    record_label: "◎",
+    deviation_score: 60,
+    match_rate_child: 92,
+    recent_passed_records: "東京大学・京都大学・名古屋大学・浜松医科大学医学部へ毎年多数合格",
+    events: [
+      {
+            "id": "ev_hnishi_1",
+            "title": "中等部学校説明会",
+            "date": "10月4日(土)",
+            "type": "学校説明会",
+            "desc": "浜松西の一貫教育カリキュラムと高い医学部・難関大実績をご案内します。"
+      }
+],
+    special_classes: [
+      {
+            "title": "浜松西テクノロジー＆メディカル探究",
+            "desc": "地元自動車・光技術企業や浜松医科大と連携した実践的サイエンス講座！"
+      }
+],
+    school_strengths: [
+      "静岡県西部を代表する公立中高一貫の伝統進学校！",
+      "名大・東大・浜松医大医学部への確固たる合格実績！",
+      "文武両道の校風で運動部・文化部ともに県内上位で活躍！"
+],
+    life_simulation: "浜松駅からバスで登校。質の高い講義と熱気ある部活動を両立し、放課後は自習室で医学部や難関大合格を目指して研鑽を積みます。",
+    parent_summary: "【教育方針・進学】浜松市を代表する県立中高一貫進学校。理数・科学技術に強い地域性を活かした教育を行い、名大・東大・国公立医学部に安定した多数の合格者を誇ります。【環境・費用】浜松市中心部に近く通学容易。公立のため授業料無償。",
+    child_summary: "バイクやピアノなど世界的に有名なものづくりの街・浜松の名門校！勉強もスポーツも仲間と本気で競い合って成長できるよ！",
+    tags: ["interest_sports_outdoor", "interest_science_space", "interest_puzzle_math"],
+    interest_category_label: "ものづくり・名門公立一貫",
+    is_favorite: false
+  },
+  {
+    school_id: "sch_okayama_sozan",
+    name: "岡山県立岡山操山中学校",
+    name_ruby: "おかやまけんりつおかやまそうざんちゅうがっこう",
+    official_url: "https://www.sozan-jhs.okayama-c.ed.jp/",
+    catchphrase: "「和敬・愛譲・勤勉」。緑深き操山の麓で未来を切り拓く探究知を育む",
+    recommend_phrase: "★ 落ち着いた環境の中で高い教養を身につけ、岡山大学や京都大学・大阪大学を目指したい人におすすめ！",
+    photo_url: "assets/images/real_shibushibu.jpg",
+    prefecture: "岡山県",
+    district: "岡山市中区浜",
+    station_name: "西川原駅",
+    access_info: {
+      primary_line: "JR山陽本線・赤穂線",
+      hub_station: "岡山駅",
+      walk_minutes: 5,
+      bus_minutes: 0,
+      school_bus: false,
+      school_bus_note: "JR山陽本線・赤穂線「西川原・就実駅」より徒歩5分"
+    },
+    can_walk: true,
+    can_bicycle: true,
+    course_name: "普通科（中高一貫課程）",
+    commute_time: 20,
+    tuition: 150000,
+    gender_type: "coed",
+    category: "public",
+    religion: "none",
+    university_path: "prep",
+    atmospheres: ["both", "academics"],
+    vibe_label: "操山の精神・探究教養",
+    club_label: "盛ん",
+    record_label: "◎",
+    deviation_score: 61,
+    match_rate_child: 93,
+    recent_passed_records: "東京大学・京都大学・大阪大学・岡山大学医学部に多数の現役合格",
+    events: [
+      {
+            "id": "ev_sozan_1",
+            "title": "操山中等説明会・授業公開",
+            "date": "10月11日(土)",
+            "type": "学校説明会",
+            "desc": "中高一貫の特色あるカリキュラムと探究学習「未来航路」を公開！"
+      }
+],
+    special_classes: [
+      {
+            "title": "探究活動「未来航路」プロジェクト",
+            "desc": "自己の適性を見つめ、国内外の社会課題を6年間かけて追究する独自探究！"
+      }
+],
+    school_strengths: [
+      "JR西川原駅から徒歩5分！岡山駅から1駅の極めて至便な通学アクセス！",
+      "岡山県立中高一貫第1号としての20年以上の充実したノウハウ！",
+      "京大・阪大・岡大医学部など難関国公立大学への高い現役合格実績！"
+],
+    life_simulation: "西川原駅から歩いて5分で校門へ。操山の緑を望む教室で探究ゼミや討論を行い、放課後は部活に汗を流して自習室で勉強します。",
+    parent_summary: "【教育方針・進学】岡山県公立一貫校の先駆校。独自探究「未来航路」を通じて主体性と問題解決力を育成し、京大・阪大・岡山大医学部等へ抜群の合格実績を維持しています。【環境・費用】西川原駅徒歩5分。公立のため授業料無償。",
+    child_summary: "岡山駅から電車で1駅、駅から歩いて5分でとても近い！自然がキレイな操山のふもとで、優しい仲間と楽しい探究や部活ができるよ！",
+    tags: ["interest_history_culture", "interest_nature_biology", "interest_puzzle_math"],
+    interest_category_label: "未来航路・岡山名門公立",
+    is_favorite: false
+  },
+  {
+    school_id: "sch_kenritsu_hiroshima",
+    name: "広島県立広島中学校",
+    name_ruby: "ひろしまけんりつひろしまちゅうがっこう",
+    official_url: "http://www.hcyuko.hiroshima-c.ed.jp/",
+    catchphrase: "「高い知性・豊かな感性・強い意志」。西条の学術拠点で世界を拓く全県学区公立校",
+    recommend_phrase: "★ 東広島の学術環境で、広大なキャンパスと充実した寮も備え、世界水準の探究に取り組みたい人におすすめ！",
+    photo_url: "assets/images/real_shibushibu.jpg",
+    prefecture: "広島県",
+    district: "東広島市高屋町中島",
+    station_name: "西高屋駅",
+    access_info: {
+      primary_line: "JR山陽本線",
+      hub_station: "広島駅・西条駅・三原駅",
+      walk_minutes: 10,
+      bus_minutes: 0,
+      school_bus: false,
+      school_bus_note: "JR山陽本線「西高屋駅」より徒歩10分"
+    },
+    can_walk: true,
+    can_bicycle: true,
+    course_name: "普通科（全寮制併設・中高一貫課程）",
+    commute_time: 30,
+    tuition: 150000,
+    gender_type: "coed",
+    category: "public",
+    religion: "none",
+    university_path: "prep",
+    atmospheres: ["stem", "academics"],
+    vibe_label: "国際リーダー・学術探究",
+    club_label: "盛ん",
+    record_label: "◎",
+    deviation_score: 62,
+    match_rate_child: 94,
+    recent_passed_records: "東京大学・京都大学・広島大学医学部・大阪大学等へ毎年多数進学",
+    events: [
+      {
+            "id": "ev_khiro_1",
+            "title": "学校説明会・寮見学会",
+            "date": "10月18日(土)",
+            "type": "学校説明会",
+            "desc": "広大なキャンパスと全県から生徒が集まる寄宿舎を見学できます。"
+      }
+],
+    special_classes: [
+      {
+            "title": "ことばの教育＆広島大学連携サイエンス",
+            "desc": "論理的文章表現を鍛えることばの指導と、先端大学研究室との合同探究！"
+      }
+],
+    school_strengths: [
+      "広島県全域から受検可能！快適な学生寮も完備！",
+      "広島大学等と連携した先端科学・国際教育プログラム！",
+      "難関国公立大学・医学部への安定した高い進学実績！"
+],
+    life_simulation: "西高屋駅から緑の並木道を歩いて登校。寮生も通学生も仲間同士で深く学び合い、放課後は部活動や夜間学習に励みます。",
+    parent_summary: "【教育方針・進学】広島県が全県から英才を集める県立中高一貫校。徹底した論理的言語教育と大学連携探究により、東大・京大・広大医学部へ安定した多数の合格者を輩出。安心の学生寮も完備。【環境・費用】東広島市。公立のため学費負担が極めて抑えられます。",
+    child_summary: "広島県中から頼もしい仲間が集まる！寮もあるから遠くからでも安心。英語のスピーチや科学の実験を仲間と楽しく究められるよ！",
+    tags: ["interest_science_space", "interest_puzzle_math", "interest_drawing_create"],
+    interest_category_label: "全県公立一貫・学術連携",
+    is_favorite: false
+  },
+  {
+    school_id: "sch_johnouchi",
+    name: "徳島県立城ノ内中等教育学校",
+    name_ruby: "とくしまけんりつじょうのうちちゅうとうきょういくがっこう",
+    official_url: "https://johnouchi-ss.tokushima-ec.ed.jp/",
+    catchphrase: "「自主・誠実・礼学」。四国を牽引する中等教育学校から難関大・医学部へ",
+    recommend_phrase: "★ 徳島県最高峰の学習環境で、仲間と競い合いながら国公立医学部や難関大を目指したい人におすすめ！",
+    photo_url: "assets/images/real_shibushibu.jpg",
+    prefecture: "徳島県",
+    district: "徳島市北徳島町",
+    station_name: "徳島駅",
+    access_info: {
+      primary_line: "JR高徳線・徳島線・牟岐線",
+      hub_station: "徳島駅",
+      walk_minutes: 10,
+      bus_minutes: 0,
+      school_bus: false,
+      school_bus_note: "JR「徳島駅」より徒歩10分"
+    },
+    can_walk: true,
+    can_bicycle: true,
+    course_name: "中等教育課程（6年一貫）",
+    commute_time: 20,
+    tuition: 150000,
+    gender_type: "coed",
+    category: "public",
+    religion: "none",
+    university_path: "prep",
+    atmospheres: ["both", "academics"],
+    vibe_label: "徳島最高峰・医学部難関大",
+    club_label: "盛ん",
+    record_label: "◎",
+    deviation_score: 58,
+    match_rate_child: 92,
+    recent_passed_records: "東京大学・京都大学・徳島大学医学部（毎年多数）・国公立大学へ高い進学実績",
+    events: [
+      {
+            "id": "ev_johno_1",
+            "title": "城ノ内中等説明会",
+            "date": "10月4日(土)",
+            "type": "学校説明会",
+            "desc": "中等教育学校移行による先取り指導と医学部進学指導を解説します。"
+      }
+],
+    special_classes: [
+      {
+            "title": "城ノ内グローバルサイエンスゼミ",
+            "desc": "徳島大学医学部・薬学部・LED産業と連携した先端探究プログラム！"
+      }
+],
+    school_strengths: [
+      "徳島駅徒歩10分の通学利便性と徳島県内トップクラスの偏差値！",
+      "徳島大医学部をはじめ国公立大学医学部に抜群の合格実績！",
+      "中等教育学校化による6年一貫の体系的先取りカリキュラム！"
+],
+    life_simulation: "徳島駅から歩いて10分。熱意ある仲間とハイレベルな講義を受け、放課後は部活に汗を流し、自習室で医学部や難関大を目指して勉強します。",
+    parent_summary: "【教育方針・進学】徳島県を代表する公立中等教育学校。地元徳島大医学部をはじめとする難関医学部・難関国立大に圧倒的な実績を誇ります。【環境・費用】徳島駅至近の好立地。公立のため授業料無償。",
+    child_summary: "徳島駅から近くて通いやすい！お医者さんや科学者になりたい頼もしい友達がたくさんいて、勉強も部活動も全力で打ち込めるよ！",
+    tags: ["interest_puzzle_math", "interest_science_space", "interest_sports_outdoor"],
+    interest_category_label: "四国最高峰・医学部特化",
+    is_favorite: false
+  },
+  {
+    school_id: "sch_munakata_jh",
+    name: "福岡県立宗像中学校",
+    name_ruby: "ふくおかけんりつむなかたちゅうがっこう",
+    official_url: "https://munakata-j.fku.ed.jp/",
+    catchphrase: "世界遺産の地で学ぶ「自律・創造・敬愛」。九州を牽引する公立中高一貫校",
+    recommend_phrase: "★ 世界遺産・宗像の歴史と豊かな自然の中で、世界に目を向けた探究学習と九州大学進学を目指したい人におすすめ！",
+    photo_url: "assets/images/real_shibushibu.jpg",
+    prefecture: "福岡県",
+    district: "宗像市東郷",
+    station_name: "東郷駅",
+    access_info: {
+      primary_line: "JR鹿児島本線",
+      hub_station: "博多駅・小倉駅・折尾駅",
+      walk_minutes: 15,
+      bus_minutes: 0,
+      school_bus: false,
+      school_bus_note: "JR鹿児島本線「東郷駅」日の里口より徒歩15分（または西鉄バス約5分）"
+    },
+    can_walk: true,
+    can_bicycle: true,
+    course_name: "普通科（中高一貫課程）",
+    commute_time: 30,
+    tuition: 150000,
+    gender_type: "coed",
+    category: "public",
+    religion: "none",
+    university_path: "prep",
+    atmospheres: ["both", "academics"],
+    vibe_label: "世界遺産探究・文武両道",
+    club_label: "非常に活発",
+    record_label: "◎",
+    deviation_score: 60,
+    match_rate_child: 92,
+    recent_passed_records: "九州大学・東京大学・京都大学・国公立大学医学部へ高い現役進学率",
+    events: [
+      {
+            "id": "ev_muna_1",
+            "title": "学校説明会・公開授業",
+            "date": "10月11日(土)",
+            "type": "学校説明会",
+            "desc": "宗像中独自のグローバル探究活動と6年一貫指導をご案内します。"
+      }
+],
+    special_classes: [
+      {
+            "title": "宗像世界遺産探究＆グローバルリーダーシップ",
+            "desc": "神宿る島・宗像大社を起点に古代からの国際交流と海洋環境を調査・研究！"
+      }
+],
+    school_strengths: [
+      "JR鹿児島本線快速停車駅・東郷駅至近！博多・北九州両方面から通学至便！",
+      "世界遺産の歴史と自然に抱かれた素晴らしい教育環境！",
+      "九州大学をはじめとする難関国公立大学への高い現役合格実績！"
+],
+    life_simulation: "東郷駅から歩いて登校。歴史と自然の風を感じながら探究授業を受け、放課後は部活に打ち込み、充実した自習室で勉強します。",
+    parent_summary: "【教育方針・進学】福岡県立の中高一貫進学校。世界遺産の地域資源を活かした高度な探究学習と確かな基礎学力指導により、九大・難関国立大に安定した多数の合格者を輩出。【環境・費用】宗像市東郷。公立のため授業料無償。",
+    child_summary: "世界遺産の宗像大社の近くにあるきれいな学校！自然の中で歴史や科学を調べて発表したり、部活もみんなで思いきり楽しめるよ！",
+    tags: ["interest_history_culture", "interest_nature_biology", "interest_sports_outdoor"],
+    interest_category_label: "世界遺産・九州名門公立",
+    is_favorite: false
+  },
+  {
+    school_id: "sch_kaiho_jh",
+    name: "沖縄県立開邦中学校",
+    name_ruby: "おきなわけんりつかいほうちゅうがっこう",
+    official_url: "http://www.kaiho-jh.open.ed.jp/",
+    catchphrase: "沖縄公立の最高峰。「開邦精神」で東大・京大・医学部へ挑む英才の学び舎",
+    recommend_phrase: "★ 沖縄最高峰の知性が集まる環境で、学問の真理をとことん追究し、医学部や難関大を目指したい人におすすめ！",
+    photo_url: "assets/images/real_shibushibu.jpg",
+    prefecture: "沖縄県",
+    district: "島尻郡南風原町新川",
+    station_name: "首里駅",
+    access_info: {
+      primary_line: "沖縄都市モノレール（ゆいレール）・那覇バス",
+      hub_station: "県庁前駅・首里駅",
+      walk_minutes: 15,
+      bus_minutes: 5,
+      school_bus: false,
+      school_bus_note: "ゆいレール「首里駅」より徒歩15分、那覇バス「開邦高校前」下車すぐ"
+    },
+    can_walk: true,
+    can_bicycle: true,
+    course_name: "学術探究科（中高一貫課程）",
+    commute_time: 25,
+    tuition: 150000,
+    gender_type: "coed",
+    category: "public",
+    religion: "none",
+    university_path: "prep",
+    atmospheres: ["stem", "academics"],
+    vibe_label: "沖縄最高峰・英才探究",
+    club_label: "活発",
+    record_label: "◎",
+    deviation_score: 62,
+    match_rate_child: 94,
+    recent_passed_records: "琉球大学医学部医学科・東京大学・京都大学・国公立大学へ圧倒的合格実績",
+    events: [
+      {
+            "id": "ev_kaiho_1",
+            "title": "学校説明会・開邦サイエンス公開",
+            "date": "10月18日(土)",
+            "type": "学校説明会",
+            "desc": "中高一貫の先取りカリキュラムと高度な探究授業を公開します。"
+      }
+],
+    special_classes: [
+      {
+            "title": "開邦学術リサーチ＆OIST（沖縄科学技術大学院大学）連携",
+            "desc": "世界屈指の研究機関OIST等の研究者と協働する最先端科学研究！"
+      }
+],
+    school_strengths: [
+      "沖縄県公立校ナンバーワンの進学実績！琉球大医学部・東大に圧倒的！",
+      "OIST（沖縄科学技術大学院大学）など先端機関と直結した研究環境！",
+      "首里城近くの高台に位置し、那覇市内各所からアクセス至便！"
+],
+    life_simulation: "首里駅から登校。高い目標を掲げる仲間たちと実験や討論を行い、放課後は自習室で医学部や最難関大を目指して仲間と切磋琢磨します。",
+    parent_summary: "【教育方針・進学】沖縄県公立の頂点に立つ進学校。中高一貫化により先取り指導がさらに加速し、琉球大医学部や東大・京大へ県内圧倒的な合格実績を築いています。【環境・費用】首里エリア至近。公立のため授業料無償。",
+    child_summary: "沖縄で一番勉強ができるすごい友達が集まる学校！宇宙やバイオの最先端の実験をしたり、医学部を目指して楽しく学べるよ！",
+    tags: ["interest_puzzle_math", "interest_science_space", "interest_nature_biology"],
+    interest_category_label: "沖縄最高峰・医学部先端探究",
+    is_favorite: false
   }
 ];
 
