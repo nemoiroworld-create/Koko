@@ -1747,125 +1747,6 @@ const closeSchoolDetailModal = goBackFromSchoolDetail;
 let previousScrollBeforeDetail = 0;
 
 // ==========================================
-// 全交通手段（電車・バス・自転車・徒歩）の所要時間・ルート内訳・算出根拠の計算
-// ==========================================
-function calculateAllTransitModes(school, userAddress, userStation) {
-  const userAddr = (userAddress || "ご自宅").trim();
-  const rawStation = (userStation || "").trim().replace(/駅+$/, '');
-  const userStn = rawStation ? `${rawStation}駅` : '自宅最寄駅';
-  const schoolPref = school.prefecture || "東京都";
-  const schoolDistrict = school.district || "";
-  const sStation = (school.station_name || "").replace(/駅+$/, '');
-  const sStationWithEk = sStation ? `${sStation}駅` : '学校最寄駅';
-  const access = (typeof school.access_info === 'object' && school.access_info) ? school.access_info : {};
-  const walkMin = access.walk_minutes || 7;
-  const primaryLine = access.primary_line || "主要鉄道路線";
-
-  // 1. 電車ルート
-  let trainTotal = 30;
-  let trainRoute = '';
-  let trainBasis = '平常時の主要路線（JR・私鉄）の標準運行ダイヤ＋駅からの徒歩時間（不動産表示基準：1分=80m）をもとに算出';
-  if (typeof calculateDetailedCommuteRoute === 'function') {
-    const r = calculateDetailedCommuteRoute(userAddr, rawStation, school, ['train']);
-    trainTotal = r.total_minutes;
-    trainRoute = r.route_summary;
-  } else {
-    trainTotal = school.calculated_commute_time || school.commute_time || 30;
-    trainRoute = `【電車直通＋徒歩】「${userStn}」より ${primaryLine} 等で約${Math.max(trainTotal - walkMin, 10)}分 ➡「${sStationWithEk}」下車 徒歩約${walkMin}分（合計約${trainTotal}分）`;
-  }
-
-  // 2. バス・スクールバスルート
-  let busStatus = 'none';
-  let busTotal = null;
-  let busRoute = '';
-  let busBasis = '';
-  if (access.school_bus) {
-    const busMin = access.bus_minutes || 12;
-    const busNote = access.school_bus_note || '学校専用スクールバス運行';
-    const isDirect = rawStation && (rawStation === sStation || (access.hub_station && access.hub_station.includes(rawStation)));
-    if (isDirect) {
-      busStatus = 'direct';
-      busTotal = busMin + 2;
-      busRoute = `【専用スクールバス直通】最寄り「${userStn}」より学校専用直通スクールバスで約${busMin}分（乗換不要・校内直着）`;
-      busBasis = `学校公式の直通スクールバス運行ダイヤ（${busNote}）をもとに算出`;
-    } else {
-      busStatus = 'train_bus';
-      let trainPart = 15;
-      if (trainTotal && trainTotal > busMin) {
-        trainPart = Math.max(trainTotal - busMin, 10);
-      }
-      busTotal = trainPart + busMin;
-      busRoute = `【電車＋スクールバス】「${userStn}」より電車等で約${trainPart}分 ➡「${sStationWithEk}」等下車、直通スクールバス約${busMin}分（合計所要時間：約${busTotal}分）`;
-      busBasis = `電車移動時間＋学校公式スクールバスダイヤ（${busNote}）をもとに算出`;
-    }
-  } else if (access.bus_minutes && access.bus_minutes > 0) {
-    busStatus = 'route_bus';
-    busTotal = (trainTotal || 30) + access.bus_minutes;
-    busRoute = `【電車＋路線バス】「${userStn}」より電車で「${sStationWithEk}」へ ➡ 駅前より路線バスで約${access.bus_minutes}分`;
-    busBasis = '駅前バスターミナルからの路線バス標準所要時間をもとに算出';
-  } else {
-    busStatus = 'none';
-    busRoute = '学校専用スクールバスの運行はありません（駅から徒歩にてアクセス可能です）';
-    busBasis = '学校公式の交通案内（専用バス運行なし・駅徒歩アクセス対象）に基づく';
-  }
-
-  // 3. 自転車通学
-  let bikeStatus = 'available';
-  let bikeTotal = null;
-  let bikeRoute = '';
-  let bikeBasis = '';
-  const isSamePref = (userAddr.includes(schoolPref) || (schoolPref && userAddr.includes(schoolPref.replace(/[都道府県]$/, ''))));
-  const isSameDistrict = userAddr.includes(schoolDistrict) || (schoolDistrict && userAddr.includes(schoolDistrict.replace(/[市区町村]$/, '')));
-
-  if (!school.can_bicycle) {
-    bikeStatus = 'forbidden';
-    bikeRoute = '学校規定により生徒の自転車通学は認められていません（公共交通機関または徒歩をご利用ください）';
-    bikeBasis = '学校公式の校則・生徒指導規程（自転車通学禁止）に基づく';
-  } else if (isSameDistrict) {
-    bikeStatus = 'available';
-    bikeTotal = 15;
-    bikeRoute = `【自宅から直接自転車】ご自宅（${userAddr}）より校内生徒用駐輪場まで約15分（雨天時は電車・バス振替可）`;
-    bikeBasis = '市区町村内の公道距離（標準時速約12〜15km、平坦路基準）をもとに算出';
-  } else if (isSamePref && trainTotal <= 35) {
-    bikeStatus = 'available';
-    bikeTotal = 25;
-    bikeRoute = `【自宅から直接自転車】ご自宅（${userAddr}）より安全な自転車レーン経由で約25分（※学校認可区域内）`;
-    bikeBasis = '近隣幹線道路の安全レーン経由・標準時速をもとに算出';
-  } else {
-    bikeStatus = 'too_far';
-    bikeRoute = `【駅駐輪＋電車利用を推奨】ご自宅から学校までの全区間自転車は距離があるため推奨されません。ご自宅〜最寄り「${userStn}」までの駅駐輪利用（約5〜10分）＋電車通学の組み合わせが便利です。`;
-    bikeBasis = '安全通学基準（片道30分・約6kmを超えるため遠距離判定）に基づく';
-  }
-
-  // 4. 徒歩通学
-  let walkStatus = 'station_walk';
-  let walkTotal = null;
-  let walkRoute = '';
-  let walkBasis = '';
-  if (isSameDistrict && school.can_walk) {
-    walkStatus = 'home_walk';
-    walkTotal = 15;
-    walkRoute = `【自宅から徒歩通学】ご自宅（${userAddr}）から校門まで平坦な通学路を徒歩約15分（安心の徒歩通学圏内）`;
-    walkBasis = '近隣の道路実距離をもとに徒歩分速80mで算出';
-  } else {
-    walkStatus = 'station_walk';
-    walkRoute = `【最寄駅から徒歩】学校最寄り「${sStationWithEk}」から校門まで徒歩約${walkMin}分（※ご自宅からの全行程徒歩は距離があるため不可・電車等をご利用ください）`;
-    walkBasis = `学校公称の最寄り駅徒歩分数（不動産表示基準：1分=80m、信号待ち含まず）をもとに算出`;
-  }
-
-  return {
-    userAddr,
-    userStn,
-    schoolName: school.name,
-    sStation: sStationWithEk,
-    train: { total: trainTotal, route: trainRoute, basis: trainBasis },
-    bus: { status: busStatus, total: busTotal, route: busRoute, basis: busBasis },
-    bike: { status: bikeStatus, total: bikeTotal, route: bikeRoute, basis: bikeBasis },
-    walk: { status: walkStatus, total: walkTotal, minFromStation: walkMin, route: walkRoute, basis: walkBasis }
-  };
-}
-
-// ==========================================
 // 保護者向け：公式情報・パンフレットに基づく教育環境＆学校生活の詳細動的分析HTML生成
 // ==========================================
 function generateParentSchoolAnalysisHtml(school) {
@@ -2085,7 +1966,6 @@ function openSchoolDetailScreen(schoolId) {
   const tuitionMan = Math.round(school.tuition / 10000);
   const firstYearEst = tuitionMan + 28; // 入学金等の初年度概算
   const commuteMinutes = school.calculated_commute_time || school.commute_time || 30;
-  const transitModes = calculateAllTransitModes(school, userAddr, rawStation);
 
   // 上部固定ヘッダーのお気に入りボタン状態を同期
   const btnTopFav = document.getElementById('btnDetailFavTop');
@@ -2159,17 +2039,12 @@ function openSchoolDetailScreen(schoolId) {
         
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px; margin-top: 10px;">
           <div style="background: #fff; border: 1px solid #CBD5E1; border-radius: 8px; padding: 10px 12px;">
-            <div style="font-size: 11px; color: #64748B; font-weight: 700;">⏱ 通学所要時間（全交通手段の目安）</div>
-            <div style="font-size: 14px; font-weight: 800; color: #0F172A; margin: 3px 0 2px;">
-              🚆 電車＋徒歩：片道 約${transitModes.train.total}分
+            <div style="font-size: 11px; color: #64748B; font-weight: 700;">⏱ 通学所要時間（片道目安）</div>
+            <div style="font-size: 14px; font-weight: 800; color: #0F172A; margin: 2px 0;">片道 約${commuteMinutes}分</div>
+            <div style="font-size: 11px; color: #15803D; font-weight: 600;">
+              ${isCommuteAny ? '✓ 通学時間の上限なし（全圏内校）' : (commuteMinutes <= commuteLimit ? `✓ 上限（${commuteLimit}分）以内` : `⚠️ 上限（${commuteLimit}分）を超過`)}
             </div>
-            <div style="font-size: 11px; color: #15803D; font-weight: 600; margin-bottom: 4px;">
-              ${isCommuteAny ? '✓ 通学時間の上限なし（全圏内校）' : (transitModes.train.total <= commuteLimit ? `✓ 上限（${commuteLimit}分）以内` : `⚠️ 上限（${commuteLimit}分）を超過`)}
-            </div>
-            <div style="font-size: 11px; color: #475569; border-top: 1px dashed #E2E8F0; padding-top: 4px; line-height: 1.5;">
-              <strong>基準：</strong>${transitModes.userAddr}（${transitModes.userStn}） ➡ ${transitModes.sStation}<br>
-              <strong>他手段：</strong>${transitModes.bus.status !== 'none' ? `🚌 バス約${transitModes.bus.total}分 ` : ''}${transitModes.bike.status === 'available' ? `🚲 自転車約${transitModes.bike.total}分 ` : (transitModes.bike.status === 'forbidden' ? '🚲 自転車不可 ' : '')}🚶 最寄駅徒歩${transitModes.walk.minFromStation}分
-            </div>
+            <div style="font-size: 11px; color: #64748B; margin-top: 2px;">自宅・最寄駅：${userAddr}${userStn}</div>
           </div>
 
           <div style="background: #fff; border: 1px solid #CBD5E1; border-radius: 8px; padding: 10px 12px;">
@@ -2254,92 +2129,7 @@ function openSchoolDetailScreen(schoolId) {
         </ul>
       </section>
 
-      <!-- 4. 全交通手段別の所要時間 ＆ 算出根拠ガイド -->
-      <section class="modal-section-card simulation-section" style="border: 2px solid #86EFAC; background: #F0FDF4;">
-        <div class="modal-section-title-wrap">
-          <span class="section-star" style="color: #15803D;">✦</span>
-          <h3 class="modal-section-title" style="color: #166534;">通学アクセス ＆ 全交通手段別の所要時間・算出根拠</h3>
-        </div>
-        <p class="section-sub-tip" style="color: #14532D;">
-          ご自宅【${transitModes.userAddr}（${transitModes.userStn}）】から【${school.name}（最寄：${transitModes.sStation}）】までの全交通手段の所要時間と算出根拠です。
-        </p>
-        
-        <!-- Googleマップ通学ルート案内ボタン -->
-        <div style="margin: 10px 0 14px;">
-          <a href="${mapRouteUrl}" target="_blank" rel="noopener noreferrer" onclick="handleMapLinkClick(event, '${mapRouteUrl}')" class="btn-map-transit-link full-width" style="display:flex; align-items:center; justify-content:center; gap:8px; background:#fff; color:#15803D; border:2px solid #16A34A; border-radius:10px; padding:11px 16px; font-size:13px; font-weight:800; text-decoration:none; box-shadow:0 2px 4px rgba(22,163,74,0.15); text-align:center;">
-            🗺️ Googleマップで現在地からの乗換ルートを調べる ↗
-          </a>
-        </div>
 
-        <!-- 交通手段別カード一覧 -->
-        <div style="display: flex; flex-direction: column; gap: 10px;">
-          
-          <!-- ① 電車・鉄道 -->
-          <div style="background: #fff; border: 1px solid #BBF7D0; border-radius: 8px; padding: 12px 14px;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
-              <strong style="color: #15803D; font-size: 13px;">🚆 電車・鉄道 ＋ 徒歩</strong>
-              <span style="font-size: 14px; font-weight: 800; color: #14532D; background: #DCFCE7; padding: 2px 8px; border-radius: 6px;">
-                片道 約${transitModes.train.total}分
-              </span>
-            </div>
-            <p style="font-size: 12px; color: #334155; margin: 0 0 4px 0; line-height: 1.5;">
-              <strong>【ルート詳細】</strong>${transitModes.train.route}
-            </p>
-            <div style="font-size: 11px; color: #64748B; background: #F8FAFC; padding: 4px 8px; border-radius: 4px;">
-              ℹ️ <strong>算出根拠：</strong>${transitModes.train.basis}
-            </div>
-          </div>
-
-          <!-- ② スクールバス・路線バス -->
-          <div style="background: #fff; border: 1px solid #BBF7D0; border-radius: 8px; padding: 12px 14px;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
-              <strong style="color: #15803D; font-size: 13px;">🚌 スクールバス ＆ 路線バス</strong>
-              <span style="font-size: 14px; font-weight: 800; color: #14532D; background: #DCFCE7; padding: 2px 8px; border-radius: 6px;">
-                ${transitModes.bus.total ? `片道 約${transitModes.bus.total}分` : (transitModes.bus.status === 'none' ? '専用バスなし' : '路線バス利用')}
-              </span>
-            </div>
-            <p style="font-size: 12px; color: #334155; margin: 0 0 4px 0; line-height: 1.5;">
-              <strong>【運行状況】</strong>${transitModes.bus.route}
-            </p>
-            <div style="font-size: 11px; color: #64748B; background: #F8FAFC; padding: 4px 8px; border-radius: 4px;">
-              ℹ️ <strong>算出根拠：</strong>${transitModes.bus.basis}
-            </div>
-          </div>
-
-          <!-- ③ 自転車通学 -->
-          <div style="background: #fff; border: 1px solid #BBF7D0; border-radius: 8px; padding: 12px 14px;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
-              <strong style="color: #15803D; font-size: 13px;">🚲 自転車通学</strong>
-              <span style="font-size: 13px; font-weight: 800; color: ${transitModes.bike.status === 'forbidden' ? '#DC2626' : (transitModes.bike.status === 'too_far' ? '#D97706' : '#15803D')}; background: #F1F5F9; padding: 2px 8px; border-radius: 6px;">
-                ${transitModes.bike.total ? `片道 約${transitModes.bike.total}分` : (transitModes.bike.status === 'forbidden' ? '学校規定で不可' : '駅駐輪＋電車推奨')}
-              </span>
-            </div>
-            <p style="font-size: 12px; color: #334155; margin: 0 0 4px 0; line-height: 1.5;">
-              <strong>【利用案内】</strong>${transitModes.bike.route}
-            </p>
-            <div style="font-size: 11px; color: #64748B; background: #F8FAFC; padding: 4px 8px; border-radius: 4px;">
-              ℹ️ <strong>算出根拠：</strong>${transitModes.bike.basis}
-            </div>
-          </div>
-
-          <!-- ④ 徒歩通学 -->
-          <div style="background: #fff; border: 1px solid #BBF7D0; border-radius: 8px; padding: 12px 14px;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
-              <strong style="color: #15803D; font-size: 13px;">🚶 徒歩通学（最寄駅 ＆ 自宅）</strong>
-              <span style="font-size: 13px; font-weight: 800; color: #14532D; background: #DCFCE7; padding: 2px 8px; border-radius: 6px;">
-                ${transitModes.walk.total ? `自宅より約${transitModes.walk.total}分` : `最寄駅より約${transitModes.walk.minFromStation}分`}
-              </span>
-            </div>
-            <p style="font-size: 12px; color: #334155; margin: 0 0 4px 0; line-height: 1.5;">
-              <strong>【徒歩案内】</strong>${transitModes.walk.route}
-            </p>
-            <div style="font-size: 11px; color: #64748B; background: #F8FAFC; padding: 4px 8px; border-radius: 4px;">
-              ℹ️ <strong>算出根拠：</strong>${transitModes.walk.basis}
-            </div>
-          </div>
-
-        </div>
-      </section>
 
       <!-- 5. モードに応じた総合解説 -->
       <section class="modal-section-card summary-commentary-section">
