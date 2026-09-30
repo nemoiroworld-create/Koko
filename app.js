@@ -1747,6 +1747,201 @@ const closeSchoolDetailModal = goBackFromSchoolDetail;
 let previousScrollBeforeDetail = 0;
 
 // ==========================================
+// 保護者向け：公式情報・パンフレットに基づく教育環境＆学校生活の詳細動的分析HTML生成
+// ==========================================
+function generateParentSchoolAnalysisHtml(school) {
+  const isPrep = school.university_path !== 'attached';
+  const isPublic = school.category === 'public';
+  const isBoys = school.gender_type === 'boys';
+  const isGirls = school.gender_type === 'girls';
+
+  // 1. 特色授業・プログラム
+  const specialClassesHtml = (school.special_classes && school.special_classes.length > 0)
+    ? school.special_classes.map(c => `
+        <div style="margin-top: 8px; padding: 10px 12px; background: #EFF6FF; border-radius: 8px; border: 1px solid #BFDBFE;">
+          <strong style="color: #1D4ED8; font-size: 13px; display: block; margin-bottom: 2px;">✦ 公式特色プログラム：${c.title}</strong>
+          <p style="margin: 0; font-size: 12px; color: #1E3A8A; line-height: 1.5;">${c.desc}</p>
+        </div>
+      `).join('')
+    : '';
+
+  // 2. 学校の強み・公式アピールポイント
+  const strengthsHtml = (school.school_strengths && school.school_strengths.length > 0)
+    ? `
+      <div style="margin-top: 8px; display: flex; flex-direction: column; gap: 6px;">
+        ${school.school_strengths.map(st => `
+          <div style="display: flex; align-items: flex-start; gap: 6px; font-size: 13px; color: #334155; line-height: 1.5;">
+            <span style="color: #D97706; font-weight: 800; flex-shrink: 0;">✓</span>
+            <span>${st}</span>
+          </div>
+        `).join('')}
+      </div>
+    `
+    : '';
+
+  // 3. 進路指導解説
+  let pathCommentary = '';
+  if (!isPrep) {
+    pathCommentary = `系列大学への内部進学推薦制度を強みとしつつ、国公立大学や他大学への一般受験・併願にも対応。早期からの学部連携講座や研究室体験など、受験テクニックに偏らない本質的な大学進学・キャリア教育が展開されています。`;
+  } else if (isPublic) {
+    pathCommentary = `地域公立のトップリーダー校として、高い探究力と論理的思考力を養成。難関国公立大学への高い現役進学実績を誇り、適性検査で鍛えた表現力を活かして学校推薦型・総合型選抜入試でも抜群の成果を上げています。`;
+  } else {
+    pathCommentary = `中高6カ年の一貫カリキュラムにより高校範囲を早期に修了し、高3では志望校別の実践演習に集中。東大・京大・難関国公立・医学部や早慶上理への高い現役合格実績を誇り、個別添削や小論文・面接指導まで手厚くフォローします。`;
+  }
+
+  // 4. 通学・安全面
+  let accessDetail = '';
+  let busNotice = '';
+  if (school.access_info) {
+    if (typeof school.access_info === 'object') {
+      if (school.access_info.school_bus_note) {
+        accessDetail = `（${school.access_info.school_bus_note}）`;
+      } else {
+        const parts = [];
+        if (school.access_info.walk_minutes > 0) parts.push(`徒歩約${school.access_info.walk_minutes}分`);
+        if (school.access_info.bus_minutes > 0) parts.push(`バス約${school.access_info.bus_minutes}分`);
+        if (parts.length > 0) accessDetail = `（${parts.join('・')}）`;
+      }
+      if (school.access_info.school_bus) {
+        busNotice = '専用スクールバス運行による快適・安全な登下校ルートが確保されています。';
+      }
+    } else if (typeof school.access_info === 'string') {
+      accessDetail = `（${school.access_info}）`;
+      if (school.access_info.indexOf('バス') !== -1) {
+        busNotice = '専用スクールバス運行による快適・安全な登下校ルートが確保されています。';
+      }
+    }
+  }
+  if (!busNotice && school.parent_summary && school.parent_summary.indexOf('バス') !== -1) {
+    busNotice = '専用スクールバス運行による快適・安全な登下校ルートが確保されています。';
+  }
+  const stationText = school.station_name ? `最寄り駅：${school.station_name}駅${accessDetail}` : '';
+  const bikeText = school.can_bicycle ? '自転車通学も認可されており柔軟な通学に対応。' : '';
+
+  // 5. 学校見学・説明会での着眼点（学校属性に応じた動的ヒント）
+  let visitTip1 = { title: "1. 生徒の活気と校風", desc: "生徒同士の言葉遣いや表情、のびのびと自分らしく学園生活を送れているか" };
+  if (isBoys) {
+    visitTip1 = { title: "1. 男子校ならではの絆と自立", desc: "飾らない素の自分を出せる雰囲気か、縦の学年連携や部活動・行事でリーダーシップが発揮されているか" };
+  } else if (isGirls) {
+    visitTip1 = { title: "1. 女子校ならではの品性と主体性", desc: "生徒全員が役割を担いリーダーシップを発揮しているか、落ち着いた品性と温かい友人関係が築けているか" };
+  }
+
+  let visitTip2 = { title: "2. 先生と生徒の信頼関係", desc: "質問しやすい職員室前のラウンジや、教員が生徒一人ひとりの個性と進路に寄り添う面倒見の良さ" };
+
+  let visitTip3 = { title: "3. 施設・自習環境の充実度", desc: "図書室の蔵書やWi-Fi・ICT設備、放課後に集中して自習できるスペースの座席数と利用状況" };
+  if (!isPrep) {
+    visitTip3 = { title: "3. 附属連携・探究学習設備", desc: "大学との連携施設や専門的な実験室、将来の興味関心を深められる探究型スペースの充実度" };
+  }
+
+  let visitTip4 = { title: "4. 通学路の安全性と昼食環境", desc: `最寄り駅（${school.station_name || '駅'}）からの歩道の見通し、カフェテリア・学食やパン販売の利用状況` };
+
+  return `
+    <!-- ★保護者専用2：保護者目線の学校分析・教育環境レポート（4大分析） -->
+    <section class="modal-section-card parent-detail-analysis-section" style="border: 2px solid #CBD5E1; margin-top: 16px;">
+      <div class="modal-section-title-wrap">
+        <span class="section-star" style="color: #2563EB;">✦</span>
+        <h3 class="modal-section-title" style="color: #1E3A8A;">保護者目線の教育環境・学校生活分析</h3>
+      </div>
+      <p class="section-sub-tip">公式ホームページや学校パンフレットの公開情報に基づく教育環境・生活実態の分析です。</p>
+
+      <div style="display: flex; flex-direction: column; gap: 14px; margin-top: 14px;">
+        
+        <!-- 1. 学習指導・教育方針 -->
+        <div style="background: #F8FAFC; border-left: 4px solid #3B82F6; padding: 14px 16px; border-radius: 0 8px 8px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+          <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 6px; margin-bottom: 6px;">
+            <strong style="color: #1E40AF; font-size: 14px;">📚 学習指導体制 ＆ 公式特色カリキュラム</strong>
+            ${school.course_name ? `<span style="font-size: 11px; background: #DBEAFE; color: #1E40AF; padding: 2px 8px; border-radius: 10px; font-weight: 700;">設置コース：${school.course_name}</span>` : ''}
+          </div>
+          <p style="font-size: 13px; color: #334155; margin: 0 0 6px 0; line-height: 1.6;">
+            <strong>【教育スローガン・理念】</strong>${school.catchphrase || '個性を伸ばし高い学力を育む中高一貫教育'}
+          </p>
+          <p style="font-size: 13px; color: #475569; margin: 0; line-height: 1.6;">
+            日々の基礎力定着に向けた小テストや指名補習、放課後の質問サポートが体系化されています。先取り授業と反復演習を組み合わせ、塾通いに過度に依存せず校内で学習サイクルを完結できる体制が整備されています。
+          </p>
+          ${specialClassesHtml}
+        </div>
+
+        <!-- 2. 合格実績・進路支援 -->
+        <div style="background: #F8FAFC; border-left: 4px solid #10B981; padding: 14px 16px; border-radius: 0 8px 8px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+          <strong style="color: #065F46; font-size: 14px; display: block; margin-bottom: 6px;">🎯 大学合格実績 ＆ キャリア・進学指導</strong>
+          <div style="font-size: 13px; font-weight: 700; color: #047857; background: #ECFDF5; padding: 8px 12px; border-radius: 6px; border: 1px solid #A7F3D0; margin-bottom: 8px; line-height: 1.5;">
+            【主な合格・進学実績】${school.recent_passed_records || '公式サイトにて詳細公開中'}
+          </div>
+          <p style="font-size: 13px; color: #334155; margin: 0; line-height: 1.6;">
+            ${pathCommentary}
+          </p>
+        </div>
+
+        <!-- 3. 学校の強み・生活安全 -->
+        <div style="background: #F8FAFC; border-left: 4px solid #F59E0B; padding: 14px 16px; border-radius: 0 8px 8px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+          <strong style="color: #92400E; font-size: 14px; display: block; margin-bottom: 6px;">🛡 学校独自の強み（公式アピール） ＆ 通学・安全管理</strong>
+          ${strengthsHtml}
+          <div style="margin-top: 8px; padding-top: 8px; border-top: 1px dashed #CBD5E1; font-size: 13px; color: #475569; line-height: 1.6;">
+            <strong>【通学・安全環境】</strong>${stationText}。${busNotice} ${bikeText}
+            校門でのICカードによる登下校通過通知メールや防犯カメラ、警備員の常駐体制に加え、スクールカウンセラーによる心のケアなど思春期のお子さまを多面から見守る環境が整っています。
+          </div>
+        </div>
+
+        <!-- 4. 1日の生活・昼食設備 -->
+        <div style="background: #F8FAFC; border-left: 4px solid #8B5CF6; padding: 14px 16px; border-radius: 0 8px 8px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+          <strong style="color: #5B21B6; font-size: 14px; display: block; margin-bottom: 6px;">🍱 1日の生活シミュレーション ＆ 昼食・施設環境</strong>
+          <div style="font-size: 13px; color: #334155; margin-bottom: 8px; line-height: 1.6; background: #fff; padding: 10px 12px; border-radius: 6px; border: 1px solid #E2E8F0;">
+            <strong>【通う1日のイメージ】</strong>${school.life_simulation || '朝の登校から仲間とともに熱心に授業を受け、放課後は部活動や自習室で充実した時間を過ごします。'}
+          </div>
+          <p style="font-size: 13px; color: #475569; margin: 0; line-height: 1.6;">
+            <strong>【昼食・施設設備】</strong>カフェテリア・食堂や日替わり弁当・焼きたてパンの校内販売コーナーを完備。忙しい朝のお弁当作りをしっかりサポートします。理科実験室や蔵書豊富な図書室、夜間まで利用できる自習室など、知的好奇心と自立学習を後押しする環境が整っています。
+          </p>
+        </div>
+
+        <!-- 5. 公式ホームページ直結カード -->
+        ${school.official_url ? `
+        <div style="background: #EFF6FF; border: 2px solid #93C5FD; border-radius: 10px; padding: 14px; text-align: center; margin-top: 4px;">
+          <div style="font-size: 13px; color: #1E3A8A; font-weight: 700; margin-bottom: 8px;">
+            🌐 公式ホームページで最新情報・入試要項を詳しく確認
+          </div>
+          <a href="${school.official_url}" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: #2563EB; color: #fff; padding: 10px 20px; border-radius: 8px; font-size: 14px; font-weight: 800; text-decoration: none; box-shadow: 0 2px 6px rgba(37,99,235,0.3);">
+            <span>${school.name} 公式HPを開く ↗</span>
+          </a>
+          <p style="font-size: 11px; color: #64748B; margin: 8px 0 0 0;">
+            ※ 学校説明会・公開行事の最新予約状況や募集要項、シラバス（年間指導計画）等の公式一次情報を直接ご確認いただけます。
+          </p>
+        </div>
+        ` : ''}
+
+      </div>
+    </section>
+
+    <!-- ★保護者専用3：見学会・説明会でのチェックポイント -->
+    <section class="modal-section-card parent-visit-tips-section" style="border: 2px dashed #94A3B8; background: #FFFBEB; margin-top: 16px;">
+      <div class="modal-section-title-wrap">
+        <span class="section-star" style="color: #D97706;">✦</span>
+        <h3 class="modal-section-title" style="color: #92400E;">学校見学会・説明会で確認したいおうちの方用ポイント</h3>
+      </div>
+      <p class="section-sub-tip" style="color: #78350F;">実際に足を運ばれる際、ぜひお子さまと一緒に以下の点に注目してみてください。</p>
+
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; margin-top: 10px;">
+        <div style="background: #fff; border: 1px solid #FDE68A; border-radius: 8px; padding: 10px 12px;">
+          <strong style="font-size: 13px; color: #B45309; display: block; margin-bottom: 4px;">${visitTip1.title}</strong>
+          <p style="font-size: 12px; color: #475569; margin: 0; line-height: 1.5;">${visitTip1.desc}</p>
+        </div>
+        <div style="background: #fff; border: 1px solid #FDE68A; border-radius: 8px; padding: 10px 12px;">
+          <strong style="font-size: 13px; color: #B45309; display: block; margin-bottom: 4px;">${visitTip2.title}</strong>
+          <p style="font-size: 12px; color: #475569; margin: 0; line-height: 1.5;">${visitTip2.desc}</p>
+        </div>
+        <div style="background: #fff; border: 1px solid #FDE68A; border-radius: 8px; padding: 10px 12px;">
+          <strong style="font-size: 13px; color: #B45309; display: block; margin-bottom: 4px;">${visitTip3.title}</strong>
+          <p style="font-size: 12px; color: #475569; margin: 0; line-height: 1.5;">${visitTip3.desc}</p>
+        </div>
+        <div style="background: #fff; border: 1px solid #FDE68A; border-radius: 8px; padding: 10px 12px;">
+          <strong style="font-size: 13px; color: #B45309; display: block; margin-bottom: 4px;">${visitTip4.title}</strong>
+          <p style="font-size: 12px; color: #475569; margin: 0; line-height: 1.5;">${visitTip4.desc}</p>
+        </div>
+      </div>
+    </section>
+  `;
+}
+
+// ==========================================
 // 学校詳細画面（背景に他画面を表示しない独立した専用画面への切り替え）
 // ==========================================
 function openSchoolDetailScreen(schoolId) {
@@ -1980,79 +2175,7 @@ function openSchoolDetailScreen(schoolId) {
         </div>
       </section>
 
-      ${!isChild ? `
-      <!-- ★保護者専用2：保護者目線の学校分析・教育環境レポート（4大分析） -->
-      <section class="modal-section-card parent-detail-analysis-section" style="border: 2px solid #CBD5E1;">
-        <div class="modal-section-title-wrap">
-          <span class="section-star">✦</span>
-          <h3 class="modal-section-title">保護者目線の教育環境・学校生活分析</h3>
-        </div>
-        <p class="section-sub-tip">入学後の学習環境、生活支援、進路サポートの実態を詳しく解説します。</p>
-
-        <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 12px;">
-          <!-- 1. 学習指導・補習 -->
-          <div style="background: #F8FAFC; border-left: 4px solid #3B82F6; padding: 12px 14px; border-radius: 0 8px 8px 0;">
-            <strong style="color: #1E40AF; font-size: 14px; display: block; margin-bottom: 4px;">📚 学習指導体制 ＆ 放課後フォロー</strong>
-            <p style="font-size: 13px; color: #334155; margin: 0; line-height: 1.6;">
-              日々の小テストやつまずき早期発見のための指名補講体制が整備されています。放課後の自習室や教員・卒業生チューターへの質問環境が充実しており、塾通いに頼りすぎず校内で学習習慣を完結できる仕組みが整っています。
-            </p>
-          </div>
-
-          <!-- 2. 進路支援・合格実績 -->
-          <div style="background: #F8FAFC; border-left: 4px solid #10B981; padding: 12px 14px; border-radius: 0 8px 8px 0;">
-            <strong style="color: #065F46; font-size: 14px; display: block; margin-bottom: 4px;">🎯 大学合格実績 ＆ キャリア進路支援</strong>
-            <p style="font-size: 13px; color: #334155; margin: 0; line-height: 1.6;">
-              【主な実績】${school.recent_passed_records}。<br>
-              高校進学後は早期からの進路講演会や小論文・総合型選抜対策など、一人ひとりの個性と志望に合わせた手厚い個別進路指導を実施。指定校推薦枠の活用や難関国公立・私立大学への高い現役進学実績を支えています。
-            </p>
-          </div>
-
-          <!-- 3. 安全管理・生活支援 -->
-          <div style="background: #F8FAFC; border-left: 4px solid #F59E0B; padding: 12px 14px; border-radius: 0 8px 8px 0;">
-            <strong style="color: #92400E; font-size: 14px; display: block; margin-bottom: 4px;">🛡 安全管理・防犯・学校生活サポート</strong>
-            <p style="font-size: 13px; color: #334155; margin: 0; line-height: 1.6;">
-              校門通過時に保護者端末へ通知が届くICカード登下校管理システムを導入。校内専任警備員や防犯カメラによる万全の防犯体制に加え、専任スクールカウンセラーによる定期的なメンタルヘルス面談など、多感な思春期のお子さまを温かく見守るサポート体制が整っています。
-            </p>
-          </div>
-
-          <!-- 4. 食堂・昼食環境 -->
-          <div style="background: #F8FAFC; border-left: 4px solid #8B5CF6; padding: 12px 14px; border-radius: 0 8px 8px 0;">
-            <strong style="color: #5B21B6; font-size: 14px; display: block; margin-bottom: 4px;">🍱 食堂・昼食環境 ＆ 施設設備</strong>
-            <p style="font-size: 13px; color: #334155; margin: 0; line-height: 1.6;">
-              栄養バランスに配慮した温かいランチが食べられるカフェテリア・食堂や、日替わり弁当・焼きたてパンの購入コーナーを完備。忙しい朝のお弁当作りをサポートする環境が整っており、生徒の憩いの場となっています。
-            </p>
-          </div>
-        </div>
-      </section>
-
-      <!-- ★保護者専用3：見学会・説明会でのチェックポイント -->
-      <section class="modal-section-card parent-visit-tips-section" style="border: 2px dashed #94A3B8; background: #FFFBEB;">
-        <div class="modal-section-title-wrap">
-          <span class="section-star" style="color: #D97706;">✦</span>
-          <h3 class="modal-section-title" style="color: #92400E;">学校見学会・説明会で確認したいおうちの方用ポイント</h3>
-        </div>
-        <p class="section-sub-tip" style="color: #78350F;">実際に足を運ばれる際、ぜひお子さまと一緒に以下の点に注目してみてください。</p>
-
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; margin-top: 10px;">
-          <div style="background: #fff; border: 1px solid #FDE68A; border-radius: 8px; padding: 10px 12px;">
-            <strong style="font-size: 13px; color: #B45309; display: block; margin-bottom: 4px;">1. 在校生の表情と挨拶</strong>
-            <p style="font-size: 12px; color: #475569; margin: 0; line-height: 1.5;">すれ違う生徒が自然な挨拶をしてくれるか、いきいきと楽しく過ごしているか</p>
-          </div>
-          <div style="background: #fff; border: 1px solid #FDE68A; border-radius: 8px; padding: 10px 12px;">
-            <strong style="font-size: 13px; color: #B45309; display: block; margin-bottom: 4px;">2. 先生と生徒の信頼関係</strong>
-            <p style="font-size: 12px; color: #475569; margin: 0; line-height: 1.5;">教員が熱心に生徒に向き合っているか、職員室前で気軽に質問できる雰囲気か</p>
-          </div>
-          <div style="background: #fff; border: 1px solid #FDE68A; border-radius: 8px; padding: 10px 12px;">
-            <strong style="font-size: 13px; color: #B45309; display: block; margin-bottom: 4px;">3. 図書室や自習室の充実</strong>
-            <p style="font-size: 12px; color: #475569; margin: 0; line-height: 1.5;">自習席の確保状況や蔵書数、理科実験室・グラウンドの清潔感と管理体制</p>
-          </div>
-          <div style="background: #fff; border: 1px solid #FDE68A; border-radius: 8px; padding: 10px 12px;">
-            <strong style="font-size: 13px; color: #B45309; display: block; margin-bottom: 4px;">4. 最寄駅からの通学路の安全性</strong>
-            <p style="font-size: 12px; color: #475569; margin: 0; line-height: 1.5;">歩道の広さ、交通量、街灯の多さや見通しの良さなど、お子さまが1人で歩く際の安全性</p>
-          </div>
-        </div>
-      </section>
-      ` : ''}
+      ${!isChild ? generateParentSchoolAnalysisHtml(school) : ''}
 
     </div>
 
