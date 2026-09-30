@@ -1553,9 +1553,12 @@ function renderSchoolSearchList(filterType = 'all') {
 
   // 通学条件ガイド情報の取得
   const pCond = AppSchema.parent_profile.conditions || {};
-  const commuteLimit = pCond.commute_time_max || 60;
-  const userAddr = AppSchema.parent_profile.address || "ご自宅";
-  const userStn = AppSchema.parent_profile.station ? `（${AppSchema.parent_profile.station}駅）` : '';
+  const isCommuteAny = (pCond.commute_time_max === 0 || AppSchema.parent_profile.commute_time === 0);
+  const commuteLimit = isCommuteAny ? 0 : (pCond.commute_time_max !== undefined ? pCond.commute_time_max : (AppSchema.parent_profile.commute_time !== undefined ? AppSchema.parent_profile.commute_time : 60));
+  const userAddr = (AppSchema.parent_profile.address || "ご自宅").trim();
+  const rawStation = (AppSchema.parent_profile.station || "").trim();
+  const cleanStation = rawStation.replace(/駅+$/, '');
+  const userStn = cleanStation ? `（${cleanStation}駅）` : '';
 
   // 件数表示の更新
   const countTextEl = document.getElementById('searchResultCountText');
@@ -1570,9 +1573,9 @@ function renderSchoolSearchList(filterType = 'all') {
   filterNotice.innerHTML = `
     <div>
       <strong style="color: #15803D;">🛡 保護者の通学条件を適用中：</strong>
-      <span>${userAddr}${userStn} から片道【${commuteLimit}分以内】に通学可能な学校のみを表示しています。</span>
+      <span>${userAddr}${userStn} から${isCommuteAny ? '【通学時間の上限なし（全通学圏内）】' : `片道【${commuteLimit}分以内】`}に通学可能な学校を表示しています。</span>
     </div>
-    <span style="font-size: 11px; background: #DCFCE7; padding: 2px 8px; border-radius: 12px; font-weight: 700;">日常通学可能校のみ厳選</span>
+    <span style="font-size: 11px; background: #DCFCE7; padding: 2px 8px; border-radius: 12px; font-weight: 700;">${isCommuteAny ? '上限時間なし' : '日常通学可能校のみ厳選'}</span>
   `;
   container.appendChild(filterNotice);
 
@@ -1592,7 +1595,7 @@ function renderSchoolSearchList(filterType = 'all') {
       emptyBox.innerHTML = `
         <div class="search-empty-box">
           <p class="empty-title">条件に合う通学可能な学校が見つかりませんでした</p>
-          <p class="empty-desc">保護者画面の通学時間上限（現在：${commuteLimit}分）を少し広げるか、検索キーワードを変更してみてください。</p>
+          <p class="empty-desc">${isCommuteAny ? '検索キーワードを変更するか、絞り込み条件をリセットしてみてください。' : `保護者画面の通学時間上限（現在：${commuteLimit}分）を少し広げるか、検索キーワードを変更してみてください。`}</p>
           <button type="button" class="btn-outline btn-sm" onclick="clearKeywordSearch(); filterByQuickTag('all', document.querySelector('.quick-tag-chip'))">
             検索条件をリセット
           </button>
@@ -1753,7 +1756,7 @@ function openSchoolDetailScreen(schoolId) {
   // 直前の画面とスクロール位置を記憶（戻るボタンで使用）
   if (currentRole !== 'school-detail') {
     previousRoleBeforeDetail = currentRole || 'home';
-    previousScrollBeforeDetail = window.scrollY || document.documentElement.scrollTop || 0;
+    previousScrollBeforeDetail = window.scrollY || (document.documentElement ? document.documentElement.scrollTop : 0) || 0;
   }
   currentDetailSchoolId = schoolId;
 
@@ -1762,6 +1765,21 @@ function openSchoolDetailScreen(schoolId) {
   const genderText = school.gender_type === 'girls' ? '女子校' : school.gender_type === 'boys' ? '男子校' : '共学';
   const events = school.events || [];
   const mapRouteUrl = getGoogleMapsTransitUrl(school);
+
+  // 保護者の条件データとの照合用情報
+  const pCond = AppSchema.parent_profile.conditions || {};
+  const isCommuteAny = (pCond.commute_time_max === 0 || AppSchema.parent_profile.commute_time === 0);
+  const commuteLimit = isCommuteAny ? 0 : (pCond.commute_time_max !== undefined ? pCond.commute_time_max : (AppSchema.parent_profile.commute_time !== undefined ? AppSchema.parent_profile.commute_time : 60));
+  const userAddr = (AppSchema.parent_profile.address || "ご自宅").trim();
+  const rawStation = (AppSchema.parent_profile.station || "").trim();
+  const cleanStation = rawStation.replace(/駅+$/, '');
+  const userStn = cleanStation ? `（${cleanStation}駅）` : '';
+  const categoryLabel = school.category === 'private' ? '私立中高一貫校' : (school.category === 'public' ? '公立中高一貫校' : '国立大学附属中');
+  const religionLabel = school.religion === 'none' ? '無宗教' : (school.religion === 'christian' ? 'キリスト教系' : '仏教系');
+  const univPathLabel = school.university_path === 'attached' ? '大学附属系（のびのび探究）' : '進学校系（難関大進学指導）';
+  const tuitionMan = Math.round(school.tuition / 10000);
+  const firstYearEst = tuitionMan + 28; // 入学金等の初年度概算
+  const commuteMinutes = school.calculated_commute_time || school.commute_time || 30;
 
   // 上部固定ヘッダーのお気に入りボタン状態を同期
   const btnTopFav = document.getElementById('btnDetailFavTop');
@@ -1824,6 +1842,47 @@ function openSchoolDetailScreen(schoolId) {
     <!-- コンテンツボディ各セクション -->
     <div class="modal-school-sections-container" style="margin-top: 16px;">
       
+      ${!isChild ? `
+      <!-- ★保護者専用1：ご家庭の希望条件との適合診断（マッチング分析） -->
+      <section class="modal-section-card parent-condition-match-section" style="border: 2px solid #93C5FD; background: #F8FAFC;">
+        <div class="modal-section-title-wrap">
+          <span class="section-star" style="color: #2563EB;">✦</span>
+          <h3 class="modal-section-title" style="color: #1E3A8A;">おうちの方の希望条件との適合診断</h3>
+        </div>
+        <p class="section-sub-tip" style="color: #475569;">保護者アンケートで設定された条件と、この学校の条件適合度です。</p>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px; margin-top: 10px;">
+          <div style="background: #fff; border: 1px solid #CBD5E1; border-radius: 8px; padding: 10px 12px;">
+            <div style="font-size: 11px; color: #64748B; font-weight: 700;">⏱ 通学所要時間・ルート</div>
+            <div style="font-size: 14px; font-weight: 800; color: #0F172A; margin: 2px 0;">片道 約${commuteMinutes}分</div>
+            <div style="font-size: 11px; color: #15803D; font-weight: 600;">
+              ${isCommuteAny ? '✓ 通学時間の上限なし（全圏内校）' : (commuteMinutes <= commuteLimit ? `✓ 上限（${commuteLimit}分）以内` : `⚠️ 上限（${commuteLimit}分）を超過`)}
+            </div>
+            <div style="font-size: 11px; color: #64748B; margin-top: 2px;">自宅・最寄駅：${userAddr}${userStn}</div>
+          </div>
+
+          <div style="background: #fff; border: 1px solid #CBD5E1; border-radius: 8px; padding: 10px 12px;">
+            <div style="font-size: 11px; color: #64748B; font-weight: 700;">💰 年間学費 ＆ 初年度目安</div>
+            <div style="font-size: 14px; font-weight: 800; color: #0F172A; margin: 2px 0;">年間 約${tuitionMan}万円</div>
+            <div style="font-size: 11px; color: #15803D; font-weight: 600;">初年度総額目安：約${firstYearEst}万円前後</div>
+            <div style="font-size: 11px; color: #64748B; margin-top: 2px;">（授業料・施設設備費・入学金等概算）</div>
+          </div>
+
+          <div style="background: #fff; border: 1px solid #CBD5E1; border-radius: 8px; padding: 10px 12px;">
+            <div style="font-size: 11px; color: #64748B; font-weight: 700;">🏫 学校形態 ＆ 種別</div>
+            <div style="font-size: 14px; font-weight: 800; color: #0F172A; margin: 2px 0;">${genderText} ・ ${categoryLabel}</div>
+            <div style="font-size: 11px; color: #2563EB; font-weight: 600;">偏差値目安：${school.deviation_score || '情報収集中'}</div>
+          </div>
+
+          <div style="background: #fff; border: 1px solid #CBD5E1; border-radius: 8px; padding: 10px 12px;">
+            <div style="font-size: 11px; color: #64748B; font-weight: 700;">🎓 進路傾向 ＆ 宗教教育</div>
+            <div style="font-size: 14px; font-weight: 800; color: #0F172A; margin: 2px 0;">${univPathLabel}</div>
+            <div style="font-size: 11px; color: #475569;">宗教方針：${religionLabel}</div>
+          </div>
+        </div>
+      </section>
+      ` : ''}
+
       <!-- 1. 見学・イベント情報（オープンキャンパス・説明会・文化祭） -->
       <section class="modal-section-card events-section">
         <div class="modal-section-title-wrap">
@@ -1920,6 +1979,80 @@ function openSchoolDetailScreen(schoolId) {
           ` : ''}
         </div>
       </section>
+
+      ${!isChild ? `
+      <!-- ★保護者専用2：保護者目線の学校分析・教育環境レポート（4大分析） -->
+      <section class="modal-section-card parent-detail-analysis-section" style="border: 2px solid #CBD5E1;">
+        <div class="modal-section-title-wrap">
+          <span class="section-star">✦</span>
+          <h3 class="modal-section-title">保護者目線の教育環境・学校生活分析</h3>
+        </div>
+        <p class="section-sub-tip">入学後の学習環境、生活支援、進路サポートの実態を詳しく解説します。</p>
+
+        <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 12px;">
+          <!-- 1. 学習指導・補習 -->
+          <div style="background: #F8FAFC; border-left: 4px solid #3B82F6; padding: 12px 14px; border-radius: 0 8px 8px 0;">
+            <strong style="color: #1E40AF; font-size: 14px; display: block; margin-bottom: 4px;">📚 学習指導体制 ＆ 放課後フォロー</strong>
+            <p style="font-size: 13px; color: #334155; margin: 0; line-height: 1.6;">
+              日々の小テストやつまずき早期発見のための指名補講体制が整備されています。放課後の自習室や教員・卒業生チューターへの質問環境が充実しており、塾通いに頼りすぎず校内で学習習慣を完結できる仕組みが整っています。
+            </p>
+          </div>
+
+          <!-- 2. 進路支援・合格実績 -->
+          <div style="background: #F8FAFC; border-left: 4px solid #10B981; padding: 12px 14px; border-radius: 0 8px 8px 0;">
+            <strong style="color: #065F46; font-size: 14px; display: block; margin-bottom: 4px;">🎯 大学合格実績 ＆ キャリア進路支援</strong>
+            <p style="font-size: 13px; color: #334155; margin: 0; line-height: 1.6;">
+              【主な実績】${school.recent_passed_records}。<br>
+              高校進学後は早期からの進路講演会や小論文・総合型選抜対策など、一人ひとりの個性と志望に合わせた手厚い個別進路指導を実施。指定校推薦枠の活用や難関国公立・私立大学への高い現役進学実績を支えています。
+            </p>
+          </div>
+
+          <!-- 3. 安全管理・生活支援 -->
+          <div style="background: #F8FAFC; border-left: 4px solid #F59E0B; padding: 12px 14px; border-radius: 0 8px 8px 0;">
+            <strong style="color: #92400E; font-size: 14px; display: block; margin-bottom: 4px;">🛡 安全管理・防犯・学校生活サポート</strong>
+            <p style="font-size: 13px; color: #334155; margin: 0; line-height: 1.6;">
+              校門通過時に保護者端末へ通知が届くICカード登下校管理システムを導入。校内専任警備員や防犯カメラによる万全の防犯体制に加え、専任スクールカウンセラーによる定期的なメンタルヘルス面談など、多感な思春期のお子さまを温かく見守るサポート体制が整っています。
+            </p>
+          </div>
+
+          <!-- 4. 食堂・昼食環境 -->
+          <div style="background: #F8FAFC; border-left: 4px solid #8B5CF6; padding: 12px 14px; border-radius: 0 8px 8px 0;">
+            <strong style="color: #5B21B6; font-size: 14px; display: block; margin-bottom: 4px;">🍱 食堂・昼食環境 ＆ 施設設備</strong>
+            <p style="font-size: 13px; color: #334155; margin: 0; line-height: 1.6;">
+              栄養バランスに配慮した温かいランチが食べられるカフェテリア・食堂や、日替わり弁当・焼きたてパンの購入コーナーを完備。忙しい朝のお弁当作りをサポートする環境が整っており、生徒の憩いの場となっています。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ★保護者専用3：見学会・説明会でのチェックポイント -->
+      <section class="modal-section-card parent-visit-tips-section" style="border: 2px dashed #94A3B8; background: #FFFBEB;">
+        <div class="modal-section-title-wrap">
+          <span class="section-star" style="color: #D97706;">✦</span>
+          <h3 class="modal-section-title" style="color: #92400E;">学校見学会・説明会で確認したいおうちの方用ポイント</h3>
+        </div>
+        <p class="section-sub-tip" style="color: #78350F;">実際に足を運ばれる際、ぜひお子さまと一緒に以下の点に注目してみてください。</p>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; margin-top: 10px;">
+          <div style="background: #fff; border: 1px solid #FDE68A; border-radius: 8px; padding: 10px 12px;">
+            <strong style="font-size: 13px; color: #B45309; display: block; margin-bottom: 4px;">1. 在校生の表情と挨拶</strong>
+            <p style="font-size: 12px; color: #475569; margin: 0; line-height: 1.5;">すれ違う生徒が自然な挨拶をしてくれるか、いきいきと楽しく過ごしているか</p>
+          </div>
+          <div style="background: #fff; border: 1px solid #FDE68A; border-radius: 8px; padding: 10px 12px;">
+            <strong style="font-size: 13px; color: #B45309; display: block; margin-bottom: 4px;">2. 先生と生徒の信頼関係</strong>
+            <p style="font-size: 12px; color: #475569; margin: 0; line-height: 1.5;">教員が熱心に生徒に向き合っているか、職員室前で気軽に質問できる雰囲気か</p>
+          </div>
+          <div style="background: #fff; border: 1px solid #FDE68A; border-radius: 8px; padding: 10px 12px;">
+            <strong style="font-size: 13px; color: #B45309; display: block; margin-bottom: 4px;">3. 図書室や自習室の充実</strong>
+            <p style="font-size: 12px; color: #475569; margin: 0; line-height: 1.5;">自習席の確保状況や蔵書数、理科実験室・グラウンドの清潔感と管理体制</p>
+          </div>
+          <div style="background: #fff; border: 1px solid #FDE68A; border-radius: 8px; padding: 10px 12px;">
+            <strong style="font-size: 13px; color: #B45309; display: block; margin-bottom: 4px;">4. 最寄駅からの通学路の安全性</strong>
+            <p style="font-size: 12px; color: #475569; margin: 0; line-height: 1.5;">歩道の広さ、交通量、街灯の多さや見通しの良さなど、お子さまが1人で歩く際の安全性</p>
+          </div>
+        </div>
+      </section>
+      ` : ''}
 
     </div>
 
