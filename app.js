@@ -2492,16 +2492,202 @@ function toggleVibeCheckbox(checkboxEl, vibeKey) {
   }
 }
 
+// 全質問（設問1〜10）の現在の入力・選択状態をAppSchemaに完全に同期する関数
+function syncAllParentWizardInputsToState() {
+  const prof = AppSchema.parent_profile;
+  if (!prof) return;
+  if (!prof.conditions) prof.conditions = {};
+  const cond = prof.conditions;
+
+  // 1. お名前
+  const nameInput = document.getElementById('pInputParentName');
+  if (nameInput && nameInput.value.trim()) {
+    const raw = nameInput.value.trim();
+    AppSchema.parent_name = raw.endsWith("さん") ? raw : `${raw}さん`;
+  }
+
+  // 2. 住所・最寄り駅
+  const addrInput = document.getElementById('pInputAddress');
+  const stnInput = document.getElementById('pInputStation');
+  if (addrInput && addrInput.value !== undefined) prof.address = addrInput.value.trim();
+  if (stnInput && stnInput.value !== undefined) prof.station = stnInput.value.trim();
+
+  // 3. 通学時間
+  const btnAny = document.getElementById('btnCommuteAny');
+  const commuteSlider = document.getElementById('pInputCommute');
+  if (btnAny && btnAny.classList.contains('active')) {
+    prof.commute_time = 0;
+    cond.commute_time_max = 0;
+  } else if (commuteSlider && commuteSlider.value) {
+    const val = parseInt(commuteSlider.value, 10);
+    prof.commute_time = val;
+    cond.commute_time_max = val;
+  }
+
+  // 4. 通学手段
+  const transChecks = document.querySelectorAll('input[name="transport"]:checked');
+  if (transChecks.length > 0) {
+    const transports = Array.from(transChecks).map(c => c.value);
+    prof.transport_methods = transports;
+    cond.transportation = transports;
+  }
+
+  // 5. 学費上限
+  const tuitionCheck = document.querySelector('input[name="tuition_radio"]:checked');
+  if (tuitionCheck) {
+    const tVal = Number(tuitionCheck.value);
+    prof.tuition_cap = tVal;
+    cond.tuition_max = tVal * 10000;
+  }
+
+  // 6. 学校形態
+  const genderCheck = document.querySelector('input[name="gender_radio"]:checked');
+  if (genderCheck) {
+    prof.gender_type = genderCheck.value;
+    cond.school_gender_type = genderCheck.value;
+  }
+
+  // 7. 学校種別
+  const catChecks = document.querySelectorAll('input[name="category"]:checked');
+  if (catChecks.length > 0) {
+    const cats = Array.from(catChecks).map(c => c.value);
+    prof.school_categories = cats;
+    cond.school_category = cats;
+  }
+
+  // 8. 宗教教育
+  const religionCheck = document.querySelector('input[name="religion_radio"]:checked');
+  if (religionCheck) {
+    prof.religious_pref = religionCheck.value;
+    cond.religion_policy = religionCheck.value;
+  }
+
+  // 9. 進学傾向
+  const univCheck = document.querySelector('input[name="univpath_radio"]:checked');
+  if (univCheck) {
+    prof.university_path = univCheck.value;
+    cond.university_path = univCheck.value;
+  }
+
+  // 10. 求める校風
+  if (typeof currentVibes !== 'undefined' && Array.isArray(currentVibes) && currentVibes.length > 0) {
+    prof.atmosphere_keywords = [...currentVibes];
+    cond.desired_atmospheres = [...currentVibes];
+  } else {
+    const vibeChecks = document.querySelectorAll('input[name="vibe"]:checked');
+    if (vibeChecks.length > 0) {
+      const vibes = Array.from(vibeChecks).map(c => c.value);
+      prof.atmosphere_keywords = vibes;
+      cond.desired_atmospheres = vibes;
+    }
+  }
+
+  saveAppStateToLocalStorage();
+}
+
+// 全質問（質問2〜10の全9問）に対する「絶対に譲れない条件」カード候補を生成する関数
+function generateAllStrictFilterCandidates() {
+  syncAllParentWizardInputsToState();
+
+  const prof = AppSchema.parent_profile || {};
+  const cond = prof.conditions || {};
+
+  const userAddr = prof.address || "東京都";
+  const userStation = prof.station || "";
+  const locationLabel = userStation ? `${userAddr}（最寄り: ${userStation}駅）` : (userAddr || "ご自宅周辺");
+
+  const commuteTimeVal = cond.commute_time_max !== undefined ? cond.commute_time_max : (prof.commute_time !== undefined ? prof.commute_time : 60);
+  const transports = cond.transportation || prof.transport_methods || ['train', 'bicycle', 'walk'];
+  const tuitionVal = prof.tuition_cap !== undefined ? prof.tuition_cap : (cond.tuition_max !== undefined ? cond.tuition_max / 10000 : 100);
+  const genderVal = prof.gender_type || cond.school_gender_type || 'any';
+  const categories = cond.school_category || prof.school_categories || ['private'];
+  const religionVal = prof.religious_pref || cond.religion_policy || 'any';
+  const univPathVal = prof.university_path || cond.university_path || 'any';
+  const vibes = cond.desired_atmospheres || prof.atmosphere_keywords || [];
+
+  const transportMap = { "train": "電車", "bus": "路線バス", "school_bus": "スクールバス", "bicycle": "自転車", "walk": "徒歩" };
+  const tuitionMap = { 80: "80万円未満", 100: "100万円未満", 120: "120万円未満", 150: "150万円未満", 0: "上限なし（こだわらない）" };
+  const genderMap = { "coed": "共学校のみ", "boys": "男子校のみ", "girls": "女子校のみ", "any": "こだわらない" };
+  const categoryMap = { "private": "私立", "public": "公立一貫", "national": "国立附属", "any": "こだわらない" };
+  const religionMap = { "none": "無宗教", "christian": "キリスト教系OK", "buddhist": "仏教系OK", "any": "こだわらない" };
+  const univPathMap = { "attached": "大学附属系", "prep": "進学校系", "any": "こだわらない" };
+  const vibeMap = { "free": "自由・自主性", "stem": "理数探究", "support": "手厚い補習", "global": "グローバル英語", "manners": "情操礼儀", "both": "文武両道" };
+
+  const transText = transports.length > 0 ? transports.map(t => transportMap[t] || t).join('・') : '電車・徒歩等';
+  const tuitionText = tuitionMap[tuitionVal] || (tuitionVal === 0 ? '上限なし（こだわらない）' : `${tuitionVal}万円未満`);
+  const genderText = genderMap[genderVal] || (genderVal === 'any' ? 'こだわらない（共学・別学問わず）' : genderVal);
+  const categoryText = (categories.includes('any') || categories.length === 0)
+    ? '全種別対象（こだわらない）'
+    : categories.map(c => categoryMap[c] || c).join('・');
+  const religionText = religionMap[religionVal] || (religionVal === 'any' ? 'こだわらない（宗教問わず）' : religionVal);
+  const univPathText = univPathMap[univPathVal] || (univPathVal === 'any' ? 'こだわらない（進学傾向問わず）' : univPathVal);
+  const vibeText = vibes.length > 0 ? vibes.map(v => vibeMap[v] || v).join('・') : '特に指定なし';
+
+  return [
+    {
+      step: 2,
+      key: "location_strict",
+      title: "🏠 ご自宅からの通学圏内",
+      detail: `自宅・最寄り駅【${locationLabel}】から日常的に通学可能な学校のみを抽出（日常通学困難校を除外）`
+    },
+    {
+      step: 3,
+      key: "commute_time_max",
+      title: "⏱ 通学時間の上限（厳守）",
+      detail: commuteTimeVal === 0
+        ? `片道【こだわらない（上限なし）】（全通学圏内校を対象）`
+        : `ドア・トゥ・ドアで片道【${commuteTimeVal}分以内】であること（超過校を完全除外）`
+    },
+    {
+      step: 4,
+      key: "transportation",
+      title: "🚲 許容する通学手段・範囲",
+      detail: `自宅からの希望通学手段【${transText}】に合致すること（徒歩・自転車限定等）`
+    },
+    {
+      step: 5,
+      key: "tuition_max",
+      title: "💰 年間学費の上限",
+      detail: tuitionVal === 0
+        ? `年間学費【上限なし（こだわらない）】`
+        : `年間学費が【${tuitionText}】であること（超過校を除外）`
+    },
+    {
+      step: 6,
+      key: "school_gender_type",
+      title: "🏫 希望する学校形態",
+      detail: `【${genderText}】であること（不一致校を除外）`
+    },
+    {
+      step: 7,
+      key: "school_category",
+      title: "🏛 希望する学校種別",
+      detail: `【${categoryText}】であること（対象外の種別を除外）`
+    },
+    {
+      step: 8,
+      key: "religion_policy",
+      title: "⛪ 宗教教育のご希望",
+      detail: `宗教方針が【${religionText}】であること（方針不一致校を除外）`
+    },
+    {
+      step: 9,
+      key: "university_path",
+      title: "🎓 希望する進学傾向",
+      detail: `進学傾向が【${univPathText}】であること（傾向不一致校を除外）`
+    },
+    {
+      step: 10,
+      key: "atmosphere_policy",
+      title: "🌿 求める校風・教育方針",
+      detail: `求める校風【${vibeText}】の特色を持つ学校であること`
+    }
+  ];
+}
+
 // 質問10からフェーズ2（ハードフィルター選定）へシュッと進む
 function goToParentPhase2Slide() {
-  const transChecks = document.querySelectorAll('input[name="transport"]:checked');
-  AppSchema.parent_profile.conditions.transportation = Array.from(transChecks).map(c => c.value);
-
-  const catChecks = document.querySelectorAll('input[name="category"]:checked');
-  AppSchema.parent_profile.conditions.school_category = Array.from(catChecks).map(c => c.value);
-  AppSchema.parent_profile.school_categories = Array.from(catChecks).map(c => c.value);
-
-  cleanIncompatibleStrictFilters();
+  syncAllParentWizardInputsToState();
   renderStrictFilterSelectionCards();
 
   const currentEl = getParentSlideEl(10);
@@ -2513,34 +2699,7 @@ function goToParentPhase2Slide() {
 
 // マイページからの条件編集時：いつでも途中保存してマイページに戻る共通関数
 function saveParentAnswersAndReturnMypage() {
-  // 1. お名前
-  const nameInput = document.getElementById('pInputParentName');
-  if (nameInput && nameInput.value.trim()) {
-    const raw = nameInput.value.trim();
-    AppSchema.parent_name = raw.endsWith("さん") ? raw : `${raw}さん`;
-  }
-
-  // 2. 住所・駅
-  const addrInput = document.getElementById('pInputAddress');
-  const stnInput = document.getElementById('pInputStation');
-  if (addrInput && addrInput.value.trim()) AppSchema.parent_profile.address = addrInput.value.trim();
-  if (stnInput && stnInput.value.trim()) AppSchema.parent_profile.station = stnInput.value.trim();
-
-  // 3. 通学手段
-  const transChecks = document.querySelectorAll('input[name="transport"]:checked');
-  if (transChecks.length > 0) {
-    AppSchema.parent_profile.conditions.transportation = Array.from(transChecks).map(c => c.value);
-  }
-
-  // 4. 学校種別
-  const catChecks = document.querySelectorAll('input[name="category"]:checked');
-  if (catChecks.length > 0) {
-    const cats = Array.from(catChecks).map(c => c.value);
-    AppSchema.parent_profile.conditions.school_category = cats;
-    AppSchema.parent_profile.school_categories = cats;
-  }
-
-  cleanIncompatibleStrictFilters();
+  syncAllParentWizardInputsToState();
   AppSchema.parent_profile.is_completed = true;
   saveAppStateToLocalStorage();
   executeSchoolMatching();
@@ -2555,108 +2714,29 @@ function renderStrictFilterSelectionCards() {
   if (!container) return;
   container.innerHTML = '';
 
-  cleanIncompatibleStrictFilters();
-
-  const cond = AppSchema.parent_profile.conditions || {};
-  const userAddr = AppSchema.parent_profile.address || "ご自宅";
-  const userStation = AppSchema.parent_profile.station || "";
-  const locationLabel = userStation ? `${userAddr}（最寄り: ${userStation}駅）` : userAddr;
-
-  const transList = cond.transportation || ['train', 'bicycle', 'walk'];
-  const catList = cond.school_category || [];
-
-  const commuteTimeVal = cond.commute_time_max || AppSchema.parent_profile.commute_time || 0;
-  const tuitionVal = cond.tuition_max ? cond.tuition_max / 10000 : (AppSchema.parent_profile.tuition_cap || 0);
-  const genderVal = cond.school_gender_type || AppSchema.parent_profile.gender_type || 'any';
-  const religionVal = cond.religion_policy || AppSchema.parent_profile.religious_pref || 'any';
-  const univPathVal = cond.university_path || AppSchema.parent_profile.university_path || 'any';
-
-  const filterCandidates = [];
-
-  // 通学時間（こだわらない設定でなければ候補に含める）
-  if (commuteTimeVal > 0) {
-    filterCandidates.push({
-      key: "commute_time_max",
-      title: "通学時間の上限（厳守）",
-      detail: `ドア・トゥ・ドアで【片道 ${commuteTimeVal}分以内】であること（超過校を完全除外）`
-    });
-  }
-
-  // 通学手段
-  if (transList.length > 0) {
-    filterCandidates.push({
-      key: "transportation",
-      title: "通学手段・通学範囲（自転車・徒歩含む）",
-      detail: `自宅（${locationLabel}）からの希望通学手段【${transList.map(t => t === 'bicycle' ? '自転車通学' : t === 'walk' ? '徒歩通学' : t === 'train' ? '電車利用' : t === 'bus' ? '路線バス' : 'スクールバス').join('、')}】に合致すること`
-    });
-  }
-
-  // 学費上限（上限なしでなければ候補に含める）
-  if (tuitionVal > 0) {
-    filterCandidates.push({
-      key: "tuition_max",
-      title: "年間学費の上限",
-      detail: `年間学費が【${tuitionVal}万円未満】であること`
-    });
-  }
-
-  // 学校形態（こだわらないでなければ候補に含める）
-  if (genderVal && genderVal !== 'any') {
-    filterCandidates.push({
-      key: "school_gender_type",
-      title: "学校形態",
-      detail: `【${genderVal === 'coed' ? '共学校のみ' : genderVal === 'boys' ? '男子校のみ' : '女子校のみ'}】であること`
-    });
-  }
-
-  // 学校種別（こだわらない/未選択でなければ候補に含める）
-  if (catList.length > 0 && !catList.includes('any')) {
-    filterCandidates.push({
-      key: "school_category",
-      title: "学校種別",
-      detail: `【${catList.map(c => c === 'private' ? '私立' : c === 'public' ? '公立一貫' : '国立附属').join('、')}】であること`
-    });
-  }
-
-  // 宗教方針（こだわらないでなければ候補に含める）
-  if (religionVal && religionVal !== 'any') {
-    filterCandidates.push({
-      key: "religion_policy",
-      title: "宗教教育",
-      detail: `宗教方針が【${religionVal === 'none' ? '無宗教' : religionVal === 'christian' ? 'キリスト教系' : '仏教系'}】であること`
-    });
-  }
-
-  // 進学傾向（こだわらないでなければ候補に含める）
-  if (univPathVal && univPathVal !== 'any') {
-    filterCandidates.push({
-      key: "university_path",
-      title: "希望進学傾向",
-      detail: `【${univPathVal === 'attached' ? '大学附属系' : '進学校系'}】であること`
-    });
-  }
-
-  if (filterCandidates.length === 0) {
-    container.innerHTML = `
-      <div style="padding: 16px; background: #F8FAFC; border: 2px dashed #94A3B8; border-radius: 12px; text-align: center; color: #475569; font-size: 14px;">
-        現在設定された条件はすべて「こだわらない」となっています。<br>
-        特定の条件で足切り（除外）を行わず、すべての学校をマッチ度順にご案内します。
-      </div>
-    `;
-    return;
-  }
+  const filterCandidates = generateAllStrictFilterCandidates();
+  const currentStrict = AppSchema.parent_profile.strict_filters || [];
 
   filterCandidates.forEach(cand => {
-    const isSelected = (AppSchema.parent_profile.strict_filters || []).includes(cand.key) ||
-      (cand.key === "commute_time_max" && (AppSchema.parent_profile.strict_filters || []).includes("commute_time")) ||
-      (cand.key === "tuition_max" && (AppSchema.parent_profile.strict_filters || []).includes("tuition"));
+    const isSelected = currentStrict.includes(cand.key) ||
+      (cand.key === "commute_time_max" && currentStrict.includes("commute_time")) ||
+      (cand.key === "tuition_max" && currentStrict.includes("tuition")) ||
+      (cand.key === "school_gender_type" && currentStrict.includes("gender_type")) ||
+      (cand.key === "religion_policy" && currentStrict.includes("religion")) ||
+      (cand.key === "university_path" && currentStrict.includes("univ_path")) ||
+      (cand.key === "atmosphere_policy" && currentStrict.includes("desired_atmospheres"));
+
     const card = document.createElement('label');
     card.className = `strict-card-item ${isSelected ? 'selected' : ''}`;
+    card.style.cursor = 'pointer';
 
     card.innerHTML = `
       <input type="checkbox" value="${cand.key}" ${isSelected ? 'checked' : ''} onchange="toggleStrictFilter('${cand.key}', this)">
       <div class="strict-card-content">
-        <h4>${cand.title}</h4>
+        <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 2px;">
+          <span class="badge-phase" style="font-size: 10px; padding: 1px 6px;">質問${cand.step}</span>
+          <h4 style="margin: 0;">${cand.title}</h4>
+        </div>
         <p>${cand.detail}</p>
       </div>
     `;
@@ -2678,12 +2758,10 @@ function toggleStrictFilter(key, checkboxEl) {
     AppSchema.parent_profile.strict_filters = list.filter(k => k !== key && k !== key.replace('_max', ''));
     checkboxEl.closest('.strict-card-item').classList.remove('selected');
   }
-  cleanIncompatibleStrictFilters();
   saveAppStateToLocalStorage();
 }
 
 function saveAndGenerateChildUrl() {
-  cleanIncompatibleStrictFilters();
   AppSchema.parent_profile.is_completed = true;
   saveAppStateToLocalStorage();
   executeSchoolMatching();
@@ -2703,114 +2781,36 @@ function openStrictFilterEditModal() {
   const modal = document.getElementById('strictFilterEditModal');
   if (!modal) return;
 
-  cleanIncompatibleStrictFilters();
-
   const container = document.getElementById('strictModalCardsContainer');
   if (container) {
     container.innerHTML = '';
-    const cond = AppSchema.parent_profile.conditions || {};
-    const userAddr = AppSchema.parent_profile.address || "ご自宅";
-    const userStation = AppSchema.parent_profile.station || "";
-    const locationLabel = userStation ? `${userAddr}（最寄り: ${userStation}駅）` : userAddr;
-    const transList = cond.transportation || ['train', 'bicycle', 'walk'];
-    const catList = cond.school_category || [];
+    const candidates = generateAllStrictFilterCandidates();
+    const currentStrict = AppSchema.parent_profile.strict_filters || [];
 
-    const commuteTimeVal = cond.commute_time_max || AppSchema.parent_profile.commute_time || 0;
-    const tuitionVal = cond.tuition_max ? cond.tuition_max / 10000 : (AppSchema.parent_profile.tuition_cap || 0);
-    const genderVal = cond.school_gender_type || AppSchema.parent_profile.gender_type || 'any';
-    const religionVal = cond.religion_policy || AppSchema.parent_profile.religious_pref || 'any';
-    const univPathVal = cond.university_path || AppSchema.parent_profile.university_path || 'any';
+    candidates.forEach(cand => {
+      const isChecked = currentStrict.includes(cand.key) ||
+        (cand.key === "commute_time_max" && currentStrict.includes("commute_time")) ||
+        (cand.key === "tuition_max" && currentStrict.includes("tuition")) ||
+        (cand.key === "school_gender_type" && currentStrict.includes("gender_type")) ||
+        (cand.key === "religion_policy" && currentStrict.includes("religion")) ||
+        (cand.key === "university_path" && currentStrict.includes("univ_path")) ||
+        (cand.key === "atmosphere_policy" && currentStrict.includes("desired_atmospheres"));
 
-    const candidates = [];
-
-    // 1. 通学時間
-    if (commuteTimeVal > 0) {
-      candidates.push({
-        key: "commute_time_max",
-        title: "通学時間の上限（厳守）",
-        detail: `片道【${commuteTimeVal}分以内】であること（超過校を完全除外）`
-      });
-    }
-
-    // 2. 通学手段
-    if (transList.length > 0) {
-      candidates.push({
-        key: "transportation",
-        title: "通学手段・通学範囲",
-        detail: `希望通学手段【${transList.map(t => t === 'bicycle' ? '自転車' : t === 'walk' ? '徒歩' : t === 'train' ? '電車' : t === 'bus' ? '路線バス' : 'スクールバス').join('、')}】`
-      });
-    }
-
-    // 3. 学費上限
-    if (tuitionVal > 0) {
-      candidates.push({
-        key: "tuition_max",
-        title: "年間学費の上限",
-        detail: `年間学費が【${tuitionVal}万円未満】であること`
-      });
-    }
-
-    // 4. 学校形態
-    if (genderVal && genderVal !== 'any') {
-      candidates.push({
-        key: "school_gender_type",
-        title: "学校形態",
-        detail: `【${genderVal === 'coed' ? '共学校のみ' : genderVal === 'boys' ? '男子校のみ' : '女子校のみ'}】であること`
-      });
-    }
-
-    // 5. 学校種別
-    if (catList.length > 0 && !catList.includes('any')) {
-      candidates.push({
-        key: "school_category",
-        title: "学校種別",
-        detail: `【${catList.map(c => c === 'private' ? '私立' : c === 'public' ? '公立一貫' : '国立附属').join('、')}】であること`
-      });
-    }
-
-    // 6. 宗教教育
-    if (religionVal && religionVal !== 'any') {
-      candidates.push({
-        key: "religion_policy",
-        title: "宗教教育",
-        detail: `宗教方針が【${religionVal === 'none' ? '無宗教' : religionVal === 'christian' ? 'キリスト教系' : '仏教系'}】であること`
-      });
-    }
-
-    // 7. 進学傾向
-    if (univPathVal && univPathVal !== 'any') {
-      candidates.push({
-        key: "university_path",
-        title: "希望進学傾向",
-        detail: `【${univPathVal === 'attached' ? '大学附属系' : '進学校系'}】であること`
-      });
-    }
-
-    if (candidates.length === 0) {
-      container.innerHTML = `
-        <div style="padding: 16px; background: #F1F5F9; border-radius: 10px; text-align: center; color: #64748B; font-size: 13px;">
-          現在、すべての条件が「こだわらない」または未設定になっているため、譲れない条件の足切りはありません。
+      const card = document.createElement('label');
+      card.className = `strict-card-item ${isChecked ? 'selected' : ''}`;
+      card.style.cursor = 'pointer';
+      card.innerHTML = `
+        <input type="checkbox" value="${cand.key}" ${isChecked ? 'checked' : ''} onchange="this.closest('.strict-card-item').classList.toggle('selected', this.checked)">
+        <div class="strict-card-content">
+          <div style="display: flex; align-items: center; gap: 6px; margin-bottom: 2px;">
+            <span class="badge-phase" style="font-size: 10px; padding: 1px 6px;">質問${cand.step}</span>
+            <h4 style="margin: 0;">${cand.title}</h4>
+          </div>
+          <p>${cand.detail}</p>
         </div>
       `;
-    } else {
-      const currentStrict = AppSchema.parent_profile.strict_filters || [];
-      candidates.forEach(cand => {
-        const isChecked = currentStrict.includes(cand.key) ||
-          (cand.key === "commute_time_max" && currentStrict.includes("commute_time")) ||
-          (cand.key === "tuition_max" && currentStrict.includes("tuition"));
-        const card = document.createElement('label');
-        card.className = `strict-card-item ${isChecked ? 'selected' : ''}`;
-        card.style.cursor = 'pointer';
-        card.innerHTML = `
-          <input type="checkbox" value="${cand.key}" ${isChecked ? 'checked' : ''} onchange="this.closest('.strict-card-item').classList.toggle('selected', this.checked)">
-          <div class="strict-card-content">
-            <h4>${cand.title}</h4>
-            <p>${cand.detail}</p>
-          </div>
-        `;
-        container.appendChild(card);
-      });
-    }
+      container.appendChild(card);
+    });
   }
 
   modal.classList.add('open');
@@ -3516,6 +3516,14 @@ function getFilteredSchoolsByParentStrictRules(baseSchoolList = SCHOOL_DATABASE)
     // 8. 進学傾向
     if (isStrictUniv && parentCond.university_path && parentCond.university_path !== "any") {
       if (school.university_path !== parentCond.university_path) return false;
+    }
+
+    // 9. 求める校風・教育方針
+    const isStrictAtmosphere = strictKeys.includes("atmosphere_policy") || strictKeys.includes("desired_atmospheres");
+    if (isStrictAtmosphere && parentCond.desired_atmospheres && parentCond.desired_atmospheres.length > 0) {
+      const schoolVibes = school.atmosphere_keywords || [];
+      const hasMatchingVibe = parentCond.desired_atmospheres.some(v => schoolVibes.includes(v));
+      if (!hasMatchingVibe) return false;
     }
 
     return true;
@@ -4849,6 +4857,7 @@ function renderParentConditionsSummary() {
   const univPathText = univPathMap[univPathVal] || (univPathVal === 'any' ? 'こだわらない（大学附属・進学校問わず）' : univPathVal);
 
   const strictKeyMap = {
+    "location_strict": `通学圏内（最寄り: ${prof.station || '未設定'}）`,
     "commute_time_max": commuteTimeVal === 0 ? "通学時間（上限なし）" : `通学時間上限（${commuteTimeVal}分以内）`,
     "commute_time": commuteTimeVal === 0 ? "通学時間（上限なし）" : `通学時間上限（${commuteTimeVal}分以内）`,
     "tuition_max": `年間学費（${tuitionText}）`,
@@ -4860,7 +4869,9 @@ function renderParentConditionsSummary() {
     "religion_policy": `宗教教育（${religionText}）`,
     "religion": `宗教教育（${religionText}）`,
     "university_path": `希望進学傾向（${univPathText}）`,
-    "univ_path": `希望進学傾向（${univPathText}）`
+    "univ_path": `希望進学傾向（${univPathText}）`,
+    "atmosphere_policy": "求める校風・教育方針",
+    "desired_atmospheres": "求める校風・教育方針"
   };
 
   // チップ生成
