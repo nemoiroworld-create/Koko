@@ -398,7 +398,7 @@
               </div>
             </div>
 
-            <!-- 親問3：通学時間の上限（30〜90分、5分刻み） -->
+            <!-- 親問3：通学時間の上限（30〜120分、5分刻み） -->
             <div id="pSlide3" class="question-slide">
               <div class="card-surface single-focus-card">
                 <span class="badge-phase">質問 3 / 10</span>
@@ -408,22 +408,34 @@
                 </p>
 
                 <div class="slide-input-wrap">
-                  <div class="slider-display-box">
+                  <div class="slider-display-box" id="commuteDisplayBox">
                     <span class="slider-large-val text-parent" id="valCommuteDisplay">60分</span>
-                    <span class="slider-note text-parent-muted">片道の上限時間</span>
+                    <span class="slider-note text-parent-muted" id="commuteDisplayNote">片道の上限時間</span>
                   </div>
                   <input type="range" id="pInputCommute" min="30" max="120" step="5" value="60" class="range-slider-parent" oninput="updateCommuteSlider(this.value)">
-                  <div class="range-ticks">
+                  <div class="range-ticks" id="commuteRangeTicks">
                     <span>30分（近場）</span>
                     <span>60分（一般的）</span>
                     <span>90分</span>
                     <span>120分（遠距離許容）</span>
                   </div>
+
+                  <!-- 通学時間にこだわらない（上限なし）ボタン -->
+                  <div style="text-align: center; margin-top: 14px;">
+                    <button type="button" id="btnCommuteAny" class="btn-commute-any" onclick="toggleCommuteAny()">
+                      ✨ 通学時間にこだわらない（上限なし）
+                    </button>
+                  </div>
                 </div>
 
                 <div class="slide-actions-bar between">
                   <button type="button" class="btn-outline" onclick="prevParentSlide(2)">← 前に戻る</button>
-                  <button type="button" class="btn-solid-parent" onclick="nextParentSlide(4)">次へ進む</button>
+                  <div style="display: flex; gap: 8px; align-items: center;">
+                    <button type="button" class="btn-save-mypage-quick parent-edit-only" onclick="saveParentAnswersAndReturnMypage()" title="ここまでの変更を保存してマイページに戻ります">
+                      💾 変更を保存してマイページへ戻る
+                    </button>
+                    <button type="button" class="btn-solid-parent" onclick="nextParentSlide(4)">次へ進む</button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -655,12 +667,26 @@
                       </div>
                       <span class="tile-checked-badge">選択中</span>
                     </label>
+                    <label class="big-tile-checkbox" id="tileCategoryAny">
+                      <input type="checkbox" name="category" value="any" onchange="handleCategoryCheckboxChange(this)">
+                      <span class="custom-check-box"><span class="check-icon">✓</span></span>
+                      <div class="tile-text-wrap">
+                        <strong class="tile-title">こだわらない</strong>
+                        <span class="tile-sub">私立・公立・国立の種別を問わず幅広く検討</span>
+                      </div>
+                      <span class="tile-checked-badge">選択中</span>
+                    </label>
                   </div>
                 </div>
 
                 <div class="slide-actions-bar between">
                   <button type="button" class="btn-outline" onclick="prevParentSlide(6)">← 前に戻る</button>
-                  <button type="button" class="btn-solid-parent" onclick="nextParentSlide(8)">次へ進む</button>
+                  <div style="display: flex; gap: 8px; align-items: center;">
+                    <button type="button" class="btn-save-mypage-quick parent-edit-only" onclick="saveParentAnswersAndReturnMypage()" title="ここまでの変更を保存してマイページに戻ります">
+                      💾 変更を保存してマイページへ戻る
+                    </button>
+                    <button type="button" class="btn-solid-parent" onclick="nextParentSlide(8)">次へ進む</button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -1767,6 +1793,35 @@
             <button type="button" class="btn-solid-parent" id="btnSaveProfileModal" onclick="saveProfileFromModal()">
               変更を保存する
             </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 絶対に譲れない条件 編集モーダル（マイページから直接変更・解除） -->
+    <div id="strictFilterEditModal" class="strict-modal-backdrop" aria-hidden="true">
+      <div class="strict-modal-dialog">
+        <div class="strict-modal-header">
+          <div>
+            <span class="badge-phase badge-strict" style="font-size: 11px;">条件更新</span>
+            <h3 class="title-h2" style="font-size: 18px; margin: 4px 0 0 0;">🛡 絶対に譲れない条件の編集</h3>
+          </div>
+          <button type="button" class="btn-modal-close" onclick="closeStrictFilterEditModal()" aria-label="閉じる">×</button>
+        </div>
+        <div class="strict-modal-body">
+          <p style="font-size: 13px; color: #475569; margin: 0 0 8px 0; line-height: 1.5;">
+            チェックを外した条件は「参考条件」となり、候補から除外されなくなります。<br>
+            変更後は「最新の情報として更新」を押してください。
+          </p>
+          <div id="strictModalCardsContainer" class="strict-selection-list">
+            <!-- JavaScriptで動的生成 -->
+          </div>
+        </div>
+        <div class="strict-modal-footer">
+          <button type="button" class="btn-outline btn-sm" onclick="clearAllStrictFiltersModal()">すべて解除する</button>
+          <div style="display: flex; gap: 8px;">
+            <button type="button" class="btn-outline btn-sm" onclick="closeStrictFilterEditModal()">キャンセル</button>
+            <button type="button" class="btn-solid-parent btn-sm" onclick="saveStrictFiltersFromModal()">最新の情報として更新</button>
           </div>
         </div>
       </div>
