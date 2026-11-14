@@ -10,383 +10,383 @@
 const SCHOOL_DATABASE = (typeof NATIONWIDE_SCHOOL_LIST !== 'undefined' && Array.isArray(NATIONWIDE_SCHOOL_LIST) && NATIONWIDE_SCHOOL_LIST.length > 0)
   ? NATIONWIDE_SCHOOL_LIST
   : [
-  {
-    school_id: "sch_shibushibu",
-    name: "渋谷教育学園渋谷中学校",
-    name_ruby: "しぶやきょういくがくえんしぶやちゅうがっこう",
-    official_url: "https://www.shibushibu.jp/",
-    catchphrase: "自調自考の精神で、世界に羽ばたく個性を育てる共学校",
-    recommend_phrase: "★ 自分で調べ・自分で考える「自調自考」で自由に探究したい人におすすめ！",
-    photo_url: "assets/images/real_shibushibu.jpg",
-    prefecture: "東京都",
-    district: "渋谷区",
-    can_walk: true,
-    can_bicycle: true,
-    course_name: "普通科",
-    station_name: "渋谷駅",
-    commute_time: 25,
-    tuition: 980000,
-    gender_type: "coed",
-    category: "private",
-    religion: "none",
-    university_path: "prep",
-    atmospheres: ["free", "global"],
-    vibe_label: "自由・国際的",
-    club_label: "活発",
-    record_label: "◎",
-    deviation_score: 67,
-    match_rate_child: 98,
-    recent_passed_records: "東大・京大・ハーバード・スタンフォード等国内外難関大多数",
-    events: [
-      { id: "ev_shibushibu_bunkasai", title: "飛翔祭（文化祭）", date: "9月20日(土)・21日(日)", type: "文化祭", desc: "生徒が企画運営する自由でエネルギッシュな展示・英語劇・模擬店が満載！" },
-      { id: "ev_shibushibu_setsumei", title: "学校説明会＆施設見学", date: "10月25日(土)", type: "学校説明会", desc: "教育方針「自調自考」の紹介や生徒の学校生活の様子を詳しく解説します。" }
-    ],
-    special_classes: [
-      { title: "自調自考論文・探究活動", desc: "自ら問いを立て、1万字以上の本格論文を書き上げる深い思考の授業！" },
-      { title: "英語で学ぶプロジェクト学習", desc: "ネイティブ教員による少人数指導で、世界で通じる発信力を磨く！" }
-    ],
-    school_strengths: [
-      "渋谷駅から徒歩7分！アクセス抜群で先進的な都市型キャンパス！",
-      "帰国生も多く、日常的に多様な文化や価値観と触れ合える！",
-      "「シラバス（年間の学習設計図）」で目標を見通しながら主体的に学べる！"
-    ],
-    life_simulation: "朝は渋谷駅から賑やかな街並みを歩いて登校。午前中はディベートや探究型の授業で意見を交わし、放課後は部活動や自習室での論文執筆に仲間と熱中します。",
-    parent_summary: "【進学・教育】国内外のトップ大学へ高い進学実績を誇る完全中高一贯共学校。シラバス教育と『自調自考論文』により、自ら課題を発見し解決する高い問題解決力を育成します。【環境・費用】渋谷駅徒歩7分。少人数英語指導や海外研修などグローバル教育が充実しており、個性を尊重する自由な校風が強みです。",
-    child_summary: "「自分で調べ、自分で考える」がモットーのワクワクする学校！英語を楽しく話せる授業や、好きなテーマをとことん研究できる自由な時間がいっぱいあるよ！",
-    tags: ["interest_digital_tech", "interest_reading_history", "interest_social_events"],
-    interest_category_label: "国際・社会・探究",
-    is_favorite: false
-  },
-  {
-    school_id: "sch_hiroo",
-    name: "広尾学園中学校",
-    name_ruby: "ひろおがくえんちゅうがっこう",
-    official_url: "https://www.hiroogakuen.ed.jp/",
-    catchphrase: "最先端サイエンスと国際教育で未来をひらく共学校",
-    recommend_phrase: "★ 本格的な実験設備で、科学や先端テクノロジーを学びたい人におすすめ！",
-    photo_url: "assets/images/real_hiroo.jpg",
-    prefecture: "東京都",
-    district: "港区",
-    can_walk: false,
-    can_bicycle: true,
-    course_name: "医進・サイエンス / インターナショナル / 本科",
-    station_name: "広尾駅",
-    commute_time: 30,
-    tuition: 1050000,
-    gender_type: "coed",
-    category: "private",
-    religion: "none",
-    university_path: "prep",
-    atmospheres: ["stem", "global"],
-    vibe_label: "先進・先端科学",
-    club_label: "充実",
-    record_label: "◎",
-    deviation_score: 64,
-    match_rate_child: 95,
-    recent_passed_records: "東大・難関国立医学部・海外名門大・早慶上理など多数合格",
-    events: [
-      { id: "ev_hiroo_science", title: "けやき祭（文化祭）＆サイエンスフェア", date: "10月4日(土)・5日(日)", type: "文化祭", desc: "生徒がサイエンスラボで行った最新の研究発表やプレゼンを間近で体感！" },
-      { id: "ev_hiroo_setsumei", title: "学校説明会＆ラボ見学会", date: "11月8日(土)", type: "学校説明会", desc: "本格的な理科研究施設やMacBookを使ったICT教育の現場を見学できます。" }
-    ],
-    special_classes: [
-      { title: "先端サイエンス研究ゼミ", desc: "大学研究室レベルの専門ラボで、自らテーマを決めて本物の実験・論文執筆！" },
-      { title: "ICT×国際英語プレゼンテーション", desc: "一人一台端末を活用し、英語でリサーチ結果をスライド発表する実践授業！" }
-    ],
-    school_strengths: [
-      "大学研究室に匹敵する3つの本格サイエンスラボを校内に完備！",
-      "医療現場の現役医師や大学教授による特別講義・キャリア講座が豊富！",
-      "広尾駅すぐそばで通学しやすく、明るく開放的な校舎環境！"
-    ],
-    life_simulation: "広尾駅から緑豊かな通りを通って登校。放課後は最新ラボで実験機器に触れながら仲間と研究。ICT端末を使って世界中の研究データを調べる探究の日々が待っています。",
-    parent_summary: "【進学・教育】医学部・難関理系・海外大学への合格実績が急伸。「医進・サイエンスコース」「インターナショナルコース」など明確な進路志向に対応した専門プログラムが魅力。【環境・費用】広尾駅徒歩1分。1人1台PCを駆使したICT教育と、大学や企業との産学連携による本格的な課題研究環境が整っています。",
-    child_summary: "本物の研究者みたいな実験室が3つもある未来的な学校！プログラミングや科学実験が大好きなキミなら、毎日夢中になれること間違いなしだよ！",
-    tags: ["interest_science_space", "interest_digital_tech", "interest_crafting_making"],
-    interest_category_label: "科学・実験・先端IT",
-    is_favorite: false
-  },
-  {
-    school_id: "sch_shibaura",
-    name: "芝浦工業大学附属中学校",
-    name_ruby: "しばうらこうぎょうだいがくふぞくちゅうがっこう",
-    official_url: "https://www.fzk.shibaura-it.ac.jp/",
-    catchphrase: "ものづくりと工学の力で、世界を変える理工系人材を育てる",
-    recommend_phrase: "★ 3Dプリンタやロボット、工作など「ものづくり」が大好きな人におすすめ！",
-    photo_url: "assets/images/real_shibaura.jpg",
-    prefecture: "東京都",
-    district: "江東区",
-    can_walk: false,
-    can_bicycle: false,
-    course_name: "普通科",
-    station_name: "豊洲駅",
-    commute_time: 35,
-    tuition: 880000,
-    gender_type: "coed",
-    category: "private",
-    religion: "none",
-    university_path: "attached",
-    atmospheres: ["stem", "both"],
-    vibe_label: "理系・ものづくり",
-    club_label: "盛ん",
-    record_label: "◎",
-    deviation_score: 56,
-    match_rate_child: 92,
-    recent_passed_records: "芝浦工大への推薦進学枠多数 ＆ 国公立大・東京理科大等",
-    events: [
-      { id: "ev_shibaura_shibasai", title: "芝生祭（文化祭）", date: "9月27日(土)・28日(日)", type: "文化祭", desc: "ロボット大会、電子工作体験、プログラミング展示など理系企画が大集合！" },
-      { id: "ev_shibaura_tech", title: "ものづくり体験＆学校説明会", date: "10月11日(土)", type: "学校説明会", desc: "豊洲キャンパスのファブラボで工作や3DCADの体験ができます。" }
-    ],
-    special_classes: [
-      { title: "SHIBAURA探究（IT＆ものづくり）", desc: "中1からプログラミング・3DCAD・ドローン制御を体験し、作品を作り上げる！" },
-      { title: "ショートテックアワー", desc: "すべての教科学習と身の回りの科学技術を結びつけて学ぶ独自カリキュラム！" }
-    ],
-    school_strengths: [
-      "豊洲の広大で綺麗なキャンパス！最新のファブラボ（工作工房）を完備！",
-      "芝浦工業大学への強固な内部推薦枠があり、安心して探究に没頭できる！",
-      "鉄道研究部や電子工作部など、趣味を本気で極められる部活が充実！"
-    ],
-    life_simulation: "運河沿いの爽やかな豊洲エリアを通って登校。放課後は工房でロボットや工作の設計に没頭。仲間と一緒にアイデアを形にする楽しさに溢れた学校生活です。",
-    parent_summary: "【進学・教育】芝浦工業大学への推薦進学を担保しつつ、国公立・早慶上理への外部受験も手厚く支援。大学と直結した高度なSTEAM教育が大きな魅力。【環境・費用】豊洲駅徒歩7分の近代的な免震校舎。週2時間の自立学習時間（SD）により自ら計画を立てて学ぶ自律性が身につきます。",
-    child_summary: "かっこいいロボットや3Dプリンターで自由にものづくりができる理工系パラダイス！工作やパソコンが好きなキミの「作りたい！」が全部叶うよ！",
-    tags: ["interest_crafting_making", "interest_digital_tech", "interest_science_space"],
-    interest_category_label: "ものづくり・ロボット",
-    is_favorite: false
-  },
-  {
-    school_id: "sch_kaisei",
-    name: "開成中学校",
-    name_ruby: "かいせいちゅうがっこう",
-    official_url: "https://kaiseigakuen.jp/",
-    catchphrase: "質実剛健と自由の気風。仲間とともに高みを目指す伝統男子校",
-    recommend_phrase: "★ 最高の仲間と熱い行事に燃え、勉強も部活動もトコトン極めたい人におすすめ！",
-    photo_url: "assets/images/real_kaisei.jpg",
-    prefecture: "東京都",
-    district: "荒川区",
-    can_walk: false,
-    can_bicycle: false,
-    course_name: "普通科",
-    station_name: "西日暮里駅",
-    commute_time: 25,
-    tuition: 820000,
-    gender_type: "boys",
-    category: "private",
-    religion: "none",
-    university_path: "prep",
-    atmospheres: ["both", "free"],
-    vibe_label: "質実剛健・自主自律",
-    club_label: "非常に盛ん",
-    record_label: "◎",
-    deviation_score: 71,
-    match_rate_child: 96,
-    recent_passed_records: "東大合格者数40年以上連続全国第1位・国公立医学部多数",
-    events: [
-      { id: "ev_kaisei_undokai", title: "開成大運動会", date: "5月10日(日)", type: "見学イベント", desc: "高3生が後輩を指導する伝統の棒倒し！全校生徒の熱気がスタジアムを包む！" },
-      { id: "ev_kaisei_bunkasai", title: "開成祭（文化祭）", date: "9月20日(土)・21日(日)", type: "文化祭", desc: "各部活動のハイレベルな研究発表やクイズ研究会の名物対決など見所満載！" }
-    ],
-    special_classes: [
-      { title: "本格的な理科実験・観察ゼミ", desc: "中1から毎週本格的な実験レポートを書き上げ、科学的思考の基礎を徹底鍛錬！" },
-      { title: "大学教養レベルの特別講義", desc: "文学・歴史・数学の深淵に触れる、教員オリジナル教材による知的好奇心の授業！" }
-    ],
-    school_strengths: [
-      "西日暮里駅徒歩2分の好立地！新校舎には広大な理科実験棟や温水プールも！",
-      "先輩が後輩を全力で育てる「縦の絆」が非常に強く、一生の仲間ができる！",
-      "運動部・文化部ともに全国トップレベルの活発な部活動環境！"
-    ],
-    life_simulation: "西日暮里駅からすぐの校舎へ。放課後は部活動で思いきり汗を流し、行事前には夜遅くまで仲間と作戦会議。高い学力とたくましいリーダーシップを同時に磨きます。",
-    parent_summary: "【進学・教育】国内最高峰の東大合格実績を誇る完全中高一貫男子校。生徒主体の行事運営を通じた高い自治力とリーダーシップの育成、実技・体験を重んじる多面的な教育カリキュラムが魅力です。【環境・費用】西日暮里駅すぐ。質実剛健で互いを高め合う濃密な男子校文化が息づいています。",
-    child_summary: "全校生徒が本気で熱中する伝統の大運動会が最高にかっこいい！お互いを認め合える最高の仲間と一緒に、勉強も部活動も思いきり全力で打ち込めるよ！",
-    tags: ["interest_sports_athletics", "interest_puzzle_math", "interest_reading_history"],
-    interest_category_label: "伝統・文武両道・仲間",
-    is_favorite: false
-  },
-  {
-    school_id: "sch_azabu",
-    name: "麻布中学校",
-    name_ruby: "あざぶちゅうがっこう",
-    official_url: "https://www.azabu-jh.ed.jp/",
-    catchphrase: "校則のない自由な校風。自分で考え行動する自立の男子校",
-    recommend_phrase: "★ 枠にとらわれず、自分の興味をトコトン突き詰めて考え抜きたい人におすすめ！",
-    photo_url: "assets/images/real_azabu.jpg",
-    prefecture: "東京都",
-    district: "港区",
-    can_walk: false,
-    can_bicycle: true,
-    course_name: "普通科",
-    station_name: "広尾駅",
-    commute_time: 35,
-    tuition: 860000,
-    gender_type: "boys",
-    category: "private",
-    religion: "none",
-    university_path: "prep",
-    atmospheres: ["free"],
-    vibe_label: "自由闊達・個性的",
-    club_label: "極めて自由",
-    record_label: "◎",
-    deviation_score: 68,
-    match_rate_child: 94,
-    recent_passed_records: "東大・京大・難関医学部・海外名門大など多彩な分野へ進学",
-    events: [
-      { id: "ev_azabu_bunkasai", title: "麻布祭（文化祭）", date: "5月2日〜4日", type: "文化祭", desc: "自由な熱気が爆発！生徒手作りの本格的な研究展示や個性豊かな企画が圧巻！" },
-      { id: "ev_azabu_setsumei", title: "麻布中学校 学校説明会", date: "10月18日(土)", type: "学校説明会", desc: "校則がない麻布ならではの教育理念や独自の思考型授業について語られます。" }
-    ],
-    special_classes: [
-      { title: "先生オリジナルの思考深耕プリント", desc: "教科書を使わず、先生手作りの深遠な教材で「なぜ？」をとことん問い続ける授業！" },
-      { title: "社会科特別巡検・フィールドワーク", desc: "歴史や地理の現場へ自ら足を運び、自分の目で社会の構造を確かめる探究学習！" }
-    ],
-    school_strengths: [
-      "明文化された細かい校則がなく、自分の頭で行動を判断する自由な環境！",
-      "多彩で個性的な生徒たちが互いをリスペクトし合う温かいコミュニティ！",
-      "緑あふれる広大なグラウンドと豊かな蔵書を誇る居心地の良い図書室！"
-    ],
-    life_simulation: "広尾の閑静な丘の上にある校舎へ。放課後は自由なサークル活動や図書室での読書、仲間との熱い議論に花を咲かせます。自分らしさをどこまでも大切にできる毎日です。",
-    parent_summary: "【進学・教育】創立125年を超える伝統男子校。教科書に頼らず教員手作りの教材で行う『本質を問う授業』により、生涯にわたる深い思考力と知的好奇心を涵養します。【環境・費用】港区南麻布の閑静な文教地区。校則で縛らず生徒自身の責任と判断に委ねる自由闊達な教育方針が唯一無二の魅力です。",
-    child_summary: "なんと細かい校則が一切ない、めちゃくちゃ自由な学校！先生が作った面白いプリントで自分の頭でじっくり考える授業が最高にワクワクするよ！",
-    tags: ["interest_reading_history", "interest_puzzle_math", "interest_social_events"],
-    interest_category_label: "自由・個性・深い探究",
-    is_favorite: false
-  },
-  {
-    school_id: "sch_oin",
-    name: "桜蔭中学校",
-    name_ruby: "おういんちゅうがっこう",
-    official_url: "https://www.oin.ed.jp/",
-    catchphrase: "礼と学びの心。自立した女性の知性と品性を育む伝統女子校",
-    recommend_phrase: "★ 確かな学力と礼儀作法を身につけ、知的好奇心を深めたい人におすすめ！",
-    photo_url: "assets/images/real_oin.jpg",
-    prefecture: "東京都",
-    district: "文京区",
-    can_walk: false,
-    can_bicycle: false,
-    course_name: "普通科",
-    station_name: "水道橋駅",
-    commute_time: 30,
-    tuition: 850000,
-    gender_type: "girls",
-    category: "private",
-    religion: "none",
-    university_path: "prep",
-    atmospheres: ["stem", "both"],
-    vibe_label: "知性・気品・理系",
-    club_label: "盛ん",
-    record_label: "◎",
-    deviation_score: 70,
-    match_rate_child: 97,
-    recent_passed_records: "東大理科三類をはじめ東大・難関国公立大医学部合格者数日本一",
-    events: [
-      { id: "ev_oin_bunkasai", title: "桜蔭祭（文化祭）", date: "9月27日(土)・28日(日)", type: "文化祭", desc: "学術的でハイレベルなクラブ研究発表、美しい合唱、温かいおもてなしを体験！" },
-      { id: "ev_oin_setsumei", title: "学校説明会＆施設見学", date: "10月25日(土)", type: "学校説明会", desc: "「礼と学び」の建学精神、中1の礼法授業や理科教育の実践について紹介。" }
-    ],
-    special_classes: [
-      { title: "中1必修の礼法特別授業", desc: "美しい立ち居振る舞いや心遣い、礼儀作法を身につける一生モノの授業！" },
-      { title: "高度な理科実験と考察レポート", desc: "充実した実験室で本格的な科学実験を行い、論理的思考力を極限まで高める！" }
-    ],
-    school_strengths: [
-      "水道橋駅から徒歩5分！都心にありながら落ち着いた学習環境！",
-      "東大・医学部進学実績で全国屈指！高い学力を持つ仲間と切磋琢磨できる！",
-      "茶道・華道・書道や天文部・数学部など、文化的な部活動が非常に充実！"
-    ],
-    life_simulation: "水道橋駅から坂を上がり落ち着いた校舎へ登校。朝の読書で心を整え、集中して高度な授業に取り組みます。放課後は大好きな部活や仲間との勉強会で充実した時間を過ごします。",
-    parent_summary: "【進学・教育】東京女子高等師範学校（現お茶の水女子大）同窓会により設立。東大・国公立医学部合格実績で日本トップを誇り、理数教育と高い論理的思考力を養成。【環境・費用】文京区の落ち着いた文教地区。中学1年次の礼法授業に象徴される、高い知性と品性を兼ね備えた自立した女性を育みます。",
-    child_summary: "女子最難関校！算数や理科の実験がすごく面白くて、勉強が大好きな仲間が集まるよ。優しくて頼りになるかっこいい先輩たちがいっぱいいる憧れの学校！",
-    tags: ["interest_puzzle_math", "interest_science_space", "interest_reading_history"],
-    interest_category_label: "知性・理数・礼儀作法",
-    is_favorite: false
-  },
-  {
-    school_id: "sch_jg",
-    name: "女子学院中学校",
-    name_ruby: "じょしがくいんちゅうがっこう",
-    official_url: "https://www.joshigakuin.ed.jp/",
-    catchphrase: "キリスト教精神に基づく自由と自立。個性を輝かせる女子校",
-    recommend_phrase: "★ 私服通学で自分らしく、意見を交わしながらのびのび学びたい人におすすめ！",
-    photo_url: "assets/images/real_jg.jpg",
-    prefecture: "東京都",
-    district: "千代田区",
-    can_walk: false,
-    can_bicycle: false,
-    course_name: "普通科",
-    station_name: "市ケ谷駅",
-    commute_time: 25,
-    tuition: 860000,
-    gender_type: "girls",
-    category: "private",
-    religion: "christian",
-    university_path: "prep",
-    atmospheres: ["free"],
-    vibe_label: "自由・自立・リベラル",
-    club_label: "充実",
-    record_label: "◎",
-    deviation_score: 68,
-    match_rate_child: 93,
-    recent_passed_records: "東大・難関国公立・早慶上智・医学部など多彩な名門大へ多数合格",
-    events: [
-      { id: "ev_jg_magnolia", title: "マグノリア祭（文化祭）", date: "10月11日(土)・13日(祝)", type: "文化祭", desc: "自由な私服の生徒たちが創り出す活気あふれるステージ発表と展示の数々！" },
-      { id: "ev_jg_setsumei", title: "学校説明会＆礼拝堂見学", date: "11月1日(土)", type: "学校説明会", desc: "毎朝の礼拝、自由と責任を重んじる教育方針をじっくり聞くことができます。" }
-    ],
-    special_classes: [
-      { title: "朝の礼拝と聖書の学び", desc: "毎朝パイプオルガンの音色とともに、自分と他者を大切にする心を養う時間！" },
-      { title: "全教科で行う徹底ディベート・討議", desc: "先生の一方的な講義ではなく、自分の意見を論理的に語り合う白熱の授業！" }
-    ],
-    school_strengths: [
-      "制服がなく私服通学！自分で考えて自分らしく過ごせる自由な校風！",
-      "週5日制を採用し、土曜日は自分の好きな探究や活動に時間を使える！",
-      "市ケ谷駅から徒歩8分・麹町駅から徒歩3分の好アクセス！"
-    ],
-    life_simulation: "お気に入りの私服で市ケ谷の校舎へ。朝は礼拝堂で静かに心を落ち着け、授業では仲間と活発にディスカッション。放課後はクラブ活動やおしゃべりを満喫します。",
-    parent_summary: "【進学・教育】プロテスタント系完全中高一貫女子校。週5日制を堅持しながら効率的で密度の濃い授業を展開し、難関大学への高い進学実績を維持しています。【環境・費用】千代田区一番町の落ち着いた環境。制服なし・細かい校則なしの環境下で、自ら判断し行動できる自立心豊かな女性を育成します。",
-    child_summary: "制服がなくて私服で通える、とってもおしゃれで自由な学校！みんなで楽しく話し合いながら自分の意見を堂々と伝えられる明るい雰囲気が大人気だよ！",
-    tags: ["interest_reading_history", "interest_social_events", "interest_arts_music"],
-    interest_category_label: "自由・私服・ディベート",
-    is_favorite: false
-  },
-  {
-    school_id: "sch_mita",
-    name: "三田国際学園中学校",
-    name_ruby: "みたこくさいがくえんちゅうがっこう",
-    official_url: "https://www.mita-is.ed.jp/",
-    catchphrase: "世界標準の教育。相互通行型授業とトリリンガルで未来を拓く共学校",
-    recommend_phrase: "★ 英語での授業やアクティブラーニングで、世界とつながりたい人におすすめ！",
-    photo_url: "assets/images/real_mita.jpg",
-    prefecture: "東京都",
-    district: "世田谷区",
-    can_walk: false,
-    can_bicycle: true,
-    course_name: "インターナショナル / メディカルサイエンス / 本科",
-    station_name: "用賀駅",
-    commute_time: 30,
-    tuition: 960000,
-    gender_type: "coed",
-    category: "private",
-    religion: "none",
-    university_path: "prep",
-    atmospheres: ["global", "stem"],
-    vibe_label: "グローバル・探究",
-    club_label: "活発",
-    record_label: "◎",
-    deviation_score: 58,
-    match_rate_child: 91,
-    recent_passed_records: "海外名門大学・早慶上智・国公立大・理系学部など多数合格",
-    events: [
-      { id: "ev_mita_bunkasai", title: "三田学園祭（文化祭）", date: "10月4日(土)・5日(日)", type: "文化祭", desc: "英語でのプレゼンやサイエンス研究発表、インターナショナルな模擬店を体験！" },
-      { id: "ev_mita_setsumei", title: "オープンキャンパス＆体験授業", date: "11月15日(土)", type: "学校説明会", desc: "相互通行型アクティブラーニングやネイティブ教員による英語授業を体験！" }
-    ],
-    special_classes: [
-      { title: "相互通行型（アクティブラーニング）授業", desc: "先生の問いかけに対し、iPadで意見を共有しながらクラス全員で議論する協働授業！" },
-      { title: "イマージョン英語＆グローバル探究", desc: "理科や社会を英語で学び、世界の同世代とオンラインで意見交換する最先端の学び！" }
-    ],
-    school_strengths: [
-      "ネイティブ教員が多数常駐し、日常的に英語が飛び交う国際的な環境！",
-      "世田谷の緑豊かな広大なキャンパスに充実したICT設備とラボ！",
-      "「考える力（THINK & ACT）」を伸ばすプロジェクト学習が充実！"
-    ],
-    life_simulation: "用賀駅からイチョウ並木を通って登校。授業ではiPadを使って自分のアイデアを即座にクラスにシェア。放課後は英語サークルや実験室で仲間とプロジェクトを進めます。",
-    parent_summary: "【進学・教育】先進的なトリリンガル教育と相互通行型授業（アクティブラーニング）を実践。海外大進学から国内難関大・医学系まで、時代を先取るハイブリッド進路支援が特色。【環境・費用】用賀駅徒歩5分の緑豊かなキャンパス。一人一台端末と多彩なサイエンス・国際クラスが魅力です。",
-    child_summary: "先生の話を聞くだけじゃなく、みんなでクイズみたいに話し合って解決する授業が超楽しい！英語も自然にペラペラになれちゃうグローバルな共学校だよ！",
-    tags: ["interest_digital_tech", "interest_science_space", "interest_social_events"],
-    interest_category_label: "グローバル・英語・協働探究",
-    is_favorite: false
-  }
-];
+    {
+      school_id: "sch_shibushibu",
+      name: "渋谷教育学園渋谷中学校",
+      name_ruby: "しぶやきょういくがくえんしぶやちゅうがっこう",
+      official_url: "https://www.shibushibu.jp/",
+      catchphrase: "自調自考の精神で、世界に羽ばたく個性を育てる共学校",
+      recommend_phrase: "★ 自分で調べ・自分で考える「自調自考」で自由に探究したい人におすすめ！",
+      photo_url: "assets/images/real_shibushibu.jpg",
+      prefecture: "東京都",
+      district: "渋谷区",
+      can_walk: true,
+      can_bicycle: true,
+      course_name: "普通科",
+      station_name: "渋谷駅",
+      commute_time: 25,
+      tuition: 980000,
+      gender_type: "coed",
+      category: "private",
+      religion: "none",
+      university_path: "prep",
+      atmospheres: ["free", "global"],
+      vibe_label: "自由・国際的",
+      club_label: "活発",
+      record_label: "◎",
+      deviation_score: 67,
+      match_rate_child: 98,
+      recent_passed_records: "東大・京大・ハーバード・スタンフォード等国内外難関大多数",
+      events: [
+        { id: "ev_shibushibu_bunkasai", title: "飛翔祭（文化祭）", date: "9月20日(土)・21日(日)", type: "文化祭", desc: "生徒が企画運営する自由でエネルギッシュな展示・英語劇・模擬店が満載！" },
+        { id: "ev_shibushibu_setsumei", title: "学校説明会＆施設見学", date: "10月25日(土)", type: "学校説明会", desc: "教育方針「自調自考」の紹介や生徒の学校生活の様子を詳しく解説します。" }
+      ],
+      special_classes: [
+        { title: "自調自考論文・探究活動", desc: "自ら問いを立て、1万字以上の本格論文を書き上げる深い思考の授業！" },
+        { title: "英語で学ぶプロジェクト学習", desc: "ネイティブ教員による少人数指導で、世界で通じる発信力を磨く！" }
+      ],
+      school_strengths: [
+        "渋谷駅から徒歩7分！アクセス抜群で先進的な都市型キャンパス！",
+        "帰国生も多く、日常的に多様な文化や価値観と触れ合える！",
+        "「シラバス（年間の学習設計図）」で目標を見通しながら主体的に学べる！"
+      ],
+      life_simulation: "朝は渋谷駅から賑やかな街並みを歩いて登校。午前中はディベートや探究型の授業で意見を交わし、放課後は部活動や自習室での論文執筆に仲間と熱中します。",
+      parent_summary: "【進学・教育】国内外のトップ大学へ高い進学実績を誇る完全中高一贯共学校。シラバス教育と『自調自考論文』により、自ら課題を発見し解決する高い問題解決力を育成します。【環境・費用】渋谷駅徒歩7分。少人数英語指導や海外研修などグローバル教育が充実しており、個性を尊重する自由な校風が強みです。",
+      child_summary: "「自分で調べ、自分で考える」がモットーのワクワクする学校！英語を楽しく話せる授業や、好きなテーマをとことん研究できる自由な時間がいっぱいあるよ！",
+      tags: ["interest_digital_tech", "interest_reading_history", "interest_social_events"],
+      interest_category_label: "国際・社会・探究",
+      is_favorite: false
+    },
+    {
+      school_id: "sch_hiroo",
+      name: "広尾学園中学校",
+      name_ruby: "ひろおがくえんちゅうがっこう",
+      official_url: "https://www.hiroogakuen.ed.jp/",
+      catchphrase: "最先端サイエンスと国際教育で未来をひらく共学校",
+      recommend_phrase: "★ 本格的な実験設備で、科学や先端テクノロジーを学びたい人におすすめ！",
+      photo_url: "assets/images/real_hiroo.jpg",
+      prefecture: "東京都",
+      district: "港区",
+      can_walk: false,
+      can_bicycle: true,
+      course_name: "医進・サイエンス / インターナショナル / 本科",
+      station_name: "広尾駅",
+      commute_time: 30,
+      tuition: 1050000,
+      gender_type: "coed",
+      category: "private",
+      religion: "none",
+      university_path: "prep",
+      atmospheres: ["stem", "global"],
+      vibe_label: "先進・先端科学",
+      club_label: "充実",
+      record_label: "◎",
+      deviation_score: 64,
+      match_rate_child: 95,
+      recent_passed_records: "東大・難関国立医学部・海外名門大・早慶上理など多数合格",
+      events: [
+        { id: "ev_hiroo_science", title: "けやき祭（文化祭）＆サイエンスフェア", date: "10月4日(土)・5日(日)", type: "文化祭", desc: "生徒がサイエンスラボで行った最新の研究発表やプレゼンを間近で体感！" },
+        { id: "ev_hiroo_setsumei", title: "学校説明会＆ラボ見学会", date: "11月8日(土)", type: "学校説明会", desc: "本格的な理科研究施設やMacBookを使ったICT教育の現場を見学できます。" }
+      ],
+      special_classes: [
+        { title: "先端サイエンス研究ゼミ", desc: "大学研究室レベルの専門ラボで、自らテーマを決めて本物の実験・論文執筆！" },
+        { title: "ICT×国際英語プレゼンテーション", desc: "一人一台端末を活用し、英語でリサーチ結果をスライド発表する実践授業！" }
+      ],
+      school_strengths: [
+        "大学研究室に匹敵する3つの本格サイエンスラボを校内に完備！",
+        "医療現場の現役医師や大学教授による特別講義・キャリア講座が豊富！",
+        "広尾駅すぐそばで通学しやすく、明るく開放的な校舎環境！"
+      ],
+      life_simulation: "広尾駅から緑豊かな通りを通って登校。放課後は最新ラボで実験機器に触れながら仲間と研究。ICT端末を使って世界中の研究データを調べる探究の日々が待っています。",
+      parent_summary: "【進学・教育】医学部・難関理系・海外大学への合格実績が急伸。「医進・サイエンスコース」「インターナショナルコース」など明確な進路志向に対応した専門プログラムが魅力。【環境・費用】広尾駅徒歩1分。1人1台PCを駆使したICT教育と、大学や企業との産学連携による本格的な課題研究環境が整っています。",
+      child_summary: "本物の研究者みたいな実験室が3つもある未来的な学校！プログラミングや科学実験が大好きなキミなら、毎日夢中になれること間違いなしだよ！",
+      tags: ["interest_science_space", "interest_digital_tech", "interest_crafting_making"],
+      interest_category_label: "科学・実験・先端IT",
+      is_favorite: false
+    },
+    {
+      school_id: "sch_shibaura",
+      name: "芝浦工業大学附属中学校",
+      name_ruby: "しばうらこうぎょうだいがくふぞくちゅうがっこう",
+      official_url: "https://www.fzk.shibaura-it.ac.jp/",
+      catchphrase: "ものづくりと工学の力で、世界を変える理工系人材を育てる",
+      recommend_phrase: "★ 3Dプリンタやロボット、工作など「ものづくり」が大好きな人におすすめ！",
+      photo_url: "assets/images/real_shibaura.jpg",
+      prefecture: "東京都",
+      district: "江東区",
+      can_walk: false,
+      can_bicycle: false,
+      course_name: "普通科",
+      station_name: "豊洲駅",
+      commute_time: 35,
+      tuition: 880000,
+      gender_type: "coed",
+      category: "private",
+      religion: "none",
+      university_path: "attached",
+      atmospheres: ["stem", "both"],
+      vibe_label: "理系・ものづくり",
+      club_label: "盛ん",
+      record_label: "◎",
+      deviation_score: 56,
+      match_rate_child: 92,
+      recent_passed_records: "芝浦工大への推薦進学枠多数 ＆ 国公立大・東京理科大等",
+      events: [
+        { id: "ev_shibaura_shibasai", title: "芝生祭（文化祭）", date: "9月27日(土)・28日(日)", type: "文化祭", desc: "ロボット大会、電子工作体験、プログラミング展示など理系企画が大集合！" },
+        { id: "ev_shibaura_tech", title: "ものづくり体験＆学校説明会", date: "10月11日(土)", type: "学校説明会", desc: "豊洲キャンパスのファブラボで工作や3DCADの体験ができます。" }
+      ],
+      special_classes: [
+        { title: "SHIBAURA探究（IT＆ものづくり）", desc: "中1からプログラミング・3DCAD・ドローン制御を体験し、作品を作り上げる！" },
+        { title: "ショートテックアワー", desc: "すべての教科学習と身の回りの科学技術を結びつけて学ぶ独自カリキュラム！" }
+      ],
+      school_strengths: [
+        "豊洲の広大で綺麗なキャンパス！最新のファブラボ（工作工房）を完備！",
+        "芝浦工業大学への強固な内部推薦枠があり、安心して探究に没頭できる！",
+        "鉄道研究部や電子工作部など、趣味を本気で極められる部活が充実！"
+      ],
+      life_simulation: "運河沿いの爽やかな豊洲エリアを通って登校。放課後は工房でロボットや工作の設計に没頭。仲間と一緒にアイデアを形にする楽しさに溢れた学校生活です。",
+      parent_summary: "【進学・教育】芝浦工業大学への推薦進学を担保しつつ、国公立・早慶上理への外部受験も手厚く支援。大学と直結した高度なSTEAM教育が大きな魅力。【環境・費用】豊洲駅徒歩7分の近代的な免震校舎。週2時間の自立学習時間（SD）により自ら計画を立てて学ぶ自律性が身につきます。",
+      child_summary: "かっこいいロボットや3Dプリンターで自由にものづくりができる理工系パラダイス！工作やパソコンが好きなキミの「作りたい！」が全部叶うよ！",
+      tags: ["interest_crafting_making", "interest_digital_tech", "interest_science_space"],
+      interest_category_label: "ものづくり・ロボット",
+      is_favorite: false
+    },
+    {
+      school_id: "sch_kaisei",
+      name: "開成中学校",
+      name_ruby: "かいせいちゅうがっこう",
+      official_url: "https://kaiseigakuen.jp/",
+      catchphrase: "質実剛健と自由の気風。仲間とともに高みを目指す伝統男子校",
+      recommend_phrase: "★ 最高の仲間と熱い行事に燃え、勉強も部活動もトコトン極めたい人におすすめ！",
+      photo_url: "assets/images/real_kaisei.jpg",
+      prefecture: "東京都",
+      district: "荒川区",
+      can_walk: false,
+      can_bicycle: false,
+      course_name: "普通科",
+      station_name: "西日暮里駅",
+      commute_time: 25,
+      tuition: 820000,
+      gender_type: "boys",
+      category: "private",
+      religion: "none",
+      university_path: "prep",
+      atmospheres: ["both", "free"],
+      vibe_label: "質実剛健・自主自律",
+      club_label: "非常に盛ん",
+      record_label: "◎",
+      deviation_score: 71,
+      match_rate_child: 96,
+      recent_passed_records: "東大合格者数40年以上連続全国第1位・国公立医学部多数",
+      events: [
+        { id: "ev_kaisei_undokai", title: "開成大運動会", date: "5月10日(日)", type: "見学イベント", desc: "高3生が後輩を指導する伝統の棒倒し！全校生徒の熱気がスタジアムを包む！" },
+        { id: "ev_kaisei_bunkasai", title: "開成祭（文化祭）", date: "9月20日(土)・21日(日)", type: "文化祭", desc: "各部活動のハイレベルな研究発表やクイズ研究会の名物対決など見所満載！" }
+      ],
+      special_classes: [
+        { title: "本格的な理科実験・観察ゼミ", desc: "中1から毎週本格的な実験レポートを書き上げ、科学的思考の基礎を徹底鍛錬！" },
+        { title: "大学教養レベルの特別講義", desc: "文学・歴史・数学の深淵に触れる、教員オリジナル教材による知的好奇心の授業！" }
+      ],
+      school_strengths: [
+        "西日暮里駅徒歩2分の好立地！新校舎には広大な理科実験棟や温水プールも！",
+        "先輩が後輩を全力で育てる「縦の絆」が非常に強く、一生の仲間ができる！",
+        "運動部・文化部ともに全国トップレベルの活発な部活動環境！"
+      ],
+      life_simulation: "西日暮里駅からすぐの校舎へ。放課後は部活動で思いきり汗を流し、行事前には夜遅くまで仲間と作戦会議。高い学力とたくましいリーダーシップを同時に磨きます。",
+      parent_summary: "【進学・教育】国内最高峰の東大合格実績を誇る完全中高一貫男子校。生徒主体の行事運営を通じた高い自治力とリーダーシップの育成、実技・体験を重んじる多面的な教育カリキュラムが魅力です。【環境・費用】西日暮里駅すぐ。質実剛健で互いを高め合う濃密な男子校文化が息づいています。",
+      child_summary: "全校生徒が本気で熱中する伝統の大運動会が最高にかっこいい！お互いを認め合える最高の仲間と一緒に、勉強も部活動も思いきり全力で打ち込めるよ！",
+      tags: ["interest_sports_athletics", "interest_puzzle_math", "interest_reading_history"],
+      interest_category_label: "伝統・文武両道・仲間",
+      is_favorite: false
+    },
+    {
+      school_id: "sch_azabu",
+      name: "麻布中学校",
+      name_ruby: "あざぶちゅうがっこう",
+      official_url: "https://www.azabu-jh.ed.jp/",
+      catchphrase: "校則のない自由な校風。自分で考え行動する自立の男子校",
+      recommend_phrase: "★ 枠にとらわれず、自分の興味をトコトン突き詰めて考え抜きたい人におすすめ！",
+      photo_url: "assets/images/real_azabu.jpg",
+      prefecture: "東京都",
+      district: "港区",
+      can_walk: false,
+      can_bicycle: true,
+      course_name: "普通科",
+      station_name: "広尾駅",
+      commute_time: 35,
+      tuition: 860000,
+      gender_type: "boys",
+      category: "private",
+      religion: "none",
+      university_path: "prep",
+      atmospheres: ["free"],
+      vibe_label: "自由闊達・個性的",
+      club_label: "極めて自由",
+      record_label: "◎",
+      deviation_score: 68,
+      match_rate_child: 94,
+      recent_passed_records: "東大・京大・難関医学部・海外名門大など多彩な分野へ進学",
+      events: [
+        { id: "ev_azabu_bunkasai", title: "麻布祭（文化祭）", date: "5月2日〜4日", type: "文化祭", desc: "自由な熱気が爆発！生徒手作りの本格的な研究展示や個性豊かな企画が圧巻！" },
+        { id: "ev_azabu_setsumei", title: "麻布中学校 学校説明会", date: "10月18日(土)", type: "学校説明会", desc: "校則がない麻布ならではの教育理念や独自の思考型授業について語られます。" }
+      ],
+      special_classes: [
+        { title: "先生オリジナルの思考深耕プリント", desc: "教科書を使わず、先生手作りの深遠な教材で「なぜ？」をとことん問い続ける授業！" },
+        { title: "社会科特別巡検・フィールドワーク", desc: "歴史や地理の現場へ自ら足を運び、自分の目で社会の構造を確かめる探究学習！" }
+      ],
+      school_strengths: [
+        "明文化された細かい校則がなく、自分の頭で行動を判断する自由な環境！",
+        "多彩で個性的な生徒たちが互いをリスペクトし合う温かいコミュニティ！",
+        "緑あふれる広大なグラウンドと豊かな蔵書を誇る居心地の良い図書室！"
+      ],
+      life_simulation: "広尾の閑静な丘の上にある校舎へ。放課後は自由なサークル活動や図書室での読書、仲間との熱い議論に花を咲かせます。自分らしさをどこまでも大切にできる毎日です。",
+      parent_summary: "【進学・教育】創立125年を超える伝統男子校。教科書に頼らず教員手作りの教材で行う『本質を問う授業』により、生涯にわたる深い思考力と知的好奇心を涵養します。【環境・費用】港区南麻布の閑静な文教地区。校則で縛らず生徒自身の責任と判断に委ねる自由闊達な教育方針が唯一無二の魅力です。",
+      child_summary: "なんと細かい校則が一切ない、めちゃくちゃ自由な学校！先生が作った面白いプリントで自分の頭でじっくり考える授業が最高にワクワクするよ！",
+      tags: ["interest_reading_history", "interest_puzzle_math", "interest_social_events"],
+      interest_category_label: "自由・個性・深い探究",
+      is_favorite: false
+    },
+    {
+      school_id: "sch_oin",
+      name: "桜蔭中学校",
+      name_ruby: "おういんちゅうがっこう",
+      official_url: "https://www.oin.ed.jp/",
+      catchphrase: "礼と学びの心。自立した女性の知性と品性を育む伝統女子校",
+      recommend_phrase: "★ 確かな学力と礼儀作法を身につけ、知的好奇心を深めたい人におすすめ！",
+      photo_url: "assets/images/real_oin.jpg",
+      prefecture: "東京都",
+      district: "文京区",
+      can_walk: false,
+      can_bicycle: false,
+      course_name: "普通科",
+      station_name: "水道橋駅",
+      commute_time: 30,
+      tuition: 850000,
+      gender_type: "girls",
+      category: "private",
+      religion: "none",
+      university_path: "prep",
+      atmospheres: ["stem", "both"],
+      vibe_label: "知性・気品・理系",
+      club_label: "盛ん",
+      record_label: "◎",
+      deviation_score: 70,
+      match_rate_child: 97,
+      recent_passed_records: "東大理科三類をはじめ東大・難関国公立大医学部合格者数日本一",
+      events: [
+        { id: "ev_oin_bunkasai", title: "桜蔭祭（文化祭）", date: "9月27日(土)・28日(日)", type: "文化祭", desc: "学術的でハイレベルなクラブ研究発表、美しい合唱、温かいおもてなしを体験！" },
+        { id: "ev_oin_setsumei", title: "学校説明会＆施設見学", date: "10月25日(土)", type: "学校説明会", desc: "「礼と学び」の建学精神、中1の礼法授業や理科教育の実践について紹介。" }
+      ],
+      special_classes: [
+        { title: "中1必修の礼法特別授業", desc: "美しい立ち居振る舞いや心遣い、礼儀作法を身につける一生モノの授業！" },
+        { title: "高度な理科実験と考察レポート", desc: "充実した実験室で本格的な科学実験を行い、論理的思考力を極限まで高める！" }
+      ],
+      school_strengths: [
+        "水道橋駅から徒歩5分！都心にありながら落ち着いた学習環境！",
+        "東大・医学部進学実績で全国屈指！高い学力を持つ仲間と切磋琢磨できる！",
+        "茶道・華道・書道や天文部・数学部など、文化的な部活動が非常に充実！"
+      ],
+      life_simulation: "水道橋駅から坂を上がり落ち着いた校舎へ登校。朝の読書で心を整え、集中して高度な授業に取り組みます。放課後は大好きな部活や仲間との勉強会で充実した時間を過ごします。",
+      parent_summary: "【進学・教育】東京女子高等師範学校（現お茶の水女子大）同窓会により設立。東大・国公立医学部合格実績で日本トップを誇り、理数教育と高い論理的思考力を養成。【環境・費用】文京区の落ち着いた文教地区。中学1年次の礼法授業に象徴される、高い知性と品性を兼ね備えた自立した女性を育みます。",
+      child_summary: "女子最難関校！算数や理科の実験がすごく面白くて、勉強が大好きな仲間が集まるよ。優しくて頼りになるかっこいい先輩たちがいっぱいいる憧れの学校！",
+      tags: ["interest_puzzle_math", "interest_science_space", "interest_reading_history"],
+      interest_category_label: "知性・理数・礼儀作法",
+      is_favorite: false
+    },
+    {
+      school_id: "sch_jg",
+      name: "女子学院中学校",
+      name_ruby: "じょしがくいんちゅうがっこう",
+      official_url: "https://www.joshigakuin.ed.jp/",
+      catchphrase: "キリスト教精神に基づく自由と自立。個性を輝かせる女子校",
+      recommend_phrase: "★ 私服通学で自分らしく、意見を交わしながらのびのび学びたい人におすすめ！",
+      photo_url: "assets/images/real_jg.jpg",
+      prefecture: "東京都",
+      district: "千代田区",
+      can_walk: false,
+      can_bicycle: false,
+      course_name: "普通科",
+      station_name: "市ケ谷駅",
+      commute_time: 25,
+      tuition: 860000,
+      gender_type: "girls",
+      category: "private",
+      religion: "christian",
+      university_path: "prep",
+      atmospheres: ["free"],
+      vibe_label: "自由・自立・リベラル",
+      club_label: "充実",
+      record_label: "◎",
+      deviation_score: 68,
+      match_rate_child: 93,
+      recent_passed_records: "東大・難関国公立・早慶上智・医学部など多彩な名門大へ多数合格",
+      events: [
+        { id: "ev_jg_magnolia", title: "マグノリア祭（文化祭）", date: "10月11日(土)・13日(祝)", type: "文化祭", desc: "自由な私服の生徒たちが創り出す活気あふれるステージ発表と展示の数々！" },
+        { id: "ev_jg_setsumei", title: "学校説明会＆礼拝堂見学", date: "11月1日(土)", type: "学校説明会", desc: "毎朝の礼拝、自由と責任を重んじる教育方針をじっくり聞くことができます。" }
+      ],
+      special_classes: [
+        { title: "朝の礼拝と聖書の学び", desc: "毎朝パイプオルガンの音色とともに、自分と他者を大切にする心を養う時間！" },
+        { title: "全教科で行う徹底ディベート・討議", desc: "先生の一方的な講義ではなく、自分の意見を論理的に語り合う白熱の授業！" }
+      ],
+      school_strengths: [
+        "制服がなく私服通学！自分で考えて自分らしく過ごせる自由な校風！",
+        "週5日制を採用し、土曜日は自分の好きな探究や活動に時間を使える！",
+        "市ケ谷駅から徒歩8分・麹町駅から徒歩3分の好アクセス！"
+      ],
+      life_simulation: "お気に入りの私服で市ケ谷の校舎へ。朝は礼拝堂で静かに心を落ち着け、授業では仲間と活発にディスカッション。放課後はクラブ活動やおしゃべりを満喫します。",
+      parent_summary: "【進学・教育】プロテスタント系完全中高一貫女子校。週5日制を堅持しながら効率的で密度の濃い授業を展開し、難関大学への高い進学実績を維持しています。【環境・費用】千代田区一番町の落ち着いた環境。制服なし・細かい校則なしの環境下で、自ら判断し行動できる自立心豊かな女性を育成します。",
+      child_summary: "制服がなくて私服で通える、とってもおしゃれで自由な学校！みんなで楽しく話し合いながら自分の意見を堂々と伝えられる明るい雰囲気が大人気だよ！",
+      tags: ["interest_reading_history", "interest_social_events", "interest_arts_music"],
+      interest_category_label: "自由・私服・ディベート",
+      is_favorite: false
+    },
+    {
+      school_id: "sch_mita",
+      name: "三田国際学園中学校",
+      name_ruby: "みたこくさいがくえんちゅうがっこう",
+      official_url: "https://www.mita-is.ed.jp/",
+      catchphrase: "世界標準の教育。相互通行型授業とトリリンガルで未来を拓く共学校",
+      recommend_phrase: "★ 英語での授業やアクティブラーニングで、世界とつながりたい人におすすめ！",
+      photo_url: "assets/images/real_mita.jpg",
+      prefecture: "東京都",
+      district: "世田谷区",
+      can_walk: false,
+      can_bicycle: true,
+      course_name: "インターナショナル / メディカルサイエンス / 本科",
+      station_name: "用賀駅",
+      commute_time: 30,
+      tuition: 960000,
+      gender_type: "coed",
+      category: "private",
+      religion: "none",
+      university_path: "prep",
+      atmospheres: ["global", "stem"],
+      vibe_label: "グローバル・探究",
+      club_label: "活発",
+      record_label: "◎",
+      deviation_score: 58,
+      match_rate_child: 91,
+      recent_passed_records: "海外名門大学・早慶上智・国公立大・理系学部など多数合格",
+      events: [
+        { id: "ev_mita_bunkasai", title: "三田学園祭（文化祭）", date: "10月4日(土)・5日(日)", type: "文化祭", desc: "英語でのプレゼンやサイエンス研究発表、インターナショナルな模擬店を体験！" },
+        { id: "ev_mita_setsumei", title: "オープンキャンパス＆体験授業", date: "11月15日(土)", type: "学校説明会", desc: "相互通行型アクティブラーニングやネイティブ教員による英語授業を体験！" }
+      ],
+      special_classes: [
+        { title: "相互通行型（アクティブラーニング）授業", desc: "先生の問いかけに対し、iPadで意見を共有しながらクラス全員で議論する協働授業！" },
+        { title: "イマージョン英語＆グローバル探究", desc: "理科や社会を英語で学び、世界の同世代とオンラインで意見交換する最先端の学び！" }
+      ],
+      school_strengths: [
+        "ネイティブ教員が多数常駐し、日常的に英語が飛び交う国際的な環境！",
+        "世田谷の緑豊かな広大なキャンパスに充実したICT設備とラボ！",
+        "「考える力（THINK & ACT）」を伸ばすプロジェクト学習が充実！"
+      ],
+      life_simulation: "用賀駅からイチョウ並木を通って登校。授業ではiPadを使って自分のアイデアを即座にクラスにシェア。放課後は英語サークルや実験室で仲間とプロジェクトを進めます。",
+      parent_summary: "【進学・教育】先進的なトリリンガル教育と相互通行型授業（アクティブラーニング）を実践。海外大進学から国内難関大・医学系まで、時代を先取るハイブリッド進路支援が特色。【環境・費用】用賀駅徒歩5分の緑豊かなキャンパス。一人一台端末と多彩なサイエンス・国際クラスが魅力です。",
+      child_summary: "先生の話を聞くだけじゃなく、みんなでクイズみたいに話し合って解決する授業が超楽しい！英語も自然にペラペラになれちゃうグローバルな共学校だよ！",
+      tags: ["interest_digital_tech", "interest_science_space", "interest_social_events"],
+      interest_category_label: "グローバル・英語・協働探究",
+      is_favorite: false
+    }
+  ];
 
 const CHILD_INTEREST_OPTIONS = [
   { id: "interest_nature_biology", title: "生き物・自然", desc: "いきもの・しぜんの観察や飼育", icon: "leaf" },
@@ -523,7 +523,10 @@ const DEFAULT_EMPTY_SCHEMA = {
   recommended_schools: [],
   // 行く前（予定）と行った後（振り返り）を管理する見学予定・記録リスト
   visit_plans: [],
-  visit_reviews: []
+  visit_reviews: [],
+  // 親子のつぶやき・足跡データ
+  family_posts: [],
+  family_footprints: []
 };
 
 let AppSchema = JSON.parse(JSON.stringify(DEFAULT_EMPTY_SCHEMA));
@@ -582,39 +585,54 @@ function slideQuestionStep(currentSlideId, nextSlideId, direction = 'next', onCo
 }
 
 // ==========================================
-// 4. ユーザーモード（保護者画面 ⇄ 子ども画面）の切り替え
+// 4. ユーザーモード（保護者画面 ⇄ 子ども画面 ⇄ 親子画面）の切り替え
 // ==========================================
 let currentUserMode = 'parent'; // デフォルトは保護者画面
+let familyActiveActor = 'parent'; // 親子画面で現在操作中のロール ('parent' | 'child')
+
+function getCurrentActorRole() {
+  if (currentUserMode === 'child') return 'child';
+  if (currentUserMode === 'parent') return 'parent';
+  return familyActiveActor || 'parent';
+}
 
 function switchUserMode(mode) {
+  if (mode === 'parent' || mode === 'child') {
+    familyActiveActor = mode;
+  }
   currentUserMode = mode;
 
   // ピルボタンのactive状態更新
-  const btnParent = document.getElementById('btnModeParent');
-  const btnChild = document.getElementById('btnModeChild');
-  if (btnParent && btnChild) {
-    if (mode === 'parent') {
-      btnParent.classList.add('active');
-      btnChild.classList.remove('active');
-    } else {
-      btnChild.classList.add('active');
-      btnParent.classList.remove('active');
-    }
+  updateHeaderModePills(mode);
+
+  // 親子画面が押されたとき、またはオンボーディング中にモード切替された場合はホーム画面を表示
+  if (mode === 'family' || document.body.classList.contains('onboarding-active') || currentRole === 'parent' || currentRole === 'child') {
+    exitOnboardingMode();
+    switchAppView('home');
+    return;
   }
 
   // ホーム画面が表示されている場合は表示ブロックを切り替え
   const homeParent = document.getElementById('homeParentViewBlock');
   const homeChild = document.getElementById('homeChildViewBlock');
+  const homeFamily = document.getElementById('homeFamilyViewBlock');
   if (homeParent && homeChild) {
     if (mode === 'parent') {
       homeParent.style.display = 'block';
       homeChild.style.display = 'none';
+      if (homeFamily) homeFamily.style.display = 'none';
       renderParentHomeDashboard();
-    } else {
+    } else if (mode === 'child') {
       homeParent.style.display = 'none';
       homeChild.style.display = 'block';
+      if (homeFamily) homeFamily.style.display = 'none';
       renderHomeRecommendedSchools();
       renderHomeInterestAlternativeSchools();
+    } else if (mode === 'family') {
+      homeParent.style.display = 'none';
+      homeChild.style.display = 'none';
+      if (homeFamily) homeFamily.style.display = 'block';
+      renderFamilyScreen();
     }
   }
 
@@ -622,6 +640,12 @@ function switchUserMode(mode) {
   const searchView = document.getElementById('roleSchoolSearchView');
   if (searchView && searchView.classList.contains('active')) {
     renderSchoolSearchList(currentQuickTag || 'all');
+  }
+
+  // 「記録」画面が表示中の場合も再描画
+  const reviewView = document.getElementById('roleReviewView');
+  if (reviewView && reviewView.classList.contains('active')) {
+    renderReviewView();
   }
 
   // マイページが表示中の場合はお子さま回答データの表示・編集権限を再描画
@@ -635,7 +659,33 @@ function switchUserMode(mode) {
 // ==========================================
 // 4-2. ナビゲーション切り替え (スマホ固定ボトムナビ連動)
 // ==========================================
+function showWelcomeView() {
+  document.body.classList.add('welcome-active');
+  document.querySelectorAll('.bottom-nav-item').forEach(btn => btn.classList.remove('active'));
+  document.querySelectorAll('.role-view').forEach(view => view.classList.remove('active'));
+  const view = document.getElementById('roleWelcomeView');
+  if (view) view.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'instant' });
+}
+
+function startAppFromWelcome() {
+  document.body.classList.remove('welcome-active');
+  const welcomeView = document.getElementById('roleWelcomeView');
+  if (welcomeView) {
+    welcomeView.classList.remove('active');
+  }
+  startParentOnboarding();
+}
+window.startAppFromWelcome = startAppFromWelcome;
+
 function switchAppView(viewName) {
+  if (viewName === 'welcome') {
+    showWelcomeView();
+    return;
+  }
+
+  // 通常ビューへの遷移時はウェルカムモードを解除
+  document.body.classList.remove('welcome-active');
   currentRole = viewName;
 
   // すべてのアクティブ状態を一旦リセット
@@ -648,20 +698,27 @@ function switchAppView(viewName) {
     const view = document.getElementById('roleHomeView');
     if (view) view.classList.add('active');
 
+    const homeParent = document.getElementById('homeParentViewBlock');
+    const homeChild = document.getElementById('homeChildViewBlock');
+    const homeFamily = document.getElementById('homeFamilyViewBlock');
+
     // 現在のユーザーモードに応じて描画
     if (currentUserMode === 'parent') {
-      const homeParent = document.getElementById('homeParentViewBlock');
-      const homeChild = document.getElementById('homeChildViewBlock');
       if (homeParent) homeParent.style.display = 'block';
       if (homeChild) homeChild.style.display = 'none';
+      if (homeFamily) homeFamily.style.display = 'none';
       renderParentHomeDashboard();
-    } else {
-      const homeParent = document.getElementById('homeParentViewBlock');
-      const homeChild = document.getElementById('homeChildViewBlock');
+    } else if (currentUserMode === 'child') {
       if (homeParent) homeParent.style.display = 'none';
       if (homeChild) homeChild.style.display = 'block';
+      if (homeFamily) homeFamily.style.display = 'none';
       renderHomeRecommendedSchools();
       renderHomeInterestAlternativeSchools();
+    } else if (currentUserMode === 'family') {
+      if (homeParent) homeParent.style.display = 'none';
+      if (homeChild) homeChild.style.display = 'none';
+      if (homeFamily) homeFamily.style.display = 'block';
+      renderFamilyScreen();
     }
   } else if (viewName === 'search') {
     const bNav = document.getElementById('bNavSearch');
@@ -691,7 +748,7 @@ function switchAppView(viewName) {
 
     // すでに質問に回答完了している場合は、毎回再回答させず結果画面を表示
     if (AppSchema.child_profile && AppSchema.child_profile.is_completed) {
-      for (let i = 0; i <= 6; i++) {
+      for (let i = 0; i <= 7; i++) {
         const el = document.getElementById(`cSlide${i}`);
         if (el) {
           el.style.display = 'none';
@@ -703,7 +760,7 @@ function switchAppView(viewName) {
         resEl.style.display = 'block';
         resEl.classList.add('active');
       }
-      updateChildProgressIndicator(7);
+      updateChildProgressIndicator(8);
       renderChildRecommendedSchools();
     } else {
       renderInterestSelectionGrid();
@@ -987,12 +1044,12 @@ function renderParentHomeDashboard() {
     if (aiSummaryEl) {
       if (!parentReady && !childReady) {
         aiSummaryEl.innerHTML = `
-          <div class="ai-unconfigured-box" style="padding:22px 16px; background:#F8FAFC; border:2px dashed #CBD5E1; border-radius:14px; text-align:center;">
+          <div class="ai-unconfigured-box" style="padding:22px 16px; background:#F8FAFC; text-align:center;">
             <span style="font-size:34px; display:block; margin-bottom:8px;">🤖💭</span>
-            <h3 style="font-size:16px; font-weight:800; color:#1E293B; margin-bottom:6px;">
+            <h3 style="font-size:16px; font-weight:800; color:var(--koko-blue-main); margin-bottom:6px;">
               設定が完了すると、AIによる分析・会話のヒントが届きます
             </h3>
-            <p style="font-size:13px; color:#64748B; line-height:1.6; margin-bottom:16px; max-width:480px; margin-left:auto; margin-right:auto;">
+            <p style="font-size:13px; color:var(--text-secondary); line-height:1.6; margin-bottom:16px; max-width:480px; margin-left:auto; margin-right:auto;">
               保護者の希望条件（最寄駅・通学時間・学費など）とお子さまの「すきなことを見つけるワーク」が完了すると、おふたりの希望を掛け合わせたAI要約レポートと、今夜の食卓で使える対話フレーズがここに届きます。
             </p>
             <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
@@ -1002,7 +1059,7 @@ function renderParentHomeDashboard() {
               <button type="button" class="btn-solid-child btn-sm" onclick="startChildQuestionEdit()" style="display:inline-flex; align-items:center; gap:6px;">
                 🎒 お子さまの質問に答える
               </button>
-              <button type="button" class="btn-outline btn-sm" onclick="loadDemoData()" style="color:#4F46E5; border-color:#818CF8; background:#EEF2FF; font-weight:700;">
+              <button type="button" class="btn-outline btn-sm" onclick="loadDemoData()" style="color:var(--koko-blue-main); border:2px solid var(--koko-blue-main); box-shadow:2px 2px 0px var(--koko-blue-main); background:#EEF2FF; font-weight:700;">
                 💡 デモデータで体験する
               </button>
             </div>
@@ -1011,9 +1068,9 @@ function renderParentHomeDashboard() {
       } else if (parentReady && !childReady) {
         const stationText = parentProf.station ? `ご自宅（${parentProf.station}駅）` : "保護者さまの希望条件";
         aiSummaryEl.innerHTML = `
-          <div class="ai-unconfigured-box" style="padding:22px 16px; background:#F0FDF4; border:2px dashed #86EFAC; border-radius:14px; text-align:center;">
+          <div class="ai-unconfigured-box" style="padding:22px 16px; background:#F0FDF4; text-align:center;">
             <span style="font-size:34px; display:block; margin-bottom:8px;">🎒⏳</span>
-            <div style="display:inline-block; background:#DCFCE7; color:#166534; font-size:11px; font-weight:800; padding:2px 10px; border-radius:12px; margin-bottom:6px;">
+            <div style="display:inline-block; background:#DCFCE7; color:#166534; font-size:11px; font-weight:800; padding:3px 10px; border-radius:12px; margin-bottom:6px; border:1.5px solid var(--koko-blue-main); box-shadow:1.5px 1.5px 0px var(--koko-blue-main);">
               保護者の条件設定 完了（ステップ 1/2）
             </div>
             <h3 style="font-size:16px; font-weight:800; color:#14532D; margin-bottom:6px;">
@@ -1027,7 +1084,7 @@ function renderParentHomeDashboard() {
               <button type="button" class="btn-solid-child btn-sm" onclick="startChildQuestionEdit()" style="display:inline-flex; align-items:center; gap:6px;">
                 ✦ お子さまの質問に答えてみる
               </button>
-              <button type="button" class="btn-outline btn-sm" onclick="loadDemoData()" style="color:#4F46E5; border-color:#818CF8; background:#EEF2FF; font-weight:700;">
+              <button type="button" class="btn-outline btn-sm" onclick="loadDemoData()" style="color:var(--koko-blue-main); border:2px solid var(--koko-blue-main); box-shadow:2px 2px 0px var(--koko-blue-main); background:#EEF2FF; font-weight:700;">
                 💡 デモデータで体験する
               </button>
             </div>
@@ -1038,12 +1095,12 @@ function renderParentHomeDashboard() {
         const interestsList = (childProf.interests || []).map(id => CHILD_INTEREST_LABEL_MAP[id] || id);
         const intSummary = interestsList.length > 0 ? `「${interestsList.slice(0, 2).join('」「')}」など` : '興味関心データ';
         aiSummaryEl.innerHTML = `
-          <div class="ai-unconfigured-box" style="padding:22px 16px; background:#EFF6FF; border:2px dashed #93C5FD; border-radius:14px; text-align:center;">
+          <div class="ai-unconfigured-box" style="padding:22px 16px; background:#EFF6FF; text-align:center;">
             <span style="font-size:34px; display:block; margin-bottom:8px;">📋⏳</span>
-            <div style="display:inline-block; background:#DBEAFE; color:#1E40AF; font-size:11px; font-weight:800; padding:2px 10px; border-radius:12px; margin-bottom:6px;">
+            <div style="display:inline-block; background:#DBEAFE; color:#1E40AF; font-size:11px; font-weight:800; padding:3px 10px; border-radius:12px; margin-bottom:6px; border:1.5px solid var(--koko-blue-main); box-shadow:1.5px 1.5px 0px var(--koko-blue-main);">
               お子さまのワーク回答 完了（ステップ 1/2）
             </div>
-            <h3 style="font-size:16px; font-weight:800; color:#1E3A8A; margin-bottom:6px;">
+            <h3 style="font-size:16px; font-weight:800; color:var(--koko-blue-main); margin-bottom:6px;">
               保護者さまの条件設定をお待ちしています
             </h3>
             <p style="font-size:13px; color:#374151; line-height:1.6; margin-bottom:16px; max-width:480px; margin-left:auto; margin-right:auto;">
@@ -1054,7 +1111,7 @@ function renderParentHomeDashboard() {
               <button type="button" class="btn-solid-parent btn-sm" onclick="startParentConditionEdit()" style="display:inline-flex; align-items:center; gap:6px;">
                 ✦ 保護者の条件を設定する
               </button>
-              <button type="button" class="btn-outline btn-sm" onclick="loadDemoData()" style="color:#4F46E5; border-color:#818CF8; background:#EEF2FF; font-weight:700;">
+              <button type="button" class="btn-outline btn-sm" onclick="loadDemoData()" style="color:var(--koko-blue-main); border:2px solid var(--koko-blue-main); box-shadow:2px 2px 0px var(--koko-blue-main); background:#EEF2FF; font-weight:700;">
                 💡 デモデータで体験する
               </button>
             </div>
@@ -1282,7 +1339,7 @@ function renderParentHomeDashboard() {
   const favSchoolsBox = document.getElementById('parentSummaryFavoriteSchools');
   if (favSchoolsBox) {
     favSchoolsBox.innerHTML = '';
-    
+
     // 保護者の通学条件・日常通学可能圏に合致する学校から抽出
     const commutableSchools = getFilteredSchoolsByParentStrictRules(SCHOOL_DATABASE);
     let targetSchools = commutableSchools.filter(s => s.is_favorite);
@@ -1346,9 +1403,9 @@ function renderParentSummaryReviews() {
   reviewsBox.innerHTML = `
     <div class="review-summary-cards-list">
       ${list.map(rev => {
-        const revSchool = SCHOOL_DATABASE.find(s => s.school_id === rev.school_id);
-        const schoolName = revSchool ? revSchool.name : (rev.school_name || "見学校");
-        return `
+    const revSchool = SCHOOL_DATABASE.find(s => s.school_id === rev.school_id);
+    const schoolName = revSchool ? revSchool.name : (rev.school_name || "見学校");
+    return `
           <div class="review-summary-card">
             <div class="review-card-top">
               <span class="review-school-tag">${schoolName}</span>
@@ -1367,7 +1424,7 @@ function renderParentSummaryReviews() {
             ` : ''}
           </div>
         `;
-      }).join('')}
+  }).join('')}
     </div>
   `;
 }
@@ -1628,6 +1685,7 @@ function toggleSchoolFavorite(schoolId, btnEl) {
     btnEl.innerHTML = getHeartSvg(school.is_favorite);
     if (school.is_favorite) {
       btnEl.classList.add('active');
+      recordFamilyFootprint('favorite_school', school.name, { school_id: school.school_id });
     } else {
       btnEl.classList.remove('active');
     }
@@ -1636,6 +1694,7 @@ function toggleSchoolFavorite(schoolId, btnEl) {
       renderSchoolSearchList();
     }
     renderMypageFavorites();
+    saveAppStateToLocalStorage();
   }
 }
 
@@ -1678,10 +1737,10 @@ function renderMypageFavorites() {
           <h4 class="mypage-fav-item-name" style="font-size:17px; font-weight:800; color:var(--text-main); margin:0 0 4px; line-height:1.35; word-break:break-word;">${school.name}</h4>
           <p class="mypage-fav-item-meta" style="font-size:12px; color:var(--text-muted); margin:0 0 6px;">📍 ${school.prefecture}（${school.station_name}） ・ ${genderText}</p>
           <div style="display:flex; flex-wrap:wrap; gap:6px; align-items:center;">
-            ${isChild 
-              ? `<span class="child-match-pill-mini" style="font-size:11px; font-weight:800; background:var(--koko-yellow); color:var(--koko-blue-main); padding:2px 8px; border-radius:6px;">★ マッチ度 ${school.match_rate_child || 95}%</span>` 
-              : `<span class="parent-meta-pill-mini" style="font-size:11px; font-weight:800; background:#FEF3C7; color:#92400E; padding:2px 8px; border-radius:6px; border:1px solid #FDE68A;">偏差値 ${school.deviation_score}</span>`
-            }
+            ${isChild
+        ? `<span class="child-match-pill-mini" style="font-size:11px; font-weight:800; background:var(--koko-yellow); color:var(--koko-blue-main); padding:2px 8px; border-radius:6px;">★ マッチ度 ${school.match_rate_child || 95}%</span>`
+        : `<span class="parent-meta-pill-mini" style="font-size:11px; font-weight:800; background:#FEF3C7; color:#92400E; padding:2px 8px; border-radius:6px; border:1px solid #FDE68A;">偏差値 ${school.deviation_score}</span>`
+      }
           </div>
         </div>
       </div>
@@ -1743,7 +1802,6 @@ function handleDetailModalKeyDown(e) {
   }
 }
 
-const closeSchoolDetailModal = goBackFromSchoolDetail;
 let previousScrollBeforeDetail = 0;
 
 // ==========================================
@@ -1847,7 +1905,7 @@ function generateParentSchoolAnalysisHtml(school) {
       <div style="display: flex; flex-direction: column; gap: 14px; margin-top: 14px;">
         
         <!-- 1. 学習指導・教育方針 -->
-        <div style="background: #F8FAFC; border-left: 4px solid #3B82F6; padding: 14px 16px; border-radius: 0 8px 8px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+        <div style="background: #F8FAFC; border-left: 4px solid #3B82F6; padding: 14px 16px; border-radius: 0 8px 8px 0; box-shadow: 2px 2px 0px var(--koko-blue-main); border: 1.5px solid #E2E8F0; border-left: 4px solid #3B82F6;">
           <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 6px; margin-bottom: 6px;">
             <strong style="color: #1E40AF; font-size: 14px;">📚 学習指導体制 ＆ 公式特色カリキュラム</strong>
             ${school.course_name ? `<span style="font-size: 11px; background: #DBEAFE; color: #1E40AF; padding: 2px 8px; border-radius: 10px; font-weight: 700;">設置コース：${school.course_name}</span>` : ''}
@@ -1862,7 +1920,7 @@ function generateParentSchoolAnalysisHtml(school) {
         </div>
 
         <!-- 2. 合格実績・進路支援 -->
-        <div style="background: #F8FAFC; border-left: 4px solid #10B981; padding: 14px 16px; border-radius: 0 8px 8px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+        <div style="background: #F8FAFC; border-left: 4px solid #10B981; padding: 14px 16px; border-radius: 0 8px 8px 0; box-shadow: 2px 2px 0px var(--koko-blue-main); border: 1.5px solid #E2E8F0; border-left: 4px solid #10B981;">
           <strong style="color: #065F46; font-size: 14px; display: block; margin-bottom: 6px;">🎯 大学合格実績 ＆ キャリア・進学指導</strong>
           <div style="font-size: 13px; font-weight: 700; color: #047857; background: #ECFDF5; padding: 8px 12px; border-radius: 6px; border: 1px solid #A7F3D0; margin-bottom: 8px; line-height: 1.5;">
             【主な合格・進学実績】${school.recent_passed_records || '公式サイトにて詳細公開中'}
@@ -1873,7 +1931,7 @@ function generateParentSchoolAnalysisHtml(school) {
         </div>
 
         <!-- 3. 学校の強み・生活安全 -->
-        <div style="background: #F8FAFC; border-left: 4px solid #F59E0B; padding: 14px 16px; border-radius: 0 8px 8px 0; box-shadow: 0 1px 3px rgba(0,0,0,0.05);">
+        <div style="background: #F8FAFC; border-left: 4px solid #F59E0B; padding: 14px 16px; border-radius: 0 8px 8px 0; box-shadow: 2px 2px 0px var(--koko-blue-main); border: 1.5px solid #E2E8F0; border-left: 4px solid #F59E0B;">
           <strong style="color: #92400E; font-size: 14px; display: block; margin-bottom: 6px;">🛡 学校独自の強み（公式アピール） ＆ 通学・安全管理</strong>
           ${strengthsHtml}
           <div style="margin-top: 8px; padding-top: 8px; border-top: 1px dashed #CBD5E1; font-size: 13px; color: #475569; line-height: 1.6;">
@@ -1886,11 +1944,11 @@ function generateParentSchoolAnalysisHtml(school) {
 
         <!-- 5. 公式ホームページ直結カード -->
         ${school.official_url ? `
-        <div style="background: #EFF6FF; border: 2px solid #93C5FD; border-radius: 10px; padding: 14px; text-align: center; margin-top: 4px;">
-          <div style="font-size: 13px; color: #1E3A8A; font-weight: 700; margin-bottom: 8px;">
+        <div style="background: #EFF6FF; border: 2px solid var(--koko-blue-main); border-radius: 10px; padding: 14px; text-align: center; margin-top: 4px; box-shadow: 2px 2px 0px var(--koko-blue-main);">
+          <div style="font-size: 13px; color: var(--koko-blue-main); font-weight: 700; margin-bottom: 8px;">
             🌐 公式ホームページで最新情報・入試要項を詳しく確認
           </div>
-          <a href="${school.official_url}" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: #2563EB; color: #fff; padding: 10px 20px; border-radius: 8px; font-size: 14px; font-weight: 800; text-decoration: none; box-shadow: 0 2px 6px rgba(37,99,235,0.3);">
+          <a href="${school.official_url}" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: var(--koko-blue-main); color: #fff; padding: 10px 20px; border-radius: var(--radius-pill); font-size: 14px; font-weight: 800; text-decoration: none; box-shadow: 3px 3px 0px var(--koko-blue-main); border: 2px solid var(--koko-blue-main);">
             <span>${school.name} 公式HPを開く ↗</span>
           </a>
           <p style="font-size: 11px; color: #64748B; margin: 8px 0 0 0;">
@@ -1932,6 +1990,992 @@ function generateParentSchoolAnalysisHtml(school) {
   `;
 }
 
+// ========================================================
+// 子ども向け学校詳細：交通手段完全除外 ＆ 具体的深掘りエンジン
+// ========================================================
+
+/**
+ * 子ども向け表示から交通手段（駅名、徒歩、バス、電車、通学時間等）を完全に除外するクリーナー
+ */
+function cleanChildTextWithoutCommute(str) {
+  if (!str) return '';
+  let s = String(str);
+  // 文単位で分割して交通情報を含む文を除去
+  const sentences = s.split(/(?<=[。！？\n])/);
+  const filtered = sentences.filter(sent => {
+    const trimmed = sent.trim();
+    if (!trimmed) return false;
+    // 交通・アクセスに関する単語が含まれている文を除去
+    if (/(?:徒歩|分で登校|通学|スクールバス|直通バス|最寄駅|駅前|駅から|駅より|路線|電車|地下鉄|JR|ターミナル|アクセス|片道|通うのに)/.test(trimmed)) {
+      return false;
+    }
+    return true;
+  });
+  let result = filtered.join('').trim();
+  if (!result) {
+    result = '緑豊かで落ち着いた環境の中で、仲間と笑顔で学校生活をスタートできるよ！';
+  }
+  return result;
+}
+
+/**
+ * 主要校の特色授業・体験リッチデータベース
+ * （具体的でワクワクする活動内容・面白さPoint・身につく力を定義）
+ */
+const CHILD_SPECIAL_CLASSES_DATABASE = {
+  sch_shibushibu: [
+    {
+      badge: "📚 探究論文・自調自考",
+      title: "自調自考論文（じちょうじこう ろんぶん）",
+      activity: "キミの大好きな疑問や興味（『なぜアニメの曲は耳に残るのか？』『深海生物の光る仕組み』など）を自由に1つ決めて、本を読んだりアンケートや実験を行って、大学の研究者のような本格論文（1万字以上）を1年かけて書き上げる名物授業だよ！",
+      points: [
+        "教科書の枠を超えて、自分の『知りたい！』をとことん探究できる面白さ！",
+        "最後はポスターやスライドを使って学年みんなの前で堂々と研究発表！"
+      ],
+      power: "自分で問いを見つけて深く考え抜く探究力 ＆ 論文作成力"
+    },
+    {
+      badge: "🌍 英語ディベート・模擬国連",
+      title: "少人数インターナショナル英語プロジェクト",
+      activity: "ネイティブの先生と一緒に、世界各国の代表になりきって地球温暖化や貧困問題について英語で熱く議論！帰国生の仲間とも英語で自然に語り合い、英語がどんどん口から飛び出すようになるよ。",
+      points: [
+        "勉強としてではなく『自分の意見を世界に伝える道具』として英語を使える！",
+        "模擬国連大会やスピーチコンテストなど、ワクワクする挑戦の場がたくさん！"
+      ],
+      power: "世界中の人と堂々と英語で議論できる国際コミュニケーション力"
+    }
+  ],
+  sch_shibaura: [
+    {
+      badge: "💻 つくる学び・3Dファブラボ",
+      title: "ものづくり探究 ＆ 3Dファブラボ工房",
+      activity: "プロ仕様の3Dプリンタやレーザー加工機がずらりと並ぶ工房で、パソコンで立体CAD設計したオリジナルロボットや仕掛け工作を自分の手で作り出す超本格的な授業だよ！芝浦工業大学の研究室とも連携！",
+      points: [
+        "頭の中でひらめいたアイデアが、目の前で本物の形になる感動！",
+        "失敗しても何回でも設計を工夫して、より強い・速いマシンへと進化させる楽しさ！"
+      ],
+      power: "アイデアをゼロから形にするエンジニアリング力 ＆ 創造力"
+    },
+    {
+      badge: "🔬 ロボット工学・プログラミング",
+      title: "自律走行ロボット制作 ＆ プログラミング演習",
+      activity: "センサーやマイコンを自分で配線して組み立て、光や音・障害物を感知して自律して動くロボットカーをプログラミング！最後は自作ロボットで迷路脱出やタイムアタック競技会を開催！",
+      points: [
+        "自分の書いたプログラム通りにマシンがキュッと動いた瞬間の爽快感！",
+        "仲間とチームを組んで『もっと滑らかに曲がるには？』を作戦会議！"
+      ],
+      power: "仕組みを解き明かす論理的思考力 ＆ プログラミング力"
+    }
+  ],
+  sch_hiroo: [
+    {
+      badge: "🔬 医進・先端サイエンス",
+      title: "医進・サイエンス研究プロジェクト",
+      activity: "一人1台の本物の高倍率顕微鏡やPCR遺伝子増幅装置を使い、最先端の生物・化学の謎に挑む研究活動！大学の医学部や研究機関の先生から直接アドバイスを受けながら実験を進めるよ。",
+      points: [
+        "学校にいながら大学レベルの本格的な実験室で研究者気分を味わえる！",
+        "生徒が国内外の学会や科学オリンピックで堂々と研究を発表！"
+      ],
+      power: "仮説を立てて実験で確かめる本物の科学的探究力"
+    },
+    {
+      badge: "🌍 国際学級・イマージョン",
+      title: "アカデミック・イングリッシュ ＆ プレゼンテーション",
+      activity: "理科や社会を英語で学ぶイマージョン授業！全編英語でスライドを作成し、自分の研究テーマやアイデアを世界に向けて発信するプレゼンテーション大会を定期的に開催するよ。",
+      points: [
+        "英語を『勉強する』のではなく、ワクワクする知識を英語で吸収できる！",
+        "海外の生徒とオンラインでつながり、リアルタイムに共同プロジェクトを実施！"
+      ],
+      power: "国際舞台で堂々と自分を表現できるグローバル発信力"
+    }
+  ],
+  sch_kaisei: [
+    {
+      badge: "🔬 実験重視の理科教育",
+      title: "物理・化学・生物・地学の4専門理科実験",
+      activity: "教科書を読むだけでは終わらせない！物理・化学・生物・地学それぞれに独立した実験室があり、先生手作りの実験プリントを使って毎週のように手を真っ黒にして本格実験に打ち込むよ。",
+      points: [
+        "『教科書にこう書いてあるけど、本当かな？』を自分の手と目で直接確かめられる！",
+        "実験が終わった後、仲間と結果を見せ合って『なぜ差が出たのか？』を白熱議論！"
+      ],
+      power: "現象の本質を鋭く見抜く科学的観察力 ＆ 論理的思考力"
+    },
+    {
+      badge: "📚 対話型・教養深化",
+      title: "知の扉を開く教養対話ゼミ（国語・社会）",
+      activity: "古典文学や近現代の哲学、歴史的な大事件を題材に、『もし自分がその立場ならどう判断したか？』を深く掘り下げる対話型授業。先生の深い問いかけに教室全体が熱気で包まれるよ。",
+      points: [
+        "仲間の意表を突く鋭い意見に『なるほど！』と刺激を受ける毎日！",
+        "答えがひとつじゃない問いについて、とことん考える面白さ！"
+      ],
+      power: "多角的な視野で物事を捉える深い教養 ＆ 批判的思考力"
+    }
+  ],
+  sch_azabu: [
+    {
+      badge: "🎨 教養総合・学問の自由",
+      title: "教養総合講義・学問の自由探究ゼミ",
+      activity: "教科書の範囲を大きく飛び越え、先生それぞれの専門研究（天文学・近代文学・社会哲学など）を深く学ぶ、大学のゼミのような授業！自分が最も惹かれたテーマを選んで受講できるよ。",
+      points: [
+        "決まったカリキュラムを押し付けられるのではなく、自分の知的好奇心をトコトン追求！",
+        "先生と生徒が対等に知的なディスカッションを繰り広げる自由な空気！"
+      ],
+      power: "常識にとらわれず、自分の頭でゼロから考える独創力"
+    },
+    {
+      badge: "🔬 自由研究・自作実験",
+      title: "生徒自身がテーマを決める自由実験・観察",
+      activity: "生徒が『これを調べてみたい！』と提案した実験を、理科の先生が全力でバックアップ。身の回りの不思議から先端科学まで、自分たちの手で実験手順を組んで検証するよ。",
+      points: [
+        "教科書の手順通りにやるだけの退屈な実験はゼロ！",
+        "失敗しても『なぜ失敗したか』を突き止めるプロセスが最高に楽しい！"
+      ],
+      power: "未知の課題に立ち向かう旺盛なチャレンジ精神 ＆ 探究力"
+    }
+  ],
+  sch_oin: [
+    {
+      badge: "🔬 4専門実験室・精密科学",
+      title: "4つの専用実験室で行うハイレベル理科実験",
+      activity: "物理室・化学室・生物室・地学室の充実した専門設備をフル活用！顕微鏡での細胞観察や薬品を使った沈殿実験、天体観測など、少人数で一人ひとりが確実に実験器具に触れて学ぶよ。",
+      points: [
+        "実験器具の扱い方を一から丁寧に学び、実験のプロ並みの正確な手技が身につく！",
+        "自然界の精緻な法則や美しい反応に直接触れて、知の感動が味わえる！"
+      ],
+      power: "細やかな観察力 ＆ 緻密にデータを分析する科学的思考力"
+    },
+    {
+      badge: "📖 豊かな情操・自立心",
+      title: "自由研究・読書教育 ＆ 伝統の礼法",
+      activity: "膨大な蔵書を誇る図書室での調べ学習や、相手を敬う美しい立ち振る舞いを学ぶ礼法の時間。学力だけでなく、凛とした品格と自立した女性としての芯の強さを育むよ。",
+      points: [
+        "読みたい本が必ず見つかる知の宝庫で、好きな作家や学問に没頭できる！",
+        "美しい所作や思いやりの心を、一生モノの財産として体得！"
+      ],
+      power: "豊かな感性と自分を律する強い意志 ＆ 教養"
+    }
+  ],
+  sch_jg: [
+    {
+      badge: "📚 自主自律・課題研究",
+      title: "一人ひとりの『問い』を深める自由研究ゼミ",
+      activity: "制服も細かい校則もない自由な校風の中で、自分の関心あるテーマを1年間じっくり調査・研究！レポートにまとめ、仲間とお互いの研究成果をリスペクトし合いながら発表するよ。",
+      points: [
+        "誰かに決められたことではなく、自分の『好き』を胸を張って追究できる！",
+        "友達のユニークな視点や深い研究に刺激を受け、自分の世界がどんどん広がる！"
+      ],
+      power: "自分の軸を持って主体的に行動する自立心 ＆ 探究力"
+    },
+    {
+      badge: "🌍 対話型・円卓ディスカッション",
+      title: "自分の言葉で語り合う対話型授業",
+      activity: "先生の話を静かに聞くだけでなく、教室全体が輪になって現代社会のテーマや文学について自分の言葉で意見を述べ合う授業。どんな意見も大切に受け止められる温かい環境だよ。",
+      points: [
+        "違う意見を持つ友達とも、笑顔で本音を交わし合える心地よさ！",
+        "話すことで自分の頭の中がクリアに整理されていく爽快感！"
+      ],
+      power: "多様な個性を認め合い、合意を形づくる対話力"
+    }
+  ],
+  sch_mita: [
+    {
+      badge: "💻 MSTサイエンス・先端IT",
+      title: "MST（数学・科学・テクノロジー）探究プロジェクト",
+      activity: "一人1台のハイスペックPCを活用し、ビッグデータ解析やシミュレーションを行って実社会の課題を解決する参加型授業！未来の社会を豊かにするイノベーションアイデアを創り出すよ。",
+      points: [
+        "最新のITツールやAI技術を使いこなし、社会のリアルな問題に挑める！",
+        "クラスメイトとチームを組んで、新しいアプリや仕組みを企画発表！"
+      ],
+      power: "テクノロジーを武器に新しい価値を生み出す創造力"
+    },
+    {
+      badge: "🌍 国際理解・英語ディベート",
+      title: "オールイングリッシュ・インターナショナル対話",
+      activity: "ネイティブ教員が担任や副担任を務め、日常会話から授業まで英語が自然に飛び交う環境！世界のニュースや文化の違いについて、英語で堂々と自分の考えをディベートするよ。",
+      points: [
+        "間違えても大丈夫！先生たちがフレンドリーに発言を応援してくれる！",
+        "いつの間にか英語で夢を見るくらい、自然な英語感覚が身につく！"
+      ],
+      power: "世界中どこへ行っても物怖じしない国際度胸 ＆ 英語力"
+    }
+  ],
+  sch_sakaehigashi: [
+    {
+      badge: "🔬 ALアクティブラーニング",
+      title: "全員参加型のアクティブ・ラーニング探究授業",
+      activity: "正解がひとつではない問題に、グループで知恵を寄せ合って仮説を立て、調べて発表する参加型授業！教室中が活気と笑顔であふれ、仲間と協力して難問をクリアしていくよ。",
+      points: [
+        "一方的に聞くだけの授業はなし！みんなでワイワイ意見を出し合える！",
+        "先生が個別にしっかりヒントをくれて、疑問がスカッと解消する！"
+      ],
+      power: "チームで協力して最高の結果を導き出す協働力"
+    },
+    {
+      badge: "🌿 フィールドワーク・自然観察",
+      title: "体験重視の理科フィールドワーク ＆ 実験ゼミ",
+      activity: "校外の自然豊かなフィールドへ出かけて動植物や地層を調べたり、最新設備を使って科学実験をたっぷり体験！教科書で見た現象を、五感を使って直接体感する大人気プログラム！",
+      points: [
+        "教室を飛び出して、本物の自然や生き物と触れ合えるワクワク！",
+        "自分の手で採取したサンプルを実験室でじっくり分析する面白さ！"
+      ],
+      power: "現場に足を運んで事実を確かめる行動力 ＆ 科学的センス"
+    }
+  ],
+  sch_shibumaku: [
+    {
+      badge: "📚 自調自考論文・探究ゼミ",
+      title: "学際的な問いに挑む自調自考論文プロジェクト",
+      activity: "広大なキャンパスで、宇宙工学から医療、現代アートまで、キミが最も熱中できるテーマを自由に選んで本格論文を執筆。国内外の学会や科学コンテストで入賞する生徒も多数！",
+      points: [
+        "自分の好奇心を極限まで突き詰められる最高の探究環境！",
+        "先生や友達から鋭いフィードバックをもらい、研究がどんどん深まる！"
+      ],
+      power: "一生モノの知的な探究心 ＆ 独自の着眼点を見つける力"
+    },
+    {
+      badge: "🌍 国際理解・模擬国連",
+      title: "グローバル・ディスカッション ＆ 模擬国連体験",
+      activity: "帰国生も多く集まる環境で、世界中の社会問題について英語と日本語を駆使してディベート！海外の提携校との交換留学やオンライン国際会議も盛んに開催されているよ。",
+      points: [
+        "世界各国の文化や考え方が教室にいながらリアルに体験できる！",
+        "世界基準のディベートスキルが自然と身につく！"
+      ],
+      power: "多様なバックグラウンドを持つ人々と協働する国際力"
+    }
+  ]
+};
+
+/**
+ * 主要校の強み・自慢ポイント（交通情報100%除外）データベース
+ */
+const CHILD_SCHOOL_STRENGTHS_DATABASE = {
+  sch_shibushibu: [
+    {
+      icon: "🧪",
+      cat: "学び・探究の自慢",
+      badgeColor: "#DBEAFE",
+      textColor: "#1E40AF",
+      title: "自分の『好き』をとことん論文にする自調自考教育",
+      desc: "誰かに言われて勉強するのではなく、自分で調べ・自分で考える力がぐんぐん育つカリキュラム。大学の研究室並みの本格論文を書き上げられるよ！",
+      highlight: "★ 全校生徒が熱中する自分だけの本格研究！"
+    },
+    {
+      icon: "🏛",
+      cat: "施設・設備の自慢",
+      badgeColor: "#DCFCE7",
+      textColor: "#166534",
+      title: "最新のICT環境と開放的な都市型メディアセンター",
+      desc: "膨大な蔵書と電子書籍が揃うメディアセンターや、明るく開放的な自習スペース、快適なアリーナなど、生徒の知的好奇心を刺激する設備が充実！",
+      highlight: "★ 快適な自習ブースと充実の図書館！"
+    },
+    {
+      icon: "🔥",
+      cat: "行事・部活の熱気",
+      badgeColor: "#FEE2E2",
+      textColor: "#991B1B",
+      title: "生徒がゼロから企画・運営する熱い文化祭『飛翔祭』",
+      desc: "企画から広報、当日の運営まで生徒自身の手で創り上げる大人気行事！多彩な学術展示や英語劇、模擬店が所狭しと並び、学校中がお祭り騒ぎ！",
+      highlight: "★ 生徒一人ひとりが主役で輝く感動の2日間！"
+    },
+    {
+      icon: "🤝",
+      cat: "仲間・校風の魅力",
+      badgeColor: "#FEF3C7",
+      textColor: "#92400E",
+      title: "多様なバックグラウンドを持つ仲間と認め合える自由な校風",
+      desc: "帰国生をはじめ様々な個性や夢を持つ生徒が集まるため、『人と違って当たり前』という温かいリスペクトの空気が根付いているよ！",
+      highlight: "★ ありのままの自分でいられる安心の居場所！"
+    }
+  ],
+  sch_shibaura: [
+    {
+      icon: "🧪",
+      cat: "学び・探究の自慢",
+      badgeColor: "#DBEAFE",
+      textColor: "#1E40AF",
+      title: "芝浦工業大学と直結！大学レベルの先端理系教育",
+      desc: "理科大好きな生徒にとってまさにパラダイス！大学の研究室を訪れて最先端の実験を体験したり、教授から直接アドバイスを受けられる特別な連携講座が満載！",
+      highlight: "★ 大学の先端ラボで本物の科学を体験！"
+    },
+    {
+      icon: "🏛",
+      cat: "施設・設備の自慢",
+      badgeColor: "#DCFCE7",
+      textColor: "#166534",
+      title: "3Dプリンタや工作機械が揃う本格ファブラボ工房",
+      desc: "プロの設計現場で使われる3Dプリンタやレーザーカッターを自由に使えるものづくり工房を完備！いつでも自分のアイデアを形にできるよ！",
+      highlight: "★ ものづくり好きにはたまらない夢の工房！"
+    },
+    {
+      icon: "🔥",
+      cat: "行事・部活の熱気",
+      badgeColor: "#FEE2E2",
+      textColor: "#991B1B",
+      title: "ロボット技術や電子工作で全国を沸かせる活発な部活動",
+      desc: "ロボット部や電子工作部、鉄道研究部など、好きな技術をとことん極められるクラブが大活躍！大会での優勝や文化祭展示を目指して仲間と熱中！",
+      highlight: "★ 同じ『好き』を持つ一生モノの仲間と出会える！"
+    },
+    {
+      icon: "🤝",
+      cat: "仲間・校風の魅力",
+      badgeColor: "#FEF3C7",
+      textColor: "#92400E",
+      title: "探究心と好奇心をみんなが全力で応援してくれる空気",
+      desc: "機械やプログラミング、理科の実験に夢中になることを先生も先輩も全力で応援！どんなマニアックな疑問でも笑顔で受け止めてくれるよ！",
+      highlight: "★ 好奇心がどんどん認められて伸びる環境！"
+    }
+  ],
+  sch_hiroo: [
+    {
+      icon: "🧪",
+      cat: "学び・探究の自慢",
+      badgeColor: "#DBEAFE",
+      textColor: "#1E40AF",
+      title: "コース制で自分の興味・進路をとことん深められる教育",
+      desc: "医進・サイエンスやインターナショナル、本科など、一人ひとりの得意分野を徹底的に伸ばすコース設定。国内外の大学へ進む道が大きく開けているよ！",
+      highlight: "★ 自分の『やってみたい！』に直結した学び！"
+    },
+    {
+      icon: "🏛",
+      cat: "施設・設備の自慢",
+      badgeColor: "#DCFCE7",
+      textColor: "#166534",
+      title: "大学研究室に匹敵する本格実験室＆最先端ICT環境",
+      desc: "PCR装置やドラフトチャンバーなどの専門設備を備えたサイエンスラボや、プレゼンテーション専用ホールなど、未来の学びを支える最先端空間！",
+      highlight: "★ 最先端の設備で未来の科学者体験！"
+    },
+    {
+      icon: "🔥",
+      cat: "行事・部活の熱気",
+      badgeColor: "#FEE2E2",
+      textColor: "#991B1B",
+      title: "英語スピーチや学術発表が飛び交う熱狂の『けやき祭』",
+      desc: "文化祭では各コースの研究発表や英語劇、ダンス、音楽ライブなどが大盛況！生徒がタブレットを駆使して洗練された演出を披露するよ！",
+      highlight: "★ クリエイティブでかっこいい発表が目白押し！"
+    },
+    {
+      icon: "🤝",
+      cat: "仲間・校風の魅力",
+      badgeColor: "#FEF3C7",
+      textColor: "#92400E",
+      title: "常に新しい挑戦を楽しむポジティブで前向きな仲間たち",
+      desc: "失敗を恐れずに『まずやってみよう！』と前を向く仲間がたくさん！先生もフレンドリーで、生徒の挑戦を全力で背中を押してくれるよ！",
+      highlight: "★ 刺激し合ってどこまでも成長できる仲間！"
+    }
+  ],
+  sch_kaisei: [
+    {
+      icon: "🧪",
+      cat: "学び・探究の自慢",
+      badgeColor: "#DBEAFE",
+      textColor: "#1E40AF",
+      title: "圧倒的な授業レベルと先生オリジナルの深い教材",
+      desc: "市販の参考書をはるかに超える奥深い授業とオリジナル教材で、学問の本質を徹底探究！疑問に思ったことは先生と放課後にとことん語り合える！",
+      highlight: "★ 学問の本当の面白さに目覚める最高峰の学び！"
+    },
+    {
+      icon: "🏛",
+      cat: "施設・設備の自慢",
+      badgeColor: "#DCFCE7",
+      textColor: "#166534",
+      title: "新校舎の充実した大図書館・専用理科実験棟・温水プール",
+      desc: "美しく機能的な新校舎には、蔵書数万冊の静かな図書室、広々としたカフェテリア、充実した理科実験室が完備され、快適な学校生活をサポート！",
+      highlight: "★ 知性と体力を同時に磨ける抜群の環境！"
+    },
+    {
+      icon: "🔥",
+      cat: "行事・部活の熱気",
+      badgeColor: "#FEE2E2",
+      textColor: "#991B1B",
+      title: "日本一熱い！先輩から後輩へ受け継がれる伝統の運動会",
+      desc: "生徒自らが全運営を行う名物運動会！縦割りの組（チーム）で半年以上かけて作戦を練り、全身全霊で挑む棒倒しや騎馬戦は一生の宝物になるよ！",
+      highlight: "★ 涙と歓喜に包まれる固い男の絆！"
+    },
+    {
+      icon: "🤝",
+      cat: "仲間・校風の魅力",
+      badgeColor: "#FEF3C7",
+      textColor: "#92400E",
+      title: "互いの卓越した個性を認め合い、一生涯続く熱い友情",
+      desc: "数学の天才、歴史の博士、スポーツのエースなど多彩な才能が集まる中で、お互いを心から尊敬し合えるかけがえのない友に出会える！",
+      highlight: "★ 人生の宝物になる最高の親友ができる！"
+    }
+  ],
+  sch_azabu: [
+    {
+      icon: "🧪",
+      cat: "学び・探究の自慢",
+      badgeColor: "#DBEAFE",
+      textColor: "#1E40AF",
+      title: "校則なし！自分の『知りたい』をとことん突き詰める自由",
+      desc: "細かいルールで縛るのではなく、生徒の良識と自由を最大限に尊重。興味を持った学問やテーマに時間を忘れて没頭できる究極の知の空間！",
+      highlight: "★ 自由な環境でこそ開花する本物の知性！"
+    },
+    {
+      icon: "🏛",
+      cat: "施設・設備の自慢",
+      badgeColor: "#DCFCE7",
+      textColor: "#166534",
+      title: "専門書がぎっしり詰まった図書室＆緑豊かな中庭テラス",
+      desc: "大学の図書館のような専門書が並ぶ図書室や、生徒たちが思い思いに議論や読書を楽しむ中庭など、知的な刺激にあふれた居場所がたくさん！",
+      highlight: "★ 読みたい本と語り合える空間がいつでもそこに！"
+    },
+    {
+      icon: "🔥",
+      cat: "行事・部活の熱気",
+      badgeColor: "#FEE2E2",
+      textColor: "#991B1B",
+      title: "生徒だけで予算管理から企画まで行う伝説の『麻布文化祭』",
+      desc: "大人の介入ゼロ！髪をカラフルに染めた生徒たちが情熱を燃やし、圧巻の学術展示やコント、音楽演奏を繰り広げる日本屈指のエネルギッシュな行事！",
+      highlight: "★ ゼロから自分たちで創り上げる圧倒的熱量！"
+    },
+    {
+      icon: "🤝",
+      cat: "仲間・校風の魅力",
+      badgeColor: "#FEF3C7",
+      textColor: "#92400E",
+      title: "どんなにユニークな個性も『最高におもしろい！』と認められる",
+      desc: "どんな変わった趣味やこだわりを持っていても、みんなが温かく面白がって仲間に入れてくれる、包容力と多様性に満ちた最高の校風！",
+      highlight: "★ 自分らしく伸び伸びと笑って過ごせる！"
+    }
+  ],
+  sch_oin: [
+    {
+      icon: "🧪",
+      cat: "学び・探究の自慢",
+      badgeColor: "#DBEAFE",
+      textColor: "#1E40AF",
+      title: "理数系にもめっぽう強い！確かな基礎と高度な応用力",
+      desc: "医学部や難関大理系にも多数の合格者を輩出するハイレベルな理数教育。小テストや丁寧な添削で、確実な実力を着実に積み上げられる！",
+      highlight: "★ 丁寧な指導で確かな自信と学力が身につく！"
+    },
+    {
+      icon: "🏛",
+      cat: "施設・設備の自慢",
+      badgeColor: "#DCFCE7",
+      textColor: "#166534",
+      title: "天体望遠鏡ドーム・4専門実験室・静謐な学びの空間",
+      desc: "屋上には星空を観察できる天体観測ドーム、4つの充実した理科実験室、集中して学問に向き合える清潔で静かな教室環境が整っているよ！",
+      highlight: "★ 星空観察から高度な実験まで自由自在！"
+    },
+    {
+      icon: "🔥",
+      cat: "行事・部活の熱気",
+      badgeColor: "#FEE2E2",
+      textColor: "#991B1B",
+      title: "緻密でハイレベルな展示が光る『桜蔭文化祭』",
+      desc: "各クラブや学年が1年かけて準備した研究発表や作品展示は圧巻の完成度！茶道や箏曲などの日本伝統文化からサイエンスまで魅力たっぷり！",
+      highlight: "★ 知的好奇心をくすぐる完成度の高い展示！"
+    },
+    {
+      icon: "🤝",
+      cat: "仲間・校風の魅力",
+      badgeColor: "#FEF3C7",
+      textColor: "#92400E",
+      title: "真面目に努力することを誰も笑わず、互いに高め合える親友",
+      desc: "勉強にも部活にも真剣に打ち込む仲間同士、お互いを心から尊敬し助け合う温かい絆。思いやりと品格にあふれた一生の友と出会える！",
+      highlight: "★ 一緒に高め合える真の友との出会い！"
+    }
+  ]
+};
+
+/**
+ * 学校データから特色授業リッチ情報を取得（主要校個別データ＋全国自動展開）
+ */
+function getChildSpecialClassesDetailed(school) {
+  if (!school) return [];
+  const id = school.school_id || '';
+  if (CHILD_SPECIAL_CLASSES_DATABASE[id]) {
+    return CHILD_SPECIAL_CLASSES_DATABASE[id];
+  }
+
+  // 個別データがない場合のインテリジェント展開
+  const baseClasses = school.special_classes || [];
+  const vibe = school.vibe_label || '';
+  const atmospheres = school.atmospheres || [];
+  const tags = school.tags || [];
+
+  if (baseClasses.length > 0) {
+    return baseClasses.map((cls, idx) => {
+      let badge = "🔬 探究・体験学習";
+      let power = "自ら考えて答えを見つける課題解決力";
+      const t = cls.title || '';
+      const d = cls.desc || '';
+
+      if (/理科|実験|科学|サイエンス|宇宙|医学/.test(t + d)) {
+        badge = "🔬 本格科学実験・サイエンス探究";
+        power = "仮説を立てて検証する科学的探究力";
+      } else if (/英語|国際|グローバル|外国|ディベート/.test(t + d)) {
+        badge = "🌍 生きた英語・国際プロジェクト";
+        power = "世界中の人と堂々と意思を通わせる国際コミュニケーション力";
+      } else if (/プログラミング|PC|情報|ロボット|ICT|ものづくり/.test(t + d)) {
+        badge = "💻 最先端IT・ものづくり演習";
+        power = "アイデアをデジタルで形にする創造力 ＆ 論理的思考力";
+      } else if (/論文|読書|国語|研究|探究|自調/.test(t + d)) {
+        badge = "📚 自分だけの問いを深める探究ゼミ";
+        power = "深く調べ抜いて自分の言葉でまとめる思考・表現力";
+      } else if (/自然|スキー|フィールド|野外|キャンプ/.test(t + d)) {
+        badge = "🌿 大自然フィールドワーク＆体験学習";
+        power = "五感を使って本物を観察し、困難を乗り越えるたくましさ";
+      }
+
+      // クリーニングした解説文
+      const cleanedDesc = cleanChildTextWithoutCommute(d);
+
+      return {
+        badge: badge,
+        title: t,
+        activity: `${cleanedDesc}。教科書を読むだけでなく、実際に仲間と調べたり手を動かしたりして、発見と驚きがいっぱいの体験ができるよ！`,
+        points: [
+          "✦ 自分で疑問を見つけて、自分の手で確かめるワクワク感！",
+          "✦ 仲間と一緒に知恵を出し合い、新しい発見にたどり着く達成感！"
+        ],
+        power: power
+      };
+    });
+  }
+
+  // special_classes すら空の場合のデフォルト生成
+  return [
+    {
+      badge: "🔬 探究・体験型プロジェクト学習",
+      title: "知的好奇心を刺激する探究ゼミ",
+      activity: "興味のあるテーマについて、仲間と仮説を立てて調べたり、実験・観察を通して新しい発見をする体験型授業！教科書の枠を超えた本物の学びに挑戦できるよ。",
+      points: [
+        "✦ 答えを教わるのではなく、自分の頭で『なぜ？』を解き明かす面白さ！",
+        "✦ 最後にスライドやポスターを使って仲間と成果を共有！"
+      ],
+      power: "物事の本質を自ら見つけ出す探究力 ＆ 発表力"
+    },
+    {
+      badge: "🌍 表現力・コミュニケーション演習",
+      title: "対話と発表で磨くプレゼンテーション",
+      activity: "自分の考えを分かりやすくまとめ、クラスの前で堂々と発表する授業。先生や仲間からの温かいフィードバックで、伝える自信がどんどん湧いてくるよ。",
+      points: [
+        "✦ 友達のユニークな発表を聞いて、新しい考え方に出会える！",
+        "✦ 自分の意見にみんなが拍手してくれた瞬間の大きな達成感！"
+      ],
+      power: "自信を持って堂々と自分の想いを伝える表現力"
+    }
+  ];
+}
+
+/**
+ * 学校データから強み・自慢ポイント4大カードを取得（交通情報100%除外）
+ */
+function getChildStrengthsDetailed(school) {
+  if (!school) return [];
+  const id = school.school_id || '';
+  if (CHILD_SCHOOL_STRENGTHS_DATABASE[id]) {
+    return CHILD_SCHOOL_STRENGTHS_DATABASE[id];
+  }
+
+  // 交通情報を除外した既存強みの抽出
+  const rawStrengths = (school.school_strengths || []).map(s => cleanChildTextWithoutCommute(s)).filter(Boolean);
+  const learnStrength = rawStrengths[0] || '知的好奇心をとことん伸ばす充実した授業ときめ細かな指導！';
+  const facilityStrength = rawStrengths[1] || '放課後も仲間と集中できる自習室や充実した実験室・図書室を完備！';
+  const eventStrength = rawStrengths[2] || '生徒が主体となって盛り上げる文化祭や体育祭、多彩なクラブ活動！';
+
+  return [
+    {
+      icon: "🧪",
+      cat: "学び・探究の自慢",
+      badgeColor: "#DBEAFE",
+      textColor: "#1E40AF",
+      title: "トコトン好きなことを深められる探究型カリキュラム",
+      desc: `${learnStrength} 教科書の知識を覚えるだけでなく、実験や探究を通して『自分で考える楽しさ』を毎日実感できるよ！`,
+      highlight: "★ 疑問をどこまでも追求できる深い学び！"
+    },
+    {
+      icon: "🏛",
+      cat: "施設・設備の自慢",
+      badgeColor: "#DCFCE7",
+      textColor: "#166534",
+      title: "毎日ワクワク！好奇心を刺激する特別な空間と設備",
+      desc: `${facilityStrength} 専門の理科室や豊富な蔵書を誇る図書室、広々とした運動設備など、学校中がワクワクの宝庫！`,
+      highlight: "★ 放課後もずっと居たくなる快適な空間！"
+    },
+    {
+      icon: "🔥",
+      cat: "行事・部活の熱気",
+      badgeColor: "#FEE2E2",
+      textColor: "#991B1B",
+      title: "生徒が主役！一生の思い出になる熱狂のイベント＆クラブ",
+      desc: `${eventStrength} 文化祭や行事は生徒自身が企画運営！初心者から全国大会を目指す部活まで、思いきり打ち込めるよ！`,
+      highlight: "★ 仲間と本気で感動を分かち合える！"
+    },
+    {
+      icon: "🤝",
+      cat: "仲間・校風の魅力",
+      badgeColor: "#FEF3C7",
+      textColor: "#92400E",
+      title: "お互いの『好き』を認め合える温かく自由な校風",
+      desc: "先生が生徒一人ひとりの挑戦を親身に応援し、友達同士もお互いの個性をリスペクト。ありのままの自分で楽しく過ごせる居場所だよ！",
+      highlight: "★ 安心して自分らしくいられる温かい仲間！"
+    }
+  ];
+}
+
+/**
+ * 子ども向け学校概要（どんな学校？）情報生成
+ */
+function getChildSchoolOverview(school) {
+  if (!school) return {};
+  const name = school.name || '';
+  const catchphrase = school.catchphrase || '個性を伸ばし、未来へ羽ばたく中高一貫校';
+  const vibe = school.vibe_label || '自由・活発';
+
+  // モットーの抽出
+  let motto = "自分の『やってみたい！』を大切にする";
+  if (name.includes("渋谷教育")) motto = "自調自考（自分で調べ、自分で考える）";
+  else if (name.includes("芝浦")) motto = "ものづくり探究 ＆ 創造性の育成";
+  else if (name.includes("広尾")) motto = "未来のサイエンス ＆ グローバル共生";
+  else if (name.includes("開成")) motto = "質実剛健 ＆ 開拓精神";
+  else if (name.includes("麻布")) motto = "自由闊達 ＆ 自主自律";
+  else if (name.includes("桜蔭")) motto = "勤勉と礼節 ＆ 豊かな教養";
+  else if (name.includes("女子学院")) motto = "自由と責任 ＆ 自己の確立";
+  else if (name.includes("三田国際")) motto = "知的好奇心の開拓 ＆ 相互通行型授業";
+  else if (name.includes("栄東")) motto = "今日学べ（アクティブな学びと挑戦）";
+  else if (name.includes("灘")) motto = "力を尽くして自らを鍛える";
+  else if (name.includes("北嶺")) motto = "めざすなら高い嶺（大自然と知性の調和）";
+  else if (catchphrase) motto = catchphrase.slice(0, 36);
+
+  // 学校での生き生きとした生活風景（交通の話は完全除外）
+  let overviewDesc = "";
+  if (school.life_simulation) {
+    overviewDesc = cleanChildTextWithoutCommute(school.life_simulation);
+  }
+  if (!overviewDesc || overviewDesc.length < 20) {
+    overviewDesc = "午前中は疑問をとことん深める探究授業や仲間とのグループワークに熱中。午後は本格的な実験や創作に取り組み、放課後は部活動や広い自習室で仲間と笑顔いっぱいの時間を過ごします。";
+  }
+
+  // 3つのスタイルバッジ
+  let vibeStyle = "のびのび自由な探究スタイル";
+  if (vibe.includes("理数")) vibeStyle = "理数・実験に夢中になれるスタイル";
+  else if (vibe.includes("国際")) vibeStyle = "世界とつながるグローバルスタイル";
+  else if (vibe.includes("文武")) vibeStyle = "勉強もスポーツも全力の文武両道スタイル";
+  else if (vibe.includes("伝統")) vibeStyle = "歴史と落ち着きのあるアカデミックスタイル";
+
+  const peersStyle = "自分の『好き』を持った個性豊かな仲間たち";
+  const teacherStyle = "質問に優しくとことん付き合ってくれる先生たち";
+
+  // こんなキミにぴったり
+  let fitReason = school.recommend_phrase ? cleanChildTextWithoutCommute(school.recommend_phrase).replace(/^★\s*/, '') : '';
+  if (!fitReason) {
+    fitReason = "知的好奇心が旺盛で、新しい発見や友達とのワクワクする挑戦が大好きなキミにぴったりだよ！";
+  }
+
+  return {
+    motto,
+    overviewDesc,
+    vibeStyle,
+    peersStyle,
+    teacherStyle,
+    fitReason
+  };
+}
+
+/**
+ * 子ども画面専用の学校詳細HTML生成関数
+ * （交通手段完全除外、具体的でワクワクする授業＆4大強みをリッチカード展開）
+ */
+function generateChildSchoolDetailHtml(school) {
+  const overview = getChildSchoolOverview(school);
+  const specialClasses = getChildSpecialClassesDetailed(school);
+  const strengths = getChildStrengthsDetailed(school);
+  const events = school.events || [];
+
+  return `
+    <!-- 1. この学校ってどんな学校？（ひとめでわかる校風と学校生活） -->
+    <section class="modal-section-card child-overview-section" style="margin-bottom: 18px;">
+      <div class="modal-section-title-wrap">
+        <span class="section-star">✦</span>
+        <h3 class="modal-section-title">この学校ってどんな学校？</h3>
+      </div>
+      <p class="section-sub-tip">どんな雰囲気で、どんな仲間や先生がいるのかひとめで分かるよ！</p>
+
+      <div class="child-overview-card">
+        <!-- モットー・大切にしていること -->
+        <div class="child-motto-box">
+          <span class="child-motto-label">大切にしているモットー</span>
+          <strong class="child-motto-text">${overview.motto}</strong>
+        </div>
+
+        <!-- 学校生活のリアルな情景（交通手段抜き） -->
+        <p class="child-overview-desc">${overview.overviewDesc}</p>
+
+        <!-- 3つのスタイルバッジ -->
+        <div class="child-style-badges-row">
+          <div class="child-style-badge-item">
+            <span class="child-badge-icon">✨</span>
+            <div>
+              <div class="child-badge-title">校風スタイル</div>
+              <div class="child-badge-val">${overview.vibeStyle}</div>
+            </div>
+          </div>
+          <div class="child-style-badge-item">
+            <span class="child-badge-icon">👥</span>
+            <div>
+              <div class="child-badge-title">集まる仲間たち</div>
+              <div class="child-badge-val">${overview.peersStyle}</div>
+            </div>
+          </div>
+          <div class="child-style-badge-item">
+            <span class="child-badge-icon">👨‍🏫</span>
+            <div>
+              <div class="child-badge-title">先生の雰囲気</div>
+              <div class="child-badge-val">${overview.teacherStyle}</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- こんなキミにぴったり！ -->
+        <div class="child-fit-tip-box">
+          <span class="child-fit-tip-title">🎯 こんなキミにぴったり！</span>
+          <p class="child-fit-tip-text">${overview.fitReason}</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. こんな授業が特徴！ワクワクする体験（具体的で奥深い授業案内） -->
+    <section class="modal-section-card child-classes-section" style="margin-bottom: 18px;">
+      <div class="modal-section-title-wrap">
+        <span class="section-star">✦</span>
+        <h3 class="modal-section-title">こんな授業が特徴！ワクワクする体験</h3>
+      </div>
+      <p class="section-sub-tip">教科書を読むだけじゃない！実際にやってみて、驚きや発見がいっぱいの特別な授業だよ。</p>
+
+      <div class="child-special-classes-container">
+        ${specialClasses.map((cls, idx) => `
+          <div class="child-special-class-rich-card">
+            <div class="child-class-card-header">
+              <div class="child-class-badges-wrap">
+                <span class="child-class-num-badge">特色授業 ${idx + 1}</span>
+                <span class="child-class-cat-badge">${cls.badge}</span>
+              </div>
+              <h4 class="child-class-title">${cls.title}</h4>
+            </div>
+
+            <!-- 活動のリアルな様子 -->
+            <div class="child-class-detail-block">
+              <span class="child-class-block-label">
+                <span>🔍</span> どんなことをする授業？（体験内容）
+              </span>
+              <p class="child-class-block-desc">${cls.activity}</p>
+            </div>
+
+            <!-- ワクワクPoint -->
+            <div class="child-class-points-box">
+              <span class="child-class-points-label">🌟 ここが面白い！ワクワクPoint</span>
+              <ul class="child-class-points-list">
+                ${cls.points.map(pt => `
+                  <li class="child-class-point-item">
+                    <span class="child-class-point-icon">✦</span>
+                    <span>${pt.replace(/^✦\s*/, '')}</span>
+                  </li>
+                `).join('')}
+              </ul>
+            </div>
+
+            <!-- 身につくキミのスーパーパワー -->
+            <div class="child-class-power-badge-wrap">
+              <span class="child-class-power-label">⚡️ 身につくキミのスーパーパワー：</span>
+              <strong class="child-class-power-text">${cls.power}</strong>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    </section>
+
+    <!-- 3. この学校のここがすごい！強み＆自慢ポイント（交通なし！4大自慢） -->
+    <section class="modal-section-card child-strengths-section" style="margin-bottom: 18px;">
+      <div class="modal-section-title-wrap">
+        <span class="section-star">✦</span>
+        <h3 class="modal-section-title">この学校のここがすごい！強み＆自慢ポイント</h3>
+      </div>
+      <p class="section-sub-tip">学校が誇る本当の魅力を4つのテーマで紹介！キミのやりたいことが見つかるかも！</p>
+
+      <div class="child-strengths-grid">
+        ${strengths.map(st => `
+          <div class="child-strength-rich-card">
+            <div class="child-strength-card-top">
+              <span class="child-strength-cat-badge" style="background:${st.badgeColor}; color:${st.textColor}; border:1px solid ${st.textColor}40;">
+                <span>${st.icon}</span>
+                <span>${st.cat}</span>
+              </span>
+              <h4 class="child-strength-card-title">${st.title}</h4>
+              <p class="child-strength-card-desc">${st.desc}</p>
+            </div>
+            <div class="child-strength-star-badge">
+              <span>${st.highlight}</span>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    </section>
+
+    <!-- 4. 学校・先輩からのメッセージ -->
+    <section class="modal-section-card child-message-section" style="margin-bottom: 18px;">
+      <div class="modal-section-title-wrap">
+        <span class="section-star">✦</span>
+        <h3 class="modal-section-title">学校・先輩からのメッセージ</h3>
+      </div>
+      <div class="child-message-box">
+        <div class="child-message-avatar">🏫</div>
+        <div class="child-message-content">
+          <p class="child-message-text">${school.child_summary || 'キミの「好き」や「やってみたい！」を全力で応援する素敵な学校だよ！ぜひ一度見学に来てね！'}</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. 開催予定のイベント・見学情報 -->
+    <section class="modal-section-card events-section" style="margin-bottom: 18px;">
+      <div class="modal-section-title-wrap">
+        <span class="section-star">✦</span>
+        <h3 class="modal-section-title">開催予定のイベント・見学情報</h3>
+      </div>
+      <p class="section-sub-tip">「行ってみる」を押すと、見学記録の「行く前」に自動でメモされます！</p>
+      <div class="modal-events-list">
+        ${events.length > 0 ? events.map(ev => `
+          <div class="modal-event-item-card">
+            <div class="m-event-top-row">
+              <span class="m-event-type-badge">${ev.type}</span>
+              <strong class="m-event-date">${ev.date}</strong>
+            </div>
+            <h4 class="m-event-title">${ev.title}</h4>
+            <div class="m-event-action-bar">
+              <button type="button" class="btn-solid-child btn-sm btn-plan-event" onclick="addEventToVisitSchedule('${school.school_id}', '${ev.id}', this)">
+                ✦ 行ってみる（予約メモ）
+              </button>
+            </div>
+          </div>
+        `).join('') : `
+          <div style="background:#F8FAFC; border:1px solid #E2E8F0; border-radius:8px; padding:14px; text-align:center; color:#64748B; font-size:13px;">
+            現在予定されているイベントは準備中です。学校の公式ホームページもチェックしてみてね！
+          </div>
+        `}
+      </div>
+    </section>
+  `;
+}
+
+/**
+ * 保護者画面専用の学校詳細ボディHTML生成関数
+ */
+function generateParentSchoolDetailBodyHtml(school, commuteMinutes, isCommuteAny, commuteLimit, userAddr, userStn, tuitionMan, firstYearEst, genderText, categoryLabel, univPathLabel, religionLabel, events) {
+  return `
+    <!-- ★保護者専用1：ご家庭の希望条件との適合診断（マッチング分析） -->
+    <section class="modal-section-card parent-condition-match-section" style="border: 2px solid #93C5FD; background: #F8FAFC;">
+      <div class="modal-section-title-wrap">
+        <span class="section-star" style="color: #2563EB;">✦</span>
+        <h3 class="modal-section-title" style="color: #1E3A8A;">おうちの方の希望条件との適合診断</h3>
+      </div>
+      <p class="section-sub-tip" style="color: #475569;">保護者アンケートで設定された条件と、この学校の条件適合度です。</p>
+      
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px; margin-top: 10px;">
+        <div style="background: #fff; border: 1px solid #CBD5E1; border-radius: 8px; padding: 10px 12px;">
+          <div style="font-size: 11px; color: #64748B; font-weight: 700;">⏱ 通学所要時間（片道目安）</div>
+          <div style="font-size: 14px; font-weight: 800; color: #0F172A; margin: 2px 0;">片道 約${commuteMinutes}分</div>
+          <div style="font-size: 11px; color: #15803D; font-weight: 600;">
+            ${isCommuteAny ? '✓ 通学時間の上限なし（全圏内校）' : (commuteMinutes <= commuteLimit ? `✓ 上限（${commuteLimit}分）以内` : `⚠️ 上限（${commuteLimit}分）を超過`)}
+          </div>
+          <div style="font-size: 11px; color: #64748B; margin-top: 2px;">自宅・最寄駅：${userAddr}${userStn}</div>
+        </div>
+
+        <div style="background: #fff; border: 1px solid #CBD5E1; border-radius: 8px; padding: 10px 12px;">
+          <div style="font-size: 11px; color: #64748B; font-weight: 700;">💰 年間学費 ＆ 初年度目安</div>
+          <div style="font-size: 14px; font-weight: 800; color: #0F172A; margin: 2px 0;">年間 約${tuitionMan}万円</div>
+          <div style="font-size: 11px; color: #15803D; font-weight: 600;">初年度総額目安：約${firstYearEst}万円前後</div>
+          <div style="font-size: 11px; color: #64748B; margin-top: 2px;">（授業料・施設設備費・入学金等概算）</div>
+        </div>
+
+        <div style="background: #fff; border: 1px solid #CBD5E1; border-radius: 8px; padding: 10px 12px;">
+          <div style="font-size: 11px; color: #64748B; font-weight: 700;">🏫 学校形態 ＆ 種別</div>
+          <div style="font-size: 14px; font-weight: 800; color: #0F172A; margin: 2px 0;">${genderText} ・ ${categoryLabel}</div>
+          <div style="font-size: 11px; color: #2563EB; font-weight: 600;">偏差値目安：${school.deviation_score || '情報収集中'}</div>
+        </div>
+
+        <div style="background: #fff; border: 1px solid #CBD5E1; border-radius: 8px; padding: 10px 12px;">
+          <div style="font-size: 11px; color: #64748B; font-weight: 700;">🎓 進路傾向 ＆ 宗教教育</div>
+          <div style="font-size: 14px; font-weight: 800; color: #0F172A; margin: 2px 0;">${univPathLabel}</div>
+          <div style="font-size: 11px; color: #475569;">宗教方針：${religionLabel}</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 1. 見学・イベント情報（オープンキャンパス・説明会・文化祭） -->
+    <section class="modal-section-card events-section">
+      <div class="modal-section-title-wrap">
+        <span class="section-star">✦</span>
+        <h3 class="modal-section-title">開催予定のイベント・見学情報</h3>
+      </div>
+      <p class="section-sub-tip">説明会や公開行事への参加計画にお役立てください。</p>
+      <div class="modal-events-list">
+        ${events.map(ev => `
+          <div class="modal-event-item-card">
+            <div class="m-event-top-row">
+              <span class="m-event-type-badge">${ev.type}</span>
+              <strong class="m-event-date">${ev.date}</strong>
+            </div>
+            <h4 class="m-event-title">${ev.title}</h4>
+          </div>
+        `).join('')}
+      </div>
+    </section>
+
+    <!-- 2. 特色カリキュラム -->
+    <section class="modal-section-card special-class-section">
+      <div class="modal-section-title-wrap">
+        <span class="section-star">✦</span>
+        <h3 class="modal-section-title">特色授業・公式カリキュラム</h3>
+      </div>
+      <div class="special-classes-grid">
+        ${(school.special_classes || []).map((cls, idx) => `
+          <div class="special-class-card">
+            <div class="class-num-badge">特色授業 ${idx + 1}</div>
+            <h4 class="class-title">${cls.title}</h4>
+            <p class="class-desc">${cls.desc}</p>
+          </div>
+        `).join('')}
+      </div>
+    </section>
+
+    <!-- 3. 学校の強み・自慢ポイント -->
+    <section class="modal-section-card strengths-section">
+      <div class="modal-section-title-wrap">
+        <span class="section-star">✦</span>
+        <h3 class="modal-section-title">学校公式の強み・アピールポイント</h3>
+      </div>
+      <ul class="school-strengths-list">
+        ${(school.school_strengths || []).map(st => `
+          <li class="strength-item">
+            <span class="strength-check-icon">✦</span>
+            <span class="strength-text">${st}</span>
+          </li>
+        `).join('')}
+      </ul>
+    </section>
+
+    <!-- 4. 保護者向け総合レポート -->
+    <section class="modal-section-card summary-commentary-section">
+      <div class="modal-section-title-wrap">
+        <span class="section-star">✦</span>
+        <h3 class="modal-section-title">保護者向け総合レポート（教育・進路・費用）</h3>
+      </div>
+      <div class="modal-summary-box parent-theme">
+        <p class="modal-summary-p">${school.parent_summary}</p>
+        <div class="parent-extra-data-row" style="margin-top: 12px; padding-top: 10px; border-top: 1px dashed #CBD5E1; display:flex; gap:16px; font-size:13px; flex-wrap:wrap;">
+          <span>偏差値: <strong>${school.deviation_score}</strong></span>
+          <span>年間学費: <strong>約${Math.round(school.tuition / 10000)}万円</strong></span>
+          <span>合格実績: <strong>${school.recent_passed_records}</strong></span>
+        </div>
+      </div>
+    </section>
+
+    ${generateParentSchoolAnalysisHtml(school)}
+  `;
+}
+
 // ==========================================
 // 学校詳細画面（背景に他画面を表示しない独立した専用画面への切り替え）
 // ==========================================
@@ -1939,12 +2983,16 @@ function openSchoolDetailScreen(schoolId) {
   const school = SCHOOL_DATABASE.find(s => s.school_id === schoolId);
   if (!school) return;
 
+  // 足跡を記録：「学校の詳細画面を確認した」
+  recordFamilyFootprint('view_school', school.name, { school_id: school.school_id });
+
   // 直前の画面とスクロール位置を記憶（戻るボタンで使用）
   if (currentRole !== 'school-detail') {
-    previousRoleBeforeDetail = currentRole || 'home';
+    previousRoleBeforeDetail = currentRole || (currentUserMode === 'child' ? 'child' : 'home');
     previousScrollBeforeDetail = window.scrollY || (document.documentElement ? document.documentElement.scrollTop : 0) || 0;
   }
   currentDetailSchoolId = schoolId;
+  currentRole = 'school-detail';
 
   const isChild = currentUserMode === 'child';
   const heartActive = school.is_favorite ? 'active' : '';
@@ -1990,7 +3038,7 @@ function openSchoolDetailScreen(schoolId) {
           
           <div style="display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin: 8px 0 12px;">
             <span style="font-size:12px; background:#F8FAFC; color:#334155; border:1px solid #CBD5E1; padding:4px 10px; border-radius:8px; font-weight:700;">
-              📍 所在地：${school.prefecture} ${school.district || ''}（最寄：${school.station_name}駅）
+              📍 所在地：${school.prefecture} ${school.district || ''}${!isChild ? `（最寄：${school.station_name}駅）` : ''}
             </span>
             <span style="font-size:12px; background:#FEF3C7; color:#B45309; border:1px solid #FDE68A; padding:4px 10px; border-radius:8px; font-weight:700;">
               ${genderText}
@@ -2012,150 +3060,32 @@ function openSchoolDetailScreen(schoolId) {
         </button>
       </div>
 
-      <!-- アクションボタン群（公式HP ＆ Googleマップ通学経路表示） -->
+      <!-- アクションボタン群（公式HP ＆ Googleマップ通学経路表示：子ども画面では交通手段は非表示） -->
       <div style="margin-top: 10px; padding-top: 12px; border-top: 1px dashed #E2E8F0; display:flex; flex-wrap:wrap; gap:10px;">
         ${school.official_url ? `
           <a href="${school.official_url}" target="_blank" rel="noopener noreferrer" class="btn-official-detail-link" style="display:inline-flex; align-items:center; gap:6px; background:#EEF4FF; color:var(--koko-blue-main); border:2px solid var(--koko-blue-main); border-radius:20px; padding:8px 16px; font-size:13px; font-weight:800; text-decoration:none; box-shadow:2px 2px 0px var(--koko-blue-main);">
-            🌐 公式ホームページを見る（外部サイト） ↗
+            🌐 ${isChild ? '学校の公式ホームページを見てみる ↗' : '公式ホームページを見る（外部サイト） ↗'}
           </a>
         ` : ''}
-        <a href="${mapRouteUrl}" target="_blank" rel="noopener noreferrer" onclick="handleMapLinkClick(event, '${mapRouteUrl}')" class="btn-map-transit-link" style="display:inline-flex; align-items:center; gap:6px; background:#F0FDF4; color:#15803D; border:2px solid #86EFAC; border-radius:20px; padding:8px 16px; font-size:13px; font-weight:800; text-decoration:none; box-shadow:2px 2px 0px #15803D;">
-          🗺️ Googleマップで通学ルートを見る（公共交通機関） ↗
-        </a>
+        ${!isChild ? `
+          <a href="${mapRouteUrl}" target="_blank" rel="noopener noreferrer" onclick="handleMapLinkClick(event, '${mapRouteUrl}')" class="btn-map-transit-link" style="display:inline-flex; align-items:center; gap:6px; background:#F0FDF4; color:#15803D; border:2px solid #86EFAC; border-radius:20px; padding:8px 16px; font-size:13px; font-weight:800; text-decoration:none; box-shadow:2px 2px 0px var(--koko-blue-main);">
+            🗺️ Googleマップで通学ルートを見る（公共交通機関） ↗
+          </a>
+        ` : ''}
       </div>
     </div>
 
-    <!-- コンテンツボディ各セクション -->
+    <!-- コンテンツボディ各セクション（子ども画面と保護者画面で完全分岐） -->
     <div class="modal-school-sections-container" style="margin-top: 16px;">
-      
-      ${!isChild ? `
-      <!-- ★保護者専用1：ご家庭の希望条件との適合診断（マッチング分析） -->
-      <section class="modal-section-card parent-condition-match-section" style="border: 2px solid #93C5FD; background: #F8FAFC;">
-        <div class="modal-section-title-wrap">
-          <span class="section-star" style="color: #2563EB;">✦</span>
-          <h3 class="modal-section-title" style="color: #1E3A8A;">おうちの方の希望条件との適合診断</h3>
-        </div>
-        <p class="section-sub-tip" style="color: #475569;">保護者アンケートで設定された条件と、この学校の条件適合度です。</p>
-        
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 10px; margin-top: 10px;">
-          <div style="background: #fff; border: 1px solid #CBD5E1; border-radius: 8px; padding: 10px 12px;">
-            <div style="font-size: 11px; color: #64748B; font-weight: 700;">⏱ 通学所要時間（片道目安）</div>
-            <div style="font-size: 14px; font-weight: 800; color: #0F172A; margin: 2px 0;">片道 約${commuteMinutes}分</div>
-            <div style="font-size: 11px; color: #15803D; font-weight: 600;">
-              ${isCommuteAny ? '✓ 通学時間の上限なし（全圏内校）' : (commuteMinutes <= commuteLimit ? `✓ 上限（${commuteLimit}分）以内` : `⚠️ 上限（${commuteLimit}分）を超過`)}
-            </div>
-            <div style="font-size: 11px; color: #64748B; margin-top: 2px;">自宅・最寄駅：${userAddr}${userStn}</div>
-          </div>
-
-          <div style="background: #fff; border: 1px solid #CBD5E1; border-radius: 8px; padding: 10px 12px;">
-            <div style="font-size: 11px; color: #64748B; font-weight: 700;">💰 年間学費 ＆ 初年度目安</div>
-            <div style="font-size: 14px; font-weight: 800; color: #0F172A; margin: 2px 0;">年間 約${tuitionMan}万円</div>
-            <div style="font-size: 11px; color: #15803D; font-weight: 600;">初年度総額目安：約${firstYearEst}万円前後</div>
-            <div style="font-size: 11px; color: #64748B; margin-top: 2px;">（授業料・施設設備費・入学金等概算）</div>
-          </div>
-
-          <div style="background: #fff; border: 1px solid #CBD5E1; border-radius: 8px; padding: 10px 12px;">
-            <div style="font-size: 11px; color: #64748B; font-weight: 700;">🏫 学校形態 ＆ 種別</div>
-            <div style="font-size: 14px; font-weight: 800; color: #0F172A; margin: 2px 0;">${genderText} ・ ${categoryLabel}</div>
-            <div style="font-size: 11px; color: #2563EB; font-weight: 600;">偏差値目安：${school.deviation_score || '情報収集中'}</div>
-          </div>
-
-          <div style="background: #fff; border: 1px solid #CBD5E1; border-radius: 8px; padding: 10px 12px;">
-            <div style="font-size: 11px; color: #64748B; font-weight: 700;">🎓 進路傾向 ＆ 宗教教育</div>
-            <div style="font-size: 14px; font-weight: 800; color: #0F172A; margin: 2px 0;">${univPathLabel}</div>
-            <div style="font-size: 11px; color: #475569;">宗教方針：${religionLabel}</div>
-          </div>
-        </div>
-      </section>
-      ` : ''}
-
-      <!-- 1. 見学・イベント情報（オープンキャンパス・説明会・文化祭） -->
-      <section class="modal-section-card events-section">
-        <div class="modal-section-title-wrap">
-          <span class="section-star">✦</span>
-          <h3 class="modal-section-title">開催予定のイベント・見学情報</h3>
-        </div>
-        <p class="section-sub-tip">「行ってみる」を押すと、見学記録の「行く前」に自動でメモされます！</p>
-        <div class="modal-events-list">
-          ${events.map(ev => `
-            <div class="modal-event-item-card">
-              <div class="m-event-top-row">
-                <span class="m-event-type-badge">${ev.type}</span>
-                <strong class="m-event-date">${ev.date}</strong>
-              </div>
-              <h4 class="m-event-title">${ev.title}</h4>
-              ${isChild ? `
-                <div class="m-event-action-bar">
-                  <button type="button" class="btn-solid-child btn-sm btn-plan-event" onclick="addEventToVisitSchedule('${school.school_id}', '${ev.id}', this)">
-                    ✦ 行ってみる（予約メモ）
-                  </button>
-                </div>
-              ` : ''}
-            </div>
-          `).join('')}
-        </div>
-      </section>
-
-      <!-- 2. こんな授業が特徴！（キミの知的好奇心を刺激） -->
-      <section class="modal-section-card special-class-section">
-        <div class="modal-section-title-wrap">
-          <span class="section-star">✦</span>
-          <h3 class="modal-section-title">こんな授業が特徴！ワクワクする体験</h3>
-        </div>
-        <div class="special-classes-grid">
-          ${(school.special_classes || []).map((cls, idx) => `
-            <div class="special-class-card">
-              <div class="class-num-badge">特色授業 ${idx + 1}</div>
-              <h4 class="class-title">${cls.title}</h4>
-              <p class="class-desc">${cls.desc}</p>
-            </div>
-          `).join('')}
-        </div>
-      </section>
-
-      <!-- 3. 学校の強み・自慢ポイント -->
-      <section class="modal-section-card strengths-section">
-        <div class="modal-section-title-wrap">
-          <span class="section-star">✦</span>
-          <h3 class="modal-section-title">この学校の強み・自慢ポイント</h3>
-        </div>
-        <ul class="school-strengths-list">
-          ${(school.school_strengths || []).map(st => `
-            <li class="strength-item">
-              <span class="strength-check-icon">✦</span>
-              <span class="strength-text">${st}</span>
-            </li>
-          `).join('')}
-        </ul>
-      </section>
-
-
-
-      <!-- 5. モードに応じた総合解説 -->
-      <section class="modal-section-card summary-commentary-section">
-        <div class="modal-section-title-wrap">
-          <span class="section-star">✦</span>
-          <h3 class="modal-section-title">${isChild ? '学校からのメッセージ' : '保護者向け総合レポート（教育・進路・費用）'}</h3>
-        </div>
-        <div class="modal-summary-box ${isChild ? 'child-theme' : 'parent-theme'}">
-          <p class="modal-summary-p">${isChild ? school.child_summary : school.parent_summary}</p>
-          ${!isChild ? `
-            <div class="parent-extra-data-row" style="margin-top: 12px; padding-top: 10px; border-top: 1px dashed #CBD5E1; display:flex; gap:16px; font-size:13px; flex-wrap:wrap;">
-              <span>偏差値: <strong>${school.deviation_score}</strong></span>
-              <span>年間学費: <strong>約${Math.round(school.tuition / 10000)}万円</strong></span>
-              <span>合格実績: <strong>${school.recent_passed_records}</strong></span>
-            </div>
-          ` : ''}
-        </div>
-      </section>
-
-      ${!isChild ? generateParentSchoolAnalysisHtml(school) : ''}
-
+      ${isChild
+      ? generateChildSchoolDetailHtml(school)
+      : generateParentSchoolDetailBodyHtml(school, commuteMinutes, isCommuteAny, commuteLimit, userAddr, userStn, tuitionMan, firstYearEst, genderText, categoryLabel, univPathLabel, religionLabel, events)
+    }
     </div>
 
     <!-- 画面下部の一覧に戻るボタン -->
     <div style="margin-top: 28px; text-align: center;">
-      <button type="button" class="btn-solid-parent full-width" onclick="goBackFromSchoolDetail()" style="display:flex; align-items:center; justify-content:center; gap:8px; font-size:15px; padding:14px;">
+      <button type="button" class="${isChild ? 'btn-solid-child' : 'btn-solid-parent'} full-width" onclick="goBackFromSchoolDetail()" style="display:flex; align-items:center; justify-content:center; gap:8px; font-size:15px; padding:14px;">
         <span>← 一覧にもどる</span>
       </button>
     </div>
@@ -2175,7 +3105,6 @@ function openSchoolDetailScreen(schoolId) {
   }
 
   // 画面全体を「学校詳細専用画面（roleSchoolDetailView）」に切り替え
-  // （他画面はすべて非表示になるため、背景には何もない状態になります）
   switchAppView('school-detail');
 }
 
@@ -2190,22 +3119,43 @@ function goBackFromSchoolDetail() {
   }, 10);
 }
 
+function closeSchoolDetailModal() {
+  const overlay = document.getElementById('schoolDetailModalOverlay');
+  if (overlay && overlay.style.display !== 'none') {
+    overlay.style.display = 'none';
+  }
+  goBackFromSchoolDetail();
+}
+
+function closeSchoolDetailModalOnBackdrop(e) {
+  if (e && e.target && e.target.id === 'schoolDetailModalOverlay') {
+    closeSchoolDetailModal();
+  }
+}
+
 function toggleDetailFavFromTop(btnEl) {
   if (!currentDetailSchoolId) return;
   const school = SCHOOL_DATABASE.find(s => s.school_id === currentDetailSchoolId);
   if (!school) return;
 
   school.is_favorite = !school.is_favorite;
+  if (school.is_favorite) {
+    recordFamilyFootprint('favorite_school', school.name, { school_id: school.school_id });
+  }
+  saveAppStateToLocalStorage();
 
   // 上部ボタンの表示更新
   const btnTopFav = document.getElementById('btnDetailFavTop');
-  if (btnTopFav) {
-    if (school.is_favorite) {
-      btnTopFav.classList.add('active');
-    } else {
-      btnTopFav.classList.remove('active');
+  const btnTopFavModal = document.getElementById('btnDetailFavTopModal');
+  [btnTopFav, btnTopFavModal].forEach(b => {
+    if (b) {
+      if (school.is_favorite) {
+        b.classList.add('active');
+      } else {
+        b.classList.remove('active');
+      }
     }
-  }
+  });
 
   // 画面内のいいねボタンも更新
   document.querySelectorAll('.btn-modal-favorite').forEach(b => {
@@ -2228,9 +3178,11 @@ function toggleModalFavorite(schoolId, btnEl) {
     btnEl.innerHTML = `${getHeartSvg(school.is_favorite)} <span class="btn-fav-txt">${school.is_favorite ? 'いいね中' : 'いいね'}</span>`;
     if (school.is_favorite) {
       btnEl.classList.add('active');
+      recordFamilyFootprint('favorite_school', school.name, { school_id: school.school_id });
     } else {
       btnEl.classList.remove('active');
     }
+    saveAppStateToLocalStorage();
     // 背景画面の各リストも同期
     renderSchoolSearchList();
     renderMypageFavorites();
@@ -2390,7 +3342,7 @@ function switchParentSubTab(tab) {
 // 5. 【保護者モード】1問1画面 シュッとスライド進行（全10問）
 // ==========================================
 const PARENT_SLIDE_TITLES = [
-  "保護者様のお名前",
+  "保護者様のお名前・アイコン設定",
   "ご自宅の住所と最寄り駅",
   "通学時間の上限",
   "許容する通学手段",
@@ -2401,7 +3353,7 @@ const PARENT_SLIDE_TITLES = [
   "希望する進学傾向",
   "求める校風・教育方針",
   "絶対に譲れない条件の選定",
-  "子供用URL発行完了"
+  "子ども用URL発行完了"
 ];
 
 function updateParentProgressIndicator(step) {
@@ -2410,17 +3362,21 @@ function updateParentProgressIndicator(step) {
   const subTitleText = document.getElementById('parentProgressSubTitle');
   const fillBar = document.getElementById('parentProgressBarFill');
 
-  if (step <= 10) {
-    if (indicatorText) indicatorText.textContent = `質問 ${step} / 10`;
+  if (step === 1) {
+    if (indicatorText) indicatorText.textContent = "アカウント登録";
+    if (subTitleText) subTitleText.textContent = PARENT_SLIDE_TITLES[0];
+    if (fillBar) fillBar.style.width = "8%";
+  } else if (step >= 2 && step <= 10) {
+    if (indicatorText) indicatorText.textContent = `条件設定 ${step - 1} / 9`;
     if (subTitleText) subTitleText.textContent = PARENT_SLIDE_TITLES[step - 1];
-    if (fillBar) fillBar.style.width = `${(step / 10) * 100}%`;
+    if (fillBar) fillBar.style.width = `${(step / 11) * 100}%`;
   } else if (step === 11) {
-    if (indicatorText) indicatorText.textContent = "フェーズ 2 / 2";
+    if (indicatorText) indicatorText.textContent = "フェーズ 2";
     if (subTitleText) subTitleText.textContent = "絶対に譲れない条件の確定";
-    if (fillBar) fillBar.style.width = "100%";
+    if (fillBar) fillBar.style.width = "95%";
   } else {
     if (indicatorText) indicatorText.textContent = "完了";
-    if (subTitleText) subTitleText.textContent = "URL発行完了";
+    if (subTitleText) subTitleText.textContent = "子ども用URL発行完了";
     if (fillBar) fillBar.style.width = "100%";
   }
 }
@@ -2438,7 +3394,7 @@ function handleAddressStationInput() {
 }
 
 function nextParentSlide(targetStep) {
-  // 質問1：保護者のお名前保存（一人一人の入力値を反映）
+  // 質問1：保護者のお名前・アイコン保存
   if (parentCurrentStep === 1) {
     const nameInput = document.getElementById('pInputParentName');
     const rawVal = nameInput ? nameInput.value.trim() : "";
@@ -2447,6 +3403,7 @@ function nextParentSlide(targetStep) {
     } else {
       AppSchema.parent_name = "保護者さま";
     }
+    AppSchema.parent_avatar = selectedParentRegAvatar || AppSchema.parent_avatar || "👤";
     renderMypageProfileHeader();
     saveAppStateToLocalStorage();
   }
@@ -2991,17 +3948,45 @@ function toggleStrictFilter(key, checkboxEl) {
   saveAppStateToLocalStorage();
 }
 
+function getChildShareUrl() {
+  const base = window.location.href.split('?')[0].split('#')[0];
+  return `${base}?mode=child`;
+}
+
 function saveAndGenerateChildUrl() {
   AppSchema.parent_profile.is_completed = true;
   saveAppStateToLocalStorage();
   executeSchoolMatching();
   renderQrCode();
 
+  const shareUrl = getChildShareUrl();
+  const urlInput = document.getElementById('inputGeneratedUrl');
+  if (urlInput) {
+    urlInput.value = shareUrl;
+  }
+
   const currentEl = getParentSlideEl(11);
   const nextEl = getParentSlideEl(12);
   performSlideTransition(currentEl, nextEl, 'next', () => {
     updateParentProgressIndicator(12);
   });
+}
+
+function openChildUrlInNewTab() {
+  const shareUrl = getChildShareUrl();
+  window.open(shareUrl, '_blank');
+}
+
+function finishParentRegistrationAndGoHome() {
+  exitOnboardingMode();
+  switchUserMode('parent');
+  switchAppView('home');
+}
+
+function finishChildRegistrationAndGoHome() {
+  exitOnboardingMode();
+  switchUserMode('child');
+  switchAppView('home');
 }
 
 // ==========================================
@@ -3121,11 +4106,14 @@ function renderQrCode() {
 function copyChildUrl() {
   const urlInput = document.getElementById('inputGeneratedUrl');
   if (urlInput) {
+    if (!urlInput.value) {
+      urlInput.value = getChildShareUrl();
+    }
     urlInput.select();
     navigator.clipboard.writeText(urlInput.value).then(() => {
-      document.getElementById('copyNoticeMsg').textContent = "専用URLをクリップボードにコピーしました！";
+      const msg = document.getElementById('copyNoticeMsg');
+      if (msg) msg.textContent = "専用URLをクリップボードにコピーしました！";
       setTimeout(() => {
-        const msg = document.getElementById('copyNoticeMsg');
         if (msg) msg.textContent = "";
       }, 3000);
     });
@@ -3133,7 +4121,8 @@ function copyChildUrl() {
 }
 
 function simulateChildLogin() {
-  switchMainRole('child');
+  switchUserMode('child');
+  startChildOnboarding();
 }
 
 // ==========================================
@@ -3162,8 +4151,12 @@ function updateChildProgressIndicator(step) {
     stepText.textContent = "Koko* へようこそ";
     subTitle.textContent = "あなたの好きを見つけよう";
     fillBar.style.width = "10%";
+  } else if (step === 1) {
+    stepText.textContent = "アカウント登録";
+    subTitle.textContent = "あなたのアカウント設定";
+    fillBar.style.width = "14%";
   } else if (step <= 7) {
-    stepText.textContent = `いま ${step}問目 / 全部で 7問`;
+    stepText.textContent = `ワーク ${step - 1} / 6`;
     subTitle.textContent = CHILD_SLIDE_TITLES[step - 1];
     fillBar.style.width = `${(step / 7) * 100}%`;
   } else {
@@ -3186,6 +4179,17 @@ function selectChildGender(gender) {
     AppSchema.child_profile = {};
   }
   AppSchema.child_profile.gender = chosen;
+
+  // アイコンがデフォルトのままなら性別と連動
+  if (!AppSchema.child_avatar || AppSchema.child_avatar === "👦" || AppSchema.child_avatar === "👧") {
+    selectedChildRegAvatar = (chosen === 'girl') ? '👧' : '👦';
+    AppSchema.child_avatar = selectedChildRegAvatar;
+    const preview = document.getElementById('childRegAvatarEmoji');
+    if (preview) preview.textContent = selectedChildRegAvatar;
+    if (typeof renderChildRegAvatarPicker === 'function') {
+      renderChildRegAvatarPicker();
+    }
+  }
 
   const btnBoy = document.getElementById('btnChildGenderBoy');
   const btnGirl = document.getElementById('btnChildGenderGirl');
@@ -3271,7 +4275,7 @@ function nextChildSlide(targetStep) {
     resetChildQuestionFormIfUncompleted();
   }
 
-  // 質問1：ニックネーム・性別保存（一人一人の入力値を反映）
+  // 質問1：ニックネーム・アイコン・性別保存
   if (childCurrentStep === 1) {
     const nickInput = document.getElementById('cInputNickname');
     const nickVal = nickInput ? nickInput.value.trim() : "";
@@ -3288,6 +4292,8 @@ function nextChildSlide(targetStep) {
       alert("性別（男の子または女の子）をどちらか選んでね！");
       return;
     }
+
+    AppSchema.child_avatar = selectedChildRegAvatar || AppSchema.child_avatar || "👦";
 
     renderMypageProfileHeader();
     saveAppStateToLocalStorage();
@@ -3496,7 +4502,13 @@ function startParentConditionEdit() {
   parentCurrentStep = 1;
   updateParentProgressIndicator(1);
 
-  // 既存の入力値・選択状態を全問復元
+  restoreParentFormValues();
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// 既存の入力値・選択状態を全問復元するヘルパー
+function restoreParentFormValues() {
   const prof = AppSchema.parent_profile || {};
 
   // 設問1: 保護者お名前
@@ -3547,8 +4559,8 @@ function startParentConditionEdit() {
   });
 
   // 設問5: 学費上限（未設定時は未選択）
-  const tuitionCap = prof.tuition_cap !== undefined 
-    ? prof.tuition_cap 
+  const tuitionCap = prof.tuition_cap !== undefined
+    ? prof.tuition_cap
     : (prof.conditions && prof.conditions.tuition_max ? prof.conditions.tuition_max / 10000 : null);
   document.querySelectorAll('#groupTuition input[type="checkbox"]').forEach(chk => {
     const isChecked = tuitionCap !== null && Number(chk.value) === Number(tuitionCap);
@@ -3631,9 +4643,9 @@ function startParentConditionEdit() {
   }
 
   // フェーズ2（絶対に譲れない条件）のカード群を再構築
-  renderStrictFilterSelectionCards();
-
-  window.scrollTo({ top: 0, behavior: 'smooth' });
+  if (typeof renderStrictFilterSelectionCards === 'function') {
+    renderStrictFilterSelectionCards();
+  }
 }
 
 // ==========================================
@@ -3964,9 +4976,9 @@ function renderChildRecommendedSchools() {
   }
 
   const rankBadges = [
-    { label: "おすすめ第 1 位", bg: "var(--koko-blue-main)", glow: "0 4px 12px rgba(74, 144, 226, 0.3)" },
-    { label: "おすすめ第 2 位", bg: "var(--koko-green)", glow: "0 4px 12px rgba(112, 193, 179, 0.3)" },
-    { label: "おすすめ第 3 位", bg: "var(--koko-pink)", glow: "0 4px 12px rgba(255, 143, 163, 0.3)" }
+    { label: "おすすめ第 1 位", bg: "var(--koko-blue-main)", glow: "2px 2px 0px var(--koko-blue-main)" },
+    { label: "おすすめ第 2 位", bg: "var(--koko-green)", glow: "2px 2px 0px var(--koko-blue-main)" },
+    { label: "おすすめ第 3 位", bg: "var(--koko-pink)", glow: "2px 2px 0px var(--koko-blue-main)" }
   ];
 
   const currentStation = AppSchema.parent_profile.station || "ご自宅最寄り";
@@ -4072,7 +5084,10 @@ function renderAccordionHighlights() {
     container.appendChild(card);
   });
 
-  document.getElementById('highlightCounterNotice').textContent = `選択中: ${selectedHighlightCategories.length} / 3`;
+  const counterNotice = document.getElementById('highlightCounterNotice');
+  if (counterNotice) {
+    counterNotice.textContent = `選択中: ${selectedHighlightCategories.length} / 3`;
+  }
 }
 
 function toggleHighlightCategory(key, chkEl) {
@@ -4345,6 +5360,14 @@ function saveParentReviewRecord() {
     updated_at: new Date().toLocaleDateString('ja-JP', { month: 'numeric', day: 'numeric', weekday: 'short' })
   };
 
+  // 足跡を記録：「イベントの振り返りを入力した」
+  recordFamilyFootprint('review_event', `${plan.school_name}（${plan.event_title || plan.event_type || '見学'}）`, {
+    school_id: plan.school_id,
+    actor_override: 'parent',
+    detail: memo || selectedPlace
+  });
+  saveAppStateToLocalStorage();
+
   showToast(`保護者の記録を保存しました！`);
   closeParentReviewEditor();
   renderReviewView();
@@ -4513,14 +5536,11 @@ function setupReviewWizardUI(mode, targetPlan = null) {
 
   // スライド1：学校とイベントの設定
   const title1 = document.getElementById('rSlideTitle1');
-  const desc1 = document.getElementById('rSlideDesc1');
-  if (title1 && desc1) {
+  if (title1) {
     if (mode === 'before') {
       title1.textContent = "見学に行く学校とイベント";
-      desc1.textContent = "これから行く学校とイベントを確認してください。";
     } else {
       title1.textContent = "見学に行った学校とイベント";
-      desc1.textContent = "今日見学した学校とイベントを確認してください。";
     }
   }
 
@@ -4545,32 +5565,28 @@ function setupReviewWizardUI(mode, targetPlan = null) {
 
   // スライド2：今の感情（設問＆選択肢）
   const title2 = document.getElementById('rSlideTitle2');
-  const desc2 = document.getElementById('rSlideDesc2');
   const emotionContainer = document.getElementById('reviewEmotionChoiceContainer');
-  if (title2 && desc2 && emotionContainer) {
+  if (title2 && emotionContainer) {
     if (mode === 'before') {
       title2.textContent = "今の気持ちは？";
-      desc2.textContent = "イベントに行く前の気持ちをえらんでね。";
 
       const beforeEmotions = [
-        { label: "かなり楽しみ", sub: "早く行ってみて体験したい！" },
-        { label: "ちょっと楽しみ", sub: "どんな学校か見てみたい" },
-        { label: "ちょっと気になる", sub: "気になる部活や授業がある" },
-        { label: "まだよくわからない", sub: "行ってみてから考えたい" },
-        { label: "あまり興味ない", sub: "親に言われて行く感じ" }
+        { label: "かなり楽しみ" },
+        { label: "ちょっと楽しみ" },
+        { label: "ちょっと気になる" },
+        { label: "まだよくわからない" },
+        { label: "あまり興味ない" }
       ];
 
       emotionContainer.innerHTML = beforeEmotions.map((item, idx) => `
         <label class="big-tile-checkbox review-tile">
           <input type="radio" name="reviewEmotionChoice" value="${item.label}" ${idx === 0 ? 'checked' : ''} onchange="toggleCustomEmotionInput(false)">
           <span class="tile-title">${item.label}</span>
-          <span class="tile-sub">${item.sub}</span>
         </label>
       `).join('') + `
         <label class="big-tile-checkbox review-tile">
           <input type="radio" name="reviewEmotionChoice" value="custom" onchange="toggleCustomEmotionInput(true)">
           <span class="tile-title">じぶんの言葉で書く（自由記述）</span>
-          <span class="tile-sub">今の気持ちを自由に書いてね</span>
         </label>
         <div id="reviewCustomEmotionWrap" class="child-custom-input-box" style="display: none;">
           <input type="text" id="reviewCustomEmotionInput" class="child-text-field" placeholder="例「食堂のごはんが楽しみ」「少し緊張する」など">
@@ -4578,27 +5594,24 @@ function setupReviewWizardUI(mode, targetPlan = null) {
       `;
     } else {
       title2.textContent = "実際に行ってみて、今はどう思う？";
-      desc2.textContent = "見学したあとの今の気持ちをえらんでね。";
 
       const afterEmotions = [
-        { label: "もっといきたくなった！", sub: "ここが第一志望になりそう！" },
-        { label: "いきたい気持ちが強くなった！", sub: "思っていたよりずっと良かった" },
-        { label: "前とあまり変わらない", sub: "イメージ通りだった" },
-        { label: "少し迷う", sub: "良いところと気になるところ両方ある" },
-        { label: "思っていたのと少し違った", sub: "じぶんには合わないかも" }
+        { label: "もっといきたくなった！" },
+        { label: "いきたい気持ちが強くなった！" },
+        { label: "前とあまり変わらない" },
+        { label: "少し迷う" },
+        { label: "思っていたのと少し違った" }
       ];
 
       emotionContainer.innerHTML = afterEmotions.map((item, idx) => `
         <label class="big-tile-checkbox review-tile">
           <input type="radio" name="reviewEmotionChoice" value="${item.label}" ${idx === 0 ? 'checked' : ''} onchange="toggleCustomEmotionInput(false)">
           <span class="tile-title">${item.label}</span>
-          <span class="tile-sub">${item.sub}</span>
         </label>
       `).join('') + `
         <label class="big-tile-checkbox review-tile">
           <input type="radio" name="reviewEmotionChoice" value="custom" onchange="toggleCustomEmotionInput(true)">
           <span class="tile-title">じぶんの言葉で書く（自由記述）</span>
-          <span class="tile-sub">行ってみた実感を自由に書いてね</span>
         </label>
         <div id="reviewCustomEmotionWrap" class="child-custom-input-box" style="display: none;">
           <input type="text" id="reviewCustomEmotionInput" class="child-text-field" placeholder="例「先輩がカッコよかった」「通学が少し大変そう」など">
@@ -4609,47 +5622,42 @@ function setupReviewWizardUI(mode, targetPlan = null) {
 
   // スライド3：見たいところ ➡️ 印象に残ったところ（設問＆選択肢）
   const title3 = document.getElementById('rSlideTitle3');
-  const desc3 = document.getElementById('rSlideDesc3');
   const placeContainer = document.getElementById('reviewPlaceChoiceContainer');
-  if (title3 && desc3 && placeContainer) {
+  if (title3 && placeContainer) {
     if (mode === 'before') {
       title3.textContent = "学校のどんなところを見てみたい？（気になるところ）";
-      desc3.textContent = "当日、とくにチェックしてみたい場所やポイントをえらんでね。";
 
       const beforePlaces = [
-        { label: "図書室や自習室などのべんきょうスペース", sub: "本がたくさんあって落ち着けるか" },
-        { label: "理科室やパソコン室などのおもしろい実験設備", sub: "3Dプリンタや本格的な道具があるか" },
-        { label: "広い校庭・体育館などの運動設備", sub: "思いっきり身体を動かせる環境か" },
-        { label: "先輩たちの部活動や文化祭の出し物・展示", sub: "どんな先輩たちが活動しているか" },
-        { label: "きれいなカフェテリア（食堂）や中庭", sub: "お昼や休み時間が楽しそうか" },
-        { label: "先生や先輩たちがどんな雰囲気か", sub: "やさしく話しかけてくれるか" }
+        { label: "図書室や自習室などのべんきょうスペース" },
+        { label: "理科室やパソコン室などのおもしろい実験設備" },
+        { label: "広い校庭・体育館などの運動設備" },
+        { label: "先輩たちの部活動や文化祭の出し物・展示" },
+        { label: "きれいなカフェテリア（食堂）や中庭" },
+        { label: "先生や先輩たちがどんな雰囲気か" }
       ];
 
       placeContainer.innerHTML = beforePlaces.map((item, idx) => `
         <label class="big-tile-checkbox review-tile">
           <input type="radio" name="reviewPlaceChoice" value="${item.label}" ${idx === 0 ? 'checked' : ''}>
           <span class="tile-title">${item.label}</span>
-          <span class="tile-sub">${item.sub}</span>
         </label>
       `).join('');
     } else {
       title3.textContent = "実際に見たり体験して、どこが印象に残った？（心にのこったところ）";
-      desc3.textContent = "今日見て一番心にのこった場所やポイントをえらんでね。";
 
       const afterPlaces = [
-        { label: "本がたくさんある図書室や自習スペース", sub: "静かで居心地がとても良かった" },
-        { label: "わくわくする理科実験室や専門教室", sub: "設備がすごくて実験が楽しそうだった" },
-        { label: "ひろびろとしたグラウンドや体育館", sub: "設備がきれいで運動したくなった" },
-        { label: "先輩たちの発表や展示・部活動の様子", sub: "楽しそうでイキイキしていた" },
-        { label: "明るくて楽しそうなカフェテリアや中庭", sub: "開放的で過ごしやすそうだった" },
-        { label: "先生や先輩たちのやさしい対応や笑顔", sub: "とても親切に案内してくれた" }
+        { label: "本がたくさんある図書室や自習スペース" },
+        { label: "わくわくする理科実験室や専門教室" },
+        { label: "ひろびろとしたグラウンドや体育館" },
+        { label: "先輩たちの発表や展示・部活動の様子" },
+        { label: "明るくて楽しそうなカフェテリアや中庭" },
+        { label: "先生や先輩たちのやさしい対応や笑顔" }
       ];
 
       placeContainer.innerHTML = afterPlaces.map((item, idx) => `
         <label class="big-tile-checkbox review-tile">
           <input type="radio" name="reviewPlaceChoice" value="${item.label}" ${idx === 0 ? 'checked' : ''}>
           <span class="tile-title">${item.label}</span>
-          <span class="tile-sub">${item.sub}</span>
         </label>
       `).join('');
     }
@@ -4657,25 +5665,22 @@ function setupReviewWizardUI(mode, targetPlan = null) {
 
   // スライド4：星評価と自由記述メモ
   const title4 = document.getElementById('rSlideTitle4');
-  const desc4 = document.getElementById('rSlideDesc4');
   const ratingLabel = document.getElementById('reviewRatingFieldLabel');
   const memoLabel = document.getElementById('reviewFreeMemoFieldLabel');
   const memoInput = document.getElementById('reviewFreeMemoInput');
   const submitBtn = document.getElementById('btnSubmitReviewWizard');
 
-  if (title4 && desc4 && ratingLabel && memoLabel && memoInput && submitBtn) {
+  if (title4 && ratingLabel && memoLabel && memoInput && submitBtn) {
     if (mode === 'before') {
       title4.textContent = "行く前の期待度とひとことメモ";
-      desc4.textContent = "楽しみな気持ちや質問したいことを残しておこう。";
       ratingLabel.textContent = "行く前のワクワク度：";
-      memoLabel.textContent = "行く前に楽しみなことや、聞いてみたいこと（自由記述・書いても書かなくてもOK）：";
+      memoLabel.textContent = "ひとことメモ（任意）：";
       memoInput.placeholder = "例「ロボット部があるか見てみたい」「食堂の人気メニューを食べてみたい」など";
       submitBtn.textContent = "✦ 期待を記録する";
     } else {
       title4.textContent = "この学校の「ここがいい！」度とひとことメモ";
-      desc4.textContent = "見学して感じたことを家族へのメッセージとして残せます。";
       ratingLabel.textContent = "この学校の「ここがいい！」度：";
-      memoLabel.textContent = "見学して感じたことや、家族に伝えたいこと（自由記述・書いても書かなくてもOK）：";
+      memoLabel.textContent = "ひとことメモ（任意）：";
       memoInput.placeholder = "例「先輩たちがとても優しく案内してくれた」「実験が思っていたより本格的だった」など";
       submitBtn.textContent = "✦ 振り返りを保存する";
     }
@@ -4700,213 +5705,226 @@ function setupReviewWizardUI(mode, targetPlan = null) {
   setReviewRating(5);
 }
 
-function toggleCustomEmotionInput(isCustom) {
-  const wrap = document.getElementById('reviewCustomEmotionWrap');
-  if (wrap) {
-    wrap.style.display = isCustom ? 'block' : 'none';
-    if (isCustom) {
-      const inp = document.getElementById('reviewCustomEmotionInput');
-      if (inp) inp.focus();
-    }
-  }
-}
+        function toggleCustomEmotionInput(isCustom) {
+          const wrap = document.getElementById('reviewCustomEmotionWrap');
+          if (wrap) {
+            wrap.style.display = isCustom ? 'block' : 'none';
+            if (isCustom) {
+              const inp = document.getElementById('reviewCustomEmotionInput');
+              if (inp) inp.focus();
+            }
+          }
+        }
 
-// 記録画面の初期化（一覧画面を表示）
-function initReviewWizard() {
-  closeReviewWizard();
-  renderReviewView();
-}
+        // 記録画面の初期化（一覧画面を表示）
+        function initReviewWizard() {
+          closeReviewWizard();
+          renderReviewView();
+        }
 
-function updateReviewProgressIndicator(step) {
-  const textEl = document.getElementById('reviewStepCounterText');
-  if (textEl) {
-    textEl.textContent = `質問 ${step} / ${TOTAL_REVIEW_STEPS} 問`;
-  }
-  const barEl = document.getElementById('reviewProgressBarFill');
-  if (barEl) {
-    const pct = Math.round((step / TOTAL_REVIEW_STEPS) * 100);
-    barEl.style.width = `${pct}%`;
-  }
-}
+        function updateReviewProgressIndicator(step) {
+          const textEl = document.getElementById('reviewStepCounterText');
+          if (textEl) {
+            textEl.textContent = `質問 ${step} / ${TOTAL_REVIEW_STEPS} 問`;
+          }
+          const barEl = document.getElementById('reviewProgressBarFill');
+          if (barEl) {
+            const pct = Math.round((step / TOTAL_REVIEW_STEPS) * 100);
+            barEl.style.width = `${pct}%`;
+          }
+        }
 
-function nextReviewSlide(nextStep) {
-  if (isAnimating) return;
-  slideQuestionStep(`rSlide${currentReviewStep}`, `rSlide${nextStep}`, 'next', () => {
-    currentReviewStep = nextStep;
-    updateReviewProgressIndicator(nextStep);
-  });
-}
+        function nextReviewSlide(nextStep) {
+          if (isAnimating) return;
+          slideQuestionStep(`rSlide${currentReviewStep}`, `rSlide${nextStep}`, 'next', () => {
+            currentReviewStep = nextStep;
+            updateReviewProgressIndicator(nextStep);
+          });
+        }
 
-function prevReviewSlide(prevStep) {
-  if (isAnimating) return;
-  slideQuestionStep(`rSlide${currentReviewStep}`, `rSlide${prevStep}`, 'prev', () => {
-    currentReviewStep = prevStep;
-    updateReviewProgressIndicator(prevStep);
-  });
-}
+        function prevReviewSlide(prevStep) {
+          if (isAnimating) return;
+          slideQuestionStep(`rSlide${currentReviewStep}`, `rSlide${prevStep}`, 'prev', () => {
+            currentReviewStep = prevStep;
+            updateReviewProgressIndicator(prevStep);
+          });
+        }
 
-function setReviewRating(rating) {
-  currentReviewRating = rating;
+        function setReviewRating(rating) {
+          currentReviewRating = rating;
 
-  const labelEl = document.getElementById('starRatingLabelText');
-  if (labelEl) labelEl.textContent = "";
+          const labelEl = document.getElementById('starRatingLabelText');
+          if (labelEl) labelEl.textContent = "";
 
-  document.querySelectorAll('#reviewStarRatingRow .star-btn').forEach(btn => {
-    const r = parseInt(btn.getAttribute('data-rating'), 10);
-    if (r <= rating) {
-      btn.classList.add('active');
-    } else {
-      btn.classList.remove('active');
-    }
-  });
-}
+          document.querySelectorAll('#reviewStarRatingRow .star-btn').forEach(btn => {
+            const r = parseInt(btn.getAttribute('data-rating'), 10);
+            if (r <= rating) {
+              btn.classList.add('active');
+            } else {
+              btn.classList.remove('active');
+            }
+          });
+        }
 
-// 記録ウィザードの保存処理（行く前・行った後で分岐保存）
-function saveReviewWizardRecord() {
-  const schoolId = document.getElementById('reviewInputSchool').value;
-  const school = SCHOOL_DATABASE.find(s => s.school_id === schoolId) || SCHOOL_DATABASE[0];
+        // 記録ウィザードの保存処理（行く前・行った後で分岐保存）
+        function saveReviewWizardRecord() {
+          const schoolId = document.getElementById('reviewInputSchool').value;
+          const school = SCHOOL_DATABASE.find(s => s.school_id === schoolId) || SCHOOL_DATABASE[0];
 
-  const eventTypeEl = document.querySelector('input[name="reviewEventType"]:checked');
-  const eventType = eventTypeEl ? eventTypeEl.value : "学校見学";
+          const eventTypeEl = document.querySelector('input[name="reviewEventType"]:checked');
+          const eventType = eventTypeEl ? eventTypeEl.value : "学校見学";
 
-  // 感情値の取得（自由記述含む）
-  const emotionRadio = document.querySelector('input[name="reviewEmotionChoice"]:checked');
-  let emotionVal = emotionRadio ? emotionRadio.value : "楽しみ";
-  if (emotionVal === 'custom') {
-    const customInp = (document.getElementById('reviewCustomEmotionInput')?.value || '').trim();
-    emotionVal = customInp || "じぶんの気持ち";
-  }
+          // 感情値の取得（自由記述含む）
+          const emotionRadio = document.querySelector('input[name="reviewEmotionChoice"]:checked');
+          let emotionVal = emotionRadio ? emotionRadio.value : "楽しみ";
+          if (emotionVal === 'custom') {
+            const customInp = (document.getElementById('reviewCustomEmotionInput')?.value || '').trim();
+            emotionVal = customInp || "じぶんの気持ち";
+          }
 
-  // 場所・ポイントの取得
-  const placeRadio = document.querySelector('input[name="reviewPlaceChoice"]:checked');
-  const placeVal = placeRadio ? placeRadio.value : "施設・設備";
+          // 場所・ポイントの取得
+          const placeRadio = document.querySelector('input[name="reviewPlaceChoice"]:checked');
+          const placeVal = placeRadio ? placeRadio.value : "施設・設備";
 
-  // 自由記述メモ
-  const memo = (document.getElementById('reviewFreeMemoInput').value || "").trim();
+          // 自由記述メモ
+          const memo = (document.getElementById('reviewFreeMemoInput').value || "").trim();
 
-  const currentDateStr = new Date().toLocaleDateString('ja-JP', { month: 'numeric', day: 'numeric', weekday: 'short' });
+          const currentDateStr = new Date().toLocaleDateString('ja-JP', { month: 'numeric', day: 'numeric', weekday: 'short' });
 
-  // A. 行く前（期待の記録）の場合
-  if (currentReviewWizardMode === 'before') {
-    const beforeData = {
-      date: currentDateStr,
-      emotion: emotionVal,
-      place: placeVal,
-      rating: currentReviewRating,
-      memo: memo || `${eventType}が楽しみ！${placeVal}を見てみたい。`
-    };
+          // A. 行く前（期待の記録）の場合
+          if (currentReviewWizardMode === 'before') {
+            const beforeData = {
+              date: currentDateStr,
+              emotion: emotionVal,
+              place: placeVal,
+              rating: currentReviewRating,
+              memo: memo || `${eventType}が楽しみ！${placeVal}を見てみたい。`
+            };
 
-    if (currentReviewPlanId) {
-      const target = (AppSchema.visit_plans || []).find(p => p.plan_id === currentReviewPlanId);
-      if (target) {
-        target.before_record = beforeData;
-      }
-    } else {
-      if (!AppSchema.visit_plans) AppSchema.visit_plans = [];
-      AppSchema.visit_plans.unshift({
-        plan_id: "plan_" + Date.now(),
-        school_id: school.school_id,
-        school_name: school.name,
-        event_id: "ev_" + Date.now(),
-        event_title: `${school.name} ${eventType}`,
-        event_type: eventType,
-        event_date: "近日開催",
-        event_desc: memo,
-        status: "before",
-        before_record: beforeData,
-        reviewed_at: null,
-        rating: null,
-        review_data: null
-      });
-    }
+            if (currentReviewPlanId) {
+              const target = (AppSchema.visit_plans || []).find(p => p.plan_id === currentReviewPlanId);
+              if (target) {
+                target.before_record = beforeData;
+              }
+            } else {
+              if (!AppSchema.visit_plans) AppSchema.visit_plans = [];
+              AppSchema.visit_plans.unshift({
+                plan_id: "plan_" + Date.now(),
+                school_id: school.school_id,
+                school_name: school.name,
+                event_id: "ev_" + Date.now(),
+                event_title: `${school.name} ${eventType}`,
+                event_type: eventType,
+                event_date: "近日開催",
+                event_desc: memo,
+                status: "before",
+                before_record: beforeData,
+                reviewed_at: null,
+                rating: null,
+                review_data: null
+              });
+            }
 
-    saveAppStateToLocalStorage();
-    alert(`「${school.name}」への期待を記録しました！\nイベントに参加した後は「✦ 行ってきた！振り返りを記録」から気持ちの変化を比べてみましょう。`);
+            // 足跡を記録：「イベントの振り返りを入力した」（期待記録も含め記録）
+            recordFamilyFootprint('review_event', `${school.name}（${eventType}の期待メモ）`, {
+              school_id: school.school_id,
+              actor_override: 'child',
+              detail: `今の気持ち：「${emotionVal}」`
+            });
+            saveAppStateToLocalStorage();
+            alert(`「${school.name}」への期待を記録しました！\nイベントに参加した後は「✦ 行ってきた！振り返りを記録」から気持ちの変化を比べてみましょう。`);
 
-    closeReviewWizard();
-    renderReviewView();
-    return;
-  }
+            closeReviewWizard();
+            renderReviewView();
+            return;
+          }
 
-  // B. 行った後（見学の振り返り記録）の場合
-  let beforeRecord = null;
-  if (currentReviewPlanId) {
-    const target = (AppSchema.visit_plans || []).find(p => p.plan_id === currentReviewPlanId);
-    if (target) {
-      beforeRecord = target.before_record || null;
-      target.status = 'after';
-      target.reviewed_at = new Date().toISOString();
-      target.rating = currentReviewRating;
-      target.review_data = {
-        id: "rev_" + Date.now(),
-        school_name: school.name,
-        school_id: school.school_id,
-        date: currentDateStr,
-        event_type: eventType,
-        emotion: emotionVal,
-        place: placeVal,
-        rating: currentReviewRating,
-        memo: memo || `${eventType}に参加。${placeVal}が印象に残った！`,
-        before_record: beforeRecord
-      };
-    }
-  } else {
-    // 新規登録
-    if (!AppSchema.visit_plans) AppSchema.visit_plans = [];
-    const newRev = {
-      id: "rev_" + Date.now(),
-      school_name: school.name,
-      school_id: school.school_id,
-      date: currentDateStr,
-      event_type: eventType,
-      emotion: emotionVal,
-      place: placeVal,
-      rating: currentReviewRating,
-      memo: memo || `${eventType}に参加。${placeVal}が印象に残った！`,
-      before_record: null
-    };
-    AppSchema.visit_plans.unshift({
-      plan_id: "plan_" + Date.now(),
-      school_id: school.school_id,
-      school_name: school.name,
-      event_id: "ev_" + Date.now(),
-      event_title: `${school.name} ${eventType}`,
-      event_type: eventType,
-      event_date: currentDateStr,
-      event_desc: memo,
-      status: "after",
-      before_record: null,
-      reviewed_at: new Date().toISOString(),
-      rating: currentReviewRating,
-      review_data: newRev
-    });
-  }
+          // B. 行った後（見学の振り返り記録）の場合
+          let beforeRecord = null;
+          if (currentReviewPlanId) {
+            const target = (AppSchema.visit_plans || []).find(p => p.plan_id === currentReviewPlanId);
+            if (target) {
+              beforeRecord = target.before_record || null;
+              target.status = 'after';
+              target.reviewed_at = new Date().toISOString();
+              target.rating = currentReviewRating;
+              target.review_data = {
+                id: "rev_" + Date.now(),
+                school_name: school.name,
+                school_id: school.school_id,
+                date: currentDateStr,
+                event_type: eventType,
+                emotion: emotionVal,
+                place: placeVal,
+                rating: currentReviewRating,
+                memo: memo || `${eventType}に参加。${placeVal}が印象に残った！`,
+                before_record: beforeRecord
+              };
+            }
+          } else {
+            // 新規登録
+            if (!AppSchema.visit_plans) AppSchema.visit_plans = [];
+            const newRev = {
+              id: "rev_" + Date.now(),
+              school_name: school.name,
+              school_id: school.school_id,
+              date: currentDateStr,
+              event_type: eventType,
+              emotion: emotionVal,
+              place: placeVal,
+              rating: currentReviewRating,
+              memo: memo || `${eventType}に参加。${placeVal}が印象に残った！`,
+              before_record: null
+            };
+            AppSchema.visit_plans.unshift({
+              plan_id: "plan_" + Date.now(),
+              school_id: school.school_id,
+              school_name: school.name,
+              event_id: "ev_" + Date.now(),
+              event_title: `${school.name} ${eventType}`,
+              event_type: eventType,
+              event_date: currentDateStr,
+              event_desc: memo,
+              status: "after",
+              before_record: null,
+              reviewed_at: new Date().toISOString(),
+              rating: currentReviewRating,
+              review_data: newRev
+            });
+          }
 
-  saveAppStateToLocalStorage();
+          // 足跡を記録：「イベントの振り返りを入力した」
+          recordFamilyFootprint('review_event', `${school.name}（${eventType}）`, {
+            school_id: school.school_id,
+            actor_override: 'child',
+            detail: memo || `感想：「${emotionVal}」（${placeVal}）`
+          });
 
-  const comparisonMsg = beforeRecord
-    ? `\n行く前の気持ち「${beforeRecord.emotion}」と、行った後の気持ち「${emotionVal}」の変化を記録しました！`
-    : '';
+          saveAppStateToLocalStorage();
 
-  alert(`「${school.name}」の見学振り返りを保存しました！${comparisonMsg}\n見学メモ一覧に追加されました。`);
+          const comparisonMsg = beforeRecord
+            ? `\n行く前の気持ち「${beforeRecord.emotion}」と、行った後の気持ち「${emotionVal}」の変化を記録しました！`
+            : '';
 
-  // ウィザードを閉じて一覧画面を再描画
-  document.getElementById('reviewFreeMemoInput').value = '';
-  closeReviewWizard();
-  renderReviewView();
-}
+          alert(`「${school.name}」の見学振り返りを保存しました！${comparisonMsg}\n見学メモ一覧に追加されました。`);
 
-// 行った後の振り返りカード描画（行く前との比較ビフォーアフター表示）
-function renderSavedReviewCards() {
-  const container = document.getElementById('savedReviewCardsList');
-  if (!container) return;
-  container.innerHTML = '';
+          // ウィザードを閉じて一覧画面を再描画
+          document.getElementById('reviewFreeMemoInput').value = '';
+          closeReviewWizard();
+          renderReviewView();
+        }
 
-  // 振り返り済みのプランを抽出
-  const afterPlans = (AppSchema.visit_plans || []).filter(p => p.status === 'after');
+        // 行った後の振り返りカード描画（行く前との比較ビフォーアフター表示）
+        function renderSavedReviewCards() {
+          const container = document.getElementById('savedReviewCardsList');
+          if (!container) return;
+          container.innerHTML = '';
 
-  if (afterPlans.length === 0) {
-    container.innerHTML = `
+          // 振り返り済みのプランを抽出
+          const afterPlans = (AppSchema.visit_plans || []).filter(p => p.status === 'after');
+
+          if (afterPlans.length === 0) {
+            container.innerHTML = `
       <div class="empty-reviewed-box">
         <p class="empty-title">まだ見学の振り返り記録がありません</p>
         <p class="empty-desc">
@@ -4915,30 +5933,30 @@ function renderSavedReviewCards() {
         </p>
       </div>
     `;
-    return;
-  }
+            return;
+          }
 
-  afterPlans.forEach(p => {
-    const rev = p.review_data || {
-      id: p.plan_id,
-      school_name: p.school_name,
-      date: p.event_date,
-      event_type: p.event_type,
-      emotion: "とても良かった",
-      place: "教室・設備",
-      rating: p.rating || 5,
-      memo: p.event_desc || "楽しく見学できました。",
-      before_record: p.before_record || null
-    };
+          afterPlans.forEach(p => {
+            const rev = p.review_data || {
+              id: p.plan_id,
+              school_name: p.school_name,
+              date: p.event_date,
+              event_type: p.event_type,
+              emotion: "とても良かった",
+              place: "教室・設備",
+              rating: p.rating || 5,
+              memo: p.event_desc || "楽しく見学できました。",
+              before_record: p.before_record || null
+            };
 
-    const card = document.createElement('div');
-    card.className = 'saved-review-item-card';
-    const stars = "★".repeat(rev.rating || 5) + "☆".repeat(5 - (rev.rating || 5));
+            const card = document.createElement('div');
+            card.className = 'saved-review-item-card';
+            const stars = "★".repeat(rev.rating || 5) + "☆".repeat(5 - (rev.rating || 5));
 
-    // 行く前と行った後の比較バッジ
-    let comparisonHtml = '';
-    if (rev.before_record && rev.before_record.emotion) {
-      comparisonHtml = `
+            // 行く前と行った後の比較バッジ
+            let comparisonHtml = '';
+            if (rev.before_record && rev.before_record.emotion) {
+              comparisonHtml = `
         <div class="review-comparison-card">
           <div class="review-comparison-title">✦ 気持ちの変化（行く前 ➡️ 行った後）</div>
           <div class="review-comparison-grid">
@@ -4954,9 +5972,9 @@ function renderSavedReviewCards() {
           </div>
         </div>
       `;
-    }
+            }
 
-    card.innerHTML = `
+            card.innerHTML = `
       <div class="saved-review-header-row">
         <div class="review-school-name-block">
           <span class="review-date-badge">${rev.date}</span>
@@ -4972,158 +5990,155 @@ function renderSavedReviewCards() {
       ${comparisonHtml}
       <p class="saved-review-memo-text">${rev.memo}</p>
     `;
-    container.appendChild(card);
-  });
-}
+            container.appendChild(card);
+          });
+        }
 
-// ==========================================
-// 8-2. おうちの方の条件設定サマリー描画（ホーム ＆ マイページ）
-// 保護者の設定条件（全10問＋フェーズ2）を子供の質問解答データと同じUIで詳細表示
-// ==========================================
-function renderParentConditionsSummary() {
-  const homeEl = document.getElementById('parentHomeConditionsSummary');
-  const mypageEl = document.getElementById('mypageParentConditionsSummary');
-  if (homeEl) {
-    homeEl.innerHTML = '';
-  }
-  if (!mypageEl) return;
+        // ==========================================
+        // 8-2. おうちの方の条件設定サマリー描画（ホーム ＆ マイページ）
+        // 保護者の設定条件（全10問＋フェーズ2）を子供の質問解答データと同じUIで詳細表示
+        // ==========================================
+        function renderParentConditionsSummary() {
+          const homeEl = document.getElementById('parentHomeConditionsSummary');
+          const mypageEl = document.getElementById('mypageParentConditionsSummary');
+          if (homeEl) {
+            homeEl.innerHTML = '';
+          }
+          if (!mypageEl) return;
 
-  const prof = AppSchema.parent_profile || {};
-  const cond = prof.conditions || {};
+          const prof = AppSchema.parent_profile || {};
+          const cond = prof.conditions || {};
 
-  // まだ条件設定がすべて完了していない場合
-  if (!prof.is_completed) {
-    mypageEl.innerHTML = `
+          // まだ条件設定がすべて完了していない場合
+          if (!prof.is_completed) {
+            mypageEl.innerHTML = `
       <div style="padding: 20px; background: #F8FAFC; border: 2px dashed #94A3B8; border-radius: 12px; text-align: center;">
         <span style="font-size: 28px; display: block; margin-bottom: 6px;">📋</span>
-        <p style="font-weight: 700; margin-bottom: 6px; color: #1E293B; font-size: 15px;">おうちの方の希望条件がまだ設定されていません</p>
-        <p style="font-size: 13px; color: #64748B; margin-bottom: 14px; line-height: 1.5;">
-          ご自宅の最寄り駅や通学時間、学費などの希望を設定すると、<br>通学可能で条件にぴったりの学校が自動で見つかります！
-        </p>
+        <p style="font-weight: 700; margin-bottom: 12px; color: #1E293B; font-size: 15px;">希望条件が未設定です</p>
         <button type="button" class="btn-solid" onclick="startParentConditionEdit()" style="display: inline-block; padding: 10px 20px; font-weight: 800;">
           ✦ 希望条件を設定する
         </button>
       </div>
     `;
-    return;
-  }
+            return;
+          }
 
-  // 設問で「こだわらない」に変更された条件が足切りに残っていないか自動同期・整理
-  cleanIncompatibleStrictFilters();
+          // 設問で「こだわらない」に変更された条件が足切りに残っていないか自動同期・整理
+          cleanIncompatibleStrictFilters();
 
-  // 各設定値の日本語変換マップ
-  const transportMap = {
-    "train": "電車利用",
-    "bus": "路線バス利用",
-    "school_bus": "スクールバス利用",
-    "bicycle": "自転車通学",
-    "walk": "徒歩通学のみ"
-  };
+          // 各設定値の日本語変換マップ
+          const transportMap = {
+            "train": "電車利用",
+            "bus": "路線バス利用",
+            "school_bus": "スクールバス利用",
+            "bicycle": "自転車通学",
+            "walk": "徒歩通学のみ"
+          };
 
-  const tuitionMap = {
-    80: "80万円未満（公立中高一貫校など）",
-    100: "100万円未満（私立標準）",
-    120: "120万円未満（施設充実校）",
-    150: "150万円未満（大学附属・先進校）",
-    0: "こだわらない（学費の上限なし）"
-  };
+          const tuitionMap = {
+            80: "80万円未満（公立中高一貫校など）",
+            100: "100万円未満（私立標準）",
+            120: "120万円未満（施設充実校）",
+            150: "150万円未満（大学附属・先進校）",
+            0: "こだわらない（学費の上限なし）"
+          };
 
-  const genderMap = {
-    "coed": "共学校のみ",
-    "boys": "男子校のみ",
-    "girls": "女子校のみ",
-    "any": "こだわらない（共学・別学問わず）"
-  };
+          const genderMap = {
+            "coed": "共学校のみ",
+            "boys": "男子校のみ",
+            "girls": "女子校のみ",
+            "any": "こだわらない（共学・別学問わず）"
+          };
 
-  const categoryMap = {
-    "private": "私立中高一貫校",
-    "public": "公立中高一貫校",
-    "national": "国立大学附属中"
-  };
+          const categoryMap = {
+            "private": "私立中高一貫校",
+            "public": "公立中高一貫校",
+            "national": "国立大学附属中"
+          };
 
-  const religionMap = {
-    "none": "無宗教が良い",
-    "christian": "キリスト教系OK",
-    "buddhist": "仏教系OK",
-    "any": "こだわらない（宗教教育の有無問わず）"
-  };
+          const religionMap = {
+            "none": "無宗教が良い",
+            "christian": "キリスト教系OK",
+            "buddhist": "仏教系OK",
+            "any": "こだわらない（宗教教育の有無問わず）"
+          };
 
-  const univPathMap = {
-    "attached": "大学附属系（のびのび没頭）",
-    "prep": "進学校系（難関大受験指導）",
-    "any": "こだわらない（大学附属・進学校問わず）"
-  };
+          const univPathMap = {
+            "attached": "大学附属系（のびのび没頭）",
+            "prep": "進学校系（難関大受験指導）",
+            "any": "こだわらない（大学附属・進学校問わず）"
+          };
 
-  const vibeMap = {
-    "free": "自由・自主性",
-    "stem": "理数探究",
-    "support": "手厚い補習",
-    "global": "グローバル英語",
-    "manners": "情操礼儀",
-    "both": "文武両道"
-  };
+          const vibeMap = {
+            "free": "自由・自主性",
+            "stem": "理数探究",
+            "support": "手厚い補習",
+            "global": "グローバル英語",
+            "manners": "情操礼儀",
+            "both": "文武両道"
+          };
 
-  // 各条件の値の確実な取得（conditions または プロファイル直下）
-  const commuteTimeVal = cond.commute_time_max !== undefined ? cond.commute_time_max : (prof.commute_time !== undefined ? prof.commute_time : 60);
-  const tuitionVal = prof.tuition_cap !== undefined ? prof.tuition_cap : (cond.tuition_max !== undefined ? cond.tuition_max / 10000 : 100);
-  const genderVal = prof.gender_type || cond.school_gender_type || 'any';
-  const religionVal = prof.religious_pref || cond.religion_policy || 'any';
-  const univPathVal = prof.university_path || cond.university_path || 'any';
-  const transports = cond.transportation || prof.transport_methods || ['train', 'bicycle', 'walk'];
-  const categories = cond.school_category || prof.school_categories || ['any'];
-  const vibes = cond.desired_atmospheres || prof.atmosphere_keywords || ['free', 'stem'];
+          // 各条件の値の確実な取得（conditions または プロファイル直下）
+          const commuteTimeVal = cond.commute_time_max !== undefined ? cond.commute_time_max : (prof.commute_time !== undefined ? prof.commute_time : 60);
+          const tuitionVal = prof.tuition_cap !== undefined ? prof.tuition_cap : (cond.tuition_max !== undefined ? cond.tuition_max / 10000 : 100);
+          const genderVal = prof.gender_type || cond.school_gender_type || 'any';
+          const religionVal = prof.religious_pref || cond.religion_policy || 'any';
+          const univPathVal = prof.university_path || cond.university_path || 'any';
+          const transports = cond.transportation || prof.transport_methods || ['train', 'bicycle', 'walk'];
+          const categories = cond.school_category || prof.school_categories || ['any'];
+          const vibes = cond.desired_atmospheres || prof.atmosphere_keywords || ['free', 'stem'];
 
-  const addressText = (prof.address || prof.station)
-    ? `${prof.address || '東京都'}（最寄り: ${prof.station || '未設定'}）`
-    : '未設定';
+          const addressText = (prof.address || prof.station)
+            ? `${prof.address || '東京都'}（最寄り: ${prof.station || '未設定'}）`
+            : '未設定';
 
-  const commuteText = commuteTimeVal === 0
-    ? 'こだわらない（通学時間の上限なし）'
-    : (commuteTimeVal ? `片道 ${commuteTimeVal} 分以内` : 'こだわらない（通学時間の上限なし）');
+          const commuteText = commuteTimeVal === 0
+            ? 'こだわらない（通学時間の上限なし）'
+            : (commuteTimeVal ? `片道 ${commuteTimeVal} 分以内` : 'こだわらない（通学時間の上限なし）');
 
-  const tuitionText = tuitionMap[tuitionVal] || (tuitionVal === 0 ? 'こだわらない（学費の上限なし）' : `${tuitionVal}万円未満`);
-  const genderText = genderMap[genderVal] || (genderVal === 'any' ? 'こだわらない（共学・別学問わず）' : genderVal);
-  const religionText = religionMap[religionVal] || (religionVal === 'any' ? 'こだわらない（宗教教育の有無問わず）' : religionVal);
-  const univPathText = univPathMap[univPathVal] || (univPathVal === 'any' ? 'こだわらない（大学附属・進学校問わず）' : univPathVal);
+          const tuitionText = tuitionMap[tuitionVal] || (tuitionVal === 0 ? 'こだわらない（学費の上限なし）' : `${tuitionVal}万円未満`);
+          const genderText = genderMap[genderVal] || (genderVal === 'any' ? 'こだわらない（共学・別学問わず）' : genderVal);
+          const religionText = religionMap[religionVal] || (religionVal === 'any' ? 'こだわらない（宗教教育の有無問わず）' : religionVal);
+          const univPathText = univPathMap[univPathVal] || (univPathVal === 'any' ? 'こだわらない（大学附属・進学校問わず）' : univPathVal);
 
-  const strictKeyMap = {
-    "location_strict": `通学圏内（最寄り: ${prof.station || '未設定'}）`,
-    "commute_time_max": commuteTimeVal === 0 ? "通学時間（上限なし）" : `通学時間上限（${commuteTimeVal}分以内）`,
-    "commute_time": commuteTimeVal === 0 ? "通学時間（上限なし）" : `通学時間上限（${commuteTimeVal}分以内）`,
-    "tuition_max": `年間学費（${tuitionText}）`,
-    "tuition": `年間学費（${tuitionText}）`,
-    "school_gender_type": `学校形態（${genderText}）`,
-    "gender_type": `学校形態（${genderText}）`,
-    "transportation": "通学手段・範囲（自転車・徒歩含む）",
-    "school_category": "学校種別",
-    "religion_policy": `宗教教育（${religionText}）`,
-    "religion": `宗教教育（${religionText}）`,
-    "university_path": `希望進学傾向（${univPathText}）`,
-    "univ_path": `希望進学傾向（${univPathText}）`,
-    "atmosphere_policy": "求める校風・教育方針",
-    "desired_atmospheres": "求める校風・教育方針"
-  };
+          const strictKeyMap = {
+            "location_strict": `通学圏内（最寄り: ${prof.station || '未設定'}）`,
+            "commute_time_max": commuteTimeVal === 0 ? "通学時間（上限なし）" : `通学時間上限（${commuteTimeVal}分以内）`,
+            "commute_time": commuteTimeVal === 0 ? "通学時間（上限なし）" : `通学時間上限（${commuteTimeVal}分以内）`,
+            "tuition_max": `年間学費（${tuitionText}）`,
+            "tuition": `年間学費（${tuitionText}）`,
+            "school_gender_type": `学校形態（${genderText}）`,
+            "gender_type": `学校形態（${genderText}）`,
+            "transportation": "通学手段・範囲（自転車・徒歩含む）",
+            "school_category": "学校種別",
+            "religion_policy": `宗教教育（${religionText}）`,
+            "religion": `宗教教育（${religionText}）`,
+            "university_path": `希望進学傾向（${univPathText}）`,
+            "univ_path": `希望進学傾向（${univPathText}）`,
+            "atmosphere_policy": "求める校風・教育方針",
+            "desired_atmospheres": "求める校風・教育方針"
+          };
 
-  // チップ生成
-  const transportBadges = (transports && transports.length > 0)
-    ? transports.map(t => `<span class="ans-chip-tag ans-chip-parent"># ${transportMap[t] || t}</span>`).join(' ')
-    : '<span style="color:#888;">未選択</span>';
+          // チップ生成
+          const transportBadges = (transports && transports.length > 0)
+            ? transports.map(t => `<span class="ans-chip-tag ans-chip-parent"># ${transportMap[t] || t}</span>`).join(' ')
+            : '<span style="color:#888;">未選択</span>';
 
-  const isCategoryAny = categories.includes('any') || categories.length === 0;
-  const categoryBadges = isCategoryAny
-    ? '<span class="ans-chip-tag ans-chip-parent"># こだわらない（全種別）</span>'
-    : categories.map(c => `<span class="ans-chip-tag ans-chip-parent"># ${categoryMap[c] || c}</span>`).join(' ');
+          const isCategoryAny = categories.includes('any') || categories.length === 0;
+          const categoryBadges = isCategoryAny
+            ? '<span class="ans-chip-tag ans-chip-parent"># こだわらない（全種別）</span>'
+            : categories.map(c => `<span class="ans-chip-tag ans-chip-parent"># ${categoryMap[c] || c}</span>`).join(' ');
 
-  const vibeBadges = (vibes && vibes.length > 0)
-    ? vibes.map(v => `<span class="ans-chip-tag ans-chip-parent"># ${vibeMap[v] || v}</span>`).join(' ')
-    : '<span style="color:#888;">未選択</span>';
+          const vibeBadges = (vibes && vibes.length > 0)
+            ? vibes.map(v => `<span class="ans-chip-tag ans-chip-parent"># ${vibeMap[v] || v}</span>`).join(' ')
+            : '<span style="color:#888;">未選択</span>';
 
-  const strictFilters = prof.strict_filters || [];
-  const strictBadges = (strictFilters && strictFilters.length > 0)
-    ? strictFilters.map(k => `<span class="ans-chip-tag ans-chip-strict">🛡 ${strictKeyMap[k] || k}</span>`).join(' ')
-    : '<span style="font-size:12px; color:#64748B;">（設定なし：全条件を参考値としてマッチング）</span>';
+          const strictFilters = prof.strict_filters || [];
+          const strictBadges = (strictFilters && strictFilters.length > 0)
+            ? strictFilters.map(k => `<span class="ans-chip-tag ans-chip-strict">🛡 ${strictKeyMap[k] || k}</span>`).join(' ')
+            : '<span style="font-size:12px; color:#64748B;">（設定なし：全条件を参考値としてマッチング）</span>';
 
-  mypageEl.innerHTML = `
+          mypageEl.innerHTML = `
     <div class="mypage-ans-status-badge">
       <span class="badge-phase" style="background:#E0E7FF; border-color:#000; color:#1E3A8A;">条件設定済み（全10問）</span>
       <span style="font-size:12px; color:#555;">右上の「✎ 条件を編集する」からいつでも再設定できます</span>
@@ -5179,346 +6194,534 @@ function renderParentConditionsSummary() {
       </div>
     </div>
   `;
-}
+        }
 
-// ==========================================
-// 9. マイページ：プロフィールヘッダー ＆ アイコン編集 ＆ アカウント
-// ==========================================
-function updateHouseholdIdDisplays() {
-  const inputUrlEl = document.getElementById('inputGeneratedUrl');
-  if (inputUrlEl) {
-    inputUrlEl.value = `https://kokogaii.app/?child_access=koko_child_direct`;
-  }
-}
+        // ==========================================
+        // 9. マイページ：プロフィールヘッダー ＆ アイコン編集 ＆ アカウント
+        // ==========================================
+        function updateHouseholdIdDisplays() {
+          const inputUrlEl = document.getElementById('inputGeneratedUrl');
+          if (inputUrlEl) {
+            inputUrlEl.value = `https://kokogaii.app/?child_access=koko_child_direct`;
+          }
+        }
 
-function renderMypageProfileHeader() {
-  const isParent = currentUserMode === 'parent';
-  const avatarEl = document.getElementById('mypageAvatarIcon');
-  const nameEl = document.getElementById('mypageUserNameDisplay');
-  const roleBadgeEl = document.getElementById('mypageUserRoleBadge');
+        function renderMypageProfileHeader() {
+          const isParent = currentUserMode === 'parent';
+          const avatarEl = document.getElementById('mypageAvatarIcon');
+          const nameEl = document.getElementById('mypageUserNameDisplay');
+          const roleBadgeEl = document.getElementById('mypageUserRoleBadge');
 
-  const avatar = isParent ? (AppSchema.parent_avatar || "👤") : (AppSchema.child_avatar || "👦");
-  const name = isParent ? (AppSchema.parent_name || "未設定") : (AppSchema.child_name || "未設定");
-  const roleText = isParent ? "保護者アカウント" : "お子さまアカウント";
+          const avatar = isParent ? (AppSchema.parent_avatar || "👤") : (AppSchema.child_avatar || "👦");
+          const name = isParent ? (AppSchema.parent_name || "未設定") : (AppSchema.child_name || "未設定");
+          const roleText = isParent ? "保護者アカウント" : "お子さまアカウント";
 
-  if (avatarEl) avatarEl.textContent = avatar;
-  if (nameEl) nameEl.textContent = name;
-  if (roleBadgeEl) {
-    roleBadgeEl.textContent = roleText;
-    roleBadgeEl.className = isParent ? "badge-role-pill parent-badge" : "badge-role-pill child-badge";
-  }
-}
+          if (avatarEl) avatarEl.textContent = avatar;
+          if (nameEl) nameEl.textContent = name;
+          if (roleBadgeEl) {
+            roleBadgeEl.textContent = roleText;
+            roleBadgeEl.className = isParent ? "badge-role-pill parent-badge" : "badge-role-pill child-badge";
+          }
+        }
 
-const AVATAR_OPTIONS = [
-  "👦", "👧", "🧒", "🎒", "🎓", "⭐", "🌸", "🦁", "🐱", "👤", "👩", "👨", "🍀", "☕", "🦉", "🎨"
-];
+        // ==========================================
+        // 8-3. オンボーディング＆初期アカウント登録用アバター制御
+        // ==========================================
+        const PARENT_AVATARS = [
+          "👤", "👩", "👨", "☕", "🦉", "🌸", "🍀", "🎨", "⭐", "📚", "👓", "🌿"
+        ];
+        let selectedParentRegAvatar = "👤";
 
-let selectedModalAvatar = "👦";
+        const CHILD_AVATARS = [
+          "👦", "👧", "🧒", "🎒", "🎓", "⭐", "🌸", "🦁", "🐱", "🎨", "⚽", "🚀", "🦉", "🍀", "🧁", "🎸"
+        ];
+        let selectedChildRegAvatar = "👦";
 
-function openProfileEditModal() {
-  const modal = document.getElementById('profileEditModalOverlay');
-  if (!modal) return;
+        function renderParentRegAvatarPicker() {
+          const grid = document.getElementById('parentRegAvatarPickerGrid');
+          const preview = document.getElementById('parentRegAvatarEmoji');
+          if (!grid) return;
 
-  const isParent = currentUserMode === 'parent';
-  selectedModalAvatar = isParent ? (AppSchema.parent_avatar || "👤") : (AppSchema.child_avatar || "👦");
+          if (AppSchema.parent_avatar) {
+            selectedParentRegAvatar = AppSchema.parent_avatar;
+          }
+          if (preview) {
+            preview.textContent = selectedParentRegAvatar;
+          }
 
-  const nameInput = document.getElementById('editProfileNameInput');
-  if (nameInput) {
-    const currentName = isParent ? AppSchema.parent_name : AppSchema.child_name;
-    nameInput.value = (currentName && currentName !== "保護者さま" && currentName !== "お子さま") ? currentName : "";
-    nameInput.placeholder = isParent ? "例：お母さん、お父さん" : "例：ゆうき、はるか";
-  }
+          const pInput = document.getElementById('pInputParentName');
+          if (pInput && AppSchema.parent_name && AppSchema.parent_name !== "保護者さま") {
+            pInput.value = AppSchema.parent_name.replace(/さん$/, '');
+          }
 
-  renderAvatarPicker();
-  modal.style.display = 'flex';
-}
+          grid.innerHTML = '';
+          PARENT_AVATARS.forEach(emoji => {
+            const isSelected = emoji === selectedParentRegAvatar;
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = `avatar-choice-btn ${isSelected ? 'selected' : ''}`;
+            btn.textContent = emoji;
+            btn.onclick = () => {
+              selectedParentRegAvatar = emoji;
+              AppSchema.parent_avatar = emoji;
+              if (preview) preview.textContent = emoji;
+              renderParentRegAvatarPicker();
+            };
+            grid.appendChild(btn);
+          });
+        }
 
-function renderAvatarPicker() {
-  const grid = document.getElementById('avatarPickerGrid');
-  if (!grid) return;
-  grid.innerHTML = '';
+        function renderChildRegAvatarPicker() {
+          const grid = document.getElementById('childRegAvatarPickerGrid');
+          const preview = document.getElementById('childRegAvatarEmoji');
+          if (!grid) return;
 
-  AVATAR_OPTIONS.forEach(emoji => {
-    const isSelected = emoji === selectedModalAvatar;
-    const btn = document.createElement('button');
-    btn.type = 'button';
-    btn.className = `avatar-picker-btn ${isSelected ? 'selected' : ''}`;
-    btn.textContent = emoji;
-    btn.onclick = () => {
-      selectedModalAvatar = emoji;
-      renderAvatarPicker();
-    };
-    grid.appendChild(btn);
-  });
-}
+          if (AppSchema.child_avatar) {
+            selectedChildRegAvatar = AppSchema.child_avatar;
+          }
+          if (preview) {
+            preview.textContent = selectedChildRegAvatar;
+          }
 
-function closeProfileEditModal() {
-  const modal = document.getElementById('profileEditModalOverlay');
-  if (modal) modal.style.display = 'none';
-}
+          const cInput = document.getElementById('cInputNickname');
+          if (cInput && AppSchema.child_name && AppSchema.child_name !== "お子さま") {
+            cInput.value = AppSchema.child_name;
+          }
 
-function closeProfileEditModalOnBackdrop(e) {
-  if (e.target && e.target.id === 'profileEditModalOverlay') {
-    closeProfileEditModal();
-  }
-}
+          grid.innerHTML = '';
+          CHILD_AVATARS.forEach(emoji => {
+            const isSelected = emoji === selectedChildRegAvatar;
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = `avatar-choice-btn ${isSelected ? 'selected' : ''}`;
+            btn.textContent = emoji;
+            btn.onclick = () => {
+              selectedChildRegAvatar = emoji;
+              AppSchema.child_avatar = emoji;
+              if (preview) preview.textContent = emoji;
+              renderChildRegAvatarPicker();
+            };
+            grid.appendChild(btn);
+          });
+        }
 
-function saveProfileFromModal() {
-  const isParent = currentUserMode === 'parent';
-  const nameInput = document.getElementById('editProfileNameInput');
+        // ==========================================
+        // 8-4. 登録・質問画面の完全分離（オンボーディングモード制御）
+        // （登録中・ワーク中は学校情報やAI提案予定画面などを一切写さない）
+        // ==========================================
+        function startParentOnboarding() {
+          document.body.classList.add('onboarding-active');
+          currentUserMode = 'parent';
+          currentRole = 'parent';
+          updateHeaderModePills('parent');
 
-  const newName = nameInput ? nameInput.value.trim() : "";
+          // 他の全ビューを非表示にし、保護者画面のみ表示
+          document.querySelectorAll('.bottom-nav-item').forEach(btn => btn.classList.remove('active'));
+          document.querySelectorAll('.role-view').forEach(view => view.classList.remove('active'));
 
-  if (isParent) {
-    if (newName) {
-      AppSchema.parent_name = newName.endsWith("さん") ? newName : `${newName}さん`;
-    } else {
-      AppSchema.parent_name = "保護者さま";
-    }
-    AppSchema.parent_avatar = selectedModalAvatar;
-  } else {
-    AppSchema.child_name = newName || "お子さま";
-    AppSchema.child_avatar = selectedModalAvatar;
-  }
+          const view = document.getElementById('roleParentView');
+          if (view) view.classList.add('active');
 
-  renderMypageProfileHeader();
-  closeProfileEditModal();
-  saveAppStateToLocalStorage();
-  alert("プロフィール設定を保存しました！");
-}
+          const pSub = document.getElementById('parentSubInputView');
+          if (pSub) pSub.classList.add('active');
+          const pDash = document.getElementById('parentSubDashboardView');
+          if (pDash) pDash.classList.remove('active');
 
-function initMypageProfile() {
-  const isParent = currentUserMode === 'parent';
+          for (let i = 2; i <= 10; i++) {
+            const el = document.getElementById(`pSlide${i}`);
+            if (el) {
+              el.style.display = 'none';
+              el.classList.remove('active');
+            }
+          }
+          const pSlidePhase2 = document.getElementById('pSlidePhase2');
+          if (pSlidePhase2) { pSlidePhase2.style.display = 'none'; pSlidePhase2.classList.remove('active'); }
+          const pSlideUrlToken = document.getElementById('pSlideUrlToken');
+          if (pSlideUrlToken) { pSlideUrlToken.style.display = 'none'; pSlideUrlToken.classList.remove('active'); }
 
-  // おうちの方の条件設定：親画面のみ表示（子ども画面では非表示）
-  const parentCondSection = document.getElementById('mypageParentConditionsSection');
-  if (parentCondSection) {
-    parentCondSection.style.display = isParent ? 'block' : 'none';
-  }
+          const slide1 = document.getElementById('pSlide1');
+          if (slide1) {
+            slide1.style.display = 'block';
+            slide1.classList.add('active');
+          }
 
-  // いいねした学校、診断データ、アカウントは常時表示（子ども画面ではこの3つのみ表示）
-  const favCard = document.getElementById('mypageFavoritesCard');
-  if (favCard) favCard.style.display = 'block';
+          parentCurrentStep = 1;
+          updateParentProgressIndicator(1);
+          renderParentRegAvatarPicker();
 
-  // 質問回答データ：保護者画面マイページからは削除（非表示）
-  const childAnswersCard = document.getElementById('mypageChildAnswersCard');
-  if (childAnswersCard) {
-    childAnswersCard.style.display = isParent ? 'none' : 'block';
-  }
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
 
-  const accountSection = document.getElementById('mypageAccountSection');
-  if (accountSection) accountSection.style.display = 'block';
+        function startChildOnboarding() {
+          document.body.classList.add('onboarding-active');
+          currentUserMode = 'child';
+          currentRole = 'child';
+          updateHeaderModePills('child');
 
-  renderMypageProfileHeader();
-  updateHouseholdIdDisplays();
-  renderParentConditionsSummary();
-  renderMypageChildProfile();
-}
+          // 他の全ビューを非表示にし、子ども画面のみ表示
+          document.querySelectorAll('.bottom-nav-item').forEach(btn => btn.classList.remove('active'));
+          document.querySelectorAll('.role-view').forEach(view => view.classList.remove('active'));
 
-function handleChildProfileUpdate(event) {
-  event.preventDefault();
-  const name = document.getElementById('childEditName').value.trim();
-  const grade = document.getElementById('childEditGrade').value;
+          const view = document.getElementById('roleChildView');
+          if (view) view.classList.add('active');
 
-  const selectedInterests = [];
-  document.querySelectorAll('input[name="mypageInterest"]:checked').forEach(chk => {
-    selectedInterests.push(chk.value);
-  });
+          // cSlide1（子どもアカウント設定）から開始
+          for (let i = 0; i <= 7; i++) {
+            const el = document.getElementById(`cSlide${i}`);
+            if (el) {
+              el.style.display = (i === 1) ? 'block' : 'none';
+              el.classList.toggle('active', i === 1);
+            }
+          }
+          const resEl = document.getElementById('cSlideResult');
+          if (resEl) {
+            resEl.style.display = 'none';
+            resEl.classList.remove('active');
+          }
 
-  AppSchema.child_name = name;
-  AppSchema.child_grade = grade;
-  AppSchema.child_profile.interests = selectedInterests;
+          childCurrentStep = 1;
+          updateChildProgressIndicator(1);
+          renderChildRegAvatarPicker();
+          renderInterestSelectionGrid();
 
-  saveAppStateToLocalStorage();
-  renderMypageChildProfile();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
 
-  alert(`お子さまの情報（${name}さん・小${grade}）を更新しました！\nホーム画面の提案が再計算されます。`);
+        function exitOnboardingMode() {
+          document.body.classList.remove('onboarding-active');
+        }
 
-  renderHomeInterestAlternativeSchools();
-}
+        function onHeaderBrandClick() {
+          if (document.body.classList.contains('onboarding-active')) {
+            // 登録中・ワーク中はホーム画面に遷移させない
+            return;
+          }
+          switchAppView('home');
+        }
 
-// 全フォーム入力・選択状態の完全初期化（未回答のゼロ状態にする）
-function resetAllFormInputs() {
-  // 保護者スライド入力欄
-  const pName = document.getElementById('pInputParentName');
-  if (pName) pName.value = "";
-  const pAddr = document.getElementById('pInputAddress');
-  if (pAddr) pAddr.value = "";
-  const pStn = document.getElementById('pInputStation');
-  if (pStn) pStn.value = "";
-  const pCommute = document.getElementById('pInputCommute');
-  if (pCommute) pCommute.value = "60";
-  const pCommuteDisp = document.getElementById('valCommuteDisplay');
-  if (pCommuteDisp) pCommuteDisp.textContent = "60分";
+        function updateHeaderModePills(mode) {
+          const btnParent = document.getElementById('btnModeParent');
+          const btnChild = document.getElementById('btnModeChild');
+          const btnFamily = document.getElementById('btnModeFamily');
+          if (btnParent) btnParent.classList.toggle('active', mode === 'parent');
+          if (btnChild) btnChild.classList.toggle('active', mode === 'child');
+          if (btnFamily) btnFamily.classList.toggle('active', mode === 'family');
+        }
 
-  // 保護者チェックボックス・ラジオの選択全解除
-  document.querySelectorAll('#groupTransport input, #groupTuition input, #groupGender input, #groupCategory input, #groupReligion input, #groupUnivPath input, #groupAtmosphere input').forEach(input => {
-    input.checked = false;
-    const parentLabel = input.closest('.big-tile-checkbox');
-    if (parentLabel) parentLabel.classList.remove('active');
-  });
+        const AVATAR_OPTIONS = [
+          "👦", "👧", "🧒", "🎒", "🎓", "⭐", "🌸", "🦁", "🐱", "👤", "👩", "👨", "🍀", "☕", "🦉", "🎨"
+        ];
 
-  const vibeNotice = document.getElementById('vibeCountNotice');
-  if (vibeNotice) vibeNotice.textContent = "選択中: 0 / 3";
+        let selectedModalAvatar = "👦";
 
-  // 子供ニックネーム・性別
-  const cNick = document.getElementById('cInputNickname');
-  if (cNick) cNick.value = "";
+        function openProfileEditModal() {
+          const modal = document.getElementById('profileEditModalOverlay');
+          if (!modal) return;
 
-  const btnBoy = document.getElementById('btnChildGenderBoy');
-  const btnGirl = document.getElementById('btnChildGenderGirl');
-  const labelBoy = document.getElementById('labelChildGenderBoy');
-  const labelGirl = document.getElementById('labelChildGenderGirl');
-  if (btnBoy && btnGirl) {
-    btnBoy.classList.remove('selected');
-    btnBoy.style.border = '2px solid #CBD5E1';
-    btnBoy.style.background = '#FFFFFF';
-    if (labelBoy) labelBoy.style.color = '#475569';
-    btnGirl.classList.remove('selected');
-    btnGirl.style.border = '2px solid #CBD5E1';
-    btnGirl.style.background = '#FFFFFF';
-    if (labelGirl) labelGirl.style.color = '#475569';
-  }
+          const isParent = currentUserMode === 'parent';
+          selectedModalAvatar = isParent ? (AppSchema.parent_avatar || "👤") : (AppSchema.child_avatar || "👦");
 
-  // 子供選択ボタン・自由記述
-  document.querySelectorAll('#momentOptionsGrid .moment-choice-btn, #lifestyleOptionsGrid .moment-choice-btn, #studyOptionsGrid .moment-choice-btn, #facilityOptionsGrid .moment-choice-btn, #relationOptionsGrid .moment-choice-btn').forEach(btn => {
-    btn.classList.remove('active');
-  });
+          const nameInput = document.getElementById('editProfileNameInput');
+          if (nameInput) {
+            const currentName = isParent ? AppSchema.parent_name : AppSchema.child_name;
+            nameInput.value = (currentName && currentName !== "保護者さま" && currentName !== "お子さま") ? currentName : "";
+            nameInput.placeholder = isParent ? "例：お母さん、お父さん" : "例：ゆうき、はるか";
+          }
 
-  ['childFreeComment_step1', 'childFreeComment_q1', 'childFreeComment_q2', 'childFreeComment_q3', 'childFreeComment_q4', 'childFreeComment_q5'].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.value = "";
-  });
+          renderAvatarPicker();
+          modal.style.display = 'flex';
+        }
 
-  const urlInput = document.getElementById('inputGeneratedUrl');
-  if (urlInput) urlInput.value = "";
+        function renderAvatarPicker() {
+          const grid = document.getElementById('avatarPickerGrid');
+          if (!grid) return;
+          grid.innerHTML = '';
 
-  renderInterestSelectionGrid();
-}
+          AVATAR_OPTIONS.forEach(emoji => {
+            const isSelected = emoji === selectedModalAvatar;
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = `avatar-picker-btn ${isSelected ? 'selected' : ''}`;
+            btn.textContent = emoji;
+            btn.onclick = () => {
+              selectedModalAvatar = emoji;
+              renderAvatarPicker();
+            };
+            grid.appendChild(btn);
+          });
+        }
 
-// 動作確認・ポートフォリオ閲覧用のデモデータ（ユーザーがボタンを押したときのみロード）
-const DEMO_SAMPLE_DATA = {
-  household_id: "demo_household_101",
-  parent_name: "保護者（デモ）",
-  parent_avatar: "👤",
-  child_name: "そうた",
-  child_avatar: "👦",
-  child_grade: "5",
-  parent_profile: {
-    is_completed: true,
-    custom_entered: true,
-    address: "東京都世田谷区",
-    station: "用賀駅",
-    commute_time: 60,
-    tuition_cap: 100,
-    gender_type: "coed",
-    school_categories: ["private"],
-    religious_pref: "none",
-    university_path: "prep",
-    atmosphere_keywords: ["free", "stem"],
-    conditions: {
-      commute_time_max: 60,
-      tuition_max: 1000000,
-      transportation: ["train", "walk"],
-      school_gender_type: "coed",
-      school_category: ["private"],
-      religion_policy: "none",
-      university_path: "prep",
-      desired_atmospheres: ["free", "stem"]
-    },
-    strict_filters: ["commute_time", "tuition_cap", "school_category"]
-  },
-  child_profile: {
-    is_completed: true,
-    gender: "boy",
-    interests: ["interest_science_space", "interest_puzzle_math", "interest_digital_tech"],
-    moment: "moment_discovery",
-    lifestyle: "afterschool_lab",
-    study: "study_experiment",
-    facility: "place_lab",
-    relation: "relation_specialist",
-    free_comments: {
-      step1: "宇宙やロボットのことをもっと知りたい",
-      q1: "実験で新しい発見ができたとき",
-      q2: "パソコン室でプログラミングしたい",
-      q3: "理科の実験がたくさんある授業",
-      q4: "実験設備がすごいところ",
-      q5: "なんでも質問に答えてくれる面白い先生"
-    }
-  },
-  favorites: ["sch_shibaura", "sch_sakura"],
-  visit_planned_events: [],
-  visit_reviews: [
-    {
-      school_id: "sch_shibaura",
-      school_name: "芝浦工業大学附属中学校",
-      event_type: "オープンキャンパス",
-      visit_date: "9月20日(日)",
-      rating_atmosphere: 5,
-      rating_facility: 5,
-      child_comment: "ものづくりラボの3Dプリンタと大きな実験室がすごかった！先輩たちも優しくプログラミングを教えてくれたよ。"
-    }
-  ]
-};
+        function closeProfileEditModal() {
+          const modal = document.getElementById('profileEditModalOverlay');
+          if (modal) modal.style.display = 'none';
+        }
 
-// デモデータの明示的読み込み関数
-function loadDemoData() {
-  if (confirm("💡 動作確認用のデモデータを読み込みますか？\n（保護者とお子さま双方のサンプル回答が入り、学校提案やAI会話提案、比較機能などをすぐにお試しいただけます）")) {
-    AppSchema = JSON.parse(JSON.stringify(DEMO_SAMPLE_DATA));
-    saveAppStateToLocalStorage();
-    executeSchoolMatching();
-    renderMypageProfileHeader();
-    renderMypageFavorites();
-    renderParentConditionsSummary();
-    renderMypageChildProfile();
-    renderHomeRecommendedSchools();
-    renderHomeInterestAlternativeSchools();
-    renderParentDashboard();
-    renderParentSummaryReviews();
-    alert("💡 デモデータを読み込みました！\nホーム画面の学校提案やマイページ、AI会話提案などをぜひご覧ください。");
-    switchAppView('home');
-  }
-}
+        function closeProfileEditModalOnBackdrop(e) {
+          if (e.target && e.target.id === 'profileEditModalOverlay') {
+            closeProfileEditModal();
+          }
+        }
 
-// ユーザー入力データのリセット（初期化してゼロから再設定）
-function resetAppData() {
-  if (confirm("入力したデータ（お名前、住所、条件、質問回答、お気に入りなど）をすべて削除して、初期状態に戻しますか？\n（ゼロから新しく設定を始める場合にご利用ください）")) {
-    try {
-      localStorage.removeItem(APP_STORAGE_KEY);
-      localStorage.removeItem("koko_school_user_data_v4");
-      localStorage.removeItem("koko_user_data_v3");
-      localStorage.removeItem("koko_app_data_v1");
-      localStorage.removeItem("koko_app_data_v2");
-      sessionStorage.clear();
-    } catch(e) {}
-    AppSchema = JSON.parse(JSON.stringify(DEFAULT_EMPTY_SCHEMA));
-    resetAllFormInputs();
-    alert("すべてのデータを初期化しました。最初から新しく設定できます。");
-    location.reload();
-  }
-}
+        function saveProfileFromModal() {
+          const isParent = currentUserMode === 'parent';
+          const nameInput = document.getElementById('editProfileNameInput');
 
-// ==========================================
-// 9. 機能5：親向けダッシュボード ＆ AIギャップ分析
-// ==========================================
-function renderParentDashboard() {
-  const container = document.getElementById('schoolDashboardContainer');
-  if (!container) return;
-  container.innerHTML = '';
+          const newName = nameInput ? nameInput.value.trim() : "";
 
-  if (AppSchema.recommended_schools.length === 0) {
-    executeSchoolMatching();
-  }
+          if (isParent) {
+            if (newName) {
+              AppSchema.parent_name = newName.endsWith("さん") ? newName : `${newName}さん`;
+            } else {
+              AppSchema.parent_name = "保護者さま";
+            }
+            AppSchema.parent_avatar = selectedModalAvatar;
+          } else {
+            AppSchema.child_name = newName || "お子さま";
+            AppSchema.child_avatar = selectedModalAvatar;
+          }
 
-  AppSchema.recommended_schools.forEach(recItem => {
-    const s = recItem.school_data;
-    const review = AppSchema.visit_reviews.find(r => r.school_id === s.school_id);
-    const aiReport = generateAiGapAnalysisJson(s, AppSchema.parent_profile, AppSchema.child_profile, review);
+          renderMypageProfileHeader();
+          closeProfileEditModal();
+          saveAppStateToLocalStorage();
+          alert("プロフィール設定を保存しました！");
+        }
 
-    const card = document.createElement('article');
-    card.className = 'dashboard-school-card';
+        function initMypageProfile() {
+          const isParent = currentUserMode === 'parent';
 
-    card.innerHTML = `
+          // おうちの方の条件設定：親画面のみ表示（子ども画面では非表示）
+          const parentCondSection = document.getElementById('mypageParentConditionsSection');
+          if (parentCondSection) {
+            parentCondSection.style.display = isParent ? 'block' : 'none';
+          }
+
+          // いいねした学校、診断データ、アカウントは常時表示（子ども画面ではこの3つのみ表示）
+          const favCard = document.getElementById('mypageFavoritesCard');
+          if (favCard) favCard.style.display = 'block';
+
+          // 質問回答データ：保護者画面マイページからは削除（非表示）
+          const childAnswersCard = document.getElementById('mypageChildAnswersCard');
+          if (childAnswersCard) {
+            childAnswersCard.style.display = isParent ? 'none' : 'block';
+          }
+
+          const accountSection = document.getElementById('mypageAccountSection');
+          if (accountSection) accountSection.style.display = 'block';
+
+          renderMypageProfileHeader();
+          updateHouseholdIdDisplays();
+          renderParentConditionsSummary();
+          renderMypageChildProfile();
+        }
+
+        function handleChildProfileUpdate(event) {
+          if (event) event.preventDefault();
+          const nameEl = document.getElementById('childEditName');
+          const gradeEl = document.getElementById('childEditGrade');
+          const name = nameEl ? nameEl.value.trim() : (AppSchema.child_name || '');
+          const grade = gradeEl ? gradeEl.value : (AppSchema.child_grade || '5');
+
+          const selectedInterests = [];
+          document.querySelectorAll('input[name="mypageInterest"]:checked').forEach(chk => {
+            selectedInterests.push(chk.value);
+          });
+
+          AppSchema.child_name = name;
+          AppSchema.child_grade = grade;
+          AppSchema.child_profile.interests = selectedInterests;
+
+          saveAppStateToLocalStorage();
+          renderMypageChildProfile();
+
+          alert(`お子さまの情報（${name}さん・小${grade}）を更新しました！\nホーム画面の提案が再計算されます。`);
+
+          renderHomeInterestAlternativeSchools();
+        }
+
+        // 全フォーム入力・選択状態の完全初期化（未回答のゼロ状態にする）
+        function resetAllFormInputs() {
+          // 保護者スライド入力欄
+          const pName = document.getElementById('pInputParentName');
+          if (pName) pName.value = "";
+          const pAddr = document.getElementById('pInputAddress');
+          if (pAddr) pAddr.value = "";
+          const pStn = document.getElementById('pInputStation');
+          if (pStn) pStn.value = "";
+          const pCommute = document.getElementById('pInputCommute');
+          if (pCommute) pCommute.value = "60";
+          const pCommuteDisp = document.getElementById('valCommuteDisplay');
+          if (pCommuteDisp) pCommuteDisp.textContent = "60分";
+
+          // 保護者チェックボックス・ラジオの選択全解除
+          document.querySelectorAll('#groupTransport input, #groupTuition input, #groupGender input, #groupCategory input, #groupReligion input, #groupUnivPath input, #groupAtmosphere input').forEach(input => {
+            input.checked = false;
+            const parentLabel = input.closest('.big-tile-checkbox');
+            if (parentLabel) parentLabel.classList.remove('active');
+          });
+
+          const vibeNotice = document.getElementById('vibeCountNotice');
+          if (vibeNotice) vibeNotice.textContent = "選択中: 0 / 3";
+
+          // 子供ニックネーム・性別
+          const cNick = document.getElementById('cInputNickname');
+          if (cNick) cNick.value = "";
+
+          const btnBoy = document.getElementById('btnChildGenderBoy');
+          const btnGirl = document.getElementById('btnChildGenderGirl');
+          const labelBoy = document.getElementById('labelChildGenderBoy');
+          const labelGirl = document.getElementById('labelChildGenderGirl');
+          if (btnBoy && btnGirl) {
+            btnBoy.classList.remove('selected');
+            btnBoy.style.border = '2px solid #CBD5E1';
+            btnBoy.style.background = '#FFFFFF';
+            if (labelBoy) labelBoy.style.color = '#475569';
+            btnGirl.classList.remove('selected');
+            btnGirl.style.border = '2px solid #CBD5E1';
+            btnGirl.style.background = '#FFFFFF';
+            if (labelGirl) labelGirl.style.color = '#475569';
+          }
+
+          // 子供選択ボタン・自由記述
+          document.querySelectorAll('#momentOptionsGrid .moment-choice-btn, #lifestyleOptionsGrid .moment-choice-btn, #studyOptionsGrid .moment-choice-btn, #facilityOptionsGrid .moment-choice-btn, #relationOptionsGrid .moment-choice-btn').forEach(btn => {
+            btn.classList.remove('active');
+          });
+
+          ['childFreeComment_step1', 'childFreeComment_q1', 'childFreeComment_q2', 'childFreeComment_q3', 'childFreeComment_q4', 'childFreeComment_q5'].forEach(id => {
+            const el = document.getElementById(id);
+            if (el) el.value = "";
+          });
+
+          const urlInput = document.getElementById('inputGeneratedUrl');
+          if (urlInput) urlInput.value = "";
+
+          renderInterestSelectionGrid();
+        }
+
+        // 動作確認・ポートフォリオ閲覧用のデモデータ（ユーザーがボタンを押したときのみロード）
+        const DEMO_SAMPLE_DATA = {
+          household_id: "demo_household_101",
+          parent_name: "保護者（デモ）",
+          parent_avatar: "👤",
+          child_name: "そうた",
+          child_avatar: "👦",
+          child_grade: "5",
+          parent_profile: {
+            is_completed: true,
+            custom_entered: true,
+            address: "東京都世田谷区",
+            station: "用賀駅",
+            commute_time: 60,
+            tuition_cap: 100,
+            gender_type: "coed",
+            school_categories: ["private"],
+            religious_pref: "none",
+            university_path: "prep",
+            atmosphere_keywords: ["free", "stem"],
+            conditions: {
+              commute_time_max: 60,
+              tuition_max: 1000000,
+              transportation: ["train", "walk"],
+              school_gender_type: "coed",
+              school_category: ["private"],
+              religion_policy: "none",
+              university_path: "prep",
+              desired_atmospheres: ["free", "stem"]
+            },
+            strict_filters: ["commute_time", "tuition_cap", "school_category"]
+          },
+          child_profile: {
+            is_completed: true,
+            gender: "boy",
+            interests: ["interest_science_space", "interest_puzzle_math", "interest_digital_tech"],
+            moment: "moment_discovery",
+            lifestyle: "afterschool_lab",
+            study: "study_experiment",
+            facility: "place_lab",
+            relation: "relation_specialist",
+            free_comments: {
+              step1: "宇宙やロボットのことをもっと知りたい",
+              q1: "実験で新しい発見ができたとき",
+              q2: "パソコン室でプログラミングしたい",
+              q3: "理科の実験がたくさんある授業",
+              q4: "実験設備がすごいところ",
+              q5: "なんでも質問に答えてくれる面白い先生"
+            }
+          },
+          favorites: ["sch_shibaura", "sch_sakura"],
+          visit_planned_events: [],
+          visit_reviews: [
+            {
+              school_id: "sch_shibaura",
+              school_name: "芝浦工業大学附属中学校",
+              event_type: "オープンキャンパス",
+              visit_date: "9月20日(日)",
+              rating_atmosphere: 5,
+              rating_facility: 5,
+              child_comment: "ものづくりラボの3Dプリンタと大きな実験室がすごかった！先輩たちも優しくプログラミングを教えてくれたよ。"
+            }
+          ]
+        };
+
+        // デモデータの明示的読み込み関数
+        function loadDemoData() {
+          if (confirm("💡 動作確認用のデモデータを読み込みますか？\n（保護者とお子さま双方のサンプル回答が入り、学校提案やAI会話提案、比較機能などをすぐにお試しいただけます）")) {
+            AppSchema = JSON.parse(JSON.stringify(DEMO_SAMPLE_DATA));
+            ensureInitialFamilyData();
+            saveAppStateToLocalStorage();
+            executeSchoolMatching();
+            renderMypageProfileHeader();
+            renderMypageFavorites();
+            renderParentConditionsSummary();
+            renderMypageChildProfile();
+            renderHomeRecommendedSchools();
+            renderHomeInterestAlternativeSchools();
+            renderParentDashboard();
+            renderParentSummaryReviews();
+            exitOnboardingMode();
+            alert("💡 デモデータを読み込みました！\nホーム画面の学校提案やマイページ、AI会話提案などをぜひご覧ください。");
+            switchAppView('home');
+          }
+        }
+
+        // ユーザー入力データのリセット（初期化してゼロから再設定）
+        function resetAppData() {
+          if (confirm("入力したデータ（お名前、住所、条件、質問回答、お気に入りなど）をすべて削除して、初期状態に戻しますか？\n（ゼロから新しく設定を始める場合にご利用ください）")) {
+            try {
+              localStorage.removeItem(APP_STORAGE_KEY);
+              localStorage.removeItem("koko_school_user_data_v4");
+              localStorage.removeItem("koko_user_data_v3");
+              localStorage.removeItem("koko_app_data_v1");
+              localStorage.removeItem("koko_app_data_v2");
+              sessionStorage.clear();
+            } catch (e) { }
+            AppSchema = JSON.parse(JSON.stringify(DEFAULT_EMPTY_SCHEMA));
+            resetAllFormInputs();
+            alert("すべてのデータを初期化しました。最初から新しく設定できます。");
+            location.reload();
+          }
+        }
+
+        // ==========================================
+        // 9. 機能5：親向けダッシュボード ＆ AIギャップ分析
+        // ==========================================
+        function renderParentDashboard() {
+          const container = document.getElementById('schoolDashboardContainer');
+          if (!container) return;
+          container.innerHTML = '';
+
+          if (AppSchema.recommended_schools.length === 0) {
+            executeSchoolMatching();
+          }
+
+          AppSchema.recommended_schools.forEach(recItem => {
+            const s = recItem.school_data;
+            const review = AppSchema.visit_reviews.find(r => r.school_id === s.school_id);
+            const aiReport = generateAiGapAnalysisJson(s, AppSchema.parent_profile, AppSchema.child_profile, review);
+
+            const card = document.createElement('article');
+            card.className = 'dashboard-school-card';
+
+            card.innerHTML = `
       <div class="dash-school-header">
         <div>
           <span class="badge-pass">保護者の絶対条件に合致</span>
@@ -5609,209 +6812,212 @@ function renderParentDashboard() {
       </div>
     `;
 
-    container.appendChild(card);
-  });
-}
+            container.appendChild(card);
+          });
+        }
 
-function generateAiGapAnalysisJson(school, parentProfile, childProfile, review) {
-  const interestNames = (childProfile.interests || []).map(id => {
-    const found = CHILD_INTEREST_OPTIONS.find(opt => opt.id === id);
-    return found ? found.title : id;
-  });
-  const interestStr = interestNames.length > 0 ? interestNames.join("・") : "理科や工作";
+        function generateAiGapAnalysisJson(school, parentProfile, childProfile, review) {
+          const interestNames = (childProfile.interests || []).map(id => {
+            const found = CHILD_INTEREST_OPTIONS.find(opt => opt.id === id);
+            return found ? found.title : id;
+          });
+          const interestStr = interestNames.length > 0 ? interestNames.join("・") : "理科や工作";
 
-  // 子供の自由記述からの抜粋
-  const freeCommentsObj = childProfile.free_comments || {};
-  const firstChildQuote = freeCommentsObj.q1 || freeCommentsObj.q2 || freeCommentsObj.step1 || "じぶんで作ったものを友だちに見てもらいたい";
+          // 子供の自由記述からの抜粋
+          const freeCommentsObj = childProfile.free_comments || {};
+          const firstChildQuote = freeCommentsObj.q1 || freeCommentsObj.q2 || freeCommentsObj.step1 || "じぶんで作ったものを友だちに見てもらいたい";
 
-  if (!review) {
-    return {
-      emotion_summary: "まだ見学前の段階ですが、事前の興味関心および生活希望とのマッチ度は非常に高い状態です。",
-      interest_gap_analysis: `お子さまが事前に関心を示した「${interestStr}」について、学校の本格的な設備や探究型の授業スタイルが合致しています。お子さまの言葉「${firstChildQuote}」を実現できる環境が見つかっています。`,
-      parent_child_alignment: `通学時間（${school.commute_time}分）や学費など保護者の絶対条件をクリアしており、安全に通学できる安心の環境です。`,
-      conversation_prompts: [
-        `${school.name}のパンフレットを見て、一番入ってみたい教室ややってみたいことは何かな？`,
-        `「${firstChildQuote}」って話してくれたけど、あの学校ならできそうか一緒に調べてみようか？`
-      ]
-    };
-  }
+          if (!review) {
+            return {
+              emotion_summary: "まだ見学前の段階ですが、事前の興味関心および生活希望とのマッチ度は非常に高い状態です。",
+              interest_gap_analysis: `お子さまが事前に関心を示した「${interestStr}」について、学校の本格的な設備や探究型の授業スタイルが合致しています。お子さまの言葉「${firstChildQuote}」を実現できる環境が見つかっています。`,
+              parent_child_alignment: `通学時間（${school.commute_time}分）や学費など保護者の絶対条件をクリアしており、安全に通学できる安心の環境です。`,
+              conversation_prompts: [
+                `${school.name}のパンフレットを見て、一番入ってみたい教室ややってみたいことは何かな？`,
+                `「${firstChildQuote}」って話してくれたけど、あの学校ならできそうか一緒に調べてみようか？`
+              ]
+            };
+          }
 
-  const isPositive = review.first_impression_code <= 3;
-  return {
-    emotion_summary: isPositive
-      ? "見学直後から非常に前向きな手応えを感じており、通学イメージが具体化しつつあります。"
-      : "思っていた雰囲気とのギャップや疲労感を感じており、慎重な違和感の言語化が必要です。",
-    interest_gap_analysis: isPositive
-      ? `事前の興味であった「${interestStr}」に対し、実際の見学で「${review.impressed_points.map(p=>p.comment).join("、 ")}」を自分の目で確かめたことで、机上のイメージがリアルな憧れへと進化しています。`
-      : `事前の期待と実際の環境との間に若干のズレがあった模様です。何が自分に合わないと感じたのかを掘り下げることで、本当に大切にしたい環境軸が明確になります。`,
-    parent_child_alignment: `保護者が設定した通学上限（${parentProfile.conditions.commute_time_max}分以内）を完全に満たしており、お子さまの実感とも高いレベルで合致します。学力や偏差値の議論よりも、本人の「安心感」を最優先に対話を進めるのが効果的です。`,
-    conversation_prompts: [
-      `今日一番「おっ！」と目が止まった${review.impressed_points[0] ? `『${review.impressed_points[0].comment}』` : "教室"}って、どんな風に見えたの？`,
-      `もしあの学校の生徒になったら、毎朝どんな気持ちで登校できそうか想像できた？`
-    ]
-  };
-}
+          const isPositive = review.first_impression_code <= 3;
+          return {
+            emotion_summary: isPositive
+              ? "見学直後から非常に前向きな手応えを感じており、通学イメージが具体化しつつあります。"
+              : "思っていた雰囲気とのギャップや疲労感を感じており、慎重な違和感の言語化が必要です。",
+            interest_gap_analysis: isPositive
+              ? `事前の興味であった「${interestStr}」に対し、実際の見学で「${review.impressed_points.map(p => p.comment).join("、 ")}」を自分の目で確かめたことで、机上のイメージがリアルな憧れへと進化しています。`
+              : `事前の期待と実際の環境との間に若干のズレがあった模様です。何が自分に合わないと感じたのかを掘り下げることで、本当に大切にしたい環境軸が明確になります。`,
+            parent_child_alignment: `保護者が設定した通学上限（${parentProfile.conditions.commute_time_max}分以内）を完全に満たしており、お子さまの実感とも高いレベルで合致します。学力や偏差値の議論よりも、本人の「安心感」を最優先に対話を進めるのが効果的です。`,
+            conversation_prompts: [
+              `今日一番「おっ！」と目が止まった${review.impressed_points[0] ? `『${review.impressed_points[0].comment}』` : "教室"}って、どんな風に見えたの？`,
+              `もしあの学校の生徒になったら、毎朝どんな気持ちで登校できそうか想像できた？`
+            ]
+          };
+        }
 
-function getSolidIconSvg(iconType) {
-  const stroke = "currentColor";
-  switch (iconType) {
-    case "code":
-      return `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="${stroke}" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>`;
-    case "book":
-      return `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="${stroke}" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>`;
-    case "palette":
-      return `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="${stroke}" stroke-width="2"><circle cx="13.5" cy="6.5" r=".5"/><circle cx="17.5" cy="10.5" r=".5"/><circle cx="8.5" cy="7.5" r=".5"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.9 0 1.6-.7 1.6-1.7 0-.4-.2-.8-.4-1.1-.3-.3-.4-.7-.4-1.1 0-.9.7-1.7 1.7-1.7h2c3 0 5.5-2.5 5.5-5.5C22 6.5 17.5 2 12 2z"/></svg>`;
-    case "trophy":
-      return `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="${stroke}" stroke-width="2"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2z"/></svg>`;
-    case "leaf":
-      return `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="${stroke}" stroke-width="2"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.5 21 2c0 4-1.5 5.5-2.1 11.2A7 7 0 0 1 11 20z"/><path d="M2 21c0-3 1.85-5.36 5.08-6"/></svg>`;
-    case "flask":
-      return `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="${stroke}" stroke-width="2"><path d="M10 2v7.5a2 2 0 0 1-.2.9L4.7 20.5a1 1 0 0 0 .9 1.5h12.8a1 1 0 0 0 .9-1.5l-5.1-10.1A2 2 0 0 1 14 9.5V2"/><line x1="8.5" y1="2" x2="15.5" y2="2"/></svg>`;
-    case "map":
-      return `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="${stroke}" stroke-width="2"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="8" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>`;
-    case "calculator":
-      return `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="${stroke}" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="16" y1="14" x2="16" y2="18"/><path d="M8 10h.01"/><path d="M12 10h.01"/><path d="M16 10h.01"/><path d="M8 14h.01"/><path d="M12 14h.01"/><path d="M8 18h.01"/><path d="M12 18h.01"/></svg>`;
-    case "music":
-      return `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="${stroke}" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>`;
-    case "utensils":
-      return `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="${stroke}" stroke-width="2"><path d="M18 2v6a3 3 0 0 1-3 3 3 3 0 0 1-3-3V2"/><path d="M15 11v11"/><path d="M5 2v8a2 2 0 0 0 2 2h0a2 2 0 0 0 2-2V2"/><path d="M7 12v10"/></svg>`;
-    default:
-      return `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="${stroke}" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>`;
-  }
-}
+        function getSolidIconSvg(iconType) {
+          const stroke = "currentColor";
+          switch (iconType) {
+            case "code":
+              return `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="${stroke}" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>`;
+            case "book":
+              return `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="${stroke}" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>`;
+            case "palette":
+              return `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="${stroke}" stroke-width="2"><circle cx="13.5" cy="6.5" r=".5"/><circle cx="17.5" cy="10.5" r=".5"/><circle cx="8.5" cy="7.5" r=".5"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.9 0 1.6-.7 1.6-1.7 0-.4-.2-.8-.4-1.1-.3-.3-.4-.7-.4-1.1 0-.9.7-1.7 1.7-1.7h2c3 0 5.5-2.5 5.5-5.5C22 6.5 17.5 2 12 2z"/></svg>`;
+            case "trophy":
+              return `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="${stroke}" stroke-width="2"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2z"/></svg>`;
+            case "leaf":
+              return `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="${stroke}" stroke-width="2"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.5 21 2c0 4-1.5 5.5-2.1 11.2A7 7 0 0 1 11 20z"/><path d="M2 21c0-3 1.85-5.36 5.08-6"/></svg>`;
+            case "flask":
+              return `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="${stroke}" stroke-width="2"><path d="M10 2v7.5a2 2 0 0 1-.2.9L4.7 20.5a1 1 0 0 0 .9 1.5h12.8a1 1 0 0 0 .9-1.5l-5.1-10.1A2 2 0 0 1 14 9.5V2"/><line x1="8.5" y1="2" x2="15.5" y2="2"/></svg>`;
+            case "map":
+              return `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="${stroke}" stroke-width="2"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="8" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>`;
+            case "calculator":
+              return `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="${stroke}" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2"/><line x1="8" y1="6" x2="16" y2="6"/><line x1="16" y1="14" x2="16" y2="18"/><path d="M8 10h.01"/><path d="M12 10h.01"/><path d="M16 10h.01"/><path d="M8 14h.01"/><path d="M12 14h.01"/><path d="M8 18h.01"/><path d="M12 18h.01"/></svg>`;
+            case "music":
+              return `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="${stroke}" stroke-width="2"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>`;
+            case "utensils":
+              return `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="${stroke}" stroke-width="2"><path d="M18 2v6a3 3 0 0 1-3 3 3 3 0 0 1-3-3V2"/><path d="M15 11v11"/><path d="M5 2v8a2 2 0 0 0 2 2h0a2 2 0 0 0 2-2V2"/><path d="M7 12v10"/></svg>`;
+            default:
+              return `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="${stroke}" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>`;
+          }
+        }
 
-// ==========================================
-// 10. マイページ：質問回答データ描画 ＆ ローカルストレージ連携
-// ==========================================
-const APP_STORAGE_KEY = "koko_school_user_data_v4";
+        // ==========================================
+        // 10. マイページ：質問回答データ描画 ＆ ローカルストレージ連携
+        // ==========================================
+        const APP_STORAGE_KEY = "koko_school_user_data_v4";
 
-function saveAppStateToLocalStorage() {
-  try {
-    const dataToSave = {
-      household_id: AppSchema.household_id,
-      parent_name: AppSchema.parent_name,
-      parent_avatar: AppSchema.parent_avatar,
-      child_name: AppSchema.child_name,
-      child_avatar: AppSchema.child_avatar,
-      child_grade: AppSchema.child_grade,
-      child_profile: AppSchema.child_profile,
-      parent_profile: AppSchema.parent_profile,
-      favorites: AppSchema.favorites,
-      visit_planned_events: AppSchema.visit_planned_events,
-      visit_reviews: AppSchema.visit_reviews
-    };
-    localStorage.setItem(APP_STORAGE_KEY, JSON.stringify(dataToSave));
-  } catch (e) {
-    console.warn("localStorage save failed", e);
-  }
-}
+        function saveAppStateToLocalStorage() {
+          try {
+            const dataToSave = {
+              household_id: AppSchema.household_id,
+              parent_name: AppSchema.parent_name,
+              parent_avatar: AppSchema.parent_avatar,
+              child_name: AppSchema.child_name,
+              child_avatar: AppSchema.child_avatar,
+              child_grade: AppSchema.child_grade,
+              child_profile: AppSchema.child_profile,
+              parent_profile: AppSchema.parent_profile,
+              favorites: AppSchema.favorites,
+              visit_planned_events: AppSchema.visit_planned_events,
+              visit_reviews: AppSchema.visit_reviews,
+              family_posts: AppSchema.family_posts,
+              family_footprints: AppSchema.family_footprints
+            };
+            localStorage.setItem(APP_STORAGE_KEY, JSON.stringify(dataToSave));
+          } catch (e) {
+            console.warn("localStorage save failed", e);
+          }
+        }
 
-function loadAppStateFromLocalStorage() {
-  try {
-    // 過去の開発時テストデータ（「いろは」「荒川沖駅」「茨城県土浦市」など）の古いキーを自動クリア
-    try {
-      localStorage.removeItem("koko_app_data_v1");
-      localStorage.removeItem("koko_app_data_v2");
-      localStorage.removeItem("koko_user_data_v3");
-    } catch(e) {}
+        function loadAppStateFromLocalStorage() {
+          try {
+            // 過去の開発時テストデータ（「いろは」「荒川沖駅」「茨城県土浦市」など）の古いキーを自動クリア
+            try {
+              localStorage.removeItem("koko_app_data_v1");
+              localStorage.removeItem("koko_app_data_v2");
+              localStorage.removeItem("koko_user_data_v3");
+            } catch (e) { }
 
-    const saved = localStorage.getItem(APP_STORAGE_KEY);
-    if (!saved) {
-      // 初回アクセス時：一切サンプルの事前入力をロードせず、完全に未回答の状態で開始
-      AppSchema = JSON.parse(JSON.stringify(DEFAULT_EMPTY_SCHEMA));
-      resetAllFormInputs();
-      return;
-    }
+            const saved = localStorage.getItem(APP_STORAGE_KEY);
+            if (!saved) {
+              // 初回アクセス時：一切サンプルの事前入力をロードせず、完全に未回答の状態で開始
+              AppSchema = JSON.parse(JSON.stringify(DEFAULT_EMPTY_SCHEMA));
+              resetAllFormInputs();
+              return;
+            }
 
-    const parsed = JSON.parse(saved);
-    if (parsed.household_id) AppSchema.household_id = parsed.household_id;
-    if (parsed.parent_name) AppSchema.parent_name = parsed.parent_name;
-    if (parsed.parent_avatar) AppSchema.parent_avatar = parsed.parent_avatar;
-    if (parsed.child_name) AppSchema.child_name = parsed.child_name;
-    if (parsed.child_avatar) AppSchema.child_avatar = parsed.child_avatar;
-    if (parsed.child_grade) AppSchema.child_grade = parsed.child_grade;
+            const parsed = JSON.parse(saved);
+            if (parsed.household_id) AppSchema.household_id = parsed.household_id;
+            if (parsed.parent_name) AppSchema.parent_name = parsed.parent_name;
+            if (parsed.parent_avatar) AppSchema.parent_avatar = parsed.parent_avatar;
+            if (parsed.child_name) AppSchema.child_name = parsed.child_name;
+            if (parsed.child_avatar) AppSchema.child_avatar = parsed.child_avatar;
+            if (parsed.child_grade) AppSchema.child_grade = parsed.child_grade;
 
-    if (parsed.child_profile && parsed.child_profile.is_completed) {
-      AppSchema.child_profile = Object.assign(AppSchema.child_profile, parsed.child_profile);
-      AppSchema.child_profile.is_completed = true;
-    } else {
-      AppSchema.child_profile = JSON.parse(JSON.stringify(DEFAULT_EMPTY_SCHEMA.child_profile));
-      AppSchema.child_name = "";
-    }
+            if (parsed.child_profile && parsed.child_profile.is_completed) {
+              AppSchema.child_profile = Object.assign(AppSchema.child_profile, parsed.child_profile);
+              AppSchema.child_profile.is_completed = true;
+            } else {
+              AppSchema.child_profile = JSON.parse(JSON.stringify(DEFAULT_EMPTY_SCHEMA.child_profile));
+              AppSchema.child_name = "";
+            }
 
-    if (parsed.parent_profile && parsed.parent_profile.is_completed) {
-      AppSchema.parent_profile = Object.assign(AppSchema.parent_profile, parsed.parent_profile);
-      AppSchema.parent_profile.is_completed = true;
-    } else {
-      AppSchema.parent_profile = JSON.parse(JSON.stringify(DEFAULT_EMPTY_SCHEMA.parent_profile));
-      AppSchema.parent_name = "";
-    }
+            if (parsed.parent_profile && parsed.parent_profile.is_completed) {
+              AppSchema.parent_profile = Object.assign(AppSchema.parent_profile, parsed.parent_profile);
+              AppSchema.parent_profile.is_completed = true;
+            } else {
+              AppSchema.parent_profile = JSON.parse(JSON.stringify(DEFAULT_EMPTY_SCHEMA.parent_profile));
+              AppSchema.parent_name = "";
+            }
 
-    if (Array.isArray(parsed.favorites)) AppSchema.favorites = parsed.favorites;
-    if (Array.isArray(parsed.visit_planned_events)) AppSchema.visit_planned_events = parsed.visit_planned_events;
-    if (Array.isArray(parsed.visit_reviews)) AppSchema.visit_reviews = parsed.visit_reviews;
-  } catch (e) {
-    console.warn("localStorage load failed", e);
-    AppSchema = JSON.parse(JSON.stringify(DEFAULT_EMPTY_SCHEMA));
-    resetAllFormInputs();
-  }
-}
+            if (Array.isArray(parsed.favorites)) AppSchema.favorites = parsed.favorites;
+            if (Array.isArray(parsed.visit_planned_events)) AppSchema.visit_planned_events = parsed.visit_planned_events;
+            if (Array.isArray(parsed.visit_reviews)) AppSchema.visit_reviews = parsed.visit_reviews;
+            if (Array.isArray(parsed.family_posts)) AppSchema.family_posts = parsed.family_posts;
+            if (Array.isArray(parsed.family_footprints)) AppSchema.family_footprints = parsed.family_footprints;
+          } catch (e) {
+            console.warn("localStorage load failed", e);
+            AppSchema = JSON.parse(JSON.stringify(DEFAULT_EMPTY_SCHEMA));
+            resetAllFormInputs();
+          }
+        }
 
-function renderMypageChildProfile() {
-  const container = document.getElementById('mypageChildAnswersSummary');
-  if (!container) return;
+        function renderMypageChildProfile() {
+          const container = document.getElementById('mypageChildAnswersSummary');
+          if (!container) return;
 
-  const prof = AppSchema.child_profile || {};
-  if (!prof.is_completed) {
-    container.innerHTML = `
+          const prof = AppSchema.child_profile || {};
+          if (!prof.is_completed) {
+            container.innerHTML = `
       <div style="padding: 16px; background: #FFF9E6; border: 2px dashed #000; border-radius: 12px; text-align: center;">
-        <p style="font-weight: 700; margin-bottom: 6px; color: #1B2028;">まだ質問に答えていません</p>
-        <p style="font-size: 13px; color: #555; margin-bottom: 12px;">「すきなことを見つけるワーク」に答えると、あなたにぴったりの学校が自動で見つかります！</p>
+        <p style="font-weight: 700; margin-bottom: 12px; color: #1B2028;">まだ質問に答えていません</p>
         <button type="button" class="btn-solid-child" onclick="startChildQuestionEdit()" style="display: inline-block;">✦ 質問に答えてみる</button>
       </div>
     `;
-    return;
-  }
+            return;
+          }
 
-  const interestBadges = (prof.interests && prof.interests.length > 0)
-    ? prof.interests.map(int => `<span class="ans-chip-tag"># ${CHILD_INTEREST_LABEL_MAP[int] || int}</span>`).join(' ')
-    : '<span style="color:#888;">未選択</span>';
+          const interestBadges = (prof.interests && prof.interests.length > 0)
+            ? prof.interests.map(int => `<span class="ans-chip-tag"># ${CHILD_INTEREST_LABEL_MAP[int] || int}</span>`).join(' ')
+            : '<span style="color:#888;">未選択</span>';
 
-  const momentVal = prof.moment || prof.q1 || '';
-  const lifestyleVal = prof.lifestyle || prof.afterschool || prof.q2 || '';
-  const studyVal = prof.study || prof.subject || prof.q3 || '';
-  const facilityVal = prof.facility || prof.place || prof.q4 || '';
-  const relationVal = prof.relation || prof.q5 || '';
+          const momentVal = prof.moment || prof.q1 || '';
+          const lifestyleVal = prof.lifestyle || prof.afterschool || prof.q2 || '';
+          const studyVal = prof.study || prof.subject || prof.q3 || '';
+          const facilityVal = prof.facility || prof.place || prof.q4 || '';
+          const relationVal = prof.relation || prof.q5 || '';
 
-  const momentText = CHILD_CHOICE_LABEL_MAP[momentVal] || momentVal || '未設定';
-  const afterschoolText = CHILD_CHOICE_LABEL_MAP[lifestyleVal] || lifestyleVal || '未設定';
-  const subjectText = CHILD_CHOICE_LABEL_MAP[studyVal] || studyVal || '未設定';
-  const placeText = CHILD_CHOICE_LABEL_MAP[facilityVal] || facilityVal || '未設定';
-  const relationText = CHILD_CHOICE_LABEL_MAP[relationVal] || relationVal || '未設定';
+          const momentText = CHILD_CHOICE_LABEL_MAP[momentVal] || momentVal || '未設定';
+          const afterschoolText = CHILD_CHOICE_LABEL_MAP[lifestyleVal] || lifestyleVal || '未設定';
+          const subjectText = CHILD_CHOICE_LABEL_MAP[studyVal] || studyVal || '未設定';
+          const placeText = CHILD_CHOICE_LABEL_MAP[facilityVal] || facilityVal || '未設定';
+          const relationText = CHILD_CHOICE_LABEL_MAP[relationVal] || relationVal || '未設定';
 
-  const freeQuotes = [];
-  if (prof.free_comments) {
-    if (prof.free_comments.step1) freeQuotes.push(`「${prof.free_comments.step1}」`);
-    if (prof.free_comments.q1) freeQuotes.push(`「${prof.free_comments.q1}」`);
-    if (prof.free_comments.q2) freeQuotes.push(`「${prof.free_comments.q2}」`);
-    if (prof.free_comments.q3) freeQuotes.push(`「${prof.free_comments.q3}」`);
-    if (prof.free_comments.q4) freeQuotes.push(`「${prof.free_comments.q4}」`);
-  }
-  const quotesHtml = freeQuotes.length > 0
-    ? `<div class="mypage-ans-quote"><span style="font-weight:700;">自由記述の言葉：</span> ${freeQuotes.join(' ')}</div>`
-    : '';
+          const freeQuotes = [];
+          if (prof.free_comments) {
+            if (prof.free_comments.step1) freeQuotes.push(`「${prof.free_comments.step1}」`);
+            if (prof.free_comments.q1) freeQuotes.push(`「${prof.free_comments.q1}」`);
+            if (prof.free_comments.q2) freeQuotes.push(`「${prof.free_comments.q2}」`);
+            if (prof.free_comments.q3) freeQuotes.push(`「${prof.free_comments.q3}」`);
+            if (prof.free_comments.q4) freeQuotes.push(`「${prof.free_comments.q4}」`);
+          }
+          const quotesHtml = freeQuotes.length > 0
+            ? `<div class="mypage-ans-quote"><span style="font-weight:700;">自由記述の言葉：</span> ${freeQuotes.join(' ')}</div>`
+            : '';
 
-  const isParent = currentUserMode === 'parent';
-  const editBtnEl = document.getElementById('btnEditChildAnswersMypage');
-  if (editBtnEl) {
-    editBtnEl.style.display = isParent ? 'none' : 'inline-block';
-  }
+          const isParent = currentUserMode === 'parent';
+          const editBtnEl = document.getElementById('btnEditChildAnswersMypage');
+          if (editBtnEl) {
+            editBtnEl.style.display = isParent ? 'none' : 'inline-block';
+          }
 
-  const badgeNote = isParent
-    ? `<span style="font-size:12px; color:#64748B; font-weight:700;">🔒 閲覧専用：お子さまの自主性を尊重するため、保護者画面からは変更できません。変更はお子さま画面から行ってください。</span>`
-    : `<span style="font-size:12px; color:#555;">いつでも右上の「✎ 回答を編集する」から再設定できます</span>`;
+          const badgeNote = isParent
+            ? `<span style="font-size:12px; color:#64748B; font-weight:700;">🔒 閲覧専用：お子さまの自主性を尊重するため、保護者画面からは変更できません。変更はお子さま画面から行ってください。</span>`
+            : `<span style="font-size:12px; color:#555;">いつでも右上の「✎ 回答を編集する」から再設定できます</span>`;
 
-  container.innerHTML = `
+          container.innerHTML = `
     <div class="mypage-ans-status-badge">
       <span class="badge-phase" style="background:#FFF9E6; border-color:#000;">回答完了・保存済み</span>
       ${badgeNote}
@@ -5844,37 +7050,675 @@ function renderMypageChildProfile() {
     </div>
     ${quotesHtml}
   `;
-}
+        }
 
-// ==========================================
-// 11. 初期化 & テーマ設定（レトロポップ固定）
-// ==========================================
-function initDesignTheme() {
-  document.body.className = '';
-  document.body.classList.add('theme-retro');
-}
+        // ==========================================
+        // 11. 初期化 & テーマ設定（レトロポップ固定）
+        // ==========================================
+        function initDesignTheme() {
+          document.body.className = '';
+          document.body.classList.add('theme-retro');
+        }
 
-function switchDesignTheme(themeName) {
-  initDesignTheme();
-}
+        function switchDesignTheme(themeName) {
+          initDesignTheme();
+        }
 
-document.addEventListener('DOMContentLoaded', () => {
-  loadAppStateFromLocalStorage();
-  initDesignTheme();
+        document.addEventListener('DOMContentLoaded', () => {
+          loadAppStateFromLocalStorage();
+          initDesignTheme();
 
-  if (isParentConfigured() && isChildConfigured()) {
-    executeSchoolMatching();
-  } else {
-    AppSchema.recommended_schools = [];
-    resetAllFormInputs();
-  }
+          const welcomeBtn = document.getElementById('btnWelcomeStart');
+          if (welcomeBtn) {
+            welcomeBtn.onclick = startAppFromWelcome;
+          }
 
-  renderMypageProfileHeader();
-  renderParentConditionsSummary();
-  renderMypageChildProfile();
+          renderParentRegAvatarPicker();
+          renderChildRegAvatarPicker();
 
-  updateParentProgressIndicator(1);
-  updateChildProgressIndicator(0);
-  switchUserMode('parent');
-  switchAppView('home');
-});
+          const urlParams = new URLSearchParams(window.location.search);
+          const isChildParam = urlParams.get('mode') === 'child' || urlParams.get('role') === 'child' || urlParams.get('child_access') || window.location.hash === '#child';
+
+          if (isChildParam) {
+            // 子ども専用URLでアクセスされた場合
+            currentUserMode = 'child';
+            updateHeaderModePills('child');
+
+            if (!isChildConfigured()) {
+              // 子どものアカウント登録・ワーク画面のみを表示（学校情報やAI提案は一切写さない）
+              startChildOnboarding();
+            } else {
+              exitOnboardingMode();
+              switchAppView('home');
+            }
+          } else {
+            // 保護者画面としてアクセスされた場合（リンクを開いた時）
+            currentUserMode = 'parent';
+            updateHeaderModePills('parent');
+
+            const viewParam = urlParams.get('view');
+            if (viewParam) {
+              exitOnboardingMode();
+              switchAppView(viewParam);
+            } else {
+              // リンクを開いた時は、まずはKokoのロゴとサブタイトル「ここでいい」から、「ここがいい」へ。のみを表示
+              showWelcomeView();
+            }
+          }
+
+          if (isParentConfigured() && isChildConfigured()) {
+            executeSchoolMatching();
+          } else {
+            AppSchema.recommended_schools = [];
+          }
+
+          renderMypageProfileHeader();
+          renderParentConditionsSummary();
+          renderMypageChildProfile();
+          ensureInitialFamilyData();
+        });
+
+        // ==========================================
+        // 12. 親子画面（① 親子のつぶやき機能 ＆ ② 足跡機能）
+        // ==========================================
+        let currentFamilySubTab = 'murmur'; // 'murmur' | 'footprint'
+        let currentFootprintFilter = 'all'; // 'all' | 'parent' | 'child'
+        let openReplyPostIds = {};          // 返信入力欄を開いている投稿IDマップ
+
+        function escapeFamilyHtml(str) {
+          if (!str) return '';
+          return String(str)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;');
+        }
+
+        function getActorDisplayInfo(role) {
+          const isParent = role === 'parent';
+          if (isParent) {
+            const rawName = (AppSchema.parent_name || '').trim().replace(/さん$/, '');
+            const displayName = (rawName && rawName !== '未設定' && rawName !== '保護者さま' && rawName !== '保護者（デモ）')
+              ? rawName
+              : 'おうちの人';
+            return {
+              role: 'parent',
+              name: displayName,
+              avatar: AppSchema.parent_avatar || '👩',
+              roleLabel: '保護者'
+            };
+          } else {
+            const rawName = (AppSchema.child_name || '').trim();
+            const displayName = (rawName && rawName !== '未設定' && rawName !== 'お子さま')
+              ? rawName
+              : 'こども';
+            return {
+              role: 'child',
+              name: displayName,
+              avatar: AppSchema.child_avatar || '👦',
+              roleLabel: '子ども'
+            };
+          }
+        }
+
+        function formatFamilyTimestamp(isoStr) {
+          if (!isoStr) return 'たった今';
+          const d = new Date(isoStr);
+          if (isNaN(d.getTime())) return isoStr;
+          const now = new Date();
+          const diffSec = Math.floor((now - d) / 1000);
+          const month = d.getMonth() + 1;
+          const day = d.getDate();
+          const hours = String(d.getHours()).padStart(2, '0');
+          const mins = String(d.getMinutes()).padStart(2, '0');
+          const datePart = `${month}/${day} ${hours}:${mins}`;
+
+          if (diffSec < 60) return `たった今（${hours}:${mins}）`;
+          if (diffSec < 3600) return `${Math.floor(diffSec / 60)}分前（${hours}:${mins}）`;
+          if (diffSec < 86400 && d.getDate() === now.getDate()) return `今日 ${hours}:${mins}`;
+          return datePart;
+        }
+
+        // プロトタイプとしてすぐ体験できるよう、初期サンプルデータを用意
+        function ensureInitialFamilyData() {
+          const now = Date.now();
+          if (!Array.isArray(AppSchema.family_posts) || AppSchema.family_posts.length === 0) {
+            const pInfo = getActorDisplayInfo('parent');
+            const cInfo = getActorDisplayInfo('child');
+            AppSchema.family_posts = [
+              {
+                id: 'post_sample_1',
+                authorRole: 'child',
+                authorName: cInfo.name,
+                authorAvatar: cInfo.avatar,
+                content: '芝浦工業大学附属中学校のページを見てみたら、3Dプリンターやロボットを作れる部屋があってすごくおもしろそうだったよ！一度見にいってみたいな。',
+                createdAt: new Date(now - 1000 * 60 * 95).toISOString(),
+                likes: ['parent'],
+                replies: [
+                  {
+                    id: 'reply_sample_1',
+                    authorRole: 'parent',
+                    authorName: pInfo.name,
+                    authorAvatar: pInfo.avatar,
+                    content: 'いいね！来月のものづくり体験＆説明会、一緒に予約して行ってみようか😊',
+                    createdAt: new Date(now - 1000 * 60 * 60).toISOString()
+                  }
+                ]
+              },
+              {
+                id: 'post_sample_2',
+                authorRole: 'parent',
+                authorName: pInfo.name,
+                authorAvatar: pInfo.avatar,
+                content: 'いつも塾や学校の宿題がんばってるね！気になる学校があったら、いつでもここにつぶやいて教えてね。',
+                createdAt: new Date(now - 1000 * 60 * 240).toISOString(),
+                likes: ['child'],
+                replies: []
+              }
+            ];
+          }
+
+          if (!Array.isArray(AppSchema.family_footprints) || AppSchema.family_footprints.length === 0) {
+            const pInfo = getActorDisplayInfo('parent');
+            const cInfo = getActorDisplayInfo('child');
+            AppSchema.family_footprints = [
+              {
+                id: 'fp_sample_1',
+                actorRole: 'child',
+                actorName: cInfo.name,
+                actorAvatar: cInfo.avatar,
+                actionType: 'review_event',
+                targetName: '芝浦工業大学附属中学校（オープンキャンパス）',
+                detail: '感想：「ものづくりラボの3Dプリンタと大きな実験室がすごかった！」',
+                schoolId: 'sch_shibaura',
+                createdAt: new Date(now - 1000 * 60 * 30).toISOString()
+              },
+              {
+                id: 'fp_sample_2',
+                actorRole: 'parent',
+                actorName: pInfo.name,
+                actorAvatar: pInfo.avatar,
+                actionType: 'reply_post',
+                targetName: '「芝浦工業大学附属中学校のページを見てみたら…」のつぶやき',
+                detail: '返信：「いいね！来月のものづくり体験＆説明会、一緒に予約して行ってみようか😊」',
+                schoolId: null,
+                createdAt: new Date(now - 1000 * 60 * 60).toISOString()
+              },
+              {
+                id: 'fp_sample_3',
+                actorRole: 'parent',
+                actorName: pInfo.name,
+                actorAvatar: pInfo.avatar,
+                actionType: 'like_post',
+                targetName: '「芝浦工業大学附属中学校のページを見てみたら…」のつぶやき',
+                detail: '',
+                schoolId: null,
+                createdAt: new Date(now - 1000 * 60 * 65).toISOString()
+              },
+              {
+                id: 'fp_sample_4',
+                actorRole: 'child',
+                actorName: cInfo.name,
+                actorAvatar: cInfo.avatar,
+                actionType: 'favorite_school',
+                targetName: '芝浦工業大学附属中学校',
+                detail: '',
+                schoolId: 'sch_shibaura',
+                createdAt: new Date(now - 1000 * 60 * 100).toISOString()
+              },
+              {
+                id: 'fp_sample_5',
+                actorRole: 'child',
+                actorName: cInfo.name,
+                actorAvatar: cInfo.avatar,
+                actionType: 'view_school',
+                targetName: '広尾学園中学校',
+                detail: '',
+                schoolId: 'sch_hiroo',
+                createdAt: new Date(now - 1000 * 60 * 130).toISOString()
+              }
+            ];
+          }
+        }
+
+        // 5つの行動を記録する足跡関数
+        // actionType: 'like_post' | 'reply_post' | 'favorite_school' | 'view_school' | 'review_event'
+        function recordFamilyFootprint(actionType, targetName, extra = {}) {
+          ensureInitialFamilyData();
+          const role = extra.actor_override || getCurrentActorRole();
+          const actor = getActorDisplayInfo(role);
+
+          const newFp = {
+            id: 'fp_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6),
+            actorRole: actor.role,
+            actorName: actor.name,
+            actorAvatar: actor.avatar,
+            actionType: actionType,
+            targetName: targetName || '',
+            detail: extra.detail || '',
+            schoolId: extra.school_id || null,
+            createdAt: new Date().toISOString()
+          };
+
+          if (!Array.isArray(AppSchema.family_footprints)) {
+            AppSchema.family_footprints = [];
+          }
+          AppSchema.family_footprints.unshift(newFp);
+
+          // 最大100件まで保持
+          if (AppSchema.family_footprints.length > 100) {
+            AppSchema.family_footprints = AppSchema.family_footprints.slice(0, 100);
+          }
+
+          saveAppStateToLocalStorage();
+          updateFamilyTabBadges();
+          if (currentUserMode === 'family') {
+            renderFamilyFootprints();
+          }
+        }
+
+        let lastPoppedPostId = null;
+        let lastPoppedLikePostId = null;
+
+        function setFamilyActiveActor(role) {
+          familyActiveActor = role === 'child' ? 'child' : 'parent';
+          renderFamilyActorBar();
+          renderFamilyTimeline();
+        }
+
+        function renderFamilyActorBar() {
+          const pInfo = getActorDisplayInfo('parent');
+          const cInfo = getActorDisplayInfo('child');
+
+          const btnP = document.getElementById('btnFamilyActorParent');
+          const btnC = document.getElementById('btnFamilyActorChild');
+          if (btnP) btnP.classList.toggle('active', familyActiveActor === 'parent');
+          if (btnC) btnC.classList.toggle('active', familyActiveActor === 'child');
+
+          const pAvatarEl = document.getElementById('familyActorParentAvatar');
+          const pNameEl = document.getElementById('familyActorParentName');
+          const cAvatarEl = document.getElementById('familyActorChildAvatar');
+          const cNameEl = document.getElementById('familyActorChildName');
+
+          if (pAvatarEl) pAvatarEl.textContent = pInfo.avatar;
+          if (pNameEl) pNameEl.textContent = pInfo.name;
+          if (cAvatarEl) cAvatarEl.textContent = cInfo.avatar;
+          if (cNameEl) cNameEl.textContent = cInfo.name;
+        }
+
+        function switchFamilySubTab(tabName) {
+          currentFamilySubTab = tabName === 'footprint' ? 'footprint' : 'murmur';
+          const tabMurmur = document.getElementById('tabFamilyMurmur');
+          const tabFootprint = document.getElementById('tabFamilyFootprint');
+          const panelMurmur = document.getElementById('familyMurmurPanel');
+          const panelFootprint = document.getElementById('familyFootprintPanel');
+
+          if (tabMurmur) tabMurmur.classList.toggle('active', currentFamilySubTab === 'murmur');
+          if (tabFootprint) tabFootprint.classList.toggle('active', currentFamilySubTab === 'footprint');
+
+          if (panelMurmur) panelMurmur.style.display = currentFamilySubTab === 'murmur' ? 'block' : 'none';
+          if (panelFootprint) panelFootprint.style.display = currentFamilySubTab === 'footprint' ? 'block' : 'none';
+
+          if (currentFamilySubTab === 'murmur') {
+            renderFamilyTimeline();
+          } else {
+            renderFamilyFootprints();
+          }
+        }
+
+        function updateFamilyTabBadges() {
+          // 件数バッジ非表示（シンプル化）
+        }
+
+        function insertFamilyPrompt(text) {
+          const input = document.getElementById('familyPostInput');
+          if (!input) return;
+          input.value = text;
+          input.focus();
+        }
+
+        function submitFamilyPost() {
+          const input = document.getElementById('familyPostInput');
+          if (!input) return;
+          const content = input.value.trim();
+          if (!content) {
+            input.focus();
+            return;
+          }
+
+          ensureInitialFamilyData();
+          const actor = getActorDisplayInfo(familyActiveActor);
+
+          const newPost = {
+            id: 'post_' + Date.now(),
+            authorRole: actor.role,
+            authorName: actor.name,
+            authorAvatar: actor.avatar,
+            content: content,
+            createdAt: new Date().toISOString(),
+            likes: [],
+            replies: []
+          };
+
+          AppSchema.family_posts.unshift(newPost);
+          lastPoppedPostId = newPost.id;
+          input.value = '';
+
+          saveAppStateToLocalStorage();
+          renderFamilyTimeline();
+        }
+
+        function toggleFamilyPostLike(postId) {
+          ensureInitialFamilyData();
+          const post = (AppSchema.family_posts || []).find(p => p.id === postId);
+          if (!post) return;
+          if (!Array.isArray(post.likes)) post.likes = [];
+
+          const actorRole = familyActiveActor || 'parent';
+          const idx = post.likes.indexOf(actorRole);
+
+          if (idx === -1) {
+            post.likes.push(actorRole);
+            lastPoppedLikePostId = postId;
+            const snippet = post.content.length > 18 ? post.content.slice(0, 18) + '…' : post.content;
+            recordFamilyFootprint('like_post', `「${snippet}」`, {
+              actor_override: actorRole
+            });
+          } else {
+            post.likes.splice(idx, 1);
+            lastPoppedLikePostId = null;
+            saveAppStateToLocalStorage();
+          }
+
+          renderFamilyTimeline();
+        }
+
+        function toggleFamilyReplyBox(postId) {
+          openReplyPostIds[postId] = !openReplyPostIds[postId];
+          renderFamilyTimeline();
+          if (openReplyPostIds[postId]) {
+            setTimeout(() => {
+              const inp = document.getElementById(`replyInput_${postId}`);
+              if (inp) inp.focus();
+            }, 30);
+          }
+        }
+
+        function submitFamilyReply(postId) {
+          const inp = document.getElementById(`replyInput_${postId}`);
+          if (!inp) return;
+          const text = inp.value.trim();
+          if (!text) {
+            inp.focus();
+            return;
+          }
+
+          ensureInitialFamilyData();
+          const post = (AppSchema.family_posts || []).find(p => p.id === postId);
+          if (!post) return;
+          if (!Array.isArray(post.replies)) post.replies = [];
+
+          const actor = getActorDisplayInfo(familyActiveActor);
+          const newReply = {
+            id: 'reply_' + Date.now(),
+            authorRole: actor.role,
+            authorName: actor.name,
+            authorAvatar: actor.avatar,
+            content: text,
+            createdAt: new Date().toISOString()
+          };
+
+          post.replies.push(newReply);
+          openReplyPostIds[postId] = false;
+          lastPoppedPostId = newReply.id;
+
+          const snippet = post.content.length > 18 ? post.content.slice(0, 18) + '…' : post.content;
+          recordFamilyFootprint('reply_post', `「${snippet}」`, {
+            actor_override: actor.role,
+            detail: text
+          });
+
+          saveAppStateToLocalStorage();
+          renderFamilyTimeline();
+        }
+
+        function renderFamilyTimeline() {
+          ensureInitialFamilyData();
+          const container = document.getElementById('familyTimelineContainer');
+          if (!container) return;
+
+          const posts = AppSchema.family_posts || [];
+          if (posts.length === 0) {
+            container.innerHTML = `
+      <div class="family-empty-card">
+        <p class="family-empty-title">まだつぶやきがありません</p>
+      </div>
+    `;
+            return;
+          }
+
+          const pInfo = getActorDisplayInfo('parent');
+          const cInfo = getActorDisplayInfo('child');
+
+          container.innerHTML = posts.map(post => {
+            const isChildAuthor = post.authorRole === 'child';
+            const isMine = post.authorRole === familyActiveActor;
+            const authorInfo = isChildAuthor ? cInfo : pInfo;
+            const displayAuthorName = post.authorName || authorInfo.name;
+            const displayAvatar = post.authorAvatar || authorInfo.avatar;
+            const roleClass = isChildAuthor ? 'role-child' : 'role-parent';
+            const popClass = post.id === lastPoppedPostId ? 'chat-bubble-pop-in' : '';
+
+            const likes = Array.isArray(post.likes) ? post.likes : [];
+            const isLikedByMe = likes.includes(familyActiveActor);
+            const likeCount = likes.length;
+            const likePopClass = post.id === lastPoppedLikePostId ? 'heart-pop-anim' : '';
+
+            const replies = Array.isArray(post.replies) ? post.replies : [];
+            const isReplyOpen = !!openReplyPostIds[post.id];
+
+            // ハートイラストのみ
+            const heartIconSvg = isLikedByMe
+              ? `<svg class="chat-action-svg heart-svg filled ${likePopClass}" viewBox="0 0 24 24" width="21" height="21" fill="#FF2D55" stroke="#FF2D55" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>`
+              : `<svg class="chat-action-svg heart-svg" viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>`;
+
+            // 吹き出しイラストのみ
+            const replyIconSvg = `<svg class="chat-action-svg reply-svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>`;
+
+            const repliesHtml = replies.length > 0 ? `
+      <div class="chat-replies-thread">
+        ${replies.map(rep => {
+              const repIsChild = rep.authorRole === 'child';
+              const repInfo = repIsChild ? cInfo : pInfo;
+              const repName = rep.authorName || repInfo.name;
+              const repAvatar = rep.authorAvatar || repInfo.avatar;
+              const repPopClass = rep.id === lastPoppedPostId ? 'chat-bubble-pop-in' : '';
+              return `
+            <div class="chat-reply-bubble-row ${repIsChild ? 'reply-child' : 'reply-parent'} ${repPopClass}">
+              <span class="chat-reply-avatar">${escapeFamilyHtml(repAvatar)}</span>
+              <div class="chat-reply-bubble">
+                <div class="chat-reply-meta">
+                  <strong class="chat-reply-author">${escapeFamilyHtml(repName)}</strong>
+                  <span class="chat-reply-time">${formatFamilyTimestamp(rep.createdAt)}</span>
+                </div>
+                <div class="chat-reply-text">${escapeFamilyHtml(rep.content)}</div>
+              </div>
+            </div>
+          `;
+            }).join('')}
+      </div>
+    ` : '';
+
+            const replyBoxHtml = isReplyOpen ? `
+      <div class="chat-inline-reply-box chat-bubble-pop-in">
+        <div class="chat-reply-input-bar">
+          <input type="text" id="replyInput_${post.id}" class="chat-reply-input"
+            placeholder="返信を入力…"
+            onkeydown="if(event.key==='Enter' && !event.isComposing){event.preventDefault();submitFamilyReply('${post.id}');}">
+          <button type="button" class="btn-chat-reply-send-icon" onclick="submitFamilyReply('${post.id}')" aria-label="送信">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="22" y1="2" x2="11" y2="13"></line>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+            </svg>
+          </button>
+        </div>
+      </div>
+    ` : '';
+
+            return `
+      <div class="family-chat-row ${isMine ? 'chat-row-mine' : 'chat-row-partner'} ${popClass}">
+        <div class="chat-avatar-col">
+          <div class="chat-avatar-circle ${roleClass}">${escapeFamilyHtml(displayAvatar)}</div>
+        </div>
+
+        <div class="chat-main-col">
+          <div class="chat-sender-meta">
+            <span class="chat-sender-name">${escapeFamilyHtml(displayAuthorName)}</span>
+            <span class="chat-send-time">${formatFamilyTimestamp(post.createdAt)}</span>
+          </div>
+
+          <div class="chat-bubble-and-actions">
+            <div class="chat-talk-bubble ${isChildAuthor ? 'bubble-child' : 'bubble-parent'}" ondblclick="toggleFamilyPostLike('${post.id}')">
+              <div class="chat-bubble-text">${escapeFamilyHtml(post.content)}</div>
+            </div>
+
+            <div class="chat-icon-actions">
+              <button type="button" class="btn-chat-icon-only ${isLikedByMe ? 'liked' : ''}" onclick="toggleFamilyPostLike('${post.id}')" aria-label="いいね">
+                ${heartIconSvg}
+                ${likeCount > 0 ? `<span class="chat-icon-count">${likeCount}</span>` : ''}
+              </button>
+
+              <button type="button" class="btn-chat-icon-only ${isReplyOpen ? 'active' : ''}" onclick="toggleFamilyReplyBox('${post.id}')" aria-label="返信">
+                ${replyIconSvg}
+                ${replies.length > 0 ? `<span class="chat-icon-count">${replies.length}</span>` : ''}
+              </button>
+            </div>
+          </div>
+
+          ${repliesHtml}
+          ${replyBoxHtml}
+        </div>
+      </div>
+    `;
+          }).join('');
+        }
+
+        function filterFamilyFootprints(filterRole, btnEl) {
+          currentFootprintFilter = filterRole || 'all';
+          document.querySelectorAll('.family-fp-filter-btn').forEach(b => b.classList.remove('active'));
+          if (btnEl) btnEl.classList.add('active');
+          renderFamilyFootprints();
+        }
+
+        function getFootprintActionMeta(actionType) {
+          switch (actionType) {
+            case 'like_post':
+              return {
+                icon: '♥',
+                bgColor: '#FFE4E6',
+                textColor: '#BE123C',
+                actionVerb: 'がつぶやきにいいねしました'
+              };
+            case 'reply_post':
+              return {
+                icon: '💬',
+                bgColor: '#E0F2FE',
+                textColor: '#0369A1',
+                actionVerb: 'がつぶやきに返信しました'
+              };
+            case 'favorite_school':
+              return {
+                icon: '★',
+                bgColor: '#FEF3C7',
+                textColor: '#B45309',
+                actionVerb: 'が学校をお気に入り登録しました'
+              };
+            case 'view_school':
+              return {
+                icon: '🏫',
+                bgColor: '#DCFCE7',
+                textColor: '#166534',
+                actionVerb: 'が学校の詳細画面を確認しました'
+              };
+            case 'review_event':
+              return {
+                icon: '📝',
+                bgColor: '#F3E8FF',
+                textColor: '#6B21A8',
+                actionVerb: 'がイベントの振り返りを入力しました'
+              };
+            default:
+              return {
+                icon: '✦',
+                bgColor: '#F1F5F9',
+                textColor: '#334155',
+                actionVerb: 'が活動しました'
+              };
+          }
+        }
+
+        function renderFamilyFootprints() {
+          ensureInitialFamilyData();
+          const container = document.getElementById('familyFootprintsContainer');
+          if (!container) return;
+
+          const pInfo = getActorDisplayInfo('parent');
+          const cInfo = getActorDisplayInfo('child');
+
+          let list = Array.isArray(AppSchema.family_footprints) ? AppSchema.family_footprints : [];
+          if (currentFootprintFilter === 'parent') {
+            list = list.filter(item => item.actorRole === 'parent');
+          } else if (currentFootprintFilter === 'child') {
+            list = list.filter(item => item.actorRole === 'child');
+          }
+
+          if (list.length === 0) {
+            container.innerHTML = `
+      <div class="family-empty-card">
+        <p class="family-empty-title">まだ足跡がありません</p>
+      </div>
+    `;
+            return;
+          }
+
+          container.innerHTML = list.map(fp => {
+            const isChild = fp.actorRole === 'child';
+            const actorInfo = isChild ? cInfo : pInfo;
+            const actorName = fp.actorName || actorInfo.name;
+            const actorAvatar = fp.actorAvatar || actorInfo.avatar;
+            const meta = getFootprintActionMeta(fp.actionType);
+
+            const targetAttrs = fp.schoolId
+              ? `class="family-fp-target clickable" onclick="openSchoolDetailScreen('${fp.schoolId}')"`
+              : `class="family-fp-target"`;
+
+            return `
+      <div class="family-footprint-item ${isChild ? 'family-fp-child' : 'family-fp-parent'}">
+        <div class="family-fp-icon-circle" style="background-color:${meta.bgColor}; color:${meta.textColor};">
+          ${meta.icon}
+        </div>
+        <div class="family-fp-content">
+          <div class="family-fp-meta-row">
+            <span class="family-fp-who">${escapeFamilyHtml(actorAvatar)} ${escapeFamilyHtml(actorName)}${meta.actionVerb}</span>
+            <span class="family-fp-time">${formatFamilyTimestamp(fp.createdAt)}</span>
+          </div>
+          ${fp.targetName ? `
+            <div ${targetAttrs}>
+              <span>${escapeFamilyHtml(fp.targetName)}</span>
+              ${fp.detail ? `<span style="color:#64748B; margin-left:6px;">${escapeFamilyHtml(fp.detail)}</span>` : ''}
+            </div>
+          ` : ''}
+        </div>
+      </div>
+    `;
+          }).join('');
+        }
+
+        function renderFamilyScreen() {
+          ensureInitialFamilyData();
+          renderFamilyActorBar();
+          renderFamilyTimeline();
+          renderFamilyFootprints();
+        }
+

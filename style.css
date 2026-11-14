@@ -27,6 +27,7 @@
 
   /* --- ベース・サーフェス --- */
   --bg-page: #FFFDF0;              /* 温かみのあるオフホワイト・クリーム */
+  --koko-cream: #FFFDF0;           /* クリーム背景の定義 */
   --bg-card: #FFFFFF;
   --border-light: #1D3557;         /* レトロポップ特有のくっきりしたネイビー枠線 */
   --border-subtle: #E2E8F0;
@@ -47,9 +48,16 @@
   --radius-card: 20px;
   --radius-pill: 9999px;
 
-  --shadow-card: 4px 4px 0px #1D3557;
-  --shadow-btn: 3px 3px 0px #1D3557;
-  --shadow-hover: 5px 5px 0px #1D3557;
+  --shadow-sm: 2px 2px 0px var(--koko-blue-main);
+  --shadow-btn: 3px 3px 0px var(--koko-blue-main);
+  --shadow-card: 4px 4px 0px var(--koko-blue-main);
+  --shadow-hover: 5px 5px 0px var(--koko-blue-main);
+  --shadow-active: 1px 1px 0px var(--koko-blue-main);
+  --shadow-modal: 6px 6px 0px var(--koko-blue-main);
+
+  /* レトロポップ統一のためのフォールバック */
+  --koko-dark: #1D3557;
+  --border-color: #1D3557;
 }
 
 /* ========================================================
@@ -102,7 +110,7 @@ body {
   background-color: var(--koko-cream);
   border-left: 2px solid var(--koko-blue-main);
   border-right: 2px solid var(--koko-blue-main);
-  box-shadow: 0 0 30px rgba(29, 53, 87, 0.12);
+  box-shadow: 6px 6px 0px var(--koko-blue-main);
   position: relative;
   overflow-x: hidden !important;
   overscroll-behavior-x: none !important;
@@ -376,8 +384,9 @@ body {
    ======================================================== */
 .wizard-viewport {
   position: relative;
-  overflow: hidden;
+  overflow: visible; /* 右下の影が綺麗に見えるようクリッピングを解除 */
   min-height: 480px;
+  padding: 2px 6px 14px 2px;
 }
 
 .question-slide {
@@ -428,10 +437,11 @@ body {
    ======================================================== */
 .wizard-progress-card {
   background-color: var(--koko-blue-subtle);
-  border: 1px solid var(--border-light);
+  border: 2px solid var(--koko-blue-main);
   border-radius: var(--radius-sm);
   padding: 12px 18px;
   margin-bottom: 20px;
+  box-shadow: 3px 3px 0px var(--koko-blue-main);
 }
 
 .wizard-progress-text {
@@ -464,11 +474,11 @@ body {
    ======================================================== */
 .card-surface {
   background-color: var(--bg-card);
-  border: 1px solid var(--border-light);
+  border: 2px solid var(--koko-blue-main);
   border-radius: var(--radius-card);
   padding: 28px;
   margin-bottom: 24px;
-  box-shadow: var(--shadow-card);
+  box-shadow: 4px 4px 0px var(--koko-blue-main);
   position: relative;
 }
 
@@ -479,7 +489,7 @@ body {
 }
 
 /* ステップバッジ */
-.badge-parent, .badge-child {
+.badge-parent, .badge-child, .badge-phase {
   display: inline-flex;
   align-items: center;
   padding: 4px 12px;
@@ -489,6 +499,8 @@ body {
   font-weight: 700;
   background-color: var(--koko-blue-light);
   color: var(--koko-blue-main);
+  border: 1.5px solid var(--koko-blue-main);
+  box-shadow: 2px 2px 0px var(--koko-blue-main);
   margin-bottom: 8px;
 }
 
@@ -534,7 +546,7 @@ body {
    Koko* ボタン（やわらかなピル型ボタン）
    ======================================================== */
 .btn-solid-parent, .btn-solid-child {
-  border: none;
+  border: 2px solid var(--koko-blue-main);
   font-family: var(--font-child);
   font-size: 15px;
   font-weight: 700;
@@ -547,13 +559,19 @@ body {
   gap: 6px;
   background-color: var(--koko-blue-main);
   color: #FFFFFF;
-  box-shadow: var(--shadow-btn);
+  box-shadow: 3px 3px 0px #09131F;
   transition: all 0.2s ease;
 }
 
 .btn-solid-parent:hover, .btn-solid-child:hover {
   background-color: var(--koko-blue-hover);
-  transform: translateY(-1px);
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0px #09131F;
+}
+
+.btn-solid-parent:active, .btn-solid-child:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0px #09131F;
 }
 
 .btn-outline,
@@ -572,7 +590,7 @@ body {
   border-radius: var(--radius-pill);
   cursor: pointer;
   color: var(--koko-blue-main);
-  box-shadow: 2px 2px 0px var(--koko-blue-main);
+  box-shadow: var(--shadow-btn);
   transition: all 0.15s ease;
   text-decoration: none;
 }
@@ -583,14 +601,14 @@ body {
   background-color: var(--koko-blue-light);
   color: var(--koko-blue-main);
   transform: translateY(-1px);
-  box-shadow: 3px 3px 0px var(--koko-blue-main);
+  box-shadow: var(--shadow-hover);
 }
 
 .btn-outline:active,
 .btn-outline-parent:active,
 .btn-outline-child:active {
   transform: translate(2px, 2px);
-  box-shadow: 0px 0px 0px var(--koko-blue-main);
+  box-shadow: var(--shadow-active);
 }
 
 /* ========================================================
@@ -1027,18 +1045,29 @@ body {
 /* ========================================================
    入力フォーム部品
    ======================================================== */
+.input-field,
 .large-input {
   width: 100%;
   min-height: 50px;
-  font-size: 16px;
-  padding: 10px 16px;
-  border: 1px solid var(--border-light);
+  font-size: 15px;
+  font-weight: 700;
+  font-family: var(--font-child);
+  color: var(--text-primary);
+  padding: 12px 16px;
+  border: 2px solid var(--koko-blue-main);
   border-radius: var(--radius-sm);
   background-color: #FFFFFF;
+  box-shadow: 3px 3px 0px var(--koko-blue-main);
+  outline: none;
+  box-sizing: border-box;
+  transition: all 0.15s ease;
 }
+
+.input-field:focus,
 .large-input:focus {
   outline: none;
-  border-color: var(--koko-blue-main);
+  border-color: var(--koko-red);
+  box-shadow: 4px 4px 0px var(--koko-red);
 }
 
 .slider-display-box {
@@ -1493,13 +1522,13 @@ body {
   width: 36px;
   height: 36px;
   background-color: #FFFFFF;
-  border: 2px solid #1D2A44;
+  border: 2px solid var(--koko-blue-main);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 2px 2px 0px #1D2A44;
+  box-shadow: 2px 2px 0px var(--koko-blue-main);
   transition: transform 0.15s ease, background-color 0.15s ease;
   z-index: 5;
 }
@@ -1988,7 +2017,7 @@ body {
   max-width: 480px; /* PCでは中央コンテナと寸分違わずピッタリ一致 */
   height: 64px;
   background-color: #FFFFFF !important;
-  border-top: 1px solid #CBD5E1;
+  border-top: 2px solid var(--koko-blue-main);
   border-left: 2px solid var(--koko-blue-main);
   border-right: 2px solid var(--koko-blue-main);
   display: flex;
@@ -1997,7 +2026,7 @@ body {
   z-index: 9999 !important;
   padding: 6px 10px calc(6px + env(safe-area-inset-bottom, 0px)) 10px;
   box-sizing: border-box;
-  box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.04);
+  box-shadow: none;
   overscroll-behavior-x: none !important;
   touch-action: pan-y !important;
 }
@@ -2143,6 +2172,8 @@ body {
   color: var(--koko-blue-main);
   padding: 2px 8px;
   border-radius: var(--radius-pill);
+  border: 1.5px solid var(--koko-blue-main);
+  box-shadow: 1.5px 1.5px 0px var(--koko-blue-main);
   display: inline-block;
   margin-bottom: 2px;
 }
@@ -2294,7 +2325,7 @@ body {
 /* 子供の興味関心提案枠 */
 .interest-spotlight-card {
   border-color: var(--koko-green);
-  box-shadow: 4px 4px 0px var(--koko-green);
+  box-shadow: var(--shadow-card);
 }
 
 .interest-spotlight-banner {
@@ -2431,7 +2462,7 @@ body {
   background-color: #FFFFFF;
   border: 2px solid var(--koko-blue-main);
   border-radius: var(--radius-card);
-  box-shadow: 3px 3px 0px var(--koko-blue-main);
+  box-shadow: var(--shadow-card);
   overflow: hidden;
 }
 
@@ -2455,11 +2486,12 @@ body {
 
 .search-empty-box {
   background-color: #FFFFFF;
-  border: 2px dashed var(--koko-blue-main);
+  border: 2px solid var(--koko-blue-main);
   border-radius: var(--radius-card);
   padding: 30px 20px;
   text-align: center;
   font-family: var(--font-child);
+  box-shadow: var(--shadow-card);
 }
 
 .search-empty-box .empty-title {
@@ -2488,7 +2520,7 @@ body {
   align-items: center;
   gap: 4px;
   background-color: #FFFFFF;
-  border: 2px solid var(--border-color);
+  border: 2px solid var(--koko-blue-main);
   border-radius: var(--radius-pill);
   padding: 5px 14px;
   font-size: 13px;
@@ -2496,14 +2528,14 @@ body {
   color: var(--text-primary);
   cursor: pointer;
   margin-bottom: 8px;
-  box-shadow: 2px 2px 0px var(--border-color);
-  transition: all 0.1s ease;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.15s ease;
 }
 
 .btn-close-wizard-top:hover {
   background-color: var(--koko-yellow-light);
   transform: translate(-1px, -1px);
-  box-shadow: 3px 3px 0px var(--border-color);
+  box-shadow: var(--shadow-btn);
 }
 
 .review-wizard-header {
@@ -2616,7 +2648,7 @@ body {
   background-color: #FFFFFF;
   border: 2px solid var(--koko-blue-main);
   border-radius: var(--radius-card);
-  box-shadow: 3px 3px 0px var(--koko-blue-main);
+  box-shadow: var(--shadow-card);
   padding: 14px;
 }
 
@@ -2775,7 +2807,7 @@ body {
 .mode-pill-toggle.active {
   background-color: var(--koko-blue-main);
   color: #FFFFFF;
-  box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--shadow-sm);
 }
 
 #btnModeChild.active {
@@ -2869,7 +2901,8 @@ body {
 
 /* 1. AI要約サマリー */
 .ai-summary-highlight-card {
-  border-left: 6px solid var(--koko-blue-main) !important;
+  border: 2px solid var(--koko-blue-main) !important;
+  box-shadow: 4px 4px 0px var(--koko-blue-main) !important;
 }
 
 .ai-summary-content-box {
@@ -2879,6 +2912,12 @@ body {
   padding: 16px;
   box-shadow: 3px 3px 0px var(--koko-blue-main);
   margin-bottom: 16px;
+}
+
+.ai-unconfigured-box {
+  border: 2px solid var(--koko-blue-main) !important;
+  box-shadow: 3px 3px 0px var(--koko-blue-main) !important;
+  border-radius: 14px !important;
 }
 
 .ai-summary-badge-row {
@@ -2896,6 +2935,7 @@ body {
   font-weight: 700;
   padding: 2px 8px;
   border-radius: var(--radius-pill);
+  box-shadow: 1px 1px 0px var(--koko-blue-main);
 }
 
 .ai-date-tag {
@@ -2934,10 +2974,10 @@ body {
 /* 2. AIによる会話の提案（食卓での問いかけ） */
 .ai-conversation-box {
   background-color: #FEFCE8;
-  border: 2px solid var(--koko-yellow-dark);
+  border: 2px solid var(--koko-blue-main);
   border-radius: var(--radius-md);
   padding: 16px;
-  box-shadow: 3px 3px 0px var(--koko-yellow-dark);
+  box-shadow: 3px 3px 0px var(--koko-blue-main);
 }
 
 .conversation-box-title {
@@ -2964,7 +3004,14 @@ body {
   background-color: #FFFFFF;
   border: 2px solid var(--koko-blue-main);
   border-radius: var(--radius-sm);
-  padding: 10px 12px;
+  padding: 12px 14px;
+  box-shadow: 2px 2px 0px var(--koko-blue-main);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.conversation-prompt-item:hover {
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0px var(--koko-blue-main);
 }
 
 .prompt-num-badge {
@@ -2976,6 +3023,8 @@ body {
   background-color: var(--koko-red);
   color: #FFFFFF;
   border-radius: 50%;
+  border: 1.5px solid var(--koko-blue-main);
+  box-shadow: 1.5px 1.5px 0px var(--koko-blue-main);
   font-family: var(--font-child);
   font-size: 12px;
   font-weight: 700;
@@ -3018,7 +3067,7 @@ body {
   border: 2px solid var(--koko-blue-main);
   border-radius: var(--radius-sm);
   padding: 10px;
-  box-shadow: 2px 2px 0px var(--koko-blue-main);
+  box-shadow: var(--shadow-sm);
 }
 
 .chip-star {
@@ -3054,7 +3103,7 @@ body {
   border: 2px solid var(--koko-blue-main);
   border-radius: var(--radius-md);
   padding: 16px;
-  box-shadow: 3px 3px 0px var(--koko-blue-main);
+  box-shadow: var(--shadow-card);
 }
 
 .fav-card-header {
@@ -3136,7 +3185,7 @@ body {
   border: 2px solid var(--koko-blue-main);
   border-radius: var(--radius-md);
   padding: 14px;
-  box-shadow: 3px 3px 0px var(--koko-blue-main);
+  box-shadow: var(--shadow-card);
 }
 
 .review-card-top {
@@ -3321,7 +3370,7 @@ body {
   align-items: center;
   justify-content: space-between;
   margin: -16px -16px 16px -16px;
-  box-shadow: 0 2px 8px rgba(29, 53, 87, 0.08);
+  box-shadow: none;
 }
 
 .btn-screen-back {
@@ -3440,6 +3489,52 @@ body {
   background-color: var(--koko-yellow-light);
 }
 
+/* モーダルシフト対応：学校詳細専用ポップアップスタイル */
+.school-detail-popup-overlay {
+  z-index: 10000;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  background-color: rgba(29, 53, 87, 0.72) !important;
+}
+
+body.onboarding-active .school-detail-popup-overlay {
+  z-index: 100000 !important;
+}
+
+.school-detail-popup-dialog {
+  max-width: 480px;
+  width: 95%;
+  max-height: 88vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 2.5px solid var(--koko-blue-main);
+  border-radius: 20px;
+  box-shadow: 6px 6px 0px var(--koko-blue-main);
+  animation: modalSheetUp 0.22s ease-out forwards;
+}
+
+@keyframes modalSheetUp {
+  0% {
+    opacity: 0;
+    transform: translateY(24px) scale(0.97);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+
+
+.school-detail-modal-body-scroll {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 16px;
+  -webkit-overflow-scrolling: touch;
+}
+
 .modal-school-header {
   background-color: #FFFFFF;
   border-bottom: 2px solid var(--koko-blue-main);
@@ -3547,7 +3642,7 @@ body {
   border: 2px solid var(--koko-blue-main);
   border-radius: var(--radius-md);
   padding: 16px;
-  box-shadow: 3px 3px 0px var(--koko-blue-main);
+  box-shadow: var(--shadow-card);
 }
 
 .modal-section-title-wrap {
@@ -3797,7 +3892,7 @@ body {
   border: 2px solid var(--koko-blue-main);
   border-radius: var(--radius-md);
   padding: 16px;
-  box-shadow: 3px 3px 0px var(--koko-blue-main);
+  box-shadow: var(--shadow-card);
   margin-bottom: 14px;
 }
 
@@ -3868,7 +3963,7 @@ body {
   background-color: #FFFFFF;
   border: 2px solid var(--koko-blue-main);
   border-radius: var(--radius-md);
-  box-shadow: 3px 3px 0px var(--koko-blue-main);
+  box-shadow: var(--shadow-card);
   margin-bottom: 16px;
 }
 
@@ -4020,7 +4115,7 @@ body {
 .review-sub-nav {
   display: flex;
   background-color: #E2E8F0;
-  border: 2px solid var(--border-color);
+  border: 2px solid var(--koko-blue-main);
   border-radius: var(--radius-pill);
   padding: 4px;
   gap: 4px;
@@ -4048,8 +4143,8 @@ body {
 .r-sub-tab-btn.active {
   background-color: #FFFFFF;
   color: var(--text-primary);
-  border: 2px solid var(--border-color);
-  box-shadow: 2px 2px 0px var(--border-color);
+  border: 2px solid var(--koko-blue-main);
+  box-shadow: var(--shadow-sm);
 }
 
 .r-sub-tab-badge {
@@ -4069,8 +4164,8 @@ body {
 
 .btn-toggle-wizard {
   background-color: var(--koko-cream);
-  border: 2px solid var(--border-color);
-  box-shadow: 2px 2px 0px var(--border-color);
+  border: 2px solid var(--koko-blue-main);
+  box-shadow: var(--shadow-sm);
   border-radius: var(--radius-pill);
   padding: 8px 14px;
   font-size: 13px;
@@ -4080,18 +4175,21 @@ body {
   align-items: center;
   gap: 6px;
   color: var(--text-primary);
+  transition: all 0.15s ease;
 }
 
 .btn-toggle-wizard:hover {
   background-color: #FFE600;
+  transform: translate(-1px, -1px);
+  box-shadow: var(--shadow-btn);
 }
 
 /* 行く前（見学予定）カード */
 .planned-event-item-card {
   background-color: #FFFFFF;
-  border: 2px solid var(--border-color);
+  border: 2px solid var(--koko-blue-main);
   border-radius: var(--radius-md);
-  box-shadow: 3px 3px 0px var(--border-color);
+  box-shadow: var(--shadow-card);
   padding: 14px;
   margin-bottom: 12px;
 }
@@ -4155,24 +4253,26 @@ body {
 .btn-action-review {
   flex: 1;
   background-color: #FFE600;
-  border: 2px solid #000;
-  box-shadow: 2px 2px 0px #000;
+  border: 2px solid var(--koko-blue-main);
+  box-shadow: var(--shadow-sm);
   border-radius: var(--radius-pill);
   padding: 8px 12px;
   font-size: 13px;
   font-weight: 800;
-  color: #000;
+  color: var(--koko-blue-main);
   cursor: pointer;
   text-align: center;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 6px;
+  transition: all 0.15s ease;
 }
 
 .btn-action-review:hover {
   background-color: #FFDE00;
-  transform: translateY(-1px);
+  transform: translate(-1px, -1px);
+  box-shadow: var(--shadow-btn);
 }
 
 .btn-action-cancel {
@@ -4192,10 +4292,11 @@ body {
 
 .empty-planned-box {
   background-color: #FFFFFF;
-  border: 2px dashed #94A3B8;
+  border: 2px solid var(--koko-blue-main);
   border-radius: var(--radius-md);
   padding: 24px 16px;
   text-align: center;
+  box-shadow: var(--shadow-card);
 }
 
 .empty-planned-box .empty-title {
@@ -4217,7 +4318,7 @@ body {
    ======================================================== */
 .home-card-event-banner {
   background-color: #FFFDF0;
-  border: 1.5px solid #000000;
+  border: 1.5px solid var(--koko-blue-main);
   border-radius: var(--radius-sm);
   padding: 10px 12px;
   margin: 10px 0 12px 0;
@@ -4232,8 +4333,8 @@ body {
 
 .event-banner-badge {
   background-color: #FFE600;
-  border: 1px solid #000000;
-  color: #000000;
+  border: 1px solid var(--koko-blue-main);
+  color: var(--koko-blue-main);
   font-size: 10px;
   font-weight: 800;
   padding: 1px 6px;
@@ -4261,7 +4362,7 @@ body {
 }
 
 .btn-event-action-pill {
-  background-color: #000000;
+  background-color: var(--koko-blue-main);
   color: #FFFFFF;
   border: none;
   border-radius: var(--radius-pill);
@@ -4273,11 +4374,13 @@ body {
   align-items: center;
   gap: 4px;
   transition: all 0.15s ease;
+  box-shadow: var(--shadow-sm);
 }
 
 .btn-event-action-pill:hover {
-  background-color: #2D3748;
-  transform: translateY(-1px);
+  background-color: var(--koko-blue-hover);
+  transform: translate(-1px, -1px);
+  box-shadow: var(--shadow-btn);
 }
 
 /* ========================================================
@@ -4285,9 +4388,9 @@ body {
    ======================================================== */
 .mypage-child-answers-card {
   background-color: #FFFFFF;
-  border: 2px solid var(--border-color);
+  border: 2px solid var(--koko-blue-main);
   border-radius: var(--radius-md);
-  box-shadow: 3px 3px 0px var(--border-color);
+  box-shadow: var(--shadow-card);
   padding: 16px;
 }
 
@@ -4301,13 +4404,13 @@ body {
 
 .btn-edit-answers-pill {
   background-color: var(--koko-cream);
-  border: 2px solid #000000;
-  box-shadow: 2px 2px 0px #000000;
+  border: 2px solid var(--koko-blue-main);
+  box-shadow: var(--shadow-sm);
   border-radius: var(--radius-pill);
   padding: 6px 14px;
   font-size: 12px;
   font-weight: 800;
-  color: #000000;
+  color: var(--koko-blue-main);
   cursor: pointer;
   white-space: nowrap;
   transition: all 0.15s ease;
@@ -4315,7 +4418,8 @@ body {
 
 .btn-edit-answers-pill:hover {
   background-color: #FFE600;
-  transform: translateY(-1px);
+  transform: translate(-1px, -1px);
+  box-shadow: var(--shadow-btn);
 }
 
 .mypage-ans-status-badge {
@@ -4459,15 +4563,15 @@ body {
   padding: 10px 12px;
   font-family: var(--font-main);
   font-size: 14px;
-  border: 2px solid #000000;
+  border: 2px solid var(--koko-blue-main);
   border-radius: var(--radius-sm);
   background-color: #FFFFFF;
   outline: none;
 }
 
 .child-text-field:focus {
-  border-color: var(--koko-blue-main);
-  box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.2);
+  border-color: var(--koko-red);
+  box-shadow: var(--shadow-sm);
 }
 
 /* ========================================================
@@ -4475,11 +4579,11 @@ body {
    ======================================================== */
 .matching-fit-hero-card {
   background-color: #FEF9C3;
-  border: 3px solid #1E293B;
+  border: 2.5px solid var(--koko-blue-main);
   border-radius: var(--radius-lg);
   padding: 24px 20px;
   margin-bottom: 24px;
-  box-shadow: 4px 4px 0px #1E293B;
+  box-shadow: var(--shadow-card);
   position: relative;
   text-align: center;
 }
@@ -4493,7 +4597,7 @@ body {
   font-weight: 800;
   padding: 5px 16px;
   border-radius: var(--radius-pill);
-  border: 2px solid #1E293B;
+  border: 2px solid var(--koko-blue-main);
   margin-bottom: 12px;
   letter-spacing: 0.5px;
 }
@@ -4502,14 +4606,14 @@ body {
   font-family: var(--font-child);
   font-size: 20px;
   font-weight: 900;
-  color: #0F172A;
+  color: var(--koko-blue-main);
   line-height: 1.4;
   margin: 0 0 10px 0;
 }
 
 .fit-hero-subtitle {
   font-size: 13px;
-  color: #475569;
+  color: var(--text-secondary);
   font-weight: 600;
   line-height: 1.6;
   margin: 0 0 20px 0;
@@ -4524,13 +4628,13 @@ body {
 
 .fit-point-row {
   background-color: #FFFFFF;
-  border: 2px solid #1E293B;
+  border: 2px solid var(--koko-blue-main);
   border-radius: var(--radius-md);
   padding: 12px 14px;
   display: flex;
   align-items: flex-start;
   gap: 12px;
-  box-shadow: 2px 2px 0px #1E293B;
+  box-shadow: var(--shadow-sm);
 }
 
 .fit-point-badge {
@@ -4540,7 +4644,7 @@ body {
   font-weight: 800;
   padding: 4px 8px;
   border-radius: var(--radius-pill);
-  border: 1.5px solid #1E293B;
+  border: 1.5px solid var(--koko-blue-main);
   white-space: nowrap;
   flex-shrink: 0;
   margin-top: 2px;
@@ -4553,14 +4657,14 @@ body {
 .fit-point-heading {
   font-size: 14px;
   font-weight: 800;
-  color: #0F172A;
+  color: var(--koko-blue-main);
   margin: 0 0 4px 0;
   line-height: 1.3;
 }
 
 .fit-point-detail {
   font-size: 12px;
-  color: #475569;
+  color: var(--text-secondary);
   line-height: 1.5;
   margin: 0;
 }
@@ -4581,15 +4685,15 @@ body {
   align-items: center;
   gap: 4px;
   background-color: #FFFFFF;
-  border: 2px solid #94A3B8;
+  border: 2px solid var(--koko-blue-main);
   border-radius: var(--radius-pill);
   padding: 6px 14px;
   font-family: var(--font-base);
   font-size: 12px;
   font-weight: 700;
-  color: #475569;
+  color: var(--text-secondary);
   cursor: pointer;
-  box-shadow: 2px 2px 0px #94A3B8;
+  box-shadow: var(--shadow-sm);
   transition: all 0.15s ease;
 }
 
@@ -4598,12 +4702,12 @@ body {
   border-color: #EF4444;
   color: #DC2626;
   transform: translate(-1px, -1px);
-  box-shadow: 3px 3px 0px #DC2626;
+  box-shadow: var(--shadow-btn);
 }
 
 .btn-delete-plan-text:active {
   transform: translate(1px, 1px);
-  box-shadow: 1px 1px 0px #DC2626;
+  box-shadow: var(--shadow-active);
 }
 
 /* ========================================================
@@ -4616,15 +4720,15 @@ body {
   justify-content: center;
   gap: 6px;
   background-color: #FBBF24;
-  color: #1E293B;
-  border: 2px solid #1E293B;
+  color: var(--koko-blue-main);
+  border: 2px solid var(--koko-blue-main);
   border-radius: var(--radius-pill);
   padding: 7px 16px;
   font-family: var(--font-child);
   font-size: 13px;
   font-weight: 800;
   cursor: pointer;
-  box-shadow: 2px 2px 0px #1E293B;
+  box-shadow: var(--shadow-sm);
   transition: all 0.15s ease;
   white-space: nowrap;
 }
@@ -4633,21 +4737,21 @@ body {
 .btn-plan-event:hover {
   background-color: #F59E0B;
   transform: translate(-1px, -1px);
-  box-shadow: 3px 3px 0px #1E293B;
+  box-shadow: var(--shadow-btn);
 }
 
 .btn-event-quick-plan:active,
 .btn-plan-event:active {
   transform: translate(1px, 1px);
-  box-shadow: 1px 1px 0px #1E293B;
+  box-shadow: var(--shadow-active);
 }
 
 .btn-event-quick-plan.added,
 .btn-plan-event.added {
   background-color: #10B981;
   color: #FFFFFF;
-  border-color: #065F46;
-  box-shadow: 2px 2px 0px #065F46;
+  border-color: var(--koko-green);
+  box-shadow: var(--shadow-sm);
 }
 
 /* ========================================================
@@ -4668,15 +4772,15 @@ body {
   justify-content: center;
   gap: 5px;
   background-color: #FFE66D;
-  color: #1B2028;
-  border: 2px solid #1B2028;
+  color: var(--koko-blue-main);
+  border: 2px solid var(--koko-blue-main);
   border-radius: var(--radius-pill);
   padding: 6px 14px;
   font-family: inherit;
   font-size: 12px;
   font-weight: 800;
   cursor: pointer;
-  box-shadow: 2px 2px 0px #1B2028;
+  box-shadow: var(--shadow-sm);
   transition: all 0.15s ease;
   white-space: nowrap;
 }
@@ -4684,26 +4788,26 @@ body {
 .btn-compare-mypage:hover {
   background-color: #FFD93D;
   transform: translate(-1px, -1px);
-  box-shadow: 3px 3px 0px #1B2028;
+  box-shadow: var(--shadow-btn);
 }
 
 .btn-compare-mypage:active {
   transform: translate(1px, 1px);
-  box-shadow: 1px 1px 0px #1B2028;
+  box-shadow: var(--shadow-active);
 }
 
 /* ========================================================
    保護者画面：見学記録 ＆ 保護者用入力画面
    ======================================================== */
 .parent-review-intro-card {
-  border-color: var(--koko-dark);
+  border-color: var(--koko-blue-main);
 }
 
 .parent-plan-item-card {
-  background: var(--koko-card-bg);
-  border: 2px solid var(--koko-dark);
+  background: #FFFFFF;
+  border: 2px solid var(--koko-blue-main);
   border-radius: var(--radius-md);
-  box-shadow: 3px 3px 0px var(--koko-dark);
+  box-shadow: var(--shadow-card);
   padding: 16px;
   margin-bottom: 16px;
 }
@@ -4717,10 +4821,10 @@ body {
 }
 
 .parent-review-editor-card {
-  background: var(--koko-card-bg);
-  border: 3px solid var(--koko-dark);
+  background: #FFFFFF;
+  border: 2.5px solid var(--koko-blue-main);
   border-radius: var(--radius-lg);
-  box-shadow: 4px 4px 0px var(--koko-dark);
+  box-shadow: var(--shadow-card);
 }
 
 /* ========================================================
@@ -4738,7 +4842,7 @@ body {
   font-size: 12px;
   font-weight: 800;
   text-decoration: none;
-  box-shadow: 2px 2px 0px var(--koko-blue-main);
+  box-shadow: var(--shadow-sm);
   transition: all 0.15s ease;
   white-space: nowrap;
 }
@@ -4746,13 +4850,13 @@ body {
 .btn-official-card-link:hover {
   background-color: #DBEAFE;
   transform: translate(-1px, -1px);
-  box-shadow: 3px 3px 0px var(--koko-blue-main);
+  box-shadow: var(--shadow-btn);
 }
 
 .btn-official-detail-link:hover {
   background-color: #DBEAFE;
   transform: translate(-1px, -1px);
-  box-shadow: 3px 3px 0px var(--koko-blue-main);
+  box-shadow: var(--shadow-btn);
 }
 
 /* ========================================================
@@ -4768,7 +4872,7 @@ body {
   background-color: #FFFFFF;
   border: 2px solid #CBD5E1;
   border-radius: var(--radius-md);
-  box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.06);
+  box-shadow: var(--shadow-sm);
   cursor: pointer;
   transition: all 0.15s ease;
   user-select: none;
@@ -4821,12 +4925,12 @@ body {
 .tile-title {
   font-size: 15px;
   font-weight: 800;
-  color: #0F172A;
+  color: var(--koko-blue-main);
 }
 
 .tile-sub {
   font-size: 12px;
-  color: #64748B;
+  color: var(--text-secondary);
   font-weight: 500;
 }
 
@@ -4840,7 +4944,7 @@ body {
   background-color: var(--koko-blue-main);
   padding: 3px 8px;
   border-radius: 4px;
-  box-shadow: 1px 1px 0px rgba(0, 0, 0, 0.15);
+  box-shadow: var(--shadow-active);
 }
 
 /* ★ 選択中（active または :has(input:checked)）時の強調デザイン */
@@ -4848,7 +4952,7 @@ body {
 .big-tile-checkbox:has(input:checked) {
   background-color: #EFF6FF !important;
   border: 2.5px solid var(--koko-blue-main) !important;
-  box-shadow: 3px 3px 0px var(--koko-blue-main) !important;
+  box-shadow: var(--shadow-btn) !important;
 }
 
 .big-tile-checkbox.active .custom-check-box,
@@ -4877,9 +4981,9 @@ body {
    ======================================================== */
 .mypage-profile-card {
   background-color: #FFFFFF;
-  border: 2.5px solid var(--koko-dark);
+  border: 2.5px solid var(--koko-blue-main);
   border-radius: var(--radius-lg);
-  box-shadow: 3px 3px 0px var(--koko-dark);
+  box-shadow: var(--shadow-card);
   padding: 16px 20px;
 }
 
@@ -4895,11 +4999,11 @@ body {
   height: 58px;
   border-radius: 50%;
   background-color: #FEF9C3;
-  border: 2.5px solid var(--koko-dark);
+  border: 2.5px solid var(--koko-blue-main);
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 2px 2px 0px var(--koko-dark);
+  box-shadow: var(--shadow-sm);
   cursor: pointer;
   flex-shrink: 0;
   transition: transform 0.15s ease;
@@ -4955,7 +5059,7 @@ body {
   font-weight: 800;
   padding: 2px 8px;
   border-radius: var(--radius-pill);
-  border: 1.5px solid var(--koko-dark);
+  border: 1.5px solid var(--koko-blue-main);
 }
 
 .badge-role-pill.child-badge {
@@ -4994,9 +5098,9 @@ body {
   max-width: 440px;
   width: 90%;
   background: #FFFFFF;
-  border: 3px solid var(--koko-dark);
+  border: 3px solid var(--koko-blue-main);
   border-radius: var(--radius-lg);
-  box-shadow: 6px 6px 0px var(--koko-dark);
+  box-shadow: var(--shadow-modal);
   padding: 24px;
 }
 
@@ -5035,9 +5139,9 @@ body {
 
 .avatar-picker-btn.selected {
   background-color: #FEF9C3;
-  border-color: var(--koko-dark);
+  border-color: var(--koko-blue-main);
   border-width: 2.5px;
-  box-shadow: 2px 2px 0px var(--koko-dark);
+  box-shadow: var(--shadow-sm);
   transform: scale(1.1);
 }
 
@@ -5055,9 +5159,9 @@ body {
 .home-school-commute-detail-box,
 .dash-commute-route-detail {
   background-color: #F0FDF4 !important;
-  border: 2.5px solid var(--koko-dark) !important;
+  border: 2px solid var(--koko-blue-main) !important;
   border-radius: 12px !important;
-  box-shadow: 3px 3px 0px var(--koko-dark) !important;
+  box-shadow: var(--shadow-card) !important;
 }
 
 .home-school-commute-detail-box p,
@@ -5121,9 +5225,9 @@ body {
 .home-school-mode-summary-box.child-theme {
   padding: 12px 14px !important;
   background-color: #FEF9C3 !important;
-  border: 2px solid var(--koko-dark) !important;
+  border: 2px solid var(--koko-blue-main) !important;
   border-radius: 12px !important;
-  box-shadow: 2px 2px 0px var(--koko-dark) !important;
+  box-shadow: var(--shadow-card) !important;
 }
 
 .rec-badge-point,
@@ -5177,7 +5281,7 @@ body {
   max-width: 360px;
   padding: 12px 18px;
   border-radius: var(--radius-sm);
-  border: 2px solid #000000;
+  border: 2px solid var(--koko-blue-main);
   background-color: #FFFFFF;
   color: var(--text-main);
   font-weight: 700;
@@ -5193,8 +5297,8 @@ body {
 .btn-commute-any.active {
   background-color: #1E3A8A;
   color: #FFFFFF;
-  border-color: #000000;
-  box-shadow: 2px 2px 0px #000000;
+  border-color: var(--koko-blue-main);
+  box-shadow: var(--shadow-sm);
 }
 .range-slider-parent:disabled {
   opacity: 0.35;
@@ -5246,8 +5350,8 @@ body {
 .strict-modal-dialog {
   background: #FFFFFF;
   border-radius: 16px;
-  border: 2px solid #000000;
-  box-shadow: 4px 4px 0px #000000;
+  border: 2.5px solid var(--koko-blue-main);
+  box-shadow: var(--shadow-modal);
   width: 100%;
   max-width: 540px;
   max-height: 90vh;
@@ -5284,6 +5388,1552 @@ body {
   align-items: center;
   gap: 10px;
 }
+
+/* ========================================================
+   子供画面専用 学校詳細リッチコンポーネント (style.css)
+   ======================================================== */
+.child-overview-card {
+  background: #FFFFFF;
+  border: 2px solid var(--koko-blue-main);
+  border-radius: var(--radius-card);
+  padding: 18px 20px;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.child-motto-box {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  background: #FFFBEB;
+  border: 1.5px solid #FDE68A;
+  border-radius: 12px;
+  padding: 10px 14px;
+}
+
+.child-motto-label {
+  font-size: 11px;
+  font-weight: 800;
+  color: #B45309;
+  background: #FEF3C7;
+  padding: 2px 8px;
+  border-radius: 6px;
+  border: 1px solid #FCD34D;
+}
+
+.child-motto-text {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--koko-blue-main);
+  line-height: 1.4;
+}
+
+.child-overview-desc {
+  font-size: 13.5px;
+  line-height: 1.7;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.child-style-badges-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px;
+}
+
+.child-style-badge-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #F8FAFC;
+  border: 1.5px solid #CBD5E1;
+  border-radius: 12px;
+  padding: 10px 12px;
+}
+
+.child-badge-icon {
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.child-badge-title {
+  font-size: 10.5px;
+  font-weight: 700;
+  color: #64748B;
+}
+
+.child-badge-val {
+  font-size: 12.5px;
+  font-weight: 800;
+  color: var(--koko-blue-main);
+  margin-top: 1px;
+}
+
+.child-fit-tip-box {
+  background: #EFF6FF;
+  border: 1.5px dashed #93C5FD;
+  border-radius: 12px;
+  padding: 12px 14px;
+}
+
+.child-fit-tip-title {
+  font-size: 12px;
+  font-weight: 800;
+  color: #1D4ED8;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.child-fit-tip-text {
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: #1E3A8A;
+  margin: 0;
+}
+
+/* 特色授業リッチカード */
+.child-special-classes-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 12px;
+}
+
+.child-special-class-rich-card {
+  background: #FFFFFF;
+  border: 2px solid var(--koko-blue-main);
+  border-radius: var(--radius-card);
+  padding: 18px 20px;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.child-special-class-rich-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+}
+
+.child-class-card-header {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-bottom: 10px;
+  border-bottom: 1.5px dashed #E2E8F0;
+}
+
+.child-class-badges-wrap {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.child-class-num-badge {
+  font-size: 11px;
+  font-weight: 800;
+  background: var(--koko-blue-main);
+  color: #FFFFFF;
+  padding: 3px 8px;
+  border-radius: 6px;
+}
+
+.child-class-cat-badge {
+  font-size: 11px;
+  font-weight: 800;
+  background: #ECFDF5;
+  color: #047857;
+  border: 1px solid #A7F3D0;
+  padding: 3px 8px;
+  border-radius: 6px;
+}
+
+.child-class-title {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--koko-blue-main);
+  line-height: 1.4;
+  margin: 2px 0 0 0;
+}
+
+.child-class-detail-block {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.child-class-block-label {
+  font-size: 11px;
+  font-weight: 800;
+  color: #64748B;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.child-class-block-desc {
+  font-size: 13px;
+  line-height: 1.65;
+  color: var(--text-primary);
+  margin: 0;
+}
+
+.child-class-points-box {
+  background: #F0FDF4;
+  border: 1px solid #BBF7D0;
+  border-radius: 10px;
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.child-class-points-label {
+  font-size: 11px;
+  font-weight: 800;
+  color: #15803D;
+}
+
+.child-class-points-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.child-class-point-item {
+  font-size: 12px;
+  color: #166534;
+  line-height: 1.5;
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.child-class-point-icon {
+  color: #15803D;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+.child-class-power-badge-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #FFF7ED;
+  border: 1px solid #FED7AA;
+  border-radius: 8px;
+  padding: 8px 12px;
+}
+
+.child-class-power-label {
+  font-size: 11px;
+  font-weight: 800;
+  color: #C2410C;
+  flex-shrink: 0;
+}
+
+.child-class-power-text {
+  font-size: 12px;
+  font-weight: 800;
+  color: #9A3412;
+}
+
+/* 強み・自慢ポイント4大カード */
+.child-strengths-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 14px;
+  margin-top: 12px;
+}
+
+.child-strength-rich-card {
+  background: #FFFFFF;
+  border: 2px solid var(--koko-blue-main);
+  border-radius: var(--radius-card);
+  padding: 16px 18px;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.child-strength-rich-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+}
+
+.child-strength-card-top {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.child-strength-cat-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  font-weight: 800;
+  padding: 3px 8px;
+  border-radius: 6px;
+  align-self: flex-start;
+}
+
+.child-strength-card-title {
+  font-size: 14.5px;
+  font-weight: 800;
+  color: var(--koko-blue-main);
+  line-height: 1.4;
+  margin: 0;
+}
+
+.child-strength-card-desc {
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  margin: 0;
+}
+
+.child-strength-star-badge {
+  background: #FEF3C7;
+  border: 1px solid #FDE68A;
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-size: 11.5px;
+  font-weight: 800;
+  color: #92400E;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* メッセージボックス */
+.child-message-box {
+  background: #FFFDF0;
+  border: 2px solid var(--koko-blue-main);
+  border-radius: var(--radius-card);
+  padding: 16px 18px;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+.child-message-avatar {
+  font-size: 32px;
+  line-height: 1;
+  background: #EFF6FF;
+  border: 2px solid var(--koko-blue-main);
+  border-radius: 12px;
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.child-message-content {
+  flex: 1;
+}
+
+.child-message-text {
+  font-size: 13.5px;
+  line-height: 1.7;
+  color: var(--text-primary);
+  margin: 0;
+  font-weight: 600;
+}
+
+/* ========================================================
+   初期登録・オンボーディング専用スタイル
+   （保護者・子ども共通：最初の質問や登録時はその画面のみ表示し、
+    学校情報やAI提案予定画面・ナビゲーションを一切写さない。
+    ただし上部の画面切替バーは常に表示し、「親子画面」へいつでも移動可能にする）
+   ======================================================== */
+body.onboarding-active .koko-bottom-nav {
+  display: none !important;
+}
+
+body.onboarding-active .app-global-footer {
+  display: none !important;
+}
+
+body.onboarding-active #roleHomeView,
+body.onboarding-active #roleSchoolSearchView,
+body.onboarding-active #roleReviewView,
+body.onboarding-active #roleMypageView,
+body.onboarding-active #roleCompareView {
+  display: none !important;
+}
+
+/* ワーク完了画面から「学校を詳しくみる」を押した際に学校詳細画面を正常に表示 */
+body.onboarding-active #roleSchoolDetailView.active {
+  display: block !important;
+}
+
+body.onboarding-active .wizard-top-nav-bar {
+  display: none !important;
+}
+
+body.onboarding-active .app-main-content {
+  padding-bottom: 40px !important;
+}
+
+/* 登録用アバター選択コンポーネント */
+.onboarding-avatar-card {
+  background: #FFFFFF;
+  border: 2px solid var(--koko-blue-main);
+  border-radius: 16px;
+  padding: 18px 16px;
+  margin-bottom: 20px;
+  text-align: center;
+  box-shadow: 3px 3px 0px var(--koko-blue-main);
+}
+
+.onboarding-avatar-preview {
+  position: relative;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background-color: #FEF9C3;
+  border: 2.5px solid var(--koko-blue-main);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 3px 3px 0px var(--koko-blue-main);
+  margin-bottom: 12px;
+  font-size: 38px;
+}
+
+.avatar-selection-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
+  max-width: 360px;
+  margin: 0 auto;
+}
+
+@media (max-width: 480px) {
+  .avatar-selection-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+  }
+}
+
+.avatar-choice-btn {
+  font-size: 26px;
+  line-height: 1;
+  padding: 10px 4px;
+  border: 2px solid var(--koko-blue-main);
+  border-radius: 12px;
+  background-color: #FFFFFF;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 2px 2px 0px var(--koko-blue-main);
+}
+
+.avatar-choice-btn:hover {
+  background-color: #F1F5F9;
+  transform: translate(-1px, -1px);
+  box-shadow: 3px 3px 0px var(--koko-blue-main);
+}
+
+.avatar-choice-btn.selected {
+  background-color: #FEF9C3;
+  border-color: var(--koko-blue-main);
+  border-width: 2.5px;
+  box-shadow: 3px 3px 0px var(--koko-blue-main);
+  transform: scale(1.08);
+}
+
+/* ========================================================
+   ウェルカム・トップ画面（初期表示LP）専用スタイル
+   「ここでいい」から、「ここがいい」へ。
+   ======================================================== */
+body.welcome-active .global-header {
+  display: none !important;
+}
+
+body.welcome-active .koko-bottom-nav {
+  display: none !important;
+}
+
+body.welcome-active .app-global-footer {
+  display: none !important;
+}
+
+body.welcome-active .app-main-content {
+  padding: 0 !important;
+}
+
+body.welcome-active .app-container {
+  border: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  box-shadow: none !important;
+  max-width: 100% !important;
+  background-color: var(--bg-page) !important;
+}
+
+#roleWelcomeView {
+  width: 100%;
+  background-color: var(--bg-page);
+}
+
+/* 1画面目：ファーストビュー（ロゴとサブタイトルのみ） */
+.welcome-firstview {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  text-align: center;
+  padding: 40px 24px 80px;
+  box-sizing: border-box;
+  background-color: var(--bg-page);
+}
+
+.welcome-hero-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 480px;
+  margin-top: -30px; /* 垂直方向の心地よい黄金比バランス */
+}
+
+.welcome-logo-box {
+  margin-bottom: 24px;
+}
+
+.welcome-hero-logo-img {
+  max-width: 220px;
+  width: 68%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  mix-blend-mode: multiply;
+}
+
+.welcome-subtitle {
+  font-family: var(--font-main);
+  font-size: clamp(14.5px, 4.3vw, 19px);
+  font-weight: 700;
+  color: var(--koko-blue-main);
+  letter-spacing: 0.03em;
+  line-height: 1.5;
+  margin: 0;
+  white-space: nowrap; /* 常に1列（1行）で表示 */
+}
+
+/* はじめるボタンラッパー */
+.welcome-action-wrap {
+  width: 100%;
+  max-width: 320px;
+  margin-top: 36px;
+  display: flex;
+  justify-content: center;
+}
+
+.btn-welcome-start {
+  width: 100%;
+  padding: 16px 28px;
+  font-size: 18px;
+  font-weight: 800;
+  font-family: var(--font-main);
+  color: #FFFFFF;
+  background-color: var(--koko-red, #E63946);
+  border: 2px solid var(--koko-blue-main, #1D3557);
+  border-radius: var(--radius-pill, 9999px);
+  box-shadow: var(--shadow-card);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, background-color 0.12s ease;
+}
+
+.btn-welcome-start:hover {
+  transform: translate(2px, 2px);
+  box-shadow: var(--shadow-sm);
+  background-color: #D92D3B;
+}
+
+.btn-welcome-start:active {
+  transform: translate(4px, 4px);
+  box-shadow: 0px 0px 0px var(--koko-blue-main);
+}
+
+.welcome-btn-sparkle {
+  font-size: 16px;
+  color: #FFE600;
+  animation: welcomeSparkle 2.5s linear infinite;
+  display: inline-block;
+}
+
+@keyframes welcomeSparkle {
+  0% { transform: scale(1) rotate(0deg); }
+  50% { transform: scale(1.25) rotate(180deg); }
+  100% { transform: scale(1) rotate(360deg); }
+}
+
+/* ========================================================
+   親子画面（親子のつぶやき・足跡機能）専用スタイル
+   小学4〜6年生でも直感的に使える、淡い色合いと丸みのあるカードデザイン
+   ======================================================== */
+
+/* モード切替ピル：親子画面アクティブ時 */
+#btnModeFamily.active {
+  background-color: #FEF3C7;
+  color: var(--koko-blue-main);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+/* 親子画面ヘッダー＆紹介カード */
+.family-hero-card {
+  background-color: #FFFBEB;
+  border: 2px solid var(--koko-blue-main);
+  border-radius: 22px;
+  padding: 18px 18px 16px;
+  margin-bottom: 16px;
+  box-shadow: 3px 3px 0px var(--koko-blue-main);
+}
+
+.family-hero-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.family-private-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background-color: #DCFCE7;
+  color: #166534;
+  border: 1.5px solid #86EFAC;
+  border-radius: 9999px;
+  padding: 4px 12px;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.family-optional-note {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #64748B;
+  background-color: #FFFFFF;
+  border: 1px solid #CBD5E1;
+  border-radius: 9999px;
+  padding: 3px 10px;
+}
+
+.family-hero-title {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--koko-blue-main);
+  margin: 0 0 6px 0;
+  line-height: 1.4;
+}
+
+.family-hero-desc {
+  font-size: 13px;
+  color: #475569;
+  line-height: 1.6;
+  margin: 0 0 14px 0;
+}
+
+/* 操作ユーザー（親 / 子ども）ワンタップ切替バー */
+.family-actor-switch-box {
+  background-color: #FFFFFF;
+  border: 1.5px solid #CBD5E1;
+  border-radius: 16px;
+  padding: 10px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.family-actor-label {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--koko-blue-main);
+}
+
+.family-actor-buttons {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.family-actor-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 14px;
+  border-radius: 9999px;
+  border: 1.5px solid #CBD5E1;
+  background-color: #F8FAFC;
+  color: #475569;
+  font-family: var(--font-main);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.family-actor-btn:hover {
+  background-color: #F1F5F9;
+}
+
+.family-actor-btn.active[data-actor="parent"] {
+  background-color: #E0F2FE;
+  border-color: #0284C7;
+  color: #0369A1;
+  box-shadow: 2px 2px 0px #0284C7;
+}
+
+.family-actor-btn.active[data-actor="child"] {
+  background-color: #FCE7F3;
+  border-color: #DB2777;
+  color: #BE185D;
+  box-shadow: 2px 2px 0px #DB2777;
+}
+
+/* サブタブ（① 親子のつぶやき / ② 親子の足跡） */
+.family-sub-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.family-sub-tab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 12px 10px;
+  border-radius: 18px;
+  border: 2px solid var(--koko-blue-main);
+  background-color: #FFFFFF;
+  color: #475569;
+  font-family: var(--font-main);
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.family-sub-tab:hover {
+  background-color: #F8FAFC;
+}
+
+.family-sub-tab.active {
+  background-color: #E0F2FE;
+  color: var(--koko-blue-main);
+  box-shadow: 3px 3px 0px var(--koko-blue-main);
+}
+
+.family-tab-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 7px;
+  border-radius: 9999px;
+  background-color: #FFFFFF;
+  border: 1.5px solid var(--koko-blue-main);
+  font-size: 11.5px;
+  font-weight: 800;
+  color: var(--koko-blue-main);
+}
+
+/* ========================================================
+   ① シンプルな吹き出しタイムライン ＆ アイコンのみリアクション
+   ======================================================== */
+.family-simple-composer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+/* 吹き出しが並ぶエリア（スマホ枠なし・シンプル表示） */
+.family-chat-stream {
+  padding: 4px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* ぽっと表示されるアニメーション（LINE・インスタ風ポップイン） */
+@keyframes chatBubblePopIn {
+  0% {
+    opacity: 0;
+    transform: translateY(10px) scale(0.92);
+  }
+  70% {
+    opacity: 1;
+    transform: translateY(-2px) scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.chat-bubble-pop-in {
+  animation: chatBubblePopIn 0.28s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* ハート押下時のティックトック・インスタ風バウンスアニメーション */
+@keyframes heartPopBounce {
+  0% { transform: scale(1); }
+  35% { transform: scale(1.38); }
+  70% { transform: scale(0.9); }
+  100% { transform: scale(1); }
+}
+
+.heart-pop-anim {
+  animation: heartPopBounce 0.32s ease;
+}
+
+/* 1件ごとのトーク行（相手は左・自分は右） */
+.family-chat-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  width: 100%;
+}
+
+.family-chat-row.chat-row-mine {
+  flex-direction: row-reverse;
+}
+
+.chat-avatar-col {
+  flex-shrink: 0;
+}
+
+.chat-avatar-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #FFFFFF;
+  border: 2px solid var(--koko-blue-main);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 21px;
+  box-shadow: 2px 2px 0px rgba(29, 53, 87, 0.15);
+}
+
+.chat-avatar-circle.role-parent {
+  background-color: #E0F2FE;
+}
+
+.chat-avatar-circle.role-child {
+  background-color: #FCE7F3;
+}
+
+.chat-main-col {
+  display: flex;
+  flex-direction: column;
+  max-width: calc(100% - 56px);
+}
+
+.family-chat-row.chat-row-mine .chat-main-col {
+  align-items: flex-end;
+}
+
+.family-chat-row.chat-row-partner .chat-main-col {
+  align-items: flex-start;
+}
+
+.chat-sender-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 5px;
+  padding: 0 4px;
+}
+
+.family-chat-row.chat-row-mine .chat-sender-meta {
+  flex-direction: row-reverse;
+}
+
+.chat-sender-name {
+  font-size: 12.5px;
+  font-weight: 800;
+  color: var(--koko-blue-main);
+}
+
+.family-role-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  font-size: 10.5px;
+  font-weight: 800;
+}
+
+.family-role-pill.role-parent {
+  background-color: #BAE6FD;
+  color: #0369A1;
+}
+
+.family-role-pill.role-child {
+  background-color: #FBCFE8;
+  color: #BE185D;
+}
+
+.chat-send-time {
+  font-size: 11px;
+  color: #64748B;
+  font-weight: 600;
+}
+
+/* 吹き出し本体 ＋ 横（または下）のイラストのみアクションボタン */
+.chat-bubble-and-actions {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.family-chat-row.chat-row-mine .chat-bubble-and-actions {
+  flex-direction: row-reverse;
+}
+
+.chat-talk-bubble {
+  position: relative;
+  padding: 12px 16px;
+  border-radius: 20px;
+  border: 2px solid var(--koko-blue-main);
+  max-width: 340px;
+  box-shadow: 2px 2px 0px rgba(29, 53, 87, 0.14);
+  word-break: break-word;
+  transition: transform 0.12s ease;
+}
+
+/* 保護者・子どもの淡い色分けと吹き出しの角 */
+.chat-talk-bubble.bubble-parent {
+  background-color: #E0F2FE;
+}
+
+.chat-talk-bubble.bubble-child {
+  background-color: #FCE7F3;
+}
+
+.family-chat-row.chat-row-partner .chat-talk-bubble {
+  border-top-left-radius: 6px;
+}
+
+.family-chat-row.chat-row-mine .chat-talk-bubble {
+  border-top-right-radius: 6px;
+}
+
+.chat-bubble-text {
+  font-size: 14.5px;
+  line-height: 1.65;
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+/* インスタDM・LINE風の吹き出し右下リアクションミニバッジ */
+.chat-bubble-reaction-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  margin-top: 6px;
+  padding: 2px 8px;
+  border-radius: 9999px;
+  background-color: #FFFFFF;
+  border: 1.5px solid #FDA4AF;
+  font-size: 11.5px;
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+}
+
+.reaction-heart {
+  color: #FF2D55;
+  font-size: 12px;
+}
+
+.reaction-avatars {
+  font-size: 12px;
+}
+
+/* ティックトック・インスタ風：イラスト（アイコン）のみのボタンバー */
+.chat-icon-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-chat-icon-only {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  min-width: 36px;
+  height: 36px;
+  padding: 0 8px;
+  border-radius: 9999px;
+  border: 1.5px solid #E2E8F0;
+  background-color: #FFFFFF;
+  color: #475569;
+  cursor: pointer;
+  transition: transform 0.14s ease, background-color 0.14s ease, border-color 0.14s ease;
+}
+
+.btn-chat-icon-only:hover {
+  transform: scale(1.08);
+  border-color: var(--koko-blue-main);
+  color: var(--koko-blue-main);
+}
+
+.btn-chat-icon-only.liked {
+  background-color: #FFF1F2;
+  border-color: #FECDD3;
+  color: #FF2D55;
+}
+
+.btn-chat-icon-only.active {
+  background-color: #E0F2FE;
+  border-color: #7DD3FC;
+  color: #0284C7;
+}
+
+.chat-action-svg {
+  display: block;
+  flex-shrink: 0;
+}
+
+.chat-icon-count {
+  font-size: 12px;
+  font-weight: 800;
+  font-family: var(--font-main);
+  line-height: 1;
+}
+
+/* 返信スレッド（ミニ吹き出し） */
+.chat-replies-thread {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  width: 100%;
+  max-width: 330px;
+}
+
+.chat-reply-bubble-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+}
+
+.family-chat-row.chat-row-mine .chat-reply-bubble-row {
+  flex-direction: row-reverse;
+}
+
+.chat-reply-avatar {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background-color: #FFFFFF;
+  border: 1.5px solid var(--koko-blue-main);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.chat-reply-bubble {
+  background-color: #FFFFFF;
+  border: 1.5px solid #CBD5E1;
+  border-radius: 14px;
+  padding: 7px 11px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-primary);
+}
+
+.chat-reply-bubble-row.reply-parent .chat-reply-bubble {
+  background-color: #F0F9FF;
+  border-color: #BAE6FD;
+}
+
+.chat-reply-bubble-row.reply-child .chat-reply-bubble {
+  background-color: #FFF5F7;
+  border-color: #FBCFE8;
+}
+
+.chat-reply-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 2px;
+}
+
+.chat-reply-author {
+  font-size: 11.5px;
+  font-weight: 800;
+  color: var(--koko-blue-main);
+}
+
+.chat-reply-time {
+  font-size: 10.5px;
+  color: #64748B;
+}
+
+.chat-reply-text {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* インライン返信入力ボックス */
+.chat-inline-reply-box {
+  margin-top: 8px;
+  background-color: #FFFFFF;
+  border: 1.5px solid var(--koko-blue-main);
+  border-radius: 16px;
+  padding: 9px 10px;
+  width: 100%;
+  max-width: 330px;
+  box-sizing: border-box;
+}
+
+.chat-reply-quick-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-bottom: 7px;
+}
+
+.chat-mini-chip {
+  padding: 3px 9px;
+  border-radius: 9999px;
+  border: 1px solid #CBD5E1;
+  background-color: #F8FAFC;
+  font-family: var(--font-main);
+  font-size: 11px;
+  font-weight: 700;
+  color: #334155;
+  cursor: pointer;
+}
+
+.chat-mini-chip:hover {
+  background-color: #FEF3C7;
+  border-color: var(--koko-blue-main);
+}
+
+.chat-reply-input-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.chat-reply-input {
+  flex: 1;
+  min-width: 0;
+  border: 1.5px solid #CBD5E1;
+  border-radius: 9999px;
+  padding: 7px 12px;
+  font-family: var(--font-main);
+  font-size: 13px;
+}
+
+.chat-reply-input:focus {
+  outline: none;
+  border-color: var(--koko-blue-main);
+}
+
+.btn-chat-reply-send-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1.5px solid var(--koko-blue-main);
+  background-color: #BAE6FD;
+  color: var(--koko-blue-main);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.btn-chat-reply-send-icon:hover {
+  background-color: #7DD3FC;
+}
+
+/* トークルーム下部：メッセージ入力ドック（LINE・インスタDM風） */
+.family-chat-composer-dock {
+  background-color: #FFFFFF;
+  border-top: 2px solid var(--koko-blue-main);
+  padding: 12px 14px 14px;
+}
+
+.family-quick-prompts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 9px;
+}
+
+.family-prompt-chip {
+  padding: 4px 11px;
+  border-radius: 9999px;
+  border: 1.5px solid #CBD5E1;
+  background-color: #F8FAFC;
+  color: #334155;
+  font-family: var(--font-main);
+  font-size: 11.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.family-prompt-chip:hover {
+  background-color: #FEF3C7;
+  border-color: var(--koko-blue-main);
+  color: var(--koko-blue-main);
+}
+
+.family-chat-input-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.chat-input-actor-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: #E0F2FE;
+  border: 1.5px solid var(--koko-blue-main);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 19px;
+  flex-shrink: 0;
+}
+
+.chat-input-actor-avatar.actor-child {
+  background-color: #FCE7F3;
+}
+
+.family-chat-textarea {
+  flex: 1;
+  min-width: 0;
+  border: 2px solid #CBD5E1;
+  border-radius: 20px;
+  padding: 9px 14px;
+  font-family: var(--font-main);
+  font-size: 14px;
+  line-height: 1.45;
+  color: var(--text-primary);
+  background-color: #F8FAFC;
+  resize: none;
+}
+
+.family-chat-textarea:focus {
+  outline: none;
+  border-color: var(--koko-blue-main);
+  background-color: #FFFFFF;
+}
+
+.btn-family-chat-send {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 2px solid var(--koko-blue-main);
+  background-color: #FDE68A;
+  color: var(--koko-blue-main);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  box-shadow: 2px 2px 0px var(--koko-blue-main);
+  transition: transform 0.12s ease, background-color 0.12s ease;
+}
+
+.btn-family-chat-send:hover {
+  background-color: #FCD34D;
+  transform: translate(1px, 1px);
+}
+
+/* ========================================================
+   ② 足跡機能（親子の活動を時系列で確認）
+   ======================================================== */
+.family-footprint-intro-card {
+  background-color: #FFFFFF;
+  border: 2px solid var(--koko-blue-main);
+  border-radius: 22px;
+  padding: 16px;
+  margin-bottom: 16px;
+  box-shadow: 3px 3px 0px var(--koko-blue-main);
+}
+
+.family-footprint-intro-title {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--koko-blue-main);
+  margin-bottom: 4px;
+}
+
+.family-footprint-intro-desc {
+  font-size: 12.5px;
+  color: #475569;
+  line-height: 1.5;
+  margin: 0 0 12px 0;
+}
+
+.family-footprint-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.footprint-legend-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  background-color: #F8FAFC;
+  border: 1px solid #CBD5E1;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #334155;
+}
+
+.family-footprint-filter-row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+
+.family-fp-filter-btn {
+  padding: 6px 14px;
+  border-radius: 9999px;
+  border: 1.5px solid #CBD5E1;
+  background-color: #F8FAFC;
+  color: #475569;
+  font-family: var(--font-main);
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.family-fp-filter-btn.active {
+  background-color: #FEF3C7;
+  border-color: var(--koko-blue-main);
+  color: var(--koko-blue-main);
+  font-weight: 800;
+}
+
+/* 足跡タイムラインリスト */
+.family-footprints-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.family-footprint-date-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.family-footprint-date-badge {
+  display: inline-block;
+  align-self: flex-start;
+  padding: 4px 14px;
+  border-radius: 9999px;
+  background-color: #E2E8F0;
+  color: var(--koko-blue-main);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.family-footprint-items-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-left: 8px;
+  border-left: 3px solid #CBD5E1;
+}
+
+.family-footprint-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  background-color: #FFFFFF;
+  border: 2px solid var(--koko-blue-main);
+  border-radius: 18px;
+  padding: 12px 14px;
+  box-shadow: 2px 2px 0px var(--koko-blue-main);
+}
+
+.family-fp-parent {
+  background-color: #F8FDFF;
+}
+
+.family-fp-child {
+  background-color: #FFF9FB;
+}
+
+.family-fp-icon-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 19px;
+  flex-shrink: 0;
+}
+
+.family-fp-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.family-fp-meta-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 5px;
+}
+
+.family-fp-who {
+  font-size: 13.5px;
+  font-weight: 800;
+  color: var(--koko-blue-main);
+}
+
+.family-fp-action-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 9px;
+  border-radius: 9999px;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.family-fp-time {
+  font-size: 11.5px;
+  color: #64748B;
+  font-weight: 700;
+  margin-left: auto;
+}
+
+.family-fp-main-text {
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.family-fp-target {
+  margin-top: 6px;
+  padding: 6px 10px;
+  border-radius: 10px;
+  background-color: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #334155;
+}
+
+.family-fp-target.clickable {
+  cursor: pointer;
+  color: #0369A1;
+  background-color: #F0F9FF;
+  border-color: #BAE6FD;
+}
+
+.family-fp-target.clickable:hover {
+  background-color: #E0F2FE;
+}
+
+.family-empty-card {
+  background-color: #FFFFFF;
+  border: 2px dashed #CBD5E1;
+  border-radius: 20px;
+  padding: 28px 16px;
+  text-align: center;
+}
+
+.family-empty-icon {
+  font-size: 32px;
+  margin-bottom: 8px;
+}
+
+.family-empty-title {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--koko-blue-main);
+  margin: 0 0 4px 0;
+}
+
+.family-empty-sub {
+  font-size: 12.5px;
+  color: #64748B;
+  margin: 0;
+}
+
+/* 補足説明文削除後のタイトル・選択肢カードの余白最適化 */
+.slide-question-title {
+  margin-bottom: 18px;
+}
+
+.home-section-header {
+  margin-bottom: 14px;
+}
+
+.modal-section-title-wrap {
+  margin-bottom: 12px;
+}
+
+.interest-label-box {
+  display: flex;
+  align-items: center;
+}
+
+
+
 
 
 
