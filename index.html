@@ -145,72 +145,8 @@
         <div id="homeChildViewBlock" class="home-mode-block child-friendly-home" style="display: none;">
           <!-- 子ども向けイラスト付きヒーローバナー -->
           <div class="child-visual-hero-card">
-            <div class="child-hero-illust-stage" aria-hidden="true">
-              <!-- キラキラ装飾 -->
-              <svg class="child-hero-sparkle sp-left" width="24" height="24" viewBox="0 0 24 24" fill="#F59E0B">
-                <path d="M12 2L14.2 9.8L22 12L14.2 14.2L12 22L9.8 14.2L2 12L9.8 9.8L12 2Z" />
-              </svg>
-              <svg class="child-hero-sparkle sp-right" width="22" height="22" viewBox="0 0 24 24" fill="#F59E0B">
-                <path d="M12 2L14.2 9.8L22 12L14.2 14.2L12 22L9.8 14.2L2 12L9.8 9.8L12 2Z" />
-              </svg>
-              <!-- 男の子＆女の子の親しみやすいイラストSVG -->
-              <svg class="child-hero-kids-svg" viewBox="0 0 320 155" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <!-- 背景のやわらかい光 -->
-                <ellipse cx="160" cy="135" rx="125" ry="18" fill="#FDE68A" opacity="0.65" />
-                <!-- 男の子（左） -->
-                <g transform="translate(48, 12)">
-                  <!-- リュック -->
-                  <rect x="18" y="78" width="54" height="58" rx="16" fill="#2563EB" stroke="#1E293B" stroke-width="3" />
-                  <!-- 体・白いシャツ -->
-                  <path d="M25 84C25 74 37 68 50 68C63 68 75 74 75 84L82 138H18L25 84Z" fill="#FFFFFF" stroke="#1E293B" stroke-width="3" />
-                  <!-- リュックの肩ひも -->
-                  <path d="M33 73C31 92 31 112 34 134" stroke="#1D4ED8" stroke-width="7" stroke-linecap="round" />
-                  <path d="M33 73C31 92 31 112 34 134" stroke="#1E293B" stroke-width="3" stroke-linecap="round" fill="none" />
-                  <path d="M67 73C69 92 69 112 66 134" stroke="#1D4ED8" stroke-width="7" stroke-linecap="round" />
-                  <path d="M67 73C69 92 69 112 66 134" stroke="#1E293B" stroke-width="3" stroke-linecap="round" fill="none" />
-                  <!-- ガッツポーズの左腕 -->
-                  <path d="M22 92C10 88 6 76 12 64" stroke="#FFFFFF" stroke-width="14" stroke-linecap="round" />
-                  <path d="M22 92C10 88 6 76 12 64" stroke="#1E293B" stroke-width="3" stroke-linecap="round" />
-                  <circle cx="13" cy="60" r="9" fill="#FDE0C8" stroke="#1E293B" stroke-width="3" />
-                  <!-- 首・顔 -->
-                  <rect x="43" y="54" width="14" height="16" rx="6" fill="#FDE0C8" stroke="#1E293B" stroke-width="3" />
-                  <circle cx="50" cy="38" r="24" fill="#FDE0C8" stroke="#1E293B" stroke-width="3" />
-                  <!-- 髪 -->
-                  <path d="M25 36C24 18 37 10 53 11C68 12 77 22 75 37C70 28 63 26 56 29C49 23 39 24 33 31C29 31 27 33 25 36Z" fill="#1E293B" stroke="#1E293B" stroke-width="2" stroke-linejoin="round" />
-                  <!-- 目・笑顔・ほっぺ -->
-                  <circle cx="42" cy="38" r="2.8" fill="#1E293B" />
-                  <circle cx="59" cy="38" r="2.8" fill="#1E293B" />
-                  <ellipse cx="36" cy="44" rx="4.5" ry="2.5" fill="#F472B6" opacity="0.55" />
-                  <ellipse cx="64" cy="44" rx="4.5" ry="2.5" fill="#F472B6" opacity="0.55" />
-                  <path d="M44 45C46 49 54 49 57 45" stroke="#1E293B" stroke-width="2.8" stroke-linecap="round" fill="none" />
-                </g>
-
-                <!-- 女の子（右） -->
-                <g transform="translate(166, 18)">
-                  <!-- 後ろ髪 -->
-                  <path d="M24 38C18 58 18 82 26 96C38 100 66 100 76 94C84 78 82 54 76 38Z" fill="#78350F" stroke="#1E293B" stroke-width="3" />
-                  <!-- リュック -->
-                  <rect x="24" y="74" width="54" height="54" rx="16" fill="#EC4899" stroke="#1E293B" stroke-width="3" />
-                  <!-- 体・服 -->
-                  <path d="M27 82C27 72 38 66 50 66C62 66 73 72 73 82L80 132H20L27 82Z" fill="#FEF08A" stroke="#1E293B" stroke-width="3" />
-                  <!-- リュックの肩ひも -->
-                  <path d="M35 72C33 90 33 108 36 128" stroke="#DB2777" stroke-width="6.5" stroke-linecap="round" />
-                  <path d="M35 72C33 90 33 108 36 128" stroke="#1E293B" stroke-width="3" stroke-linecap="round" fill="none" />
-                  <path d="M65 72C67 90 67 108 64 128" stroke="#DB2777" stroke-width="6.5" stroke-linecap="round" />
-                  <path d="M65 72C67 90 67 108 64 128" stroke="#1E293B" stroke-width="3" stroke-linecap="round" fill="none" />
-                  <!-- 首・顔 -->
-                  <rect x="43" y="52" width="14" height="15" rx="6" fill="#FDE0C8" stroke="#1E293B" stroke-width="3" />
-                  <circle cx="50" cy="36" r="23" fill="#FDE0C8" stroke="#1E293B" stroke-width="3" />
-                  <!-- 前髪 -->
-                  <path d="M27 34C28 17 40 11 52 11C65 11 74 19 73 34C67 26 59 24 51 28C43 24 34 26 27 34Z" fill="#78350F" stroke="#1E293B" stroke-width="2.5" stroke-linejoin="round" />
-                  <!-- 目・笑顔・ほっぺ -->
-                  <circle cx="41" cy="37" r="2.8" fill="#1E293B" />
-                  <circle cx="58" cy="37" r="2.8" fill="#1E293B" />
-                  <ellipse cx="35" cy="43" rx="4.5" ry="2.5" fill="#F472B6" opacity="0.6" />
-                  <ellipse cx="63" cy="43" rx="4.5" ry="2.5" fill="#F472B6" opacity="0.6" />
-                  <path d="M44 44C46 48 53 48 56 44" stroke="#1E293B" stroke-width="2.8" stroke-linecap="round" fill="none" />
-                </g>
-              </svg>
+            <div class="child-hero-illust-stage">
+              <img src="assets/images/child_hero_kids.jpg" alt="じぶんの「すき」を見つける" class="child-hero-kids-img">
             </div>
             <button type="button" class="btn-child-find-like-pill" onclick="startChildQuestionEdit()">
               <span class="star-icon-gold">★</span>

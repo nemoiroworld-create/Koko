@@ -6948,45 +6948,34 @@ body.child-mode-active .user-mode-switcher-bar #btnModeChild.active {
   border-color: #EC4899 !important;
 }
 
-/* 子どもホーム：黄色いイラスト付きヒーローカード */
+/* 子どもホーム：イラスト付きヒーローカード */
 .child-visual-hero-card {
-  background: linear-gradient(180deg, #FEF3C7 0%, #FDE68A 100%);
+  background: linear-gradient(180deg, #FFFFFF 0%, #FEF3C7 100%);
   border-radius: 26px;
-  padding: 18px 18px 20px;
+  padding: 16px 16px 20px;
   margin-bottom: 24px;
   text-align: center;
   box-shadow: 0 8px 24px rgba(245, 158, 11, 0.14);
+  border: 2px solid #FDE68A;
   position: relative;
   overflow: hidden;
 }
 
 .child-hero-illust-stage {
   position: relative;
-  max-width: 310px;
-  margin: 0 auto 8px;
+  max-width: 380px;
+  margin: 0 auto 12px;
+  border-radius: 20px;
+  overflow: hidden;
+  background-color: #FFFFFF;
 }
 
-.child-hero-kids-svg {
+.child-hero-kids-img {
   width: 100%;
-  max-width: 280px;
   height: auto;
   display: block;
   margin: 0 auto;
-}
-
-.child-hero-sparkle {
-  position: absolute;
-  pointer-events: none;
-}
-
-.child-hero-sparkle.sp-left {
-  top: 14px;
-  left: 10px;
-}
-
-.child-hero-sparkle.sp-right {
-  top: 22px;
-  right: 12px;
+  border-radius: 18px;
 }
 
 .btn-child-find-like-pill {
