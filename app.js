@@ -7294,91 +7294,16 @@ function setupReviewWizardUI(mode, targetPlan = null) {
         }
 
         function renderMypageChildProfile() {
-          const container = document.getElementById('mypageChildAnswersSummary');
-          if (!container) return;
-
-          const prof = AppSchema.child_profile || {};
-          if (!prof.is_completed) {
-            container.innerHTML = `
-      <div style="padding: 16px; background: #FFF9E6; border: 2px dashed #000; border-radius: 12px; text-align: center;">
-        <p style="font-weight: 700; margin-bottom: 12px; color: #1B2028;">まだ質問に答えていません</p>
-        <button type="button" class="btn-solid-child" onclick="startChildQuestionEdit()" style="display: inline-block;">✦ 質問に答えてみる</button>
-      </div>
-    `;
-            return;
-          }
-
-          const interestBadges = (prof.interests && prof.interests.length > 0)
-            ? prof.interests.map(int => `<span class="ans-chip-tag"># ${CHILD_INTEREST_LABEL_MAP[int] || int}</span>`).join(' ')
-            : '<span style="color:#888;">未選択</span>';
-
-          const momentVal = prof.moment || prof.q1 || '';
-          const lifestyleVal = prof.lifestyle || prof.afterschool || prof.q2 || '';
-          const studyVal = prof.study || prof.subject || prof.q3 || '';
-          const facilityVal = prof.facility || prof.place || prof.q4 || '';
-          const relationVal = prof.relation || prof.q5 || '';
-
-          const momentText = CHILD_CHOICE_LABEL_MAP[momentVal] || momentVal || '未設定';
-          const afterschoolText = CHILD_CHOICE_LABEL_MAP[lifestyleVal] || lifestyleVal || '未設定';
-          const subjectText = CHILD_CHOICE_LABEL_MAP[studyVal] || studyVal || '未設定';
-          const placeText = CHILD_CHOICE_LABEL_MAP[facilityVal] || facilityVal || '未設定';
-          const relationText = CHILD_CHOICE_LABEL_MAP[relationVal] || relationVal || '未設定';
-
-          const freeQuotes = [];
-          if (prof.free_comments) {
-            if (prof.free_comments.step1) freeQuotes.push(`「${prof.free_comments.step1}」`);
-            if (prof.free_comments.q1) freeQuotes.push(`「${prof.free_comments.q1}」`);
-            if (prof.free_comments.q2) freeQuotes.push(`「${prof.free_comments.q2}」`);
-            if (prof.free_comments.q3) freeQuotes.push(`「${prof.free_comments.q3}」`);
-            if (prof.free_comments.q4) freeQuotes.push(`「${prof.free_comments.q4}」`);
-          }
-          const quotesHtml = freeQuotes.length > 0
-            ? `<div class="mypage-ans-quote"><span style="font-weight:700;">自由記述の言葉：</span> ${freeQuotes.join(' ')}</div>`
-            : '';
-
-          const isParent = currentUserMode === 'parent';
+          // 子どものマイページ「質問解答データ」は「✎ 回答を編集する」ボタンの表示のみとする
           const editBtnEl = document.getElementById('btnEditChildAnswersMypage');
           if (editBtnEl) {
-            editBtnEl.style.display = isParent ? 'none' : 'inline-block';
+            editBtnEl.style.display = 'inline-block';
           }
-
-          const badgeNote = isParent
-            ? `<span style="font-size:12px; color:#64748B; font-weight:700;">🔒 閲覧専用：お子さまの自主性を尊重するため、保護者画面からは変更できません。変更はお子さま画面から行ってください。</span>`
-            : `<span style="font-size:12px; color:#555;">いつでも右上の「✎ 回答を編集する」から再設定できます</span>`;
-
-          container.innerHTML = `
-    <div class="mypage-ans-status-badge">
-      <span class="badge-phase" style="background:#FFF9E6; border-color:#000;">回答完了・保存済み</span>
-      ${badgeNote}
-    </div>
-    <div class="mypage-ans-grid">
-      <div class="mypage-ans-item">
-        <span class="mypage-ans-label">すきなこと</span>
-        <div class="mypage-ans-value">${interestBadges}</div>
-      </div>
-      <div class="mypage-ans-item">
-        <span class="mypage-ans-label">夢中になる瞬間</span>
-        <div class="mypage-ans-value">${momentText}</div>
-      </div>
-      <div class="mypage-ans-item">
-        <span class="mypage-ans-label">理想の放課後</span>
-        <div class="mypage-ans-value">${afterschoolText}</div>
-      </div>
-      <div class="mypage-ans-item">
-        <span class="mypage-ans-label">好きな授業スタイル</span>
-        <div class="mypage-ans-value">${subjectText}</div>
-      </div>
-      <div class="mypage-ans-item">
-        <span class="mypage-ans-label">いちばん居心地の良い場所</span>
-        <div class="mypage-ans-value">${placeText}</div>
-      </div>
-      <div class="mypage-ans-item">
-        <span class="mypage-ans-label">理想の先生・先輩</span>
-        <div class="mypage-ans-value">${relationText}</div>
-      </div>
-    </div>
-    ${quotesHtml}
-  `;
+          const container = document.getElementById('mypageChildAnswersSummary');
+          if (container) {
+            container.innerHTML = '';
+            container.style.display = 'none';
+          }
         }
 
         // ==========================================

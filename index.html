@@ -1920,20 +1920,18 @@
           </div>
         </div>
 
-        <!-- 質問回答済みデータ（質問解答データ＆編集ボタン） -->
+        <!-- 質問回答済みデータ（質問解答データ：回答を編集するボタンの表示のみ） -->
         <div class="card-surface mypage-child-answers-card" id="mypageChildAnswersCard" style="margin-bottom: 20px;">
-          <div class="phase-header flex-between-header">
+          <div class="phase-header flex-between-header" style="margin-bottom: 0;">
             <div>
-              <h3 class="title-h2 text-child">質問解答データ</h3>
+              <h3 class="title-h2 text-child" style="margin: 0;">質問解答データ</h3>
             </div>
             <button type="button" class="btn-edit-answers-pill" id="btnEditChildAnswersMypage"
               onclick="startChildQuestionEdit()">
               ✎ 回答を編集する
             </button>
           </div>
-          <div class="mypage-answers-summary-box" id="mypageChildAnswersSummary">
-            <!-- JavaScriptで動的生成 -->
-          </div>
+          <div class="mypage-answers-summary-box" id="mypageChildAnswersSummary" style="display: none;"></div>
         </div>
 
         <!-- アカウント・データ管理設定カード -->
