@@ -8257,14 +8257,13 @@ function setupReviewWizardUI(mode, targetPlan = null) {
           const container = document.getElementById('familyTimelineContainer');
           if (!container) return;
 
-          const posts = getFilteredFamilyPosts();
+          const posts = AppSchema.family_posts || [];
           updateFamilyTabBadges();
 
           if (posts.length === 0) {
             container.innerHTML = `
       <div class="family-empty-card">
-        <p class="family-empty-title">条件に一致する活動・つぶやきはありません</p>
-        <p class="family-empty-sub">「＋ 活動を記録する」または上の入力欄から投稿してみましょう！</p>
+        <p class="family-empty-title">まだつぶやきがありません</p>
       </div>
     `;
             return;
@@ -8290,32 +8289,13 @@ function setupReviewWizardUI(mode, targetPlan = null) {
             const replies = Array.isArray(post.replies) ? post.replies : [];
             const isReplyOpen = !!openReplyPostIds[post.id];
 
-            // 行動バッジ・実績数・実施日（クリックで日付フィルター）・通算〇回目
-            const cumInfo = getPostCumulativeOrder(post, AppSchema.family_posts);
-            const isDateSelected = familyFilterDate === cumInfo.dateStr;
-            const actionLabel = getPostActionLabel(post);
-            const valNum = post.value !== undefined ? post.value : 1;
-            const valUnit = post.unit || '件';
-
-            const emojiReactionsHtml = FAMILY_REACTION_EMOJIS.map(emoji => {
-              const rList = (post.reactions && Array.isArray(post.reactions[emoji])) ? post.reactions[emoji] : [];
-              const reactedByMe = rList.includes(familyActiveActor);
-              return `
-                <button type="button" class="btn-family-emoji-react ${reactedByMe ? 'reacted' : ''}"
-                  onclick="toggleFamilyEmojiReaction('${post.id}', '${emoji}', event)" title="${emoji} でリアクション">
-                  <span>${emoji}</span>
-                  ${rList.length > 0 ? `<span class="emoji-react-count">${rList.length}</span>` : ''}
-                </button>
-              `;
-            }).join('');
-
-            // ハートイラスト
+            // ハートイラストのみ
             const heartIconSvg = isLikedByMe
-              ? `<svg class="chat-action-svg heart-svg filled ${likePopClass}" viewBox="0 0 24 24" width="20" height="20" fill="#FF2D55" stroke="#FF2D55" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>`
-              : `<svg class="chat-action-svg heart-svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>`;
+              ? `<svg class="chat-action-svg heart-svg filled ${likePopClass}" viewBox="0 0 24 24" width="21" height="21" fill="#FF2D55" stroke="#FF2D55" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>`
+              : `<svg class="chat-action-svg heart-svg" viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>`;
 
-            // 吹き出しイラスト
-            const replyIconSvg = `<svg class="chat-action-svg reply-svg" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>`;
+            // 吹き出しイラストのみ
+            const replyIconSvg = `<svg class="chat-action-svg reply-svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>`;
 
             const repliesHtml = replies.length > 0 ? `
       <div class="chat-replies-thread">
@@ -8345,7 +8325,7 @@ function setupReviewWizardUI(mode, targetPlan = null) {
       <div class="chat-inline-reply-box chat-bubble-pop-in">
         <div class="chat-reply-input-bar">
           <input type="text" id="replyInput_${post.id}" class="chat-reply-input"
-            placeholder="フィードバック・返信を入力…"
+            placeholder="返信を入力…"
             onkeydown="if(event.key==='Enter' && !event.isComposing){event.preventDefault();submitFamilyReply('${post.id}');}">
           <button type="button" class="btn-chat-reply-send-icon" onclick="submitFamilyReply('${post.id}')" aria-label="送信">
             <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
@@ -8367,27 +8347,12 @@ function setupReviewWizardUI(mode, targetPlan = null) {
           <div class="chat-sender-meta">
             <span class="chat-sender-name">${escapeFamilyHtml(displayAuthorName)}</span>
             <span class="chat-send-time">${formatFamilyTimestamp(post.createdAt)}</span>
-            <button type="button" class="btn-post-detail-open" onclick="openFamilyDetailDrawer('${post.id}')" title="活動詳細＆フィードバックを開く">詳細</button>
-            ${isMine ? `<button type="button" class="btn-post-delete-icon" onclick="openFamilyDeleteConfirm('${post.id}', event)" title="この活動記録を削除">🗑</button>` : ''}
-          </div>
-
-          <!-- 行動種別バッジ ＆ 実績数 ＆ 実施日（クリックで日付絞り込み）＆ 通算〇回目 -->
-          <div class="family-post-activity-badges-row">
-            <span class="family-act-type-badge">${escapeFamilyHtml(actionLabel)}</span>
-            <span class="family-act-val-badge"><strong>${valNum}</strong> ${escapeFamilyHtml(valUnit)}</span>
-            <button type="button" class="family-act-date-chip ${isDateSelected ? 'active' : ''}"
-              onclick="toggleFamilyDateFilter('${cumInfo.dateStr}', event)"
-              title="クリックでこの日に実施された活動を絞り込み">
-              <span>📅 ${escapeFamilyHtml(cumInfo.formattedDate)} 実施</span>
-              <span class="family-act-order-pill">通算${cumInfo.order}回目</span>
-            </button>
+            ${isMine ? `<button type="button" class="btn-post-delete-icon" onclick="openFamilyDeleteConfirm('${post.id}', event)" title="削除">🗑</button>` : ''}
           </div>
 
           <div class="chat-bubble-and-actions">
             <div class="chat-talk-bubble ${isChildAuthor ? 'bubble-child' : 'bubble-parent'}"
-              onclick="openFamilyDetailDrawer('${post.id}')"
-              ondblclick="event.stopPropagation(); toggleFamilyPostLike('${post.id}')">
-              ${post.targetName ? `<div class="family-post-target-school">🏫 ${escapeFamilyHtml(post.targetName)}</div>` : ''}
+              ondblclick="toggleFamilyPostLike('${post.id}')">
               <div class="chat-bubble-text">${escapeFamilyHtml(post.content)}</div>
             </div>
 
@@ -8402,11 +8367,6 @@ function setupReviewWizardUI(mode, targetPlan = null) {
                 ${replies.length > 0 ? `<span class="chat-icon-count">${replies.length}</span>` : ''}
               </button>
             </div>
-          </div>
-
-          <!-- 5種絵文字リアクションバー（👍 👏 🚀 🔥 👀） -->
-          <div class="family-emoji-reactions-bar">
-            ${emojiReactionsHtml}
           </div>
 
           ${repliesHtml}
