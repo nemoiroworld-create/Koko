@@ -296,13 +296,14 @@
             </div>
           </div>
 
-          <!-- ② 親子画面メインコンテンツ（選択完了後に表示） -->
+          <!-- ② 親子画面メインコンテンツ（選択完了後に表示：UIはKokoのまま、機能はfrogs活動報告プラットフォーム準拠） -->
           <div id="familyMainContentContainer" style="display: none;">
-            <!-- 現在利用中のユーザー表示 ＆ 切替・足跡設定バー -->
+            <!-- 現在利用中のユーザー表示 ＆ 投稿件数 ＆ 切替・足跡設定バー -->
             <div class="family-viewer-status-bar">
               <div class="family-viewer-badge" id="familyCurrentViewerBadge">
                 <span id="familyViewerBadgeEmoji">👦</span>
-                <span id="familyViewerBadgeText">子どもで表示中</span>
+                <span id="familyViewerBadgeText">子どもで利用中</span>
+                <span class="family-post-total-count" id="familyTotalCountBadge">0 件の投稿</span>
               </div>
               <div class="family-viewer-actions">
                 <button type="button" class="btn-family-viewer-action" id="btnOpenChildFpSettings"
@@ -312,10 +313,13 @@
                 <button type="button" class="btn-family-viewer-action" onclick="openFamilyUserSelectGate()">
                   👤 使う人を変更
                 </button>
+                <button type="button" class="btn-family-viewer-action primary-record-btn" onclick="openFamilyRecordModal()">
+                  ＋ 活動を記録する
+                </button>
               </div>
             </div>
 
-            <!-- 「つぶやき」⇄「足跡」切り替えタブ -->
+            <!-- 「つぶやき」⇄「足跡」⇄「累計」切り替えタブ -->
             <div class="family-sub-tabs" role="tablist">
               <button type="button" class="family-sub-tab active" id="tabFamilyMurmur"
                 onclick="switchFamilySubTab('murmur')">
@@ -325,6 +329,53 @@
                 onclick="switchFamilySubTab('footprint')">
                 <span class="tab-label-main">🐾 足跡</span>
               </button>
+              <button type="button" class="family-sub-tab" id="tabFamilyStats"
+                onclick="switchFamilySubTab('stats')">
+                <span class="tab-label-main">📊 活動累計</span>
+              </button>
+            </div>
+
+            <!-- 共通：キーワード検索 ＆ 絞り込みフィルター（メンバー・行動の種類・実施日） -->
+            <div class="family-filter-toolbar-card" id="familyFilterToolbarCard">
+              <div class="family-filter-top-row">
+                <div class="family-scope-tabs">
+                  <button type="button" class="family-scope-tab active" id="btnFamilyScopeAll"
+                    onclick="setFamilyTimelineScope('all')">すべての活動</button>
+                  <button type="button" class="family-scope-tab" id="btnFamilyScopeMy"
+                    onclick="setFamilyTimelineScope('my')">自分の報告</button>
+                </div>
+                <button type="button" class="btn-family-filter-reset" id="btnResetFamilyFilters"
+                  onclick="resetAllFamilyFilters()" style="display: none;">
+                  フィルター解除 ×
+                </button>
+              </div>
+
+              <div class="family-filter-controls-grid">
+                <div class="family-search-input-wrap">
+                  <input type="text" id="familySearchKeywordInput" class="family-filter-search-input"
+                    placeholder="🔍 活動内容・学校名・メンバーを検索…" oninput="handleFamilySearchInput(this.value)">
+                </div>
+                <select id="familyFilterMemberSelect" class="family-filter-select"
+                  onchange="handleFamilyMemberFilterChange(this.value)">
+                  <option value="all">すべてのメンバー</option>
+                  <option value="child">👦 子ども</option>
+                  <option value="parent">👩 保護者</option>
+                </select>
+                <select id="familyFilterActionSelect" class="family-filter-select"
+                  onchange="handleFamilyActionFilterChange(this.value)">
+                  <option value="all">すべての行動</option>
+                  <option value="murmur">💬 つぶやき・ひとこと</option>
+                  <option value="view_school">🏫 学校の詳細画面を確認</option>
+                  <option value="favorite_school">★ 学校をお気に入り登録</option>
+                  <option value="review_event">📝 イベントの振り返りを入力</option>
+                  <option value="like_post">♥ つぶやきにいいね</option>
+                  <option value="reply_post">💬 つぶやきに返信</option>
+                  <option value="other">✨ その他（自由記録）</option>
+                </select>
+              </div>
+
+              <!-- 実施日クリック絞り込み中のバナー -->
+              <div id="familyActiveDateFilterBanner" class="family-date-filter-banner" style="display: none;"></div>
             </div>
 
             <!-- ① つぶやきタブ -->
@@ -357,7 +408,7 @@
                 </div>
               </div>
 
-              <!-- 吹き出し一覧（外枠なしでシンプルにぽっと表示） -->
+              <!-- 吹き出し・活動一覧 -->
               <div id="familyTimelineContainer" class="family-chat-stream">
                 <!-- JavaScriptで動的生成 -->
               </div>
@@ -378,6 +429,183 @@
 
               <div id="familyFootprintsContainer" class="family-footprints-list">
                 <!-- JavaScriptで動的生成 -->
+              </div>
+            </div>
+
+            <!-- ③ 活動累計タブ（リアルタイム集計） -->
+            <div id="familyStatsPanel" class="family-tab-panel" style="display: none;">
+              <div id="familyCumulativeStatsContainer" class="family-stats-box">
+                <!-- JavaScriptで動的生成 -->
+              </div>
+            </div>
+
+            <!-- 右下フローティング「＋ 活動を記録する」ボタン -->
+            <div class="family-fab-wrap">
+              <button type="button" id="btnFamilyTimelineFab" class="btn-family-fab"
+                onclick="openFamilyRecordModal()" title="活動を記録する" aria-label="活動を記録する">
+                ＋
+              </button>
+            </div>
+          </div>
+
+          <!-- ==========================================
+               親子画面モーダル群（活動を記録する / 日付カレンダー / 詳細＆フィードバック / 削除確認）
+               ========================================== -->
+          <!-- A. 活動を記録するモーダル -->
+          <div id="familyRecordModalOverlay" class="school-modal-overlay" style="display: none;"
+            onclick="if(event.target.id==='familyRecordModalOverlay') closeFamilyRecordModal()">
+            <div class="school-modal-dialog family-record-modal-dialog">
+              <button type="button" class="btn-modal-close" onclick="closeFamilyRecordModal()" aria-label="閉じる">×</button>
+              <div class="family-record-modal-body">
+                <h3 class="title-h2" style="margin: 0 0 14px 0;">活動を記録する</h3>
+                <div id="familyRecordErrorBox" class="family-record-error-box" style="display: none;"></div>
+
+                <!-- 報告メンバー -->
+                <div class="family-record-field-row">
+                  <span class="family-record-label">報告メンバー</span>
+                  <div class="family-actor-buttons" style="margin: 0;">
+                    <button type="button" class="family-actor-btn" id="btnModalActorParent"
+                      onclick="setFamilyModalActor('parent')">👩 保護者</button>
+                    <button type="button" class="family-actor-btn" id="btnModalActorChild"
+                      onclick="setFamilyModalActor('child')">👦 子ども</button>
+                  </div>
+                </div>
+
+                <!-- 活動日（前日 / カレンダーで選ぶ / 翌日 ＋ 今日・昨日・一昨日クイックボタン） -->
+                <div class="family-record-field-group">
+                  <div class="family-record-label-row">
+                    <label class="family-record-label">活動日</label>
+                    <span style="font-size: 11px; color: #64748B;">クリックして日付を変更</span>
+                  </div>
+                  <div class="family-date-selector-bar">
+                    <button type="button" class="btn-date-step" onclick="shiftFamilyRecordDate(-1)" title="前日にする">&lt;</button>
+                    <button type="button" class="btn-date-picker-trigger" onclick="openFamilyCalendarModal()">
+                      <span id="familyRecordDateDisplayText">2026年11月21日 (土)</span>
+                      <span class="date-picker-badge">📅 カレンダーで選ぶ</span>
+                    </button>
+                    <button type="button" class="btn-date-step" onclick="shiftFamilyRecordDate(1)" title="翌日にする">&gt;</button>
+                  </div>
+                  <div class="family-date-quick-row">
+                    <span class="quick-date-label">クイック:</span>
+                    <button type="button" class="btn-quick-date" id="btnQuickDateToday" onclick="setFamilyRecordQuickDate(0)">今日</button>
+                    <button type="button" class="btn-quick-date" id="btnQuickDateYesterday" onclick="setFamilyRecordQuickDate(-1)">昨日</button>
+                    <button type="button" class="btn-quick-date" id="btnQuickDateTwoDaysAgo" onclick="setFamilyRecordQuickDate(-2)">一昨日</button>
+                  </div>
+                </div>
+
+                <!-- 行動の種類 -->
+                <div class="family-record-field-group">
+                  <label class="family-record-label" for="familyRecordActionTypeSelect">行動の種類</label>
+                  <select id="familyRecordActionTypeSelect" class="family-filter-select full-width"
+                    onchange="handleFamilyRecordActionTypeChange(this.value)">
+                    <option value="murmur">💬 つぶやき・ひとこと（単位: 件）</option>
+                    <option value="view_school">🏫 学校の詳細画面を確認（単位: 校）</option>
+                    <option value="favorite_school">★ 学校をお気に入り登録（単位: 校）</option>
+                    <option value="review_event">📝 イベントの振り返りを入力（単位: 回）</option>
+                    <option value="other">✨ その他（自由入力）</option>
+                  </select>
+                </div>
+
+                <!-- 「その他」選択時のカスタム行動名・単位 -->
+                <div id="familyRecordCustomActionBox" class="family-custom-action-box" style="display: none;">
+                  <div class="family-record-field-group">
+                    <label class="family-record-label" for="familyRecordCustomNameInput">行動名を入力 <span style="color:#E11D48;">*</span></label>
+                    <input type="text" id="familyRecordCustomNameInput" class="family-filter-search-input"
+                      placeholder="例: 過去問演習、通学ルート散歩、パンフレット比較 など">
+                  </div>
+                  <div class="family-record-field-group" style="margin-bottom: 0;">
+                    <label class="family-record-label" for="familyRecordCustomUnitInput">単位の設定</label>
+                    <input type="text" id="familyRecordCustomUnitInput" class="family-filter-search-input"
+                      value="回" placeholder="回 / 校 / 件 / 時間 など" oninput="updateFamilyRecordUnitBadge(this.value)">
+                  </div>
+                </div>
+
+                <!-- 実績数・回数 -->
+                <div class="family-record-field-group">
+                  <label class="family-record-label" for="familyRecordValueInput">実績数・回数 <span style="color:#E11D48;">*</span></label>
+                  <div class="family-value-input-row">
+                    <input type="number" id="familyRecordValueInput" class="family-filter-search-input"
+                      value="1" min="0.5" step="0.5">
+                    <span class="family-unit-addon" id="familyRecordUnitAddon">件</span>
+                  </div>
+                </div>
+
+                <!-- 活動メモ・つぶやき -->
+                <div class="family-record-field-group">
+                  <label class="family-record-label" for="familyRecordMemoInput">活動メモ・つぶやき <span style="color:#E11D48;">*</span></label>
+                  <textarea id="familyRecordMemoInput" class="family-chat-textarea" rows="3"
+                    style="width:100%; border-radius:12px; padding:10px;"
+                    placeholder="気づいたこと、感想、話したいことなどを自由に入力してください。"></textarea>
+                </div>
+
+                <div class="slide-actions-bar between" style="margin-top: 18px;">
+                  <button type="button" class="btn-outline" onclick="closeFamilyRecordModal()">キャンセル</button>
+                  <button type="button" class="btn-family-gate-start" style="width:auto; padding:12px 24px;"
+                    onclick="submitFamilyRecordModal()">保存して報告</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- B. 日付カレンダー選択モーダル -->
+          <div id="familyCalendarModalOverlay" class="school-modal-overlay" style="display: none;"
+            onclick="if(event.target.id==='familyCalendarModalOverlay') closeFamilyCalendarModal()">
+            <div class="school-modal-dialog family-calendar-modal-dialog">
+              <div class="family-calendar-header">
+                <strong>📅 日付カレンダー</strong>
+                <button type="button" class="btn-modal-close" style="position:static;" onclick="closeFamilyCalendarModal()">×</button>
+              </div>
+              <div class="family-calendar-nav-bar">
+                <button type="button" class="btn-date-step" onclick="shiftFamilyCalendarMonth(-1)">&lt;</button>
+                <div class="family-calendar-ym-selects">
+                  <select id="familyCalYearSelect" class="family-filter-select" onchange="renderFamilyCalendarGrid()">
+                    <option value="2025">2025年</option>
+                    <option value="2026" selected>2026年</option>
+                    <option value="2027">2027年</option>
+                  </select>
+                  <select id="familyCalMonthSelect" class="family-filter-select" onchange="renderFamilyCalendarGrid()">
+                    <option value="1">1月</option><option value="2">2月</option><option value="3">3月</option>
+                    <option value="4">4月</option><option value="5">5月</option><option value="6">6月</option>
+                    <option value="7">7月</option><option value="8">8月</option><option value="9">9月</option>
+                    <option value="10">10月</option><option value="11">11月</option><option value="12">12月</option>
+                  </select>
+                </div>
+                <button type="button" class="btn-date-step" onclick="shiftFamilyCalendarMonth(1)">&gt;</button>
+              </div>
+              <div class="family-calendar-weekdays">
+                <span style="color:#EF4444;">日</span><span>月</span><span>火</span><span>水</span><span>木</span><span>金</span><span style="color:#3B82F6;">土</span>
+              </div>
+              <div id="familyCalendarDaysGrid" class="family-calendar-days-grid"></div>
+              <div class="family-calendar-footer">
+                <button type="button" class="btn-link-action" onclick="selectTodayInFamilyCalendar()">今日に設定</button>
+                <button type="button" class="btn-outline btn-sm" onclick="closeFamilyCalendarModal()">閉じる</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- C. 活動詳細 ＆ フィードバック（返信スレッド）モーダル -->
+          <div id="familyDetailDrawerOverlay" class="school-modal-overlay" style="display: none;"
+            onclick="if(event.target.id==='familyDetailDrawerOverlay') closeFamilyDetailDrawer()">
+            <div class="school-modal-dialog family-detail-drawer-dialog">
+              <div class="family-calendar-header">
+                <strong>💬 活動詳細 ＆ フィードバック</strong>
+                <button type="button" class="btn-modal-close" style="position:static;" onclick="closeFamilyDetailDrawer()">×</button>
+              </div>
+              <div id="familyDetailDrawerBody" class="family-detail-drawer-body"></div>
+            </div>
+          </div>
+
+          <!-- D. 活動記録の削除確認モーダル -->
+          <div id="familyDeleteConfirmOverlay" class="school-modal-overlay" style="display: none;"
+            onclick="if(event.target.id==='familyDeleteConfirmOverlay') closeFamilyDeleteConfirm()">
+            <div class="school-modal-dialog family-delete-confirm-dialog">
+              <h3 class="title-h2" style="color:#DC2626; margin: 0 0 8px 0;">🗑 活動記録の削除</h3>
+              <p style="font-size:13px; color:#475569; margin: 0 0 12px 0;">この活動記録と、付随するコメント・リアクションを削除しますか？（この操作は元に戻せません）</p>
+              <div id="familyDeletePreviewText" class="family-delete-preview-box"></div>
+              <div class="slide-actions-bar between" style="margin-top: 16px;">
+                <button type="button" class="btn-outline" onclick="closeFamilyDeleteConfirm()">キャンセル</button>
+                <button type="button" class="btn-solid" style="background:#DC2626; color:#fff; border-color:#DC2626;"
+                  onclick="executeFamilyDeleteConfirmed()">完全に削除する</button>
               </div>
             </div>
           </div>

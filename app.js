@@ -7574,8 +7574,10 @@ function setupReviewWizardUI(mode, targetPlan = null) {
 
           updateFamilyViewerStatusBar();
           renderFamilyActorBar();
+          syncFamilyFilterUI();
           renderFamilyTimeline();
           renderFamilyFootprints();
+          renderFamilyCumulativeStats();
         }
 
         function updateFamilyViewerStatusBar() {
@@ -7613,6 +7615,7 @@ function setupReviewWizardUI(mode, targetPlan = null) {
             return {
               role: 'parent',
               name: displayName,
+              handle: '@parent',
               avatar: AppSchema.parent_avatar || '👩',
               roleLabel: '保護者'
             };
@@ -7624,10 +7627,52 @@ function setupReviewWizardUI(mode, targetPlan = null) {
             return {
               role: 'child',
               name: displayName,
+              handle: '@child',
               avatar: AppSchema.child_avatar || '👦',
               roleLabel: '子ども'
             };
           }
+        }
+
+        // ibaraki-frogs-8th.vercel.app 準拠の行動定義・リアクション定義・フィルター状態
+        const FAMILY_ACTION_TYPES = {
+          murmur: { type: 'murmur', label: 'つぶやき・ひとこと', icon: '💬', defaultUnit: '件' },
+          view_school: { type: 'view_school', label: '学校の詳細画面を確認', icon: '🏫', defaultUnit: '校' },
+          favorite_school: { type: 'favorite_school', label: '学校をお気に入り登録', icon: '★', defaultUnit: '校' },
+          review_event: { type: 'review_event', label: 'イベントの振り返りを入力', icon: '📝', defaultUnit: '回' },
+          like_post: { type: 'like_post', label: 'つぶやきにいいね', icon: '♥', defaultUnit: '回' },
+          reply_post: { type: 'reply_post', label: 'つぶやきに返信', icon: '💬', defaultUnit: '件' },
+          other: { type: 'other', label: 'その他', icon: '✨', defaultUnit: '回' }
+        };
+
+        const FAMILY_REACTION_EMOJIS = ['👍', '👏', '🚀', '🔥', '👀'];
+
+        let familyTimelineScope = 'all';   // 'all' (すべての活動) | 'my' (自分の報告)
+        let familyFilterMember = 'all';    // 'all' | 'child' | 'parent'
+        let familyFilterAction = 'all';    // 'all' | actionType
+        let familyFilterDate = null;       // null | 'YYYY-MM-DD'
+        let familySearchKeyword = '';      // キーワード検索
+        let detailDrawerPostId = null;     // 詳細＆フィードバックモーダル中の投稿ID
+        let pendingDeletePostId = null;    // 削除確認モーダル中の投稿ID
+
+        function getTodayIsoDateStr(offsetDays = 0) {
+          const d = new Date();
+          if (offsetDays) d.setDate(d.getDate() + offsetDays);
+          const y = d.getFullYear();
+          const m = String(d.getMonth() + 1).padStart(2, '0');
+          const day = String(d.getDate()).padStart(2, '0');
+          return `${y}-${m}-${day}`;
+        }
+
+        function formatJapaneseDateWithWeekday(dateStr, shortMode = false) {
+          if (!dateStr) return '';
+          const parts = String(dateStr).split('-').map(Number);
+          if (parts.length !== 3 || !parts[0]) return dateStr;
+          const [y, m, d] = parts;
+          const dt = new Date(y, m - 1, d);
+          const w = ['日', '月', '火', '水', '木', '金', '土'][dt.getDay()] || '';
+          if (shortMode) return `${m}/${d}(${w})`;
+          return `${y}年${m}月${d}日 (${w})`;
         }
 
         function formatFamilyTimestamp(isoStr) {
@@ -7648,9 +7693,46 @@ function setupReviewWizardUI(mode, targetPlan = null) {
           return datePart;
         }
 
+        function getPostActionLabel(post) {
+          if (!post) return 'つぶやき';
+          if (post.actionType === 'other' && post.customActionName) {
+            return `✨ ${post.customActionName}`;
+          }
+          const def = FAMILY_ACTION_TYPES[post.actionType] || FAMILY_ACTION_TYPES.murmur;
+          return `${def.icon} ${def.label}`;
+        }
+
+        // 通算〇回目の自動計算（同じメンバー・同じ行動種別で時系列何回目か）
+        function getPostCumulativeOrder(targetPost, allPosts) {
+          const list = (allPosts || AppSchema.family_posts || []).filter(p => {
+            if (p.authorRole !== targetPost.authorRole) return false;
+            const pType = p.actionType || 'murmur';
+            const tType = targetPost.actionType || 'murmur';
+            if (tType === 'other') {
+              return pType === 'other' && (p.customActionName || '') === (targetPost.customActionName || '');
+            }
+            return pType === tType;
+          }).sort((a, b) => {
+            const da = a.date || (a.createdAt ? a.createdAt.slice(0, 10) : '');
+            const db = b.date || (b.createdAt ? b.createdAt.slice(0, 10) : '');
+            if (da !== db) return da.localeCompare(db);
+            return (a.createdAt || '').localeCompare(b.createdAt || '');
+          });
+          const idx = list.findIndex(p => p.id === targetPost.id);
+          const dateStr = targetPost.date || (targetPost.createdAt ? targetPost.createdAt.slice(0, 10) : getTodayIsoDateStr(0));
+          return {
+            order: idx >= 0 ? idx + 1 : 1,
+            total: list.length,
+            dateStr: dateStr,
+            formattedDate: formatJapaneseDateWithWeekday(dateStr, true)
+          };
+        }
+
         // プロトタイプとしてすぐ体験できるよう、初期サンプルデータを用意
         function ensureInitialFamilyData() {
           const now = Date.now();
+          const todayStr = getTodayIsoDateStr(0);
+          const yesterdayStr = getTodayIsoDateStr(-1);
           if (!Array.isArray(AppSchema.family_posts) || AppSchema.family_posts.length === 0) {
             const pInfo = getActorDisplayInfo('parent');
             const cInfo = getActorDisplayInfo('child');
@@ -7660,9 +7742,16 @@ function setupReviewWizardUI(mode, targetPlan = null) {
                 authorRole: 'child',
                 authorName: cInfo.name,
                 authorAvatar: cInfo.avatar,
+                date: todayStr,
+                actionType: 'view_school',
+                value: 1,
+                unit: '校',
+                schoolId: 'sch_shibaura',
+                targetName: '芝浦工業大学附属中学校',
                 content: '芝浦工業大学附属中学校のページを見てみたら、3Dプリンターやロボットを作れる部屋があってすごくおもしろそうだったよ！一度見にいってみたいな。',
                 createdAt: new Date(now - 1000 * 60 * 95).toISOString(),
                 likes: ['parent'],
+                reactions: { '👍': ['parent'], '🚀': ['child'] },
                 replies: [
                   {
                     id: 'reply_sample_1',
@@ -7679,12 +7768,26 @@ function setupReviewWizardUI(mode, targetPlan = null) {
                 authorRole: 'parent',
                 authorName: pInfo.name,
                 authorAvatar: pInfo.avatar,
-                content: 'いつも塾や学校の宿題がんばってるね！気になる学校があったら、いつでもここにつぶやいて教えてね。',
+                date: yesterdayStr,
+                actionType: 'murmur',
+                value: 1,
+                unit: '件',
+                content: 'いつも塾や学校の宿題がんばってるね！気になる学校があったら、いつでもここに記録・つぶやいて教えてね。',
                 createdAt: new Date(now - 1000 * 60 * 240).toISOString(),
                 likes: ['child'],
+                reactions: { '👏': ['child'], '🔥': ['parent'] },
                 replies: []
               }
             ];
+          } else {
+            // 既存データに date / actionType / reactions 等がない場合は補完
+            AppSchema.family_posts.forEach(p => {
+              if (!p.date) p.date = p.createdAt ? p.createdAt.slice(0, 10) : todayStr;
+              if (!p.actionType) p.actionType = 'murmur';
+              if (p.value === undefined) p.value = 1;
+              if (!p.unit) p.unit = (FAMILY_ACTION_TYPES[p.actionType] || FAMILY_ACTION_TYPES.murmur).defaultUnit;
+              if (!p.reactions || typeof p.reactions !== 'object') p.reactions = {};
+            });
           }
 
           if (!Array.isArray(AppSchema.family_footprints) || AppSchema.family_footprints.length === 0) {
@@ -7696,7 +7799,10 @@ function setupReviewWizardUI(mode, targetPlan = null) {
                 actorRole: 'child',
                 actorName: cInfo.name,
                 actorAvatar: cInfo.avatar,
+                date: todayStr,
                 actionType: 'review_event',
+                value: 1,
+                unit: '回',
                 targetName: '芝浦工業大学附属中学校（オープンキャンパス）',
                 detail: '感想：「ものづくりラボの3Dプリンタと大きな実験室がすごかった！」',
                 schoolId: 'sch_shibaura',
@@ -7707,7 +7813,10 @@ function setupReviewWizardUI(mode, targetPlan = null) {
                 actorRole: 'parent',
                 actorName: pInfo.name,
                 actorAvatar: pInfo.avatar,
+                date: todayStr,
                 actionType: 'reply_post',
+                value: 1,
+                unit: '件',
                 targetName: '「芝浦工業大学附属中学校のページを見てみたら…」のつぶやき',
                 detail: '返信：「いいね！来月のものづくり体験＆説明会、一緒に予約して行ってみようか😊」',
                 schoolId: null,
@@ -7718,7 +7827,10 @@ function setupReviewWizardUI(mode, targetPlan = null) {
                 actorRole: 'parent',
                 actorName: pInfo.name,
                 actorAvatar: pInfo.avatar,
+                date: todayStr,
                 actionType: 'like_post',
+                value: 1,
+                unit: '回',
                 targetName: '「芝浦工業大学附属中学校のページを見てみたら…」のつぶやき',
                 detail: '',
                 schoolId: null,
@@ -7729,7 +7841,10 @@ function setupReviewWizardUI(mode, targetPlan = null) {
                 actorRole: 'child',
                 actorName: cInfo.name,
                 actorAvatar: cInfo.avatar,
+                date: todayStr,
                 actionType: 'favorite_school',
+                value: 1,
+                unit: '校',
                 targetName: '芝浦工業大学附属中学校',
                 detail: '',
                 schoolId: 'sch_shibaura',
@@ -7740,13 +7855,22 @@ function setupReviewWizardUI(mode, targetPlan = null) {
                 actorRole: 'child',
                 actorName: cInfo.name,
                 actorAvatar: cInfo.avatar,
+                date: yesterdayStr,
                 actionType: 'view_school',
+                value: 1,
+                unit: '校',
                 targetName: '広尾学園中学校',
                 detail: '',
                 schoolId: 'sch_hiroo',
                 createdAt: new Date(now - 1000 * 60 * 130).toISOString()
               }
             ];
+          } else {
+            AppSchema.family_footprints.forEach(fp => {
+              if (!fp.date) fp.date = fp.createdAt ? fp.createdAt.slice(0, 10) : todayStr;
+              if (fp.value === undefined) fp.value = 1;
+              if (!fp.unit) fp.unit = (FAMILY_ACTION_TYPES[fp.actionType] || FAMILY_ACTION_TYPES.murmur).defaultUnit;
+            });
           }
         }
 
@@ -7762,12 +7886,19 @@ function setupReviewWizardUI(mode, targetPlan = null) {
             return;
           }
 
+          const def = FAMILY_ACTION_TYPES[actionType] || FAMILY_ACTION_TYPES.murmur;
+          const dateStr = extra.date || getTodayIsoDateStr(0);
+
           const newFp = {
             id: 'fp_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6),
             actorRole: actor.role,
             actorName: actor.name,
             actorAvatar: actor.avatar,
+            date: dateStr,
             actionType: actionType,
+            customActionName: extra.custom_action_name || null,
+            value: extra.value !== undefined ? Number(extra.value) : 1,
+            unit: extra.unit || def.defaultUnit,
             targetName: targetName || '',
             detail: extra.detail || '',
             schoolId: extra.school_id || null,
@@ -7788,6 +7919,7 @@ function setupReviewWizardUI(mode, targetPlan = null) {
           updateFamilyTabBadges();
           if (currentUserMode === 'family') {
             renderFamilyFootprints();
+            renderFamilyCumulativeStats();
           }
         }
 
@@ -7801,6 +7933,7 @@ function setupReviewWizardUI(mode, targetPlan = null) {
           renderFamilyActorBar();
           renderFamilyTimeline();
           renderFamilyFootprints();
+          renderFamilyCumulativeStats();
         }
 
         function renderFamilyActorBar() {
@@ -7824,27 +7957,149 @@ function setupReviewWizardUI(mode, targetPlan = null) {
         }
 
         function switchFamilySubTab(tabName) {
-          currentFamilySubTab = tabName === 'footprint' ? 'footprint' : 'murmur';
+          currentFamilySubTab = (tabName === 'footprint' || tabName === 'stats') ? tabName : 'murmur';
           const tabMurmur = document.getElementById('tabFamilyMurmur');
           const tabFootprint = document.getElementById('tabFamilyFootprint');
+          const tabStats = document.getElementById('tabFamilyStats');
           const panelMurmur = document.getElementById('familyMurmurPanel');
           const panelFootprint = document.getElementById('familyFootprintPanel');
+          const panelStats = document.getElementById('familyStatsPanel');
+          const filterToolbar = document.getElementById('familyFilterToolbarCard');
 
           if (tabMurmur) tabMurmur.classList.toggle('active', currentFamilySubTab === 'murmur');
           if (tabFootprint) tabFootprint.classList.toggle('active', currentFamilySubTab === 'footprint');
+          if (tabStats) tabStats.classList.toggle('active', currentFamilySubTab === 'stats');
 
           if (panelMurmur) panelMurmur.style.display = currentFamilySubTab === 'murmur' ? 'block' : 'none';
           if (panelFootprint) panelFootprint.style.display = currentFamilySubTab === 'footprint' ? 'block' : 'none';
+          if (panelStats) panelStats.style.display = currentFamilySubTab === 'stats' ? 'block' : 'none';
+          if (filterToolbar) filterToolbar.style.display = currentFamilySubTab === 'stats' ? 'none' : 'block';
 
           if (currentFamilySubTab === 'murmur') {
             renderFamilyTimeline();
-          } else {
+          } else if (currentFamilySubTab === 'footprint') {
             renderFamilyFootprints();
+          } else {
+            renderFamilyCumulativeStats();
           }
         }
 
+        // ==========================================
+        // 絞り込みフィルター（すべての活動 / 自分の報告 / キーワード / メンバー / 行動種別 / 実施日）
+        // ==========================================
+        function setFamilyTimelineScope(scope) {
+          familyTimelineScope = scope === 'my' ? 'my' : 'all';
+          syncFamilyFilterUI();
+          renderFamilyTimeline();
+          renderFamilyFootprints();
+        }
+
+        function handleFamilySearchInput(val) {
+          familySearchKeyword = (val || '').trim();
+          syncFamilyFilterUI();
+          renderFamilyTimeline();
+          renderFamilyFootprints();
+        }
+
+        function handleFamilyMemberFilterChange(val) {
+          familyFilterMember = val || 'all';
+          syncFamilyFilterUI();
+          renderFamilyTimeline();
+          renderFamilyFootprints();
+        }
+
+        function handleFamilyActionFilterChange(val) {
+          familyFilterAction = val || 'all';
+          syncFamilyFilterUI();
+          renderFamilyTimeline();
+          renderFamilyFootprints();
+        }
+
+        function toggleFamilyDateFilter(dateStr, ev) {
+          if (ev) ev.stopPropagation();
+          familyFilterDate = (familyFilterDate === dateStr) ? null : dateStr;
+          syncFamilyFilterUI();
+          renderFamilyTimeline();
+          renderFamilyFootprints();
+        }
+
+        function resetAllFamilyFilters() {
+          familyTimelineScope = 'all';
+          familyFilterMember = 'all';
+          familyFilterAction = 'all';
+          familyFilterDate = null;
+          familySearchKeyword = '';
+          currentFootprintFilter = 'all';
+
+          const searchInp = document.getElementById('familySearchKeywordInput');
+          if (searchInp) searchInp.value = '';
+          const memSel = document.getElementById('familyFilterMemberSelect');
+          if (memSel) memSel.value = 'all';
+          const actSel = document.getElementById('familyFilterActionSelect');
+          if (actSel) actSel.value = 'all';
+
+          syncFamilyFilterUI();
+          renderFamilyTimeline();
+          renderFamilyFootprints();
+        }
+
+        function syncFamilyFilterUI() {
+          const btnAll = document.getElementById('btnFamilyScopeAll');
+          const btnMy = document.getElementById('btnFamilyScopeMy');
+          if (btnAll) btnAll.classList.toggle('active', familyTimelineScope === 'all');
+          if (btnMy) btnMy.classList.toggle('active', familyTimelineScope === 'my');
+
+          const hasFilter = familyTimelineScope !== 'all' || familyFilterMember !== 'all' || familyFilterAction !== 'all' || !!familyFilterDate || !!familySearchKeyword;
+          const resetBtn = document.getElementById('btnResetFamilyFilters');
+          if (resetBtn) resetBtn.style.display = hasFilter ? 'inline-flex' : 'none';
+
+          const dateBanner = document.getElementById('familyActiveDateFilterBanner');
+          if (dateBanner) {
+            if (familyFilterDate) {
+              dateBanner.style.display = 'flex';
+              dateBanner.innerHTML = `
+                <span>📅 <strong>${escapeFamilyHtml(formatJapaneseDateWithWeekday(familyFilterDate))}</strong> に実施された活動を表示中</span>
+                <button type="button" class="btn-clear-date-filter" onclick="toggleFamilyDateFilter(null, event)">全件表示に戻す ×</button>
+              `;
+            } else {
+              dateBanner.style.display = 'none';
+              dateBanner.innerHTML = '';
+            }
+          }
+        }
+
+        function getFilteredFamilyPosts() {
+          ensureInitialFamilyData();
+          const myRole = familyCurrentViewerRole || familyActiveActor || 'parent';
+          const kw = familySearchKeyword.toLowerCase();
+
+          return (AppSchema.family_posts || []).filter(post => {
+            // 子どもの足跡制限の対象アクションでOFFの場合は非表示
+            if (post.authorRole === 'child' && post.actionType && post.actionType !== 'murmur' && post.actionType !== 'other') {
+              if (!isChildFootprintActionAllowed(post.actionType)) return false;
+            }
+            if (familyTimelineScope === 'my' && post.authorRole !== myRole) return false;
+            if (familyFilterMember !== 'all' && post.authorRole !== familyFilterMember) return false;
+            if (familyFilterAction !== 'all' && (post.actionType || 'murmur') !== familyFilterAction) return false;
+            const postDate = post.date || (post.createdAt ? post.createdAt.slice(0, 10) : '');
+            if (familyFilterDate && postDate !== familyFilterDate) return false;
+
+            if (kw) {
+              const info = getActorDisplayInfo(post.authorRole);
+              const label = getPostActionLabel(post).toLowerCase();
+              const text = `${post.content || ''} ${post.targetName || ''} ${post.authorName || info.name} ${label}`.toLowerCase();
+              if (!text.includes(kw)) return false;
+            }
+            return true;
+          });
+        }
+
         function updateFamilyTabBadges() {
-          // 件数バッジ非表示（シンプル化）
+          const countEl = document.getElementById('familyTotalCountBadge');
+          if (countEl) {
+            const list = getFilteredFamilyPosts();
+            countEl.textContent = `${list.length} 件の投稿`;
+          }
         }
 
         function insertFamilyPrompt(text) {
@@ -7871,9 +8126,14 @@ function setupReviewWizardUI(mode, targetPlan = null) {
             authorRole: actor.role,
             authorName: actor.name,
             authorAvatar: actor.avatar,
+            date: getTodayIsoDateStr(0),
+            actionType: 'murmur',
+            value: 1,
+            unit: '件',
             content: content,
             createdAt: new Date().toISOString(),
             likes: [],
+            reactions: {},
             replies: []
           };
 
@@ -7883,6 +8143,7 @@ function setupReviewWizardUI(mode, targetPlan = null) {
 
           saveAppStateToLocalStorage();
           renderFamilyTimeline();
+          renderFamilyCumulativeStats();
         }
 
         function toggleFamilyPostLike(postId) {
@@ -7908,6 +8169,37 @@ function setupReviewWizardUI(mode, targetPlan = null) {
           }
 
           renderFamilyTimeline();
+          if (detailDrawerPostId === postId) renderFamilyDetailDrawerContent();
+          renderFamilyCumulativeStats();
+        }
+
+        // 5種絵文字リアクション（👍 👏 🚀 🔥 👀）のトグル
+        function toggleFamilyEmojiReaction(postId, emoji, ev) {
+          if (ev) ev.stopPropagation();
+          ensureInitialFamilyData();
+          const post = (AppSchema.family_posts || []).find(p => p.id === postId);
+          if (!post) return;
+          if (!post.reactions || typeof post.reactions !== 'object') post.reactions = {};
+          if (!Array.isArray(post.reactions[emoji])) post.reactions[emoji] = [];
+
+          const actorRole = familyActiveActor || 'parent';
+          const arr = post.reactions[emoji];
+          const idx = arr.indexOf(actorRole);
+
+          if (idx === -1) {
+            arr.push(actorRole);
+            const snippet = post.content.length > 18 ? post.content.slice(0, 18) + '…' : post.content;
+            recordFamilyFootprint('like_post', `「${snippet}」(${emoji})`, {
+              actor_override: actorRole
+            });
+          } else {
+            arr.splice(idx, 1);
+          }
+
+          saveAppStateToLocalStorage();
+          renderFamilyTimeline();
+          if (detailDrawerPostId === postId) renderFamilyDetailDrawerContent();
+          renderFamilyCumulativeStats();
         }
 
         function toggleFamilyReplyBox(postId) {
@@ -7921,12 +8213,11 @@ function setupReviewWizardUI(mode, targetPlan = null) {
           }
         }
 
-        function submitFamilyReply(postId) {
+        function submitFamilyReply(postId, customText = null) {
           const inp = document.getElementById(`replyInput_${postId}`);
-          if (!inp) return;
-          const text = inp.value.trim();
+          const text = customText !== null ? customText.trim() : (inp ? inp.value.trim() : '');
           if (!text) {
-            inp.focus();
+            if (inp) inp.focus();
             return;
           }
 
@@ -7957,6 +8248,8 @@ function setupReviewWizardUI(mode, targetPlan = null) {
 
           saveAppStateToLocalStorage();
           renderFamilyTimeline();
+          if (detailDrawerPostId === postId) renderFamilyDetailDrawerContent();
+          renderFamilyCumulativeStats();
         }
 
         function renderFamilyTimeline() {
@@ -7964,11 +8257,14 @@ function setupReviewWizardUI(mode, targetPlan = null) {
           const container = document.getElementById('familyTimelineContainer');
           if (!container) return;
 
-          const posts = AppSchema.family_posts || [];
+          const posts = getFilteredFamilyPosts();
+          updateFamilyTabBadges();
+
           if (posts.length === 0) {
             container.innerHTML = `
       <div class="family-empty-card">
-        <p class="family-empty-title">まだつぶやきがありません</p>
+        <p class="family-empty-title">条件に一致する活動・つぶやきはありません</p>
+        <p class="family-empty-sub">「＋ 活動を記録する」または上の入力欄から投稿してみましょう！</p>
       </div>
     `;
             return;
@@ -7994,13 +8290,32 @@ function setupReviewWizardUI(mode, targetPlan = null) {
             const replies = Array.isArray(post.replies) ? post.replies : [];
             const isReplyOpen = !!openReplyPostIds[post.id];
 
-            // ハートイラストのみ
-            const heartIconSvg = isLikedByMe
-              ? `<svg class="chat-action-svg heart-svg filled ${likePopClass}" viewBox="0 0 24 24" width="21" height="21" fill="#FF2D55" stroke="#FF2D55" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>`
-              : `<svg class="chat-action-svg heart-svg" viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>`;
+            // 行動バッジ・実績数・実施日（クリックで日付フィルター）・通算〇回目
+            const cumInfo = getPostCumulativeOrder(post, AppSchema.family_posts);
+            const isDateSelected = familyFilterDate === cumInfo.dateStr;
+            const actionLabel = getPostActionLabel(post);
+            const valNum = post.value !== undefined ? post.value : 1;
+            const valUnit = post.unit || '件';
 
-            // 吹き出しイラストのみ
-            const replyIconSvg = `<svg class="chat-action-svg reply-svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>`;
+            const emojiReactionsHtml = FAMILY_REACTION_EMOJIS.map(emoji => {
+              const rList = (post.reactions && Array.isArray(post.reactions[emoji])) ? post.reactions[emoji] : [];
+              const reactedByMe = rList.includes(familyActiveActor);
+              return `
+                <button type="button" class="btn-family-emoji-react ${reactedByMe ? 'reacted' : ''}"
+                  onclick="toggleFamilyEmojiReaction('${post.id}', '${emoji}', event)" title="${emoji} でリアクション">
+                  <span>${emoji}</span>
+                  ${rList.length > 0 ? `<span class="emoji-react-count">${rList.length}</span>` : ''}
+                </button>
+              `;
+            }).join('');
+
+            // ハートイラスト
+            const heartIconSvg = isLikedByMe
+              ? `<svg class="chat-action-svg heart-svg filled ${likePopClass}" viewBox="0 0 24 24" width="20" height="20" fill="#FF2D55" stroke="#FF2D55" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>`
+              : `<svg class="chat-action-svg heart-svg" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>`;
+
+            // 吹き出しイラスト
+            const replyIconSvg = `<svg class="chat-action-svg reply-svg" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>`;
 
             const repliesHtml = replies.length > 0 ? `
       <div class="chat-replies-thread">
@@ -8030,7 +8345,7 @@ function setupReviewWizardUI(mode, targetPlan = null) {
       <div class="chat-inline-reply-box chat-bubble-pop-in">
         <div class="chat-reply-input-bar">
           <input type="text" id="replyInput_${post.id}" class="chat-reply-input"
-            placeholder="返信を入力…"
+            placeholder="フィードバック・返信を入力…"
             onkeydown="if(event.key==='Enter' && !event.isComposing){event.preventDefault();submitFamilyReply('${post.id}');}">
           <button type="button" class="btn-chat-reply-send-icon" onclick="submitFamilyReply('${post.id}')" aria-label="送信">
             <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
@@ -8052,10 +8367,27 @@ function setupReviewWizardUI(mode, targetPlan = null) {
           <div class="chat-sender-meta">
             <span class="chat-sender-name">${escapeFamilyHtml(displayAuthorName)}</span>
             <span class="chat-send-time">${formatFamilyTimestamp(post.createdAt)}</span>
+            <button type="button" class="btn-post-detail-open" onclick="openFamilyDetailDrawer('${post.id}')" title="活動詳細＆フィードバックを開く">詳細</button>
+            ${isMine ? `<button type="button" class="btn-post-delete-icon" onclick="openFamilyDeleteConfirm('${post.id}', event)" title="この活動記録を削除">🗑</button>` : ''}
+          </div>
+
+          <!-- 行動種別バッジ ＆ 実績数 ＆ 実施日（クリックで日付絞り込み）＆ 通算〇回目 -->
+          <div class="family-post-activity-badges-row">
+            <span class="family-act-type-badge">${escapeFamilyHtml(actionLabel)}</span>
+            <span class="family-act-val-badge"><strong>${valNum}</strong> ${escapeFamilyHtml(valUnit)}</span>
+            <button type="button" class="family-act-date-chip ${isDateSelected ? 'active' : ''}"
+              onclick="toggleFamilyDateFilter('${cumInfo.dateStr}', event)"
+              title="クリックでこの日に実施された活動を絞り込み">
+              <span>📅 ${escapeFamilyHtml(cumInfo.formattedDate)} 実施</span>
+              <span class="family-act-order-pill">通算${cumInfo.order}回目</span>
+            </button>
           </div>
 
           <div class="chat-bubble-and-actions">
-            <div class="chat-talk-bubble ${isChildAuthor ? 'bubble-child' : 'bubble-parent'}" ondblclick="toggleFamilyPostLike('${post.id}')">
+            <div class="chat-talk-bubble ${isChildAuthor ? 'bubble-child' : 'bubble-parent'}"
+              onclick="openFamilyDetailDrawer('${post.id}')"
+              ondblclick="event.stopPropagation(); toggleFamilyPostLike('${post.id}')">
+              ${post.targetName ? `<div class="family-post-target-school">🏫 ${escapeFamilyHtml(post.targetName)}</div>` : ''}
               <div class="chat-bubble-text">${escapeFamilyHtml(post.content)}</div>
             </div>
 
@@ -8070,6 +8402,11 @@ function setupReviewWizardUI(mode, targetPlan = null) {
                 ${replies.length > 0 ? `<span class="chat-icon-count">${replies.length}</span>` : ''}
               </button>
             </div>
+          </div>
+
+          <!-- 5種絵文字リアクションバー（👍 👏 🚀 🔥 👀） -->
+          <div class="family-emoji-reactions-bar">
+            ${emojiReactionsHtml}
           </div>
 
           ${repliesHtml}
@@ -8087,20 +8424,22 @@ function setupReviewWizardUI(mode, targetPlan = null) {
           renderFamilyFootprints();
         }
 
-        function getFootprintActionMeta(actionType) {
+        function getFootprintActionMeta(actionType, customName = '') {
           switch (actionType) {
             case 'like_post':
               return {
                 icon: '♥',
                 bgColor: '#FFE4E6',
                 textColor: '#BE123C',
-                actionVerb: 'がつぶやきにいいねしました'
+                label: 'いいね・リアクション',
+                actionVerb: 'がつぶやきにリアクションしました'
               };
             case 'reply_post':
               return {
                 icon: '💬',
                 bgColor: '#E0F2FE',
                 textColor: '#0369A1',
+                label: '返信・フィードバック',
                 actionVerb: 'がつぶやきに返信しました'
               };
             case 'favorite_school':
@@ -8108,6 +8447,7 @@ function setupReviewWizardUI(mode, targetPlan = null) {
                 icon: '★',
                 bgColor: '#FEF3C7',
                 textColor: '#B45309',
+                label: 'お気に入り登録',
                 actionVerb: 'が学校をお気に入り登録しました'
               };
             case 'view_school':
@@ -8115,6 +8455,7 @@ function setupReviewWizardUI(mode, targetPlan = null) {
                 icon: '🏫',
                 bgColor: '#DCFCE7',
                 textColor: '#166534',
+                label: '学校の詳細確認',
                 actionVerb: 'が学校の詳細画面を確認しました'
               };
             case 'review_event':
@@ -8122,14 +8463,16 @@ function setupReviewWizardUI(mode, targetPlan = null) {
                 icon: '📝',
                 bgColor: '#F3E8FF',
                 textColor: '#6B21A8',
+                label: 'イベントの振り返り',
                 actionVerb: 'がイベントの振り返りを入力しました'
               };
             default:
               return {
-                icon: '✦',
+                icon: '✨',
                 bgColor: '#F1F5F9',
                 textColor: '#334155',
-                actionVerb: 'が活動しました'
+                label: customName || '活動記録',
+                actionVerb: `が「${customName || '活動'}」を記録しました`
               };
           }
         }
@@ -8163,19 +8506,29 @@ function setupReviewWizardUI(mode, targetPlan = null) {
             }
           }
 
-          // 子どもの足跡は、子ども自身が許可したカテゴリー（actionType）のみ表示
-          let list = (Array.isArray(AppSchema.family_footprints) ? AppSchema.family_footprints : []).filter(item => {
-            if (item.actorRole === 'child' && !isChildFootprintActionAllowed(item.actionType)) {
+          const myRole = familyCurrentViewerRole || familyActiveActor || 'parent';
+          const kw = familySearchKeyword.toLowerCase();
+
+          // 子どもの足跡は、子ども自身が許可したカテゴリー（actionType）のみ表示＋各種フィルター連動
+          const allFootprints = Array.isArray(AppSchema.family_footprints) ? AppSchema.family_footprints : [];
+          let list = allFootprints.filter(item => {
+            if (item.actorRole === 'child' && item.actionType !== 'other' && item.actionType !== 'murmur' && !isChildFootprintActionAllowed(item.actionType)) {
               return false;
+            }
+            if (familyTimelineScope === 'my' && item.actorRole !== myRole) return false;
+            if (familyFilterMember !== 'all' && item.actorRole !== familyFilterMember) return false;
+            if (currentFootprintFilter === 'parent' && item.actorRole !== 'parent') return false;
+            if (currentFootprintFilter === 'child' && item.actorRole !== 'child') return false;
+            if (familyFilterAction !== 'all' && item.actionType !== familyFilterAction) return false;
+            const fpDate = item.date || (item.createdAt ? item.createdAt.slice(0, 10) : '');
+            if (familyFilterDate && fpDate !== familyFilterDate) return false;
+
+            if (kw) {
+              const text = `${item.targetName || ''} ${item.detail || ''} ${item.actorName || ''} ${item.customActionName || ''}`.toLowerCase();
+              if (!text.includes(kw)) return false;
             }
             return true;
           });
-
-          if (currentFootprintFilter === 'parent') {
-            list = list.filter(item => item.actorRole === 'parent');
-          } else if (currentFootprintFilter === 'child') {
-            list = list.filter(item => item.actorRole === 'child');
-          }
 
           if (list.length === 0) {
             container.innerHTML = `
@@ -8191,7 +8544,14 @@ function setupReviewWizardUI(mode, targetPlan = null) {
             const actorInfo = isChild ? cInfo : pInfo;
             const actorName = fp.actorName || actorInfo.name;
             const actorAvatar = fp.actorAvatar || actorInfo.avatar;
-            const meta = getFootprintActionMeta(fp.actionType);
+            const meta = getFootprintActionMeta(fp.actionType, fp.customActionName);
+
+            // 足跡の通算〇回目と実施日
+            const sameTypeList = allFootprints.filter(x => x.actorRole === fp.actorRole && x.actionType === fp.actionType).slice().reverse();
+            const orderIdx = sameTypeList.findIndex(x => x.id === fp.id);
+            const orderNum = orderIdx >= 0 ? orderIdx + 1 : 1;
+            const fpDate = fp.date || (fp.createdAt ? fp.createdAt.slice(0, 10) : getTodayIsoDateStr(0));
+            const isDateSelected = familyFilterDate === fpDate;
 
             const targetAttrs = fp.schoolId
               ? `class="family-fp-target clickable" onclick="openSchoolDetailScreen('${fp.schoolId}')"`
@@ -8207,6 +8567,15 @@ function setupReviewWizardUI(mode, targetPlan = null) {
             <span class="family-fp-who">${escapeFamilyHtml(actorAvatar)} ${escapeFamilyHtml(actorName)}${meta.actionVerb}</span>
             <span class="family-fp-time">${formatFamilyTimestamp(fp.createdAt)}</span>
           </div>
+          <div class="family-post-activity-badges-row" style="margin: 4px 0 6px;">
+            <span class="family-act-type-badge">${escapeFamilyHtml(meta.label)}</span>
+            ${fp.value ? `<span class="family-act-val-badge"><strong>${fp.value}</strong> ${escapeFamilyHtml(fp.unit || '回')}</span>` : ''}
+            <button type="button" class="family-act-date-chip ${isDateSelected ? 'active' : ''}"
+              onclick="toggleFamilyDateFilter('${fpDate}', event)">
+              <span>📅 ${escapeFamilyHtml(formatJapaneseDateWithWeekday(fpDate, true))} 実施</span>
+              <span class="family-act-order-pill">通算${orderNum}回目</span>
+            </button>
+          </div>
           ${fp.targetName ? `
             <div ${targetAttrs}>
               <span>${escapeFamilyHtml(fp.targetName)}</span>
@@ -8217,6 +8586,515 @@ function setupReviewWizardUI(mode, targetPlan = null) {
       </div>
     `;
           }).join('');
+        }
+
+        // ==========================================
+        // ③ 親子の活動累計（リアルタイム集計）
+        // ==========================================
+        function renderFamilyCumulativeStats() {
+          ensureInitialFamilyData();
+          const container = document.getElementById('familyCumulativeStatsContainer');
+          if (!container) return;
+
+          const pInfo = getActorDisplayInfo('parent');
+          const cInfo = getActorDisplayInfo('child');
+
+          const stats = {
+            schoolCheck: { total: 0, child: 0, parent: 0, unit: '校' },
+            eventReview: { total: 0, child: 0, parent: 0, unit: '回' },
+            murmurTalk: { total: 0, child: 0, parent: 0, unit: '件' }
+          };
+
+          // タイムライン投稿の集計
+          (AppSchema.family_posts || []).forEach(p => {
+            if (p.authorRole === 'child' && p.actionType && p.actionType !== 'murmur' && p.actionType !== 'other' && !isChildFootprintActionAllowed(p.actionType)) {
+              return;
+            }
+            const val = Number(p.value) || 1;
+            const roleKey = p.authorRole === 'child' ? 'child' : 'parent';
+            if (p.actionType === 'view_school' || p.actionType === 'favorite_school') {
+              stats.schoolCheck.total += val;
+              stats.schoolCheck[roleKey] += val;
+            } else if (p.actionType === 'review_event') {
+              stats.eventReview.total += val;
+              stats.eventReview[roleKey] += val;
+            } else {
+              stats.murmurTalk.total += val;
+              stats.murmurTalk[roleKey] += val;
+            }
+          });
+
+          // 足跡ログの集計
+          (AppSchema.family_footprints || []).forEach(fp => {
+            if (fp.actorRole === 'child' && fp.actionType !== 'other' && fp.actionType !== 'murmur' && !isChildFootprintActionAllowed(fp.actionType)) {
+              return;
+            }
+            const val = Number(fp.value) || 1;
+            const roleKey = fp.actorRole === 'child' ? 'child' : 'parent';
+            if (fp.actionType === 'view_school' || fp.actionType === 'favorite_school') {
+              stats.schoolCheck.total += val;
+              stats.schoolCheck[roleKey] += val;
+            } else if (fp.actionType === 'review_event') {
+              stats.eventReview.total += val;
+              stats.eventReview[roleKey] += val;
+            } else if (fp.actionType === 'like_post' || fp.actionType === 'reply_post') {
+              stats.murmurTalk.total += val;
+              stats.murmurTalk[roleKey] += val;
+            }
+          });
+
+          container.innerHTML = `
+            <div class="family-stats-card">
+              <div class="family-stats-header">
+                <strong>📊 親子の活動累計</strong>
+                <span class="stats-live-pill">リアルタイム集計</span>
+              </div>
+
+              <div class="family-stats-rows">
+                <div class="family-stat-item-box">
+                  <div>
+                    <div class="family-stat-label">🏫 学校チェック数 <span style="font-size:11px; color:#64748B;">（詳細確認・お気に入り含）</span></div>
+                    <div class="family-stat-breakdown">
+                      <span>${escapeFamilyHtml(cInfo.avatar)} ${escapeFamilyHtml(cInfo.name)}: <strong>${stats.schoolCheck.child}</strong>校</span>
+                      <span>・</span>
+                      <span>${escapeFamilyHtml(pInfo.avatar)} ${escapeFamilyHtml(pInfo.name)}: <strong>${stats.schoolCheck.parent}</strong>校</span>
+                    </div>
+                  </div>
+                  <div class="family-stat-total-num">${stats.schoolCheck.total} <span class="stat-unit">校</span></div>
+                </div>
+
+                <div class="family-stat-item-box">
+                  <div>
+                    <div class="family-stat-label">📝 イベント・見学の振り返り数</div>
+                    <div class="family-stat-breakdown">
+                      <span>${escapeFamilyHtml(cInfo.avatar)} ${escapeFamilyHtml(cInfo.name)}: <strong>${stats.eventReview.child}</strong>回</span>
+                      <span>・</span>
+                      <span>${escapeFamilyHtml(pInfo.avatar)} ${escapeFamilyHtml(pInfo.name)}: <strong>${stats.eventReview.parent}</strong>回</span>
+                    </div>
+                  </div>
+                  <div class="family-stat-total-num">${stats.eventReview.total} <span class="stat-unit">回</span></div>
+                </div>
+
+                <div class="family-stat-item-box">
+                  <div>
+                    <div class="family-stat-label">💬 つぶやき・リアクション・返信数</div>
+                    <div class="family-stat-breakdown">
+                      <span>${escapeFamilyHtml(cInfo.avatar)} ${escapeFamilyHtml(cInfo.name)}: <strong>${stats.murmurTalk.child}</strong>件</span>
+                      <span>・</span>
+                      <span>${escapeFamilyHtml(pInfo.avatar)} ${escapeFamilyHtml(pInfo.name)}: <strong>${stats.murmurTalk.parent}</strong>件</span>
+                    </div>
+                  </div>
+                  <div class="family-stat-total-num">${stats.murmurTalk.total} <span class="stat-unit">件</span></div>
+                </div>
+              </div>
+            </div>
+          `;
+        }
+
+        // ==========================================
+        // A. 「活動を記録する」モーダル ＆ 日付カレンダーモーダル制御
+        // ==========================================
+        let familyRecordModalActor = 'parent';
+        let familyRecordSelectedDate = getTodayIsoDateStr(0);
+
+        function openFamilyRecordModal() {
+          familyRecordModalActor = familyCurrentViewerRole || familyActiveActor || 'parent';
+          familyRecordSelectedDate = getTodayIsoDateStr(0);
+
+          const errBox = document.getElementById('familyRecordErrorBox');
+          if (errBox) { errBox.style.display = 'none'; errBox.textContent = ''; }
+
+          const typeSel = document.getElementById('familyRecordActionTypeSelect');
+          if (typeSel) typeSel.value = 'murmur';
+          handleFamilyRecordActionTypeChange('murmur');
+
+          const valInp = document.getElementById('familyRecordValueInput');
+          if (valInp) valInp.value = '1';
+          const memoInp = document.getElementById('familyRecordMemoInput');
+          if (memoInp) memoInp.value = '';
+          const customNameInp = document.getElementById('familyRecordCustomNameInput');
+          if (customNameInp) customNameInp.value = '';
+
+          syncFamilyRecordModalUI();
+          const modal = document.getElementById('familyRecordModalOverlay');
+          if (modal) modal.style.display = 'flex';
+        }
+
+        function closeFamilyRecordModal() {
+          const modal = document.getElementById('familyRecordModalOverlay');
+          if (modal) modal.style.display = 'none';
+        }
+
+        function setFamilyModalActor(role) {
+          familyRecordModalActor = role === 'child' ? 'child' : 'parent';
+          syncFamilyRecordModalUI();
+        }
+
+        function shiftFamilyRecordDate(deltaDays) {
+          const parts = (familyRecordSelectedDate || getTodayIsoDateStr(0)).split('-').map(Number);
+          const dt = new Date(parts[0], parts[1] - 1, parts[2] + deltaDays);
+          const y = dt.getFullYear();
+          const m = String(dt.getMonth() + 1).padStart(2, '0');
+          const d = String(dt.getDate()).padStart(2, '0');
+          familyRecordSelectedDate = `${y}-${m}-${d}`;
+          syncFamilyRecordModalUI();
+        }
+
+        function setFamilyRecordQuickDate(offsetDays) {
+          familyRecordSelectedDate = getTodayIsoDateStr(offsetDays);
+          syncFamilyRecordModalUI();
+        }
+
+        function handleFamilyRecordActionTypeChange(actionType) {
+          const customBox = document.getElementById('familyRecordCustomActionBox');
+          const unitAddon = document.getElementById('familyRecordUnitAddon');
+          const customUnitInp = document.getElementById('familyRecordCustomUnitInput');
+
+          if (actionType === 'other') {
+            if (customBox) customBox.style.display = 'block';
+            if (unitAddon) unitAddon.textContent = (customUnitInp && customUnitInp.value.trim()) ? customUnitInp.value.trim() : '回';
+          } else {
+            if (customBox) customBox.style.display = 'none';
+            const def = FAMILY_ACTION_TYPES[actionType] || FAMILY_ACTION_TYPES.murmur;
+            if (unitAddon) unitAddon.textContent = def.defaultUnit;
+          }
+        }
+
+        function updateFamilyRecordUnitBadge(unitStr) {
+          const unitAddon = document.getElementById('familyRecordUnitAddon');
+          if (unitAddon) unitAddon.textContent = (unitStr || '').trim() || '回';
+        }
+
+        function syncFamilyRecordModalUI() {
+          const pInfo = getActorDisplayInfo('parent');
+          const cInfo = getActorDisplayInfo('child');
+          const btnP = document.getElementById('btnModalActorParent');
+          const btnC = document.getElementById('btnModalActorChild');
+          if (btnP) {
+            btnP.textContent = `${pInfo.avatar} ${pInfo.name}`;
+            btnP.classList.toggle('active', familyRecordModalActor === 'parent');
+          }
+          if (btnC) {
+            btnC.textContent = `${cInfo.avatar} ${cInfo.name}`;
+            btnC.classList.toggle('active', familyRecordModalActor === 'child');
+          }
+
+          const dateTextEl = document.getElementById('familyRecordDateDisplayText');
+          if (dateTextEl) {
+            dateTextEl.textContent = formatJapaneseDateWithWeekday(familyRecordSelectedDate, false);
+          }
+
+          const today = getTodayIsoDateStr(0);
+          const yesterday = getTodayIsoDateStr(-1);
+          const twoDaysAgo = getTodayIsoDateStr(-2);
+          const b0 = document.getElementById('btnQuickDateToday');
+          const b1 = document.getElementById('btnQuickDateYesterday');
+          const b2 = document.getElementById('btnQuickDateTwoDaysAgo');
+          if (b0) b0.classList.toggle('active', familyRecordSelectedDate === today);
+          if (b1) b1.classList.toggle('active', familyRecordSelectedDate === yesterday);
+          if (b2) b2.classList.toggle('active', familyRecordSelectedDate === twoDaysAgo);
+        }
+
+        function submitFamilyRecordModal() {
+          const errBox = document.getElementById('familyRecordErrorBox');
+          const showError = (msg) => {
+            if (errBox) {
+              errBox.textContent = msg;
+              errBox.style.display = 'block';
+            } else {
+              alert(msg);
+            }
+          };
+
+          const typeSel = document.getElementById('familyRecordActionTypeSelect');
+          const actionType = typeSel ? typeSel.value : 'murmur';
+          const customNameInp = document.getElementById('familyRecordCustomNameInput');
+          const customName = customNameInp ? customNameInp.value.trim() : '';
+          const customUnitInp = document.getElementById('familyRecordCustomUnitInput');
+          const valInp = document.getElementById('familyRecordValueInput');
+          const rawVal = valInp ? parseFloat(valInp.value) : 1;
+          const memoInp = document.getElementById('familyRecordMemoInput');
+          const memo = memoInp ? memoInp.value.trim() : '';
+
+          if (isNaN(rawVal) || rawVal <= 0) {
+            showError('実績数・回数には正の数値を入力してください。');
+            return;
+          }
+          if (actionType === 'other' && !customName) {
+            showError('「その他」を選択した場合は行動名を入力してください。');
+            return;
+          }
+          if (!memo) {
+            showError('活動メモ・つぶやきを入力してください。');
+            return;
+          }
+
+          const actor = getActorDisplayInfo(familyRecordModalActor);
+          const def = FAMILY_ACTION_TYPES[actionType] || FAMILY_ACTION_TYPES.murmur;
+          const unit = actionType === 'other' ? ((customUnitInp && customUnitInp.value.trim()) || '回') : def.defaultUnit;
+          const roundedVal = Math.round(rawVal * 10) / 10;
+
+          const newPost = {
+            id: 'post_' + Date.now(),
+            authorRole: actor.role,
+            authorName: actor.name,
+            authorAvatar: actor.avatar,
+            date: familyRecordSelectedDate,
+            actionType: actionType,
+            customActionName: actionType === 'other' ? customName : null,
+            value: roundedVal,
+            unit: unit,
+            content: memo,
+            createdAt: new Date().toISOString(),
+            likes: [],
+            reactions: {},
+            replies: []
+          };
+
+          ensureInitialFamilyData();
+          AppSchema.family_posts.unshift(newPost);
+          lastPoppedPostId = newPost.id;
+
+          // 足跡にも連動記録（子どもの制限設定を自動適用）
+          if (actionType !== 'murmur') {
+            recordFamilyFootprint(actionType, actionType === 'other' ? customName : def.label, {
+              actor_override: actor.role,
+              date: familyRecordSelectedDate,
+              custom_action_name: actionType === 'other' ? customName : null,
+              value: roundedVal,
+              unit: unit,
+              detail: memo
+            });
+          }
+
+          saveAppStateToLocalStorage();
+          closeFamilyRecordModal();
+          renderFamilyTimeline();
+          renderFamilyFootprints();
+          renderFamilyCumulativeStats();
+        }
+
+        // B. 日付カレンダーモーダル
+        function openFamilyCalendarModal() {
+          const parts = (familyRecordSelectedDate || getTodayIsoDateStr(0)).split('-').map(Number);
+          const ySel = document.getElementById('familyCalYearSelect');
+          const mSel = document.getElementById('familyCalMonthSelect');
+          if (ySel) ySel.value = String(parts[0] || 2026);
+          if (mSel) mSel.value = String(parts[1] || 11);
+          renderFamilyCalendarGrid();
+          const modal = document.getElementById('familyCalendarModalOverlay');
+          if (modal) modal.style.display = 'flex';
+        }
+
+        function closeFamilyCalendarModal() {
+          const modal = document.getElementById('familyCalendarModalOverlay');
+          if (modal) modal.style.display = 'none';
+        }
+
+        function shiftFamilyCalendarMonth(delta) {
+          const ySel = document.getElementById('familyCalYearSelect');
+          const mSel = document.getElementById('familyCalMonthSelect');
+          if (!ySel || !mSel) return;
+          let y = Number(ySel.value) || 2026;
+          let m = Number(mSel.value) || 11;
+          m += delta;
+          if (m < 1) { m = 12; y -= 1; }
+          if (m > 12) { m = 1; y += 1; }
+          ySel.value = String(y);
+          mSel.value = String(m);
+          renderFamilyCalendarGrid();
+        }
+
+        function selectTodayInFamilyCalendar() {
+          familyRecordSelectedDate = getTodayIsoDateStr(0);
+          syncFamilyRecordModalUI();
+          closeFamilyCalendarModal();
+        }
+
+        function selectDateFromFamilyCalendar(dateStr) {
+          familyRecordSelectedDate = dateStr;
+          syncFamilyRecordModalUI();
+          closeFamilyCalendarModal();
+        }
+
+        function renderFamilyCalendarGrid() {
+          const grid = document.getElementById('familyCalendarDaysGrid');
+          const ySel = document.getElementById('familyCalYearSelect');
+          const mSel = document.getElementById('familyCalMonthSelect');
+          if (!grid || !ySel || !mSel) return;
+
+          const year = Number(ySel.value) || 2026;
+          const month = Number(mSel.value) || 11;
+          const firstDay = new Date(year, month - 1, 1).getDay();
+          const daysInMonth = new Date(year, month, 0).getDate();
+          const todayStr = getTodayIsoDateStr(0);
+
+          let html = '';
+          for (let i = 0; i < firstDay; i++) {
+            html += `<div class="family-cal-empty"></div>`;
+          }
+          for (let d = 1; d <= daysInMonth; d++) {
+            const mStr = String(month).padStart(2, '0');
+            const dStr = String(d).padStart(2, '0');
+            const dateStr = `${year}-${mStr}-${dStr}`;
+            const isSelected = dateStr === familyRecordSelectedDate;
+            const isToday = dateStr === todayStr;
+            html += `
+              <button type="button" class="family-cal-day-btn ${isSelected ? 'selected' : ''} ${isToday ? 'today' : ''}"
+                onclick="selectDateFromFamilyCalendar('${dateStr}')">
+                <span>${d}</span>
+              </button>
+            `;
+          }
+          grid.innerHTML = html;
+        }
+
+        // C. 活動詳細 ＆ フィードバック（コメント）モーダル
+        function openFamilyDetailDrawer(postId) {
+          detailDrawerPostId = postId;
+          renderFamilyDetailDrawerContent();
+          const modal = document.getElementById('familyDetailDrawerOverlay');
+          if (modal) modal.style.display = 'flex';
+        }
+
+        function closeFamilyDetailDrawer() {
+          detailDrawerPostId = null;
+          const modal = document.getElementById('familyDetailDrawerOverlay');
+          if (modal) modal.style.display = 'none';
+        }
+
+        function renderFamilyDetailDrawerContent() {
+          const body = document.getElementById('familyDetailDrawerBody');
+          if (!body || !detailDrawerPostId) return;
+          const post = (AppSchema.family_posts || []).find(p => p.id === detailDrawerPostId);
+          if (!post) {
+            closeFamilyDetailDrawer();
+            return;
+          }
+
+          const pInfo = getActorDisplayInfo('parent');
+          const cInfo = getActorDisplayInfo('child');
+          const authorInfo = post.authorRole === 'child' ? cInfo : pInfo;
+          const currentActor = getActorDisplayInfo(familyActiveActor);
+          const cumInfo = getPostCumulativeOrder(post, AppSchema.family_posts);
+          const actionLabel = getPostActionLabel(post);
+          const valNum = post.value !== undefined ? post.value : 1;
+          const valUnit = post.unit || '件';
+          const replies = Array.isArray(post.replies) ? post.replies : [];
+
+          const emojiReactionsHtml = FAMILY_REACTION_EMOJIS.map(emoji => {
+            const rList = (post.reactions && Array.isArray(post.reactions[emoji])) ? post.reactions[emoji] : [];
+            const reactedByMe = rList.includes(familyActiveActor);
+            return `
+              <button type="button" class="btn-family-emoji-react ${reactedByMe ? 'reacted' : ''}"
+                onclick="toggleFamilyEmojiReaction('${post.id}', '${emoji}', event)">
+                <span>${emoji}</span>
+                ${rList.length > 0 ? `<span class="emoji-react-count">${rList.length}</span>` : ''}
+              </button>
+            `;
+          }).join('');
+
+          body.innerHTML = `
+            <div class="family-detail-author-row">
+              <div class="chat-avatar-circle ${post.authorRole === 'child' ? 'role-child' : 'role-parent'}">${escapeFamilyHtml(post.authorAvatar || authorInfo.avatar)}</div>
+              <div style="flex:1;">
+                <div style="font-weight:800; font-size:15px; color:#1E2440;">${escapeFamilyHtml(post.authorName || authorInfo.name)}</div>
+                <div style="font-size:12px; color:#64748B;">${authorInfo.handle} ・ ${formatFamilyTimestamp(post.createdAt)}</div>
+              </div>
+              <button type="button" class="btn-outline btn-sm" style="color:#DC2626; border-color:#FCA5A5;"
+                onclick="openFamilyDeleteConfirm('${post.id}', event)">🗑 削除</button>
+            </div>
+
+            <div class="family-detail-metrics-box">
+              <div class="family-post-activity-badges-row" style="margin-bottom:8px;">
+                <span class="family-act-type-badge">${escapeFamilyHtml(actionLabel)}</span>
+                <span class="family-act-val-badge"><strong>${valNum}</strong> ${escapeFamilyHtml(valUnit)}</span>
+                <span class="family-act-date-chip">
+                  <span>📅 ${escapeFamilyHtml(cumInfo.formattedDate)} 実施</span>
+                  <span class="family-act-order-pill">通算${cumInfo.order}回目</span>
+                </span>
+              </div>
+              ${post.targetName ? `<div class="family-post-target-school">🏫 ${escapeFamilyHtml(post.targetName)}</div>` : ''}
+              <p class="family-detail-memo-text">${escapeFamilyHtml(post.content)}</p>
+              <div class="family-emoji-reactions-bar" style="margin-top:10px;">
+                ${emojiReactionsHtml}
+              </div>
+            </div>
+
+            <div class="family-detail-comments-section">
+              <h4 style="font-size:14px; font-weight:800; color:#1E2440; margin:14px 0 10px;">フィードバック・返信 (${replies.length})</h4>
+              <div class="family-detail-comments-list">
+                ${replies.length > 0 ? replies.map(rep => {
+                  const repInfo = rep.authorRole === 'child' ? cInfo : pInfo;
+                  return `
+                    <div class="chat-reply-bubble-row ${rep.authorRole === 'child' ? 'reply-child' : 'reply-parent'}" style="margin-bottom:8px;">
+                      <span class="chat-reply-avatar">${escapeFamilyHtml(rep.authorAvatar || repInfo.avatar)}</span>
+                      <div class="chat-reply-bubble" style="flex:1;">
+                        <div class="chat-reply-meta">
+                          <strong class="chat-reply-author">${escapeFamilyHtml(rep.authorName || repInfo.name)}</strong>
+                          <span class="chat-reply-time">${formatFamilyTimestamp(rep.createdAt)}</span>
+                        </div>
+                        <div class="chat-reply-text">${escapeFamilyHtml(rep.content)}</div>
+                      </div>
+                    </div>
+                  `;
+                }).join('') : `<p style="font-size:13px; color:#64748B;">まだフィードバック・返信はありません。</p>`}
+              </div>
+            </div>
+
+            <div class="family-detail-comment-form">
+              <label style="display:block; font-size:12.5px; font-weight:800; color:#334155; margin-bottom:6px;">
+                フィードバックを投稿する（投稿者: ${escapeFamilyHtml(currentActor.avatar)} ${escapeFamilyHtml(currentActor.name)}）
+              </label>
+              <textarea id="familyDetailCommentInput" class="family-chat-textarea" rows="2"
+                style="width:100%; border-radius:10px; padding:8px 10px; margin-bottom:8px;"
+                placeholder="コメント、感想、励ましなどを入力..."></textarea>
+              <div style="text-align:right;">
+                <button type="button" class="btn-family-gate-start" style="width:auto; padding:8px 18px; font-size:13.5px;"
+                  onclick="submitFamilyDetailComment()">送信する</button>
+              </div>
+            </div>
+          `;
+        }
+
+        function submitFamilyDetailComment() {
+          if (!detailDrawerPostId) return;
+          const inp = document.getElementById('familyDetailCommentInput');
+          if (!inp || !inp.value.trim()) {
+            if (inp) inp.focus();
+            return;
+          }
+          submitFamilyReply(detailDrawerPostId, inp.value.trim());
+        }
+
+        // D. 活動記録の削除確認モーダル
+        function openFamilyDeleteConfirm(postId, ev) {
+          if (ev) ev.stopPropagation();
+          const post = (AppSchema.family_posts || []).find(p => p.id === postId);
+          if (!post) return;
+          pendingDeletePostId = postId;
+          const prevEl = document.getElementById('familyDeletePreviewText');
+          if (prevEl) prevEl.textContent = post.content || '';
+          const modal = document.getElementById('familyDeleteConfirmOverlay');
+          if (modal) modal.style.display = 'flex';
+        }
+
+        function closeFamilyDeleteConfirm() {
+          pendingDeletePostId = null;
+          const modal = document.getElementById('familyDeleteConfirmOverlay');
+          if (modal) modal.style.display = 'none';
+        }
+
+        function executeFamilyDeleteConfirmed() {
+          if (!pendingDeletePostId) return;
+          AppSchema.family_posts = (AppSchema.family_posts || []).filter(p => p.id !== pendingDeletePostId);
+          if (detailDrawerPostId === pendingDeletePostId) {
+            closeFamilyDetailDrawer();
+          }
+          closeFamilyDeleteConfirm();
+          saveAppStateToLocalStorage();
+          renderFamilyTimeline();
+          renderFamilyCumulativeStats();
         }
 
         function renderFamilyScreen() {
