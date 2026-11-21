@@ -7957,30 +7957,22 @@ function setupReviewWizardUI(mode, targetPlan = null) {
         }
 
         function switchFamilySubTab(tabName) {
-          currentFamilySubTab = (tabName === 'footprint' || tabName === 'stats') ? tabName : 'murmur';
+          currentFamilySubTab = tabName === 'footprint' ? 'footprint' : 'murmur';
           const tabMurmur = document.getElementById('tabFamilyMurmur');
           const tabFootprint = document.getElementById('tabFamilyFootprint');
-          const tabStats = document.getElementById('tabFamilyStats');
           const panelMurmur = document.getElementById('familyMurmurPanel');
           const panelFootprint = document.getElementById('familyFootprintPanel');
-          const panelStats = document.getElementById('familyStatsPanel');
-          const filterToolbar = document.getElementById('familyFilterToolbarCard');
 
           if (tabMurmur) tabMurmur.classList.toggle('active', currentFamilySubTab === 'murmur');
           if (tabFootprint) tabFootprint.classList.toggle('active', currentFamilySubTab === 'footprint');
-          if (tabStats) tabStats.classList.toggle('active', currentFamilySubTab === 'stats');
 
           if (panelMurmur) panelMurmur.style.display = currentFamilySubTab === 'murmur' ? 'block' : 'none';
           if (panelFootprint) panelFootprint.style.display = currentFamilySubTab === 'footprint' ? 'block' : 'none';
-          if (panelStats) panelStats.style.display = currentFamilySubTab === 'stats' ? 'block' : 'none';
-          if (filterToolbar) filterToolbar.style.display = currentFamilySubTab === 'stats' ? 'none' : 'block';
 
           if (currentFamilySubTab === 'murmur') {
             renderFamilyTimeline();
-          } else if (currentFamilySubTab === 'footprint') {
-            renderFamilyFootprints();
           } else {
-            renderFamilyCumulativeStats();
+            renderFamilyFootprints();
           }
         }
 

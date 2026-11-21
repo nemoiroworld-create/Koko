@@ -251,7 +251,7 @@
               </div>
             </div>
 
-            <!-- 「つぶやき」⇄「足跡」⇄「累計」切り替えタブ -->
+            <!-- 「つぶやき」⇄「足跡」切り替えタブ -->
             <div class="family-sub-tabs" role="tablist">
               <button type="button" class="family-sub-tab active" id="tabFamilyMurmur"
                 onclick="switchFamilySubTab('murmur')">
@@ -260,10 +260,6 @@
               <button type="button" class="family-sub-tab" id="tabFamilyFootprint"
                 onclick="switchFamilySubTab('footprint')">
                 <span class="tab-label-main">🐾 足跡</span>
-              </button>
-              <button type="button" class="family-sub-tab" id="tabFamilyStats"
-                onclick="switchFamilySubTab('stats')">
-                <span class="tab-label-main">📊 活動累計</span>
               </button>
             </div>
 
@@ -358,13 +354,6 @@
               </div>
 
               <div id="familyFootprintsContainer" class="family-footprints-list">
-                <!-- JavaScriptで動的生成 -->
-              </div>
-            </div>
-
-            <!-- ③ 活動累計タブ（リアルタイム集計） -->
-            <div id="familyStatsPanel" class="family-tab-panel" style="display: none;">
-              <div id="familyCumulativeStatsContainer" class="family-stats-box">
                 <!-- JavaScriptで動的生成 -->
               </div>
             </div>
