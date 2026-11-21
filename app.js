@@ -8498,13 +8498,6 @@ function setupReviewWizardUI(mode, targetPlan = null) {
             const actorAvatar = fp.actorAvatar || actorInfo.avatar;
             const meta = getFootprintActionMeta(fp.actionType, fp.customActionName);
 
-            // 足跡の通算〇回目と実施日
-            const sameTypeList = allFootprints.filter(x => x.actorRole === fp.actorRole && x.actionType === fp.actionType).slice().reverse();
-            const orderIdx = sameTypeList.findIndex(x => x.id === fp.id);
-            const orderNum = orderIdx >= 0 ? orderIdx + 1 : 1;
-            const fpDate = fp.date || (fp.createdAt ? fp.createdAt.slice(0, 10) : getTodayIsoDateStr(0));
-            const isDateSelected = familyFilterDate === fpDate;
-
             const targetAttrs = fp.schoolId
               ? `class="family-fp-target clickable" onclick="openSchoolDetailScreen('${fp.schoolId}')"`
               : `class="family-fp-target"`;
@@ -8518,15 +8511,6 @@ function setupReviewWizardUI(mode, targetPlan = null) {
           <div class="family-fp-meta-row">
             <span class="family-fp-who">${escapeFamilyHtml(actorAvatar)} ${escapeFamilyHtml(actorName)}${meta.actionVerb}</span>
             <span class="family-fp-time">${formatFamilyTimestamp(fp.createdAt)}</span>
-          </div>
-          <div class="family-post-activity-badges-row" style="margin: 4px 0 6px;">
-            <span class="family-act-type-badge">${escapeFamilyHtml(meta.label)}</span>
-            ${fp.value ? `<span class="family-act-val-badge"><strong>${fp.value}</strong> ${escapeFamilyHtml(fp.unit || '回')}</span>` : ''}
-            <button type="button" class="family-act-date-chip ${isDateSelected ? 'active' : ''}"
-              onclick="toggleFamilyDateFilter('${fpDate}', event)">
-              <span>📅 ${escapeFamilyHtml(formatJapaneseDateWithWeekday(fpDate, true))} 実施</span>
-              <span class="family-act-order-pill">通算${orderNum}回目</span>
-            </button>
           </div>
           ${fp.targetName ? `
             <div ${targetAttrs}>
@@ -8958,14 +8942,6 @@ function setupReviewWizardUI(mode, targetPlan = null) {
             </div>
 
             <div class="family-detail-metrics-box">
-              <div class="family-post-activity-badges-row" style="margin-bottom:8px;">
-                <span class="family-act-type-badge">${escapeFamilyHtml(actionLabel)}</span>
-                <span class="family-act-val-badge"><strong>${valNum}</strong> ${escapeFamilyHtml(valUnit)}</span>
-                <span class="family-act-date-chip">
-                  <span>📅 ${escapeFamilyHtml(cumInfo.formattedDate)} 実施</span>
-                  <span class="family-act-order-pill">通算${cumInfo.order}回目</span>
-                </span>
-              </div>
               ${post.targetName ? `<div class="family-post-target-school">🏫 ${escapeFamilyHtml(post.targetName)}</div>` : ''}
               <p class="family-detail-memo-text">${escapeFamilyHtml(post.content)}</p>
               <div class="family-emoji-reactions-bar" style="margin-top:10px;">
