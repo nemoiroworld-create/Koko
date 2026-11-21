@@ -256,67 +256,129 @@
              C. 親子画面のホーム（親子のつぶやき ＆ 足跡機能）
              ========================================== -->
         <div id="homeFamilyViewBlock" class="home-mode-block" style="display: none;">
-          <!-- 「つぶやき」⇄「足跡」切り替えタブ -->
-          <div class="family-sub-tabs" role="tablist">
-            <button type="button" class="family-sub-tab active" id="tabFamilyMurmur"
-              onclick="switchFamilySubTab('murmur')">
-              <span class="tab-label-main">💬 つぶやき</span>
-            </button>
-            <button type="button" class="family-sub-tab" id="tabFamilyFootprint"
-              onclick="switchFamilySubTab('footprint')">
-              <span class="tab-label-main">🐾 足跡</span>
-            </button>
-          </div>
 
-          <!-- ① つぶやきタブ -->
-          <div id="familyMurmurPanel" class="family-tab-panel active">
-            <!-- シンプルな投稿バー（送信者切替 ＋ 入力欄 ＋ 送信アイコン） -->
-            <div class="family-simple-composer">
-              <div class="family-actor-buttons">
-                <button type="button" class="family-actor-btn active" data-actor="parent" id="btnFamilyActorParent"
-                  onclick="setFamilyActiveActor('parent')">
-                  <span id="familyActorParentAvatar">👩</span>
-                  <span id="familyActorParentName">保護者</span>
+          <!-- ① 初回オープン時：ユーザー選択 ＆ 子どもの足跡カテゴリー選択画面 -->
+          <div id="familyEntryGateContainer" class="family-entry-gate-card">
+            <!-- ステップ1：だれが使っていますか？ -->
+            <div id="familyWhoStep" class="family-gate-step">
+              <h2 class="family-gate-title">親子画面を使うのはだれですか？</h2>
+              <div class="family-who-cards-grid">
+                <button type="button" class="family-who-choice-card who-child" onclick="selectFamilyViewerRole('child')">
+                  <span class="family-who-emoji" id="gateChildAvatar">👦</span>
+                  <span class="family-who-label">子ども</span>
                 </button>
-                <button type="button" class="family-actor-btn" data-actor="child" id="btnFamilyActorChild"
-                  onclick="setFamilyActiveActor('child')">
-                  <span id="familyActorChildAvatar">👦</span>
-                  <span id="familyActorChildName">子ども</span>
-                </button>
-              </div>
-
-              <div class="family-chat-input-bar">
-                <textarea id="familyPostInput" class="family-chat-textarea" rows="1" placeholder="つぶやきを入力…"
-                  onkeydown="if(event.key==='Enter' && !event.shiftKey && !event.isComposing){event.preventDefault();submitFamilyPost();}"></textarea>
-                <button type="button" class="btn-family-chat-send" onclick="submitFamilyPost()" aria-label="送信">
-                  <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.3"
-                    stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="22" y1="2" x2="11" y2="13"></line>
-                    <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
-                  </svg>
+                <button type="button" class="family-who-choice-card who-parent" onclick="selectFamilyViewerRole('parent')">
+                  <span class="family-who-emoji" id="gateParentAvatar">👩</span>
+                  <span class="family-who-label">保護者</span>
                 </button>
               </div>
             </div>
 
-            <!-- 吹き出し一覧（外枠なしでシンプルにぽっと表示） -->
-            <div id="familyTimelineContainer" class="family-chat-stream">
-              <!-- JavaScriptで動的生成 -->
+            <!-- ステップ2：子どもだった場合 → 足跡として残すものをカテゴリー別に選択 -->
+            <div id="familyChildFootprintSetupStep" class="family-gate-step" style="display: none;">
+              <div class="family-gate-top-bar">
+                <button type="button" class="btn-family-gate-back" onclick="backToFamilyWhoStep()">← もどる</button>
+                <div class="family-gate-preset-btns">
+                  <button type="button" class="btn-fp-preset" onclick="setAllChildFootprintCategories(true)">すべてON</button>
+                  <button type="button" class="btn-fp-preset" onclick="setAllChildFootprintCategories(false)">すべてOFF</button>
+                </div>
+              </div>
+
+              <h2 class="family-gate-title">足跡として残すものをえらぼう</h2>
+              <p class="family-gate-sub">チェックを入れた行動だけが、親子画面の「足跡」に残ります。</p>
+
+              <!-- カテゴリー別リスト（JavaScriptで選択状態を同期描画） -->
+              <div id="familyChildFootprintCategoriesBox" class="family-fp-categories-box"></div>
+
+              <button type="button" class="btn-family-gate-start" onclick="confirmChildFootprintSettingsAndEnter()">
+                この設定ではじめる
+              </button>
             </div>
           </div>
 
-          <!-- ② 足跡タブ -->
-          <div id="familyFootprintPanel" class="family-tab-panel" style="display: none;">
-            <div class="family-footprint-filter-row">
-              <button type="button" class="family-fp-filter-btn active"
-                onclick="filterFamilyFootprints('all', this)">すべて</button>
-              <button type="button" class="family-fp-filter-btn"
-                onclick="filterFamilyFootprints('parent', this)">保護者</button>
-              <button type="button" class="family-fp-filter-btn"
-                onclick="filterFamilyFootprints('child', this)">子ども</button>
+          <!-- ② 親子画面メインコンテンツ（選択完了後に表示） -->
+          <div id="familyMainContentContainer" style="display: none;">
+            <!-- 現在利用中のユーザー表示 ＆ 切替・足跡設定バー -->
+            <div class="family-viewer-status-bar">
+              <div class="family-viewer-badge" id="familyCurrentViewerBadge">
+                <span id="familyViewerBadgeEmoji">👦</span>
+                <span id="familyViewerBadgeText">子どもで表示中</span>
+              </div>
+              <div class="family-viewer-actions">
+                <button type="button" class="btn-family-viewer-action" id="btnOpenChildFpSettings"
+                  onclick="openChildFootprintCategoryModal()" style="display: none;">
+                  ⚙️ 足跡の制限設定
+                </button>
+                <button type="button" class="btn-family-viewer-action" onclick="openFamilyUserSelectGate()">
+                  👤 使う人を変更
+                </button>
+              </div>
             </div>
 
-            <div id="familyFootprintsContainer" class="family-footprints-list">
-              <!-- JavaScriptで動的生成 -->
+            <!-- 「つぶやき」⇄「足跡」切り替えタブ -->
+            <div class="family-sub-tabs" role="tablist">
+              <button type="button" class="family-sub-tab active" id="tabFamilyMurmur"
+                onclick="switchFamilySubTab('murmur')">
+                <span class="tab-label-main">💬 つぶやき</span>
+              </button>
+              <button type="button" class="family-sub-tab" id="tabFamilyFootprint"
+                onclick="switchFamilySubTab('footprint')">
+                <span class="tab-label-main">🐾 足跡</span>
+              </button>
+            </div>
+
+            <!-- ① つぶやきタブ -->
+            <div id="familyMurmurPanel" class="family-tab-panel active">
+              <!-- シンプルな投稿バー（送信者切替 ＋ 入力欄 ＋ 送信アイコン） -->
+              <div class="family-simple-composer">
+                <div class="family-actor-buttons">
+                  <button type="button" class="family-actor-btn active" data-actor="parent" id="btnFamilyActorParent"
+                    onclick="setFamilyActiveActor('parent')">
+                    <span id="familyActorParentAvatar">👩</span>
+                    <span id="familyActorParentName">保護者</span>
+                  </button>
+                  <button type="button" class="family-actor-btn" data-actor="child" id="btnFamilyActorChild"
+                    onclick="setFamilyActiveActor('child')">
+                    <span id="familyActorChildAvatar">👦</span>
+                    <span id="familyActorChildName">子ども</span>
+                  </button>
+                </div>
+
+                <div class="family-chat-input-bar">
+                  <textarea id="familyPostInput" class="family-chat-textarea" rows="1" placeholder="つぶやきを入力…"
+                    onkeydown="if(event.key==='Enter' && !event.shiftKey && !event.isComposing){event.preventDefault();submitFamilyPost();}"></textarea>
+                  <button type="button" class="btn-family-chat-send" onclick="submitFamilyPost()" aria-label="送信">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.3"
+                      stroke-linecap="round" stroke-linejoin="round">
+                      <line x1="22" y1="2" x2="11" y2="13"></line>
+                      <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+                    </svg>
+                  </button>
+                </div>
+              </div>
+
+              <!-- 吹き出し一覧（外枠なしでシンプルにぽっと表示） -->
+              <div id="familyTimelineContainer" class="family-chat-stream">
+                <!-- JavaScriptで動的生成 -->
+              </div>
+            </div>
+
+            <!-- ② 足跡タブ -->
+            <div id="familyFootprintPanel" class="family-tab-panel" style="display: none;">
+              <div id="familyFootprintPrivacyBanner" class="family-fp-privacy-banner"></div>
+
+              <div class="family-footprint-filter-row">
+                <button type="button" class="family-fp-filter-btn active"
+                  onclick="filterFamilyFootprints('all', this)">すべて</button>
+                <button type="button" class="family-fp-filter-btn"
+                  onclick="filterFamilyFootprints('parent', this)">保護者</button>
+                <button type="button" class="family-fp-filter-btn"
+                  onclick="filterFamilyFootprints('child', this)">子ども</button>
+              </div>
+
+              <div id="familyFootprintsContainer" class="family-footprints-list">
+                <!-- JavaScriptで動的生成 -->
+              </div>
             </div>
           </div>
         </div>

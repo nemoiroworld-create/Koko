@@ -526,7 +526,18 @@ const DEFAULT_EMPTY_SCHEMA = {
   visit_reviews: [],
   // 親子のつぶやき・足跡データ
   family_posts: [],
-  family_footprints: []
+  family_footprints: [],
+  // 子どもが足跡として残すものを自分で決める制限設定（カテゴリー別）
+  child_footprint_settings: {
+    is_configured: false,
+    allowed_actions: {
+      like_post: true,
+      reply_post: true,
+      favorite_school: true,
+      view_school: true,
+      review_event: true
+    }
+  }
 };
 
 let AppSchema = JSON.parse(JSON.stringify(DEFAULT_EMPTY_SCHEMA));
@@ -7265,6 +7276,16 @@ function setupReviewWizardUI(mode, targetPlan = null) {
             if (Array.isArray(parsed.visit_reviews)) AppSchema.visit_reviews = parsed.visit_reviews;
             if (Array.isArray(parsed.family_posts)) AppSchema.family_posts = parsed.family_posts;
             if (Array.isArray(parsed.family_footprints)) AppSchema.family_footprints = parsed.family_footprints;
+            if (parsed.child_footprint_settings && typeof parsed.child_footprint_settings === 'object') {
+              AppSchema.child_footprint_settings = {
+                is_configured: !!parsed.child_footprint_settings.is_configured,
+                allowed_actions: Object.assign(
+                  {},
+                  DEFAULT_EMPTY_SCHEMA.child_footprint_settings.allowed_actions,
+                  parsed.child_footprint_settings.allowed_actions || {}
+                )
+              };
+            }
           } catch (e) {
             console.warn("localStorage load failed", e);
             AppSchema = JSON.parse(JSON.stringify(DEFAULT_EMPTY_SCHEMA));
@@ -7427,11 +7448,225 @@ function setupReviewWizardUI(mode, targetPlan = null) {
         });
 
         // ==========================================
-        // 12. 親子画面（① 親子のつぶやき機能 ＆ ② 足跡機能）
+        // 12. 親子画面（① 親子のつぶやき機能 ＆ ② 足跡機能 ＆ 子どもの足跡公開カテゴリー制限）
         // ==========================================
         let currentFamilySubTab = 'murmur'; // 'murmur' | 'footprint'
         let currentFootprintFilter = 'all'; // 'all' | 'parent' | 'child'
         let openReplyPostIds = {};          // 返信入力欄を開いている投稿IDマップ
+        let familyViewerSelectedInSession = false; // 親子画面を最初に開いた際のユーザー確認フラグ
+        let familyCurrentViewerRole = null;        // 'child' | 'parent'
+
+        // 子どもが足跡として残すか選べるカテゴリー定義（3カテゴリー・全5行動）
+        const CHILD_FOOTPRINT_CATEGORY_GROUPS = [
+          {
+            categoryId: 'cat_murmur',
+            categoryTitle: '💬 つぶやきのリアクション',
+            categoryIcon: '💬',
+            items: [
+              { actionType: 'like_post', icon: '♥', label: 'つぶやきにいいねをした' },
+              { actionType: 'reply_post', icon: '💬', label: 'つぶやきに返信した' }
+            ]
+          },
+          {
+            categoryId: 'cat_school',
+            categoryTitle: '🏫 学校チェック・お気に入り',
+            categoryIcon: '🏫',
+            items: [
+              { actionType: 'favorite_school', icon: '★', label: '学校をお気に入り登録した' },
+              { actionType: 'view_school', icon: '🏫', label: '学校の詳細画面を確認した' }
+            ]
+          },
+          {
+            categoryId: 'cat_event',
+            categoryTitle: '📝 イベント・見学の記録',
+            categoryIcon: '📝',
+            items: [
+              { actionType: 'review_event', icon: '📝', label: 'イベントの振り返りを入力した' }
+            ]
+          }
+        ];
+
+        function ensureChildFootprintSettings() {
+          if (!AppSchema.child_footprint_settings || typeof AppSchema.child_footprint_settings !== 'object') {
+            AppSchema.child_footprint_settings = JSON.parse(JSON.stringify(DEFAULT_EMPTY_SCHEMA.child_footprint_settings));
+          }
+          if (!AppSchema.child_footprint_settings.allowed_actions) {
+            AppSchema.child_footprint_settings.allowed_actions = JSON.parse(JSON.stringify(DEFAULT_EMPTY_SCHEMA.child_footprint_settings.allowed_actions));
+          }
+          return AppSchema.child_footprint_settings;
+        }
+
+        function isChildFootprintActionAllowed(actionType) {
+          const settings = ensureChildFootprintSettings();
+          if (settings.allowed_actions[actionType] === undefined) return true;
+          return !!settings.allowed_actions[actionType];
+        }
+
+        // 親子画面を最初に開いた時のユーザー選択（「子ども」か「保護者」か）
+        function selectFamilyViewerRole(role) {
+          familyCurrentViewerRole = role === 'child' ? 'child' : 'parent';
+          familyActiveActor = familyCurrentViewerRole;
+
+          const whoStep = document.getElementById('familyWhoStep');
+          const childSetupStep = document.getElementById('familyChildFootprintSetupStep');
+
+          if (familyCurrentViewerRole === 'child') {
+            // 子どもだった場合は、足跡として残すものをカテゴリー別に選択する画面へ進む
+            if (whoStep) whoStep.style.display = 'none';
+            if (childSetupStep) childSetupStep.style.display = 'block';
+            renderChildFootprintCategorySelectionUI();
+          } else {
+            // 保護者だった場合はそのまま親子画面メインへ入る
+            familyViewerSelectedInSession = true;
+            enterFamilyMainContent();
+          }
+        }
+
+        function backToFamilyWhoStep() {
+          const whoStep = document.getElementById('familyWhoStep');
+          const childSetupStep = document.getElementById('familyChildFootprintSetupStep');
+          if (whoStep) whoStep.style.display = 'block';
+          if (childSetupStep) childSetupStep.style.display = 'none';
+        }
+
+        function openFamilyUserSelectGate() {
+          const gateEl = document.getElementById('familyEntryGateContainer');
+          const mainEl = document.getElementById('familyMainContentContainer');
+          const whoStep = document.getElementById('familyWhoStep');
+          const childSetupStep = document.getElementById('familyChildFootprintSetupStep');
+
+          const pInfo = getActorDisplayInfo('parent');
+          const cInfo = getActorDisplayInfo('child');
+          const gateChildAvatar = document.getElementById('gateChildAvatar');
+          const gateParentAvatar = document.getElementById('gateParentAvatar');
+          if (gateChildAvatar) gateChildAvatar.textContent = cInfo.avatar;
+          if (gateParentAvatar) gateParentAvatar.textContent = pInfo.avatar;
+
+          if (gateEl) gateEl.style.display = 'block';
+          if (mainEl) mainEl.style.display = 'none';
+          if (whoStep) whoStep.style.display = 'block';
+          if (childSetupStep) childSetupStep.style.display = 'none';
+        }
+
+        function openChildFootprintCategoryModal() {
+          // 子ども自身がいつでも足跡の制限設定を変更できるように設定画面を開く
+          familyCurrentViewerRole = 'child';
+          familyActiveActor = 'child';
+          const gateEl = document.getElementById('familyEntryGateContainer');
+          const mainEl = document.getElementById('familyMainContentContainer');
+          const whoStep = document.getElementById('familyWhoStep');
+          const childSetupStep = document.getElementById('familyChildFootprintSetupStep');
+
+          if (gateEl) gateEl.style.display = 'block';
+          if (mainEl) mainEl.style.display = 'none';
+          if (whoStep) whoStep.style.display = 'none';
+          if (childSetupStep) childSetupStep.style.display = 'block';
+          renderChildFootprintCategorySelectionUI();
+        }
+
+        function toggleChildFootprintActionItem(actionType) {
+          const settings = ensureChildFootprintSettings();
+          settings.allowed_actions[actionType] = !settings.allowed_actions[actionType];
+          saveAppStateToLocalStorage();
+          renderChildFootprintCategorySelectionUI();
+        }
+
+        function toggleChildFootprintCategoryGroup(categoryId) {
+          const settings = ensureChildFootprintSettings();
+          const group = CHILD_FOOTPRINT_CATEGORY_GROUPS.find(g => g.categoryId === categoryId);
+          if (!group) return;
+          const allEnabled = group.items.every(it => !!settings.allowed_actions[it.actionType]);
+          const nextState = !allEnabled;
+          group.items.forEach(it => {
+            settings.allowed_actions[it.actionType] = nextState;
+          });
+          saveAppStateToLocalStorage();
+          renderChildFootprintCategorySelectionUI();
+        }
+
+        function setAllChildFootprintCategories(enableAll) {
+          const settings = ensureChildFootprintSettings();
+          CHILD_FOOTPRINT_CATEGORY_GROUPS.forEach(group => {
+            group.items.forEach(it => {
+              settings.allowed_actions[it.actionType] = !!enableAll;
+            });
+          });
+          saveAppStateToLocalStorage();
+          renderChildFootprintCategorySelectionUI();
+        }
+
+        function renderChildFootprintCategorySelectionUI() {
+          const box = document.getElementById('familyChildFootprintCategoriesBox');
+          if (!box) return;
+          const settings = ensureChildFootprintSettings();
+
+          box.innerHTML = CHILD_FOOTPRINT_CATEGORY_GROUPS.map(group => {
+            const allChecked = group.items.every(it => !!settings.allowed_actions[it.actionType]);
+            const someChecked = group.items.some(it => !!settings.allowed_actions[it.actionType]);
+
+            return `
+              <div class="fp-category-group-card ${someChecked ? 'has-active' : ''}">
+                <div class="fp-category-group-header" onclick="toggleChildFootprintCategoryGroup('${group.categoryId}')">
+                  <div class="fp-category-group-title-wrap">
+                    <span class="fp-category-title">${group.categoryTitle}</span>
+                  </div>
+                  <button type="button" class="fp-category-toggle-pill ${allChecked ? 'on' : 'off'}" onclick="event.stopPropagation(); toggleChildFootprintCategoryGroup('${group.categoryId}')">
+                    ${allChecked ? '✓ まとめてON' : 'まとめて選択'}
+                  </button>
+                </div>
+
+                <div class="fp-category-items-list">
+                  ${group.items.map(it => {
+                    const isAllowed = !!settings.allowed_actions[it.actionType];
+                    return `
+                      <label class="fp-action-choice-row ${isAllowed ? 'checked' : ''}" onclick="event.preventDefault(); toggleChildFootprintActionItem('${it.actionType}')">
+                        <span class="fp-action-check-circle ${isAllowed ? 'on' : ''}">${isAllowed ? '✓' : ''}</span>
+                        <span class="fp-action-item-icon">${it.icon}</span>
+                        <span class="fp-action-item-label">${it.label}</span>
+                        <span class="fp-action-state-badge ${isAllowed ? 'on' : 'off'}">${isAllowed ? '残す' : '残さない'}</span>
+                      </label>
+                    `;
+                  }).join('')}
+                </div>
+              </div>
+            `;
+          }).join('');
+        }
+
+        function confirmChildFootprintSettingsAndEnter() {
+          const settings = ensureChildFootprintSettings();
+          settings.is_configured = true;
+          familyViewerSelectedInSession = true;
+          saveAppStateToLocalStorage();
+          enterFamilyMainContent();
+        }
+
+        function enterFamilyMainContent() {
+          const gateEl = document.getElementById('familyEntryGateContainer');
+          const mainEl = document.getElementById('familyMainContentContainer');
+          if (gateEl) gateEl.style.display = 'none';
+          if (mainEl) mainEl.style.display = 'block';
+
+          updateFamilyViewerStatusBar();
+          renderFamilyActorBar();
+          renderFamilyTimeline();
+          renderFamilyFootprints();
+        }
+
+        function updateFamilyViewerStatusBar() {
+          const role = familyCurrentViewerRole || familyActiveActor || 'parent';
+          const info = getActorDisplayInfo(role);
+          const emojiEl = document.getElementById('familyViewerBadgeEmoji');
+          const textEl = document.getElementById('familyViewerBadgeText');
+          const btnFpSettings = document.getElementById('btnOpenChildFpSettings');
+
+          if (emojiEl) emojiEl.textContent = info.avatar;
+          if (textEl) textEl.textContent = role === 'child' ? `${info.name}（子ども）で利用中` : `${info.name}（保護者）で利用中`;
+          // 足跡の制限設定ボタンは子ども自身のみ操作可能
+          if (btnFpSettings) {
+            btnFpSettings.style.display = role === 'child' ? 'inline-flex' : 'none';
+          }
+        }
 
         function escapeFamilyHtml(str) {
           if (!str) return '';
@@ -7597,6 +7832,11 @@ function setupReviewWizardUI(mode, targetPlan = null) {
           const role = extra.actor_override || getCurrentActorRole();
           const actor = getActorDisplayInfo(role);
 
+          // 子どもの行動の場合、子ども自身が選択していないカテゴリーの足跡は記録しない
+          if (actor.role === 'child' && !isChildFootprintActionAllowed(actionType)) {
+            return;
+          }
+
           const newFp = {
             id: 'fp_' + Date.now() + '_' + Math.random().toString(36).slice(2, 6),
             actorRole: actor.role,
@@ -7631,8 +7871,11 @@ function setupReviewWizardUI(mode, targetPlan = null) {
 
         function setFamilyActiveActor(role) {
           familyActiveActor = role === 'child' ? 'child' : 'parent';
+          familyCurrentViewerRole = familyActiveActor;
+          updateFamilyViewerStatusBar();
           renderFamilyActorBar();
           renderFamilyTimeline();
+          renderFamilyFootprints();
         }
 
         function renderFamilyActorBar() {
@@ -7974,7 +8217,35 @@ function setupReviewWizardUI(mode, targetPlan = null) {
           const pInfo = getActorDisplayInfo('parent');
           const cInfo = getActorDisplayInfo('child');
 
-          let list = Array.isArray(AppSchema.family_footprints) ? AppSchema.family_footprints : [];
+          // 足跡タブ上部の子ども用プライバシー設定バナー更新
+          const bannerEl = document.getElementById('familyFootprintPrivacyBanner');
+          if (bannerEl) {
+            const settings = ensureChildFootprintSettings();
+            const allowedKeys = Object.keys(settings.allowed_actions || {}).filter(k => !!settings.allowed_actions[k]);
+            const viewerIsChild = (familyCurrentViewerRole || familyActiveActor) === 'child';
+
+            if (viewerIsChild) {
+              bannerEl.innerHTML = `
+                <div class="fp-privacy-child-bar">
+                  <span class="fp-privacy-status-text">🔒 残す足跡：<strong>${allowedKeys.length} / 5 項目</strong>をONにしています</span>
+                  <button type="button" class="btn-fp-privacy-edit" onclick="openChildFootprintCategoryModal()">
+                    ⚙️ カテゴリー別にえらぶ
+                  </button>
+                </div>
+              `;
+            } else {
+              bannerEl.innerHTML = '';
+            }
+          }
+
+          // 子どもの足跡は、子ども自身が許可したカテゴリー（actionType）のみ表示
+          let list = (Array.isArray(AppSchema.family_footprints) ? AppSchema.family_footprints : []).filter(item => {
+            if (item.actorRole === 'child' && !isChildFootprintActionAllowed(item.actionType)) {
+              return false;
+            }
+            return true;
+          });
+
           if (currentFootprintFilter === 'parent') {
             list = list.filter(item => item.actorRole === 'parent');
           } else if (currentFootprintFilter === 'child') {
@@ -7984,7 +8255,7 @@ function setupReviewWizardUI(mode, targetPlan = null) {
           if (list.length === 0) {
             container.innerHTML = `
       <div class="family-empty-card">
-        <p class="family-empty-title">まだ足跡がありません</p>
+        <p class="family-empty-title">表示できる足跡がありません</p>
       </div>
     `;
             return;
@@ -8025,8 +8296,14 @@ function setupReviewWizardUI(mode, targetPlan = null) {
 
         function renderFamilyScreen() {
           ensureInitialFamilyData();
-          renderFamilyActorBar();
-          renderFamilyTimeline();
-          renderFamilyFootprints();
+          ensureChildFootprintSettings();
+
+          // 最初親子画面を開いた際：まずそのユーザーが誰なのか（子どもだった場合は残す足跡のカテゴリー選択）を表示
+          if (!familyViewerSelectedInSession) {
+            openFamilyUserSelectGate();
+            return;
+          }
+
+          enterFamilyMainContent();
         }
 

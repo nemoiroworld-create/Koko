@@ -7614,6 +7614,348 @@ body.child-mode-active .school-detail-screen-header .btn-screen-fav-top.active s
   line-height: 1.5 !important;
 }
 
+/* ========================================================
+   親子画面：初回ユーザー選択 ＆ 子どもの足跡カテゴリー制限設定UI
+   ======================================================== */
+.family-entry-gate-card {
+  background-color: #FFFFFF;
+  border-radius: 26px;
+  padding: 24px 20px;
+  box-shadow: 0 8px 24px rgba(30, 36, 64, 0.08);
+  border: 2px solid #E2E8F0;
+  margin-bottom: 20px;
+}
+
+.family-gate-title {
+  font-family: var(--font-child);
+  font-size: 21px;
+  font-weight: 900;
+  color: #1E2440;
+  text-align: center;
+  margin: 0 0 18px 0;
+  line-height: 1.4;
+}
+
+.family-gate-sub {
+  font-size: 14.5px;
+  font-weight: 700;
+  color: #475569;
+  text-align: center;
+  margin: -8px 0 18px 0;
+  line-height: 1.5;
+}
+
+.family-who-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+.family-who-choice-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 26px 16px;
+  border-radius: 22px;
+  border: 2.5px solid #E2E8F0;
+  background-color: #F8FAFC;
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.family-who-choice-card.who-child {
+  background: linear-gradient(180deg, #FFFBEB 0%, #FEF3C7 100%);
+  border-color: #FBBF24;
+}
+
+.family-who-choice-card.who-parent {
+  background: linear-gradient(180deg, #EFF6FF 0%, #DBEAFE 100%);
+  border-color: #60A5FA;
+}
+
+.family-who-choice-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(30, 36, 64, 0.12);
+}
+
+.family-who-emoji {
+  font-size: 46px;
+  line-height: 1;
+}
+
+.family-who-label {
+  font-family: var(--font-child);
+  font-size: 19px;
+  font-weight: 900;
+  color: #1E2440;
+}
+
+.family-gate-top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+  gap: 8px;
+}
+
+.btn-family-gate-back {
+  background-color: #F1F5F9;
+  color: #334155;
+  border: none;
+  border-radius: 999px;
+  padding: 7px 14px;
+  font-size: 13.5px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.family-gate-preset-btns {
+  display: flex;
+  gap: 6px;
+}
+
+.btn-fp-preset {
+  background-color: #F8FAFC;
+  color: #475569;
+  border: 1.5px solid #CBD5E1;
+  border-radius: 999px;
+  padding: 5px 12px;
+  font-size: 12.5px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.btn-fp-preset:hover {
+  background-color: #EEF2FF;
+  color: #1E2440;
+  border-color: #818CF8;
+}
+
+/* カテゴリー別カード */
+.family-fp-categories-box {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+.fp-category-group-card {
+  background-color: #F8FAFC;
+  border: 2px solid #E2E8F0;
+  border-radius: 20px;
+  padding: 14px 14px;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
+}
+
+.fp-category-group-card.has-active {
+  background-color: #FAF5FF;
+  border-color: #C4B5FD;
+}
+
+.fp-category-group-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+
+.fp-category-title {
+  font-family: var(--font-child);
+  font-size: 16.5px;
+  font-weight: 900;
+  color: #1E2440;
+}
+
+.fp-category-toggle-pill {
+  border-radius: 999px;
+  padding: 4px 12px;
+  font-size: 12px;
+  font-weight: 800;
+  border: 1.5px solid #CBD5E1;
+  background-color: #FFFFFF;
+  color: #64748B;
+  cursor: pointer;
+}
+
+.fp-category-toggle-pill.on {
+  background-color: #8B5CF6;
+  border-color: #8B5CF6;
+  color: #FFFFFF;
+}
+
+.fp-category-items-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.fp-action-choice-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #FFFFFF;
+  border: 1.8px solid #E2E8F0;
+  border-radius: 14px;
+  padding: 12px 14px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.fp-action-choice-row.checked {
+  border-color: #8B5CF6;
+  background-color: #FFFFFF;
+  box-shadow: 0 2px 8px rgba(139, 92, 246, 0.1);
+}
+
+.fp-action-check-circle {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: 2px solid #CBD5E1;
+  background-color: #F8FAFC;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 900;
+  color: #FFFFFF;
+  flex-shrink: 0;
+}
+
+.fp-action-check-circle.on {
+  background-color: #EC4899;
+  border-color: #EC4899;
+}
+
+.fp-action-item-icon {
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.fp-action-item-label {
+  flex: 1;
+  font-family: var(--font-child);
+  font-size: 15.5px;
+  font-weight: 800;
+  color: #1E2440;
+}
+
+.fp-action-state-badge {
+  font-size: 12px;
+  font-weight: 800;
+  padding: 3px 10px;
+  border-radius: 999px;
+  flex-shrink: 0;
+}
+
+.fp-action-state-badge.on {
+  background-color: #FCE7F3;
+  color: #BE185D;
+}
+
+.fp-action-state-badge.off {
+  background-color: #F1F5F9;
+  color: #64748B;
+}
+
+.btn-family-gate-start {
+  width: 100%;
+  background-color: #1E2440;
+  color: #FFFFFF;
+  font-family: var(--font-child);
+  font-size: 17px;
+  font-weight: 800;
+  padding: 15px 20px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(30, 36, 64, 0.2);
+}
+
+.btn-family-gate-start:hover {
+  background-color: #2D355C;
+}
+
+/* 親子画面上部の現在利用者ステータスバー */
+.family-viewer-status-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  background-color: #F8FAFC;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 16px;
+  padding: 8px 12px;
+  margin-bottom: 12px;
+}
+
+.family-viewer-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13.5px;
+  font-weight: 800;
+  color: #1E2440;
+}
+
+.family-viewer-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-family-viewer-action {
+  background-color: #FFFFFF;
+  border: 1.5px solid #CBD5E1;
+  border-radius: 999px;
+  padding: 5px 11px;
+  font-size: 12px;
+  font-weight: 800;
+  color: #334155;
+  cursor: pointer;
+}
+
+.btn-family-viewer-action:hover {
+  background-color: #F1F5F9;
+}
+
+/* 足跡タブ内の子ども用プライバシー状態バー */
+.fp-privacy-child-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+  background-color: #FAF5FF;
+  border: 1.5px solid #DDD6FE;
+  border-radius: 14px;
+  padding: 10px 14px;
+  margin-bottom: 12px;
+}
+
+.fp-privacy-status-text {
+  font-size: 13px;
+  font-weight: 700;
+  color: #4C1D95;
+}
+
+.btn-fp-privacy-edit {
+  background-color: #8B5CF6;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 999px;
+  padding: 5px 12px;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+
 
 
 
