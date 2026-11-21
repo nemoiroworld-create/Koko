@@ -30,16 +30,16 @@
         </div>
         <div class="header-right-badges"></div>
       </div>
-      <!-- 保護者画面 ⇄ 子ども画面 ⇄ 親子画面 切り替えピルバー -->
+      <!-- 保護者 ⇄ 子ども ⇄ 親子 切り替えピルバー -->
       <div class="user-mode-switcher-bar">
         <button type="button" class="mode-pill-toggle active" id="btnModeParent" onclick="switchUserMode('parent')">
-          <span class="mode-bullet">✦</span> 保護者画面
+          保護者
         </button>
         <button type="button" class="mode-pill-toggle" id="btnModeChild" onclick="switchUserMode('child')">
-          <span class="mode-bullet">✦</span> 子ども画面
+          子ども
         </button>
         <button type="button" class="mode-pill-toggle" id="btnModeFamily" onclick="switchUserMode('family')">
-          <span class="mode-bullet">✦</span> 親子画面
+          親子
         </button>
       </div>
     </header>
@@ -140,45 +140,113 @@
         </div>
 
         <!-- ==========================================
-             B. 子ども画面のホーム（おすすめ ＆ 興味提案）
+             B. 子ども画面のホーム（画像準拠：大きくわかりやすいビジュアルUI）
              ========================================== -->
-        <div id="homeChildViewBlock" class="home-mode-block">
-          <!-- 子ども向けウェルカムカード -->
-          <div class="koko-hero-opening-card compact-hero child-hero-bg">
-            <div class="hero-logo-large">
-              <img src="assets/images/koko_logo.png" alt="Koko ✦" class="koko-hero-logo-img">
+        <div id="homeChildViewBlock" class="home-mode-block child-friendly-home">
+          <!-- 子ども向けイラスト付きヒーローバナー -->
+          <div class="child-visual-hero-card">
+            <div class="child-hero-illust-stage" aria-hidden="true">
+              <!-- キラキラ装飾 -->
+              <svg class="child-hero-sparkle sp-left" width="24" height="24" viewBox="0 0 24 24" fill="#F59E0B">
+                <path d="M12 2L14.2 9.8L22 12L14.2 14.2L12 22L9.8 14.2L2 12L9.8 9.8L12 2Z" />
+              </svg>
+              <svg class="child-hero-sparkle sp-right" width="22" height="22" viewBox="0 0 24 24" fill="#F59E0B">
+                <path d="M12 2L14.2 9.8L22 12L14.2 14.2L12 22L9.8 14.2L2 12L9.8 9.8L12 2Z" />
+              </svg>
+              <!-- 男の子＆女の子の親しみやすいイラストSVG -->
+              <svg class="child-hero-kids-svg" viewBox="0 0 320 155" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- 背景のやわらかい光 -->
+                <ellipse cx="160" cy="135" rx="125" ry="18" fill="#FDE68A" opacity="0.65" />
+                <!-- 男の子（左） -->
+                <g transform="translate(48, 12)">
+                  <!-- リュック -->
+                  <rect x="18" y="78" width="54" height="58" rx="16" fill="#2563EB" stroke="#1E293B" stroke-width="3" />
+                  <!-- 体・白いシャツ -->
+                  <path d="M25 84C25 74 37 68 50 68C63 68 75 74 75 84L82 138H18L25 84Z" fill="#FFFFFF" stroke="#1E293B" stroke-width="3" />
+                  <!-- リュックの肩ひも -->
+                  <path d="M33 73C31 92 31 112 34 134" stroke="#1D4ED8" stroke-width="7" stroke-linecap="round" />
+                  <path d="M33 73C31 92 31 112 34 134" stroke="#1E293B" stroke-width="3" stroke-linecap="round" fill="none" />
+                  <path d="M67 73C69 92 69 112 66 134" stroke="#1D4ED8" stroke-width="7" stroke-linecap="round" />
+                  <path d="M67 73C69 92 69 112 66 134" stroke="#1E293B" stroke-width="3" stroke-linecap="round" fill="none" />
+                  <!-- ガッツポーズの左腕 -->
+                  <path d="M22 92C10 88 6 76 12 64" stroke="#FFFFFF" stroke-width="14" stroke-linecap="round" />
+                  <path d="M22 92C10 88 6 76 12 64" stroke="#1E293B" stroke-width="3" stroke-linecap="round" />
+                  <circle cx="13" cy="60" r="9" fill="#FDE0C8" stroke="#1E293B" stroke-width="3" />
+                  <!-- 首・顔 -->
+                  <rect x="43" y="54" width="14" height="16" rx="6" fill="#FDE0C8" stroke="#1E293B" stroke-width="3" />
+                  <circle cx="50" cy="38" r="24" fill="#FDE0C8" stroke="#1E293B" stroke-width="3" />
+                  <!-- 髪 -->
+                  <path d="M25 36C24 18 37 10 53 11C68 12 77 22 75 37C70 28 63 26 56 29C49 23 39 24 33 31C29 31 27 33 25 36Z" fill="#1E293B" stroke="#1E293B" stroke-width="2" stroke-linejoin="round" />
+                  <!-- 目・笑顔・ほっぺ -->
+                  <circle cx="42" cy="38" r="2.8" fill="#1E293B" />
+                  <circle cx="59" cy="38" r="2.8" fill="#1E293B" />
+                  <ellipse cx="36" cy="44" rx="4.5" ry="2.5" fill="#F472B6" opacity="0.55" />
+                  <ellipse cx="64" cy="44" rx="4.5" ry="2.5" fill="#F472B6" opacity="0.55" />
+                  <path d="M44 45C46 49 54 49 57 45" stroke="#1E293B" stroke-width="2.8" stroke-linecap="round" fill="none" />
+                </g>
+
+                <!-- 女の子（右） -->
+                <g transform="translate(166, 18)">
+                  <!-- 後ろ髪 -->
+                  <path d="M24 38C18 58 18 82 26 96C38 100 66 100 76 94C84 78 82 54 76 38Z" fill="#78350F" stroke="#1E293B" stroke-width="3" />
+                  <!-- リュック -->
+                  <rect x="24" y="74" width="54" height="54" rx="16" fill="#EC4899" stroke="#1E293B" stroke-width="3" />
+                  <!-- 体・服 -->
+                  <path d="M27 82C27 72 38 66 50 66C62 66 73 72 73 82L80 132H20L27 82Z" fill="#FEF08A" stroke="#1E293B" stroke-width="3" />
+                  <!-- リュックの肩ひも -->
+                  <path d="M35 72C33 90 33 108 36 128" stroke="#DB2777" stroke-width="6.5" stroke-linecap="round" />
+                  <path d="M35 72C33 90 33 108 36 128" stroke="#1E293B" stroke-width="3" stroke-linecap="round" fill="none" />
+                  <path d="M65 72C67 90 67 108 64 128" stroke="#DB2777" stroke-width="6.5" stroke-linecap="round" />
+                  <path d="M65 72C67 90 67 108 64 128" stroke="#1E293B" stroke-width="3" stroke-linecap="round" fill="none" />
+                  <!-- 首・顔 -->
+                  <rect x="43" y="52" width="14" height="15" rx="6" fill="#FDE0C8" stroke="#1E293B" stroke-width="3" />
+                  <circle cx="50" cy="36" r="23" fill="#FDE0C8" stroke="#1E293B" stroke-width="3" />
+                  <!-- 前髪 -->
+                  <path d="M27 34C28 17 40 11 52 11C65 11 74 19 73 34C67 26 59 24 51 28C43 24 34 26 27 34Z" fill="#78350F" stroke="#1E293B" stroke-width="2.5" stroke-linejoin="round" />
+                  <!-- 目・笑顔・ほっぺ -->
+                  <circle cx="41" cy="37" r="2.8" fill="#1E293B" />
+                  <circle cx="58" cy="37" r="2.8" fill="#1E293B" />
+                  <ellipse cx="35" cy="43" rx="4.5" ry="2.5" fill="#F472B6" opacity="0.6" />
+                  <ellipse cx="63" cy="43" rx="4.5" ry="2.5" fill="#F472B6" opacity="0.6" />
+                  <path d="M44 44C46 48 53 48 56 44" stroke="#1E293B" stroke-width="2.8" stroke-linecap="round" fill="none" />
+                </g>
+              </svg>
             </div>
-            <h1 class="hero-catch-title">「ここでいい」から、「ここがいい」へ。</h1>
-            <div class="hero-quick-actions-row">
-              <button type="button" class="btn-retro-action-pill secondary" onclick="switchAppView('child')">
-                ✦ じぶんの「すき」を見つけるワーク
-              </button>
-            </div>
+            <button type="button" class="btn-child-find-like-pill" onclick="startChildQuestionEdit()">
+              <span class="star-icon-gold">★</span>
+              <span>じぶんの「すき」を見つける</span>
+            </button>
           </div>
 
-          <!-- セクション1：あなたへのおすすめの学校 -->
-          <div class="home-section-card">
-            <div class="home-section-header">
-              <div class="section-title-wrap">
-                <span class="section-sub-badge">MATCHING</span>
-                <h2 class="home-section-title">あなたへのおすすめの学校</h2>
-              </div>
-              <button type="button" class="btn-link-action" onclick="switchAppView('search')">すべて見る &gt;</button>
+          <!-- セクション1：おすすめの学校（大きく見やすいカード） -->
+          <div class="child-clean-section">
+            <div class="child-clean-section-header">
+              <h2 class="child-clean-section-title">おすすめの学校</h2>
+              <button type="button" class="btn-child-see-all" onclick="switchAppView('search')">すべて見る &gt;</button>
             </div>
-            <div class="home-school-cards-grid" id="homeRecommendedSchoolsContainer">
+            <div class="child-visual-schools-list" id="homeRecommendedSchoolsContainer">
               <!-- JavaScriptで動的生成 -->
             </div>
           </div>
 
-          <!-- セクション2：他にもこんな学校がありますよ！ -->
-          <div class="home-section-card interest-spotlight-card">
-            <div class="home-section-header">
-              <div class="section-title-wrap">
-                <span class="section-sub-badge badge-accent">DISCOVERY</span>
-                <h2 class="home-section-title">他にもこんな学校がありますよ！</h2>
-              </div>
+          <!-- セクション2：AI ADVISOR おすすめのポイント（ロボット＆3つの大きなアイコンカード） -->
+          <div class="child-clean-section" id="childHomeAiAdvisorSection">
+            <div class="child-ai-section-head">
+              <span class="child-ai-advisor-pill">AI ADVISOR</span>
+              <h2 class="child-clean-section-title">おすすめのポイント</h2>
             </div>
-            <div class="home-school-cards-grid" id="homeInterestAlternativeContainer">
+            <div id="childHomeAiPointsContainer">
+              <!-- JavaScriptで動的生成 -->
+            </div>
+          </div>
+
+          <!-- セクション3：他にもこんな学校がありますよ！ -->
+          <div class="child-clean-section">
+            <div class="child-clean-section-header">
+              <h2 class="child-clean-section-title">ほかにもこんな学校があるよ</h2>
+              <button type="button" class="btn-child-see-all" onclick="switchAppView('search')">探す &gt;</button>
+            </div>
+            <div class="child-visual-schools-list" id="homeInterestAlternativeContainer">
               <!-- JavaScriptで動的生成 -->
             </div>
           </div>
@@ -1834,21 +1902,21 @@
            0-4. 学校詳細画面（独立した本物の画面：背景に他画面を表示しない）
            ======================================================== -->
       <section id="roleSchoolDetailView" class="role-view">
-        <!-- 上部固定ナビゲーションバー（戻るボタン ＆ タイトル） -->
+        <!-- 上部固定ナビゲーションバー（戻るボタン ＆ いいねピルボタン） -->
         <div class="school-detail-screen-header">
-          <button type="button" class="btn-screen-back" onclick="goBackFromSchoolDetail()">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <button type="button" class="btn-screen-back" onclick="goBackFromSchoolDetail()" aria-label="もどる">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
               <polyline points="15 18 9 12 15 6" />
             </svg>
-            <span>一覧にもどる</span>
           </button>
-          <span class="school-detail-screen-title">学校の詳しい案内</span>
-          <button type="button" class="btn-screen-fav-top" id="btnDetailFavTop" onclick="toggleDetailFavFromTop(this)"
+          <span class="school-detail-screen-title" id="schoolDetailTopBarTitle"></span>
+          <button type="button" class="btn-screen-fav-top-pill" id="btnDetailFavTop" onclick="toggleDetailFavFromTop(this)"
             title="お気に入り">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2">
               <path
                 d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
             </svg>
+            <span id="btnDetailFavTopLabel">いいね</span>
           </button>
         </div>
 

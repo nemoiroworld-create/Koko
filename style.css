@@ -6932,6 +6932,720 @@ body.welcome-active .app-container {
   align-items: center;
 }
 
+/* ========================================================
+   子ども画面 ビジュアルUI刷新（画像1〜4枚目準拠：大きく見やすい・強みがひとめでわかるデザイン）
+   ======================================================== */
+
+/* 上部モード切替ピルバー（保護者 / 子ども[ピンク] / 親子） */
+.user-mode-switcher-bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #F1F5F9 !important;
+  border-radius: 999px !important;
+  padding: 5px !important;
+  gap: 4px !important;
+  max-width: 340px;
+  margin: 8px auto 4px !important;
+  border: 1px solid #E2E8F0 !important;
+  box-shadow: none !important;
+}
+
+.user-mode-switcher-bar .mode-pill-toggle {
+  flex: 1;
+  border: none !important;
+  background: transparent !important;
+  color: #475569 !important;
+  font-size: 15px !important;
+  font-weight: 800 !important;
+  padding: 8px 14px !important;
+  border-radius: 999px !important;
+  box-shadow: none !important;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.user-mode-switcher-bar #btnModeChild.active {
+  background: linear-gradient(135deg, #EC4899 0%, #F43F5E 100%) !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 3px 10px rgba(236, 72, 153, 0.3) !important;
+}
+
+.user-mode-switcher-bar #btnModeParent.active {
+  background: #1E2440 !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 3px 10px rgba(30, 36, 64, 0.22) !important;
+}
+
+.user-mode-switcher-bar #btnModeFamily.active {
+  background: #8B5CF6 !important;
+  color: #FFFFFF !important;
+  box-shadow: 0 3px 10px rgba(139, 92, 246, 0.28) !important;
+}
+
+/* 子どもホーム：黄色いイラスト付きヒーローカード */
+.child-visual-hero-card {
+  background: linear-gradient(180deg, #FEF3C7 0%, #FDE68A 100%);
+  border-radius: 26px;
+  padding: 18px 18px 20px;
+  margin-bottom: 24px;
+  text-align: center;
+  box-shadow: 0 8px 24px rgba(245, 158, 11, 0.14);
+  position: relative;
+  overflow: hidden;
+}
+
+.child-hero-illust-stage {
+  position: relative;
+  max-width: 310px;
+  margin: 0 auto 8px;
+}
+
+.child-hero-kids-svg {
+  width: 100%;
+  max-width: 280px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.child-hero-sparkle {
+  position: absolute;
+  pointer-events: none;
+}
+
+.child-hero-sparkle.sp-left {
+  top: 14px;
+  left: 10px;
+}
+
+.child-hero-sparkle.sp-right {
+  top: 22px;
+  right: 12px;
+}
+
+.btn-child-find-like-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background-color: #FFFFFF;
+  color: #1E2440;
+  font-family: var(--font-child);
+  font-size: 17px;
+  font-weight: 800;
+  padding: 14px 26px;
+  border-radius: 999px;
+  border: none;
+  box-shadow: 0 4px 14px rgba(30, 36, 64, 0.12);
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  width: 100%;
+  max-width: 320px;
+}
+
+.btn-child-find-like-pill:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(30, 36, 64, 0.18);
+}
+
+.star-icon-gold {
+  color: #F59E0B;
+  font-size: 21px;
+  line-height: 1;
+}
+
+/* 子どもホーム：セクション見出し */
+.child-clean-section {
+  margin-bottom: 28px;
+}
+
+.child-clean-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 14px;
+  padding: 0 4px;
+}
+
+.child-clean-section-title {
+  font-family: var(--font-child);
+  font-size: 21px;
+  font-weight: 900;
+  color: #1E2440;
+  margin: 0;
+  letter-spacing: 0.01em;
+}
+
+.btn-child-see-all {
+  background: none;
+  border: none;
+  color: #EC4899;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+  padding: 4px 8px;
+}
+
+/* 子ども向けビジュアル学校カード（画像1枚目＆2枚目準拠） */
+.child-visual-schools-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.child-visual-school-card {
+  background-color: #FFFFFF;
+  border-radius: 24px;
+  padding: 14px 16px 18px;
+  box-shadow: 0 6px 22px rgba(30, 36, 64, 0.08);
+  border: 1.5px solid #F1F5F9;
+  cursor: pointer;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.child-visual-school-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(30, 36, 64, 0.12);
+}
+
+.child-card-rank-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.child-rank-pill {
+  background: linear-gradient(135deg, #EC4899 0%, #F43F5E 100%);
+  color: #FFFFFF;
+  font-size: 13px;
+  font-weight: 800;
+  padding: 5px 14px;
+  border-radius: 999px;
+}
+
+.child-match-pill {
+  background-color: #FEF3C7;
+  color: #B45309;
+  font-size: 13px;
+  font-weight: 800;
+  padding: 5px 12px;
+  border-radius: 999px;
+}
+
+/* バナー右上の丸いハートボタン */
+.btn-floating-card-heart {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #FFFFFF;
+  border: none;
+  box-shadow: 0 3px 10px rgba(15, 23, 42, 0.14);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.btn-floating-card-heart:hover {
+  transform: scale(1.08);
+}
+
+.btn-floating-card-heart svg {
+  width: 20px;
+  height: 20px;
+  stroke: #EC4899;
+}
+
+.btn-floating-card-heart.active svg {
+  fill: #EC4899;
+  stroke: #EC4899;
+}
+
+.child-card-body {
+  padding-top: 12px;
+}
+
+.child-card-ruby,
+.child-detail-ruby {
+  display: block;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #64748B;
+  margin-bottom: 3px;
+}
+
+.child-card-school-name {
+  font-family: var(--font-child);
+  font-size: 23px;
+  font-weight: 900;
+  color: #1E2440;
+  margin: 0 0 10px 0;
+  line-height: 1.3;
+}
+
+.child-detail-school-name {
+  font-family: var(--font-child);
+  font-size: 27px;
+  font-weight: 900;
+  color: #1E2440;
+  margin: 0 0 12px 0;
+  line-height: 1.28;
+}
+
+.child-card-pastel-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.pastel-pill-category {
+  display: inline-flex;
+  align-items: center;
+  background-color: #DBEAFE;
+  color: #1E40AF;
+  font-size: 14px;
+  font-weight: 800;
+  padding: 5px 15px;
+  border-radius: 999px;
+}
+
+.pastel-pill-gender {
+  display: inline-flex;
+  align-items: center;
+  background-color: #FEF3C7;
+  color: #92400E;
+  font-size: 14px;
+  font-weight: 800;
+  padding: 5px 15px;
+  border-radius: 999px;
+}
+
+/* ✦ この学校のすごいところ（3列ビジュアルアイコンタイル） */
+.child-three-strengths-box {
+  background-color: #F5F3FF;
+  border-radius: 22px;
+  padding: 16px 14px;
+  margin: 14px 0 16px;
+}
+
+.child-three-strengths-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-child);
+  font-size: 16px;
+  font-weight: 800;
+  color: #1E2440;
+  margin-bottom: 12px;
+}
+
+.child-sparkle-pink {
+  color: #EC4899;
+  font-size: 17px;
+}
+
+.child-three-strengths-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.child-strength-visual-tile {
+  background-color: #FFFFFF;
+  border-radius: 16px;
+  padding: 14px 6px 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  box-shadow: 0 3px 10px rgba(139, 92, 246, 0.07);
+  min-height: 104px;
+}
+
+.child-strength-tile-icon {
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.child-strength-tile-label {
+  font-family: var(--font-child);
+  font-size: 13.5px;
+  font-weight: 800;
+  color: #1E2440;
+  line-height: 1.32;
+}
+
+/* ネイビーの丸みピルボタン（学校をくわしくみる ↗） */
+.btn-child-navy-detail {
+  width: 100%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: #1E2440;
+  color: #FFFFFF;
+  font-family: var(--font-child);
+  font-size: 16.5px;
+  font-weight: 800;
+  padding: 15px 22px;
+  border-radius: 999px;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(30, 36, 64, 0.2);
+  transition: transform 0.15s ease, background-color 0.15s ease;
+  box-sizing: border-box;
+}
+
+.btn-child-navy-detail:hover {
+  background-color: #2D355C;
+  transform: translateY(-1px);
+}
+
+.btn-child-navy-detail .arrow-ne {
+  font-size: 17px;
+  font-weight: 700;
+}
+
+/* AI ADVISOR おすすめのポイント（画像4枚目準拠） */
+.child-ai-section-head {
+  margin-bottom: 12px;
+}
+
+.child-ai-advisor-pill {
+  display: inline-block;
+  font-size: 11.5px;
+  font-weight: 800;
+  color: #B45309;
+  background-color: #FFFBEB;
+  border: 1.5px solid #F59E0B;
+  padding: 3px 12px;
+  border-radius: 999px;
+  letter-spacing: 0.04em;
+  margin-bottom: 6px;
+}
+
+.child-ai-advisor-card {
+  background: linear-gradient(180deg, #F3E8FF 0%, #EDE9FE 100%);
+  border-radius: 26px;
+  padding: 20px 16px;
+  box-shadow: 0 6px 20px rgba(139, 92, 246, 0.1);
+}
+
+.child-ai-robot-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.child-ai-robot-speech {
+  font-family: var(--font-child);
+  font-size: 19px;
+  font-weight: 900;
+  color: #1E2440;
+  line-height: 1.38;
+}
+
+.child-ai-points-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.child-ai-point-row-card {
+  background-color: #FFFFFF;
+  border-radius: 18px;
+  padding: 15px 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  box-shadow: 0 3px 12px rgba(30, 36, 64, 0.06);
+}
+
+.child-ai-point-icon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.child-ai-point-text {
+  font-family: var(--font-child);
+  font-size: 17px;
+  font-weight: 800;
+  color: #1E2440;
+  line-height: 1.35;
+}
+
+.child-ai-point-sub {
+  font-size: 14px;
+  font-weight: 600;
+  color: #475569;
+  margin-top: 3px;
+  line-height: 1.45;
+}
+
+/* 学校詳細画面の上部バー（画像2枚目準拠：左に＜、右に「♥ いいね中」ピルボタン） */
+.school-detail-screen-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 4px 14px !important;
+  background: transparent !important;
+  border: none !important;
+}
+
+.school-detail-screen-header .btn-screen-back {
+  width: 40px;
+  height: 40px;
+  border-radius: 50% !important;
+  background-color: #FFFFFF !important;
+  border: 1.5px solid #E2E8F0 !important;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06) !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 !important;
+  color: #1E2440 !important;
+  cursor: pointer;
+}
+
+.btn-screen-fav-top-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background-color: #FFFFFF;
+  border: 1.8px solid #CBD5E1;
+  color: #64748B;
+  font-family: var(--font-child);
+  font-size: 14.5px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.btn-screen-fav-top-pill svg {
+  fill: none;
+  stroke: currentColor;
+}
+
+.btn-screen-fav-top-pill.active {
+  background-color: #FDF2F8;
+  border-color: #F472B6;
+  color: #DB2777;
+}
+
+.btn-screen-fav-top-pill.active svg {
+  fill: #EC4899;
+  stroke: #EC4899;
+}
+
+/* 子ども詳細画面のメインカードとメッセージ・イベント */
+.child-detail-hero-sheet {
+  background-color: #FFFFFF;
+  border-radius: 26px;
+  padding: 16px 18px 22px;
+  box-shadow: 0 6px 24px rgba(30, 36, 64, 0.08);
+  margin-bottom: 24px;
+}
+
+.child-detail-title-area {
+  padding-top: 14px;
+}
+
+.child-detail-easy-section {
+  margin-bottom: 24px;
+}
+
+.child-friendly-message-card {
+  background-color: #FFFBEB;
+  border: 2px solid #FDE68A;
+  border-radius: 22px;
+  padding: 18px;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.child-friendly-msg-icon {
+  font-size: 32px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.child-friendly-msg-text {
+  font-size: 16px;
+  font-weight: 700;
+  color: #1E2440;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.child-friendly-events-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.child-friendly-event-card {
+  background-color: #FFFFFF;
+  border-radius: 22px;
+  padding: 18px;
+  border: 1.5px solid #E2E8F0;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.05);
+}
+
+.child-friendly-event-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.child-friendly-event-date {
+  font-size: 15px;
+  font-weight: 800;
+  color: #1E2440;
+}
+
+.child-friendly-event-title {
+  font-size: 18px;
+  font-weight: 800;
+  color: #1E2440;
+  margin: 0;
+  line-height: 1.4;
+}
+
+.child-empty-friendly-card {
+  background-color: #FFFFFF;
+  border-radius: 24px;
+  padding: 28px 20px;
+  text-align: center;
+  border: 2px dashed #CBD5E1;
+}
+
+.child-empty-friendly-title {
+  font-size: 19px;
+  font-weight: 900;
+  color: #1E2440;
+  margin: 0 0 8px 0;
+}
+
+.child-empty-friendly-desc {
+  font-size: 15px;
+  font-weight: 600;
+  color: #475569;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* 保護者設定のビジュアルカード（画像3枚目準拠） */
+.parent-visual-settings-card {
+  background-color: #F8FAFC;
+  border-radius: 24px;
+  padding: 20px 16px;
+  border: 1.5px solid #E2E8F0;
+}
+
+.parent-visual-settings-heading {
+  font-size: 18px;
+  font-weight: 800;
+  color: #1E2440;
+  margin: 0 0 14px 4px;
+}
+
+.parent-visual-settings-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.parent-visual-setting-row {
+  width: 100%;
+  background-color: #FFFFFF;
+  border: 1.5px solid #F1F5F9;
+  border-radius: 18px;
+  padding: 15px 18px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05);
+  cursor: pointer;
+  text-align: left;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.parent-visual-setting-row:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.09);
+}
+
+.p-setting-icon-wrap {
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  background-color: #F8FAFC;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.p-setting-main-text {
+  flex: 1;
+}
+
+.p-setting-title {
+  font-size: 17px;
+  font-weight: 800;
+  color: #1E2440;
+  margin-bottom: 2px;
+}
+
+.p-setting-value {
+  font-size: 14.5px;
+  font-weight: 700;
+  color: #475569;
+}
+
+.p-setting-chevron {
+  font-size: 18px;
+  font-weight: 800;
+  color: #94A3B8;
+}
+
+/* 子ども質問ワーク画面の文字サイズ拡大（子どもが読みやすいように） */
+#roleChildView .slide-question-title {
+  font-size: 21px !important;
+  line-height: 1.45 !important;
+}
+
+#roleChildView .interest-label-box strong {
+  font-size: 16.5px !important;
+}
+
+#roleChildView .moment-desc {
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  line-height: 1.5 !important;
+}
+
+
 
 
 

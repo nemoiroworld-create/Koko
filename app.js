@@ -802,19 +802,251 @@ function getHeartSvg(isFilled = false) {
 // 学校写真プレースホルダー（大体のあたり）描画ヘルパー
 // ==========================================
 // ==========================================
-// 学校写真プレースホルダー（学校と写真が一致しないため枠のみ設ける）
+// 子ども向けビジュアルアイコンSVG（大きくわかりやすいイラストアイコン）
 // ==========================================
-function renderSchoolPhotoPlaceholder(school, height = '140px') {
+function getChildVisualIconSvg(type, size = 38) {
+  switch (type) {
+    case 'flask':
+      return `<svg width="${size}" height="${size}" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M18 8H30M21 8V18L11 35C9.8 37 11.2 39.5 13.6 39.5H34.4C36.8 39.5 38.2 37 37 35L27 18V8" stroke="#F59E0B" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M14.5 29.5H33.5L36.5 34.8C37.3 36.2 36.3 38 34.6 38H13.4C11.7 38 10.7 36.2 11.5 34.8L14.5 29.5Z" fill="#FDE68A"/>
+        <circle cx="22" cy="33" r="2" fill="#F59E0B"/>
+        <circle cx="28" cy="25" r="2.2" fill="#FBBF24"/>
+      </svg>`;
+    case 'flask_pink':
+      return `<svg width="${size}" height="${size}" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M18 8H30M21 8V18L11 35C9.8 37 11.2 39.5 13.6 39.5H34.4C36.8 39.5 38.2 37 37 35L27 18V8" stroke="#EC4899" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M14.5 29.5H33.5L36.5 34.8C37.3 36.2 36.3 38 34.6 38H13.4C11.7 38 10.7 36.2 11.5 34.8L14.5 29.5Z" fill="#F472B6"/>
+        <circle cx="22" cy="33" r="2" fill="#FFFFFF"/>
+        <circle cx="27" cy="25" r="2" fill="#F472B6"/>
+      </svg>`;
+    case 'globe':
+      return `<svg width="${size}" height="${size}" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="24" cy="24" r="16" fill="#DBEAFE" stroke="#3B82F6" stroke-width="3"/>
+        <ellipse cx="24" cy="24" rx="7.5" ry="16" stroke="#3B82F6" stroke-width="2.6"/>
+        <line x1="9" y1="19" x2="39" y2="19" stroke="#3B82F6" stroke-width="2.5"/>
+        <line x1="9" y1="29" x2="39" y2="29" stroke="#3B82F6" stroke-width="2.5"/>
+      </svg>`;
+    case 'friends':
+      return `<svg width="${size}" height="${size}" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="18" cy="17" r="6" fill="#FBBF24"/>
+        <circle cx="31" cy="18" r="5" fill="#FDE68A"/>
+        <path d="M8 36C8 30.5 12.5 26 18 26C23.5 26 28 30.5 28 36H8Z" fill="#FBBF24"/>
+        <path d="M24 36C24 31.5 27.2 28 31.5 28C35.8 28 39 31.5 39 36H24Z" fill="#FCD34D"/>
+      </svg>`;
+    case 'friends_blue':
+      return `<svg width="${size}" height="${size}" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="24" cy="16" r="5.5" fill="#38BDF8"/>
+        <circle cx="13.5" cy="19" r="4.2" fill="#7DD3FC"/>
+        <circle cx="34.5" cy="19" r="4.2" fill="#7DD3FC"/>
+        <path d="M14 36C14 30.5 18.5 26.5 24 26.5C29.5 26.5 34 30.5 34 36H14Z" fill="#0284C7"/>
+        <path d="M6 36C6 32 9 29 13 29C15.5 29 17.5 30.2 18.5 32" stroke="#38BDF8" stroke-width="3" stroke-linecap="round"/>
+        <path d="M42 36C42 32 39 29 35 29C32.5 29 30.5 30.2 29.5 32" stroke="#38BDF8" stroke-width="3" stroke-linecap="round"/>
+      </svg>`;
+    case 'laptop':
+      return `<svg width="${size}" height="${size}" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="10" y="12" width="28" height="19" rx="3" fill="#DDD6FE" stroke="#8B5CF6" stroke-width="3"/>
+        <path d="M6 34H42L39 38H9L6 34Z" fill="#8B5CF6"/>
+      </svg>`;
+    case 'book':
+      return `<svg width="${size}" height="${size}" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M8 13C14 11 20 12 24 15C28 12 34 11 40 13V35C34 33 28 34 24 37C20 34 14 33 8 35V13Z" fill="#FEF3C7" stroke="#D97706" stroke-width="3" stroke-linejoin="round"/>
+        <line x1="24" y1="15" x2="24" y2="37" stroke="#D97706" stroke-width="3"/>
+      </svg>`;
+    case 'sports':
+      return `<svg width="${size}" height="${size}" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="24" cy="24" r="15" fill="#DCFCE7" stroke="#10B981" stroke-width="3"/>
+        <path d="M14 14C19 19 19 29 14 34M34 14C29 19 29 29 34 34M9 24H39" stroke="#10B981" stroke-width="2.6"/>
+      </svg>`;
+    case 'nature':
+      return `<svg width="${size}" height="${size}" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M24 10C15 10 11 18 11 25C11 32 17 36 24 36C31 36 37 32 37 25C37 18 33 10 24 10Z" fill="#BBF7D0" stroke="#16A34A" stroke-width="3"/>
+        <path d="M24 20V40M24 27L18 22M24 30L30 24" stroke="#16A34A" stroke-width="3" stroke-linecap="round"/>
+      </svg>`;
+    default:
+      return `<svg width="${size}" height="${size}" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M24 8L28 19L39 23L28 27L24 38L20 27L9 23L20 19L24 8Z" fill="#FDE68A" stroke="#F59E0B" stroke-width="3" stroke-linejoin="round"/>
+      </svg>`;
+  }
+}
+
+// ==========================================
+// 学校ごとの「この学校のすごいところ」3大ビジュアルポイント生成
+// ==========================================
+function getChildThreeVisualStrengths(school) {
+  if (!school) {
+    return [
+      { icon: 'flask', label: '未来の<br>サイエンス' },
+      { icon: 'globe', label: 'グローバル' },
+      { icon: 'friends', label: 'いろんな<br>仲間' }
+    ];
+  }
+  const name = school.name || '';
+  const text = `${name} ${school.vibe_label || ''} ${school.catchphrase || ''} ${(school.tags || []).join(' ')} ${(school.school_strengths || []).join(' ')}`;
+
+  if (name.includes('広尾')) {
+    return [
+      { icon: 'flask', label: '未来の<br>サイエンス' },
+      { icon: 'globe', label: 'グローバル' },
+      { icon: 'friends', label: 'いろんな<br>仲間' }
+    ];
+  }
+  if (name.includes('渋谷教育')) {
+    return [
+      { icon: 'book', label: 'じぶんで<br>しらべる' },
+      { icon: 'globe', label: 'グローバル' },
+      { icon: 'friends', label: '自由な<br>仲間' }
+    ];
+  }
+  if (name.includes('芝浦')) {
+    return [
+      { icon: 'flask', label: '実験や<br>ものづくり' },
+      { icon: 'laptop', label: 'デジタル<br>・ロボ' },
+      { icon: 'friends', label: 'やさしい<br>先輩・先生' }
+    ];
+  }
+  if (name.includes('開成')) {
+    return [
+      { icon: 'book', label: 'ふかい<br>学び' },
+      { icon: 'sports', label: 'あつい<br>運動会' },
+      { icon: 'friends', label: '一生の<br>仲間' }
+    ];
+  }
+  if (name.includes('麻布')) {
+    return [
+      { icon: 'sparkle', label: '自由な<br>校風' },
+      { icon: 'flask', label: 'とことん<br>研究' },
+      { icon: 'friends', label: '個性ゆたかな<br>仲間' }
+    ];
+  }
+  if (name.includes('桜蔭') || name.includes('女子学院') || name.includes('雙葉')) {
+    return [
+      { icon: 'flask', label: '本格的な<br>実験・研究' },
+      { icon: 'book', label: '大きな<br>図書館' },
+      { icon: 'friends', label: 'やさしい<br>仲間' }
+    ];
+  }
+
+  const list = [];
+  if (/理科|実験|科学|サイエンス|宇宙|医|理数|ものづくり/.test(text)) {
+    list.push({ icon: 'flask', label: '未来の<br>サイエンス' });
+  }
+  if (/英語|国際|グローバル|留学|世界/.test(text)) {
+    list.push({ icon: 'globe', label: 'グローバル' });
+  }
+  if (/ICT|パソコン|デジタル|プログラミング|ロボ|3D/.test(text)) {
+    list.push({ icon: 'laptop', label: 'デジタル<br>・ICT' });
+  }
+  if (/自然|緑|フィールド|環境|キャンパス/.test(text) && list.length < 3) {
+    list.push({ icon: 'nature', label: 'ゆたかな<br>自然' });
+  }
+  if (/図書|読書|探究|自調|論文/.test(text) && list.length < 3) {
+    list.push({ icon: 'book', label: '探究と<br>図書館' });
+  }
+  if (/部活|スポーツ|文武|グラウンド|運動/.test(text) && list.length < 3) {
+    list.push({ icon: 'sports', label: '部活が<br>さかん' });
+  }
+
+  const defaults = [
+    { icon: 'flask', label: 'ワクワク<br>実験・探究' },
+    { icon: 'friends', label: 'いろんな<br>仲間' },
+    { icon: 'globe', label: 'ひろがる<br>世界' }
+  ];
+  for (const d of defaults) {
+    if (list.length >= 3) break;
+    if (!list.some(item => item.icon === d.icon)) {
+      list.push(d);
+    }
+  }
+  return list.slice(0, 3);
+}
+
+function renderChildThreeStrengthsBoxHtml(school) {
+  const items = getChildThreeVisualStrengths(school);
+  return `
+    <div class="child-three-strengths-box">
+      <div class="child-three-strengths-header">
+        <span class="child-sparkle-pink">✦</span>
+        <span>この学校のすごいところ</span>
+      </div>
+      <div class="child-three-strengths-grid">
+        ${items.map(it => `
+          <div class="child-strength-visual-tile">
+            <div class="child-strength-tile-icon">${getChildVisualIconSvg(it.icon, 38)}</div>
+            <div class="child-strength-tile-label">${it.label}</div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+  `;
+}
+
+// ==========================================
+// 学校キャンパスビジュアルバナー（明るく親しみやすい校舎イラスト＋右上ハートボタン）
+// ==========================================
+function renderSchoolPhotoPlaceholder(school, height = '140px', options = {}) {
   if (!school) return '';
-  const schoolName = school.name || '学校';
+  const heartActive = school.is_favorite ? 'active' : '';
+  const showFloatingHeart = !!options.showFloatingHeart;
+
+  // 学校IDから少しずつ空や校舎のアクセントカラーを変える
+  const idStr = school.school_id || school.name || 'koko';
+  let hash = 0;
+  for (let i = 0; i < idStr.length; i++) hash = (hash * 31 + idStr.charCodeAt(i)) % 360;
+  const skyTop = hash % 2 === 0 ? '#7DD3FC' : '#93C5FD';
+  const skyBottom = '#E0F2FE';
+  const roofColor = hash % 3 === 0 ? '#64748B' : (hash % 3 === 1 ? '#475569' : '#3B82F6');
 
   return `
-    <div class="school-card-photo-wrap placeholder-only" style="height:${height}; background:#F8FAFC; border:2px dashed #CBD5E1; border-radius:12px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; color:#64748B; margin:8px 0 12px; box-sizing:border-box;">
-      <div class="photo-placeholder-fallback" style="display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; text-align:center; padding:10px;">
-        <span class="photo-placeholder-icon" style="font-size:26px; line-height:1;">📷</span>
-        <span class="photo-placeholder-text" style="font-size:12px; font-weight:700; color:#334155;">【${schoolName}】写真枠</span>
-        <span class="photo-placeholder-sub" style="font-size:10px; color:#64748B;">※学校の公式ホームページで実際の校舎・キャンパス写真をご確認いただけます</span>
-      </div>
+    <div class="school-campus-visual-banner" style="height:${height}; position:relative; border-radius:18px; overflow:hidden; background:linear-gradient(180deg, ${skyTop} 0%, ${skyBottom} 72%, #DCFCE7 100%); box-shadow: inset 0 0 0 1px rgba(15,23,42,0.06);">
+      <svg viewBox="0 0 400 180" preserveAspectRatio="xMidYMid slice" style="width:100%; height:100%; display:block;" xmlns="http://www.w3.org/2000/svg">
+        <!-- 雲 -->
+        <g fill="#FFFFFF" opacity="0.75">
+          <ellipse cx="75" cy="36" rx="28" ry="11" />
+          <ellipse cx="92" cy="33" rx="18" ry="9" />
+          <ellipse cx="310" cy="28" rx="24" ry="9" />
+        </g>
+        <!-- 遠くの木々 -->
+        <ellipse cx="45" cy="152" rx="55" ry="26" fill="#86EFAC" />
+        <ellipse cx="355" cy="148" rx="65" ry="30" fill="#4ADE80" />
+        <!-- 校舎メイン棟（斜めパース風の明るい近代校舎） -->
+        <polygon points="75,155 75,82 215,52 215,155" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.5" />
+        <polygon points="215,155 215,52 325,78 325,155" fill="#E2E8F0" stroke="#CBD5E1" stroke-width="1.5" />
+        <!-- 屋根ライン -->
+        <polygon points="70,82 215,47 215,55 70,88" fill="${roofColor}" />
+        <polygon points="215,47 330,75 330,82 215,55" fill="#334155" />
+        <!-- ガラス窓（左面） -->
+        <g fill="#38BDF8" opacity="0.65">
+          <polygon points="90,94 125,87 125,103 90,109" />
+          <polygon points="135,85 170,78 170,95 135,101" />
+          <polygon points="180,76 205,71 205,89 180,93" />
+          <polygon points="90,118 125,112 125,128 90,133" />
+          <polygon points="135,110 170,104 170,121 135,126" />
+          <polygon points="180,102 205,98 205,115 180,119" />
+        </g>
+        <!-- ガラス窓（右面） -->
+        <g fill="#0284C7" opacity="0.55">
+          <polygon points="228,72 265,80 265,98 228,90" />
+          <polygon points="275,82 310,90 310,106 275,99" />
+          <polygon points="228,100 265,107 265,124 228,118" />
+          <polygon points="275,109 310,115 310,131 275,125" />
+        </g>
+        <!-- エントランス -->
+        <rect x="188" y="128" width="24" height="27" rx="3" fill="#0F172A" opacity="0.7" />
+        <!-- 校庭・芝生 -->
+        <rect x="0" y="152" width="400" height="28" fill="#86EFAC" />
+        <!-- 手前の緑豊かな木々 -->
+        <circle cx="28" cy="142" r="28" fill="#22C55E" />
+        <circle cx="52" cy="150" r="22" fill="#16A34A" />
+        <circle cx="355" cy="132" r="34" fill="#16A34A" />
+        <circle cx="325" cy="146" r="24" fill="#22C55E" />
+        <circle cx="382" cy="145" r="26" fill="#15803D" />
+      </svg>
+      ${showFloatingHeart ? `
+        <button type="button" class="btn-floating-card-heart ${heartActive}" onclick="event.stopPropagation(); toggleSchoolFavorite('${school.school_id}', this); this.classList.toggle('active');" title="お気に入り" aria-label="いいね">
+          ${getHeartSvg(school.is_favorite)}
+        </button>
+      ` : ''}
     </div>
   `;
 }
@@ -866,65 +1098,84 @@ function getSchoolHashtags(school) {
 }
 
 // ==========================================
-// 標準学校カードHTML生成（要件：写真枠、学校名、私立/男子/女子/共学、#ハッシュタグ、偏差値[保護者のみ]、❤️いいね、詳しくみるボタン）
+// 標準学校カードHTML生成（子ども画面では画像準拠の大きな文字・ビジュアル強み付きカード）
 // ==========================================
 function renderStandardSchoolCardHtml(school, options = {}) {
   if (!school) return '';
   const isParent = currentUserMode === 'parent';
   const isChild = !isParent;
   const genderText = school.gender_type === 'girls' ? '女子校' : school.gender_type === 'boys' ? '男子校' : '共学';
-  const categoryText = school.category === 'private' ? '私立' : school.category === 'public' ? '公立一貫' : '国立附属';
+  const categoryText = school.category === 'private' ? '私立' : school.category === 'public' ? '公立' : '国立';
   const hashtags = getSchoolHashtags(school);
   const heartActive = school.is_favorite ? 'active' : '';
 
-  return `
-    <div class="school-card-compact-item card-surface" style="padding: 16px; border-radius: var(--radius-card); border: 2px solid var(--koko-blue-main); box-shadow: 4px 4px 0px var(--koko-blue-main); background: #FFFFFF; margin-bottom: 16px;">
-      ${options.rankInfo ? `
-        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; padding-bottom:10px; border-bottom:1px dashed #E2E8F0;">
-          <span style="background:${options.rankInfo.bg}; box-shadow:${options.rankInfo.glow}; font-size:12px; padding:4px 10px; border-radius:12px; color:#fff; font-weight:800;">
-            ${options.rankInfo.label}
-          </span>
-          <span style="font-size:12px; font-weight:800; color:var(--koko-blue-main); background:#EFF6FF; padding:4px 10px; border-radius:12px; border:1px solid #BFDBFE;">
-            ★ ぴったり度: ${options.matchScore || 95}%
-          </span>
-        </div>
-      ` : ''}
+  // ★ 子ども画面・親子画面：アップロード画像準拠の大きく見やすいビジュアルカード
+  if (isChild) {
+    return `
+      <div class="child-visual-school-card" onclick="openSchoolDetailScreen('${school.school_id}')">
+        ${options.rankInfo ? `
+          <div class="child-card-rank-bar">
+            <span class="child-rank-pill">${options.rankInfo.label}</span>
+            <span class="child-match-pill">★ ぴったり度 ${options.matchScore || 95}%</span>
+          </div>
+        ` : ''}
 
-      <!-- 学校写真（枠） -->
+        <!-- 校舎ビジュアルバナー（右上に丸いハートボタン） -->
+        ${renderSchoolPhotoPlaceholder(school, '148px', { showFloatingHeart: true })}
+
+        <!-- ふりがな ＆ 大きな学校名 -->
+        <div class="child-card-body">
+          <span class="child-card-ruby">${school.name_ruby || ''}</span>
+          <h3 class="child-card-school-name">${school.name}</h3>
+
+          <!-- 私立 / 共学 のパステルピルバッジ -->
+          <div class="child-card-pastel-pills">
+            <span class="pastel-pill-category">${categoryText}</span>
+            <span class="pastel-pill-gender">${genderText}</span>
+          </div>
+
+          <!-- ✦ この学校のすごいところ（3つの大きなアイコンタイル） -->
+          ${renderChildThreeStrengthsBoxHtml(school)}
+
+          <!-- 学校をくわしくみる ボタン -->
+          <button type="button" class="btn-child-navy-detail" onclick="event.stopPropagation(); openSchoolDetailScreen('${school.school_id}')">
+            <span>学校をくわしくみる</span>
+            <span class="arrow-ne">↗</span>
+          </button>
+        </div>
+      </div>
+    `;
+  }
+
+  // ★ 保護者画面：偏差値・ハッシュタグ付きのカード
+  return `
+    <div class="school-card-compact-item card-surface" style="padding: 16px; border-radius: 20px; border: 1.5px solid #E2E8F0; box-shadow: 0 4px 14px rgba(15, 23, 42, 0.06); background: #FFFFFF; margin-bottom: 16px;">
+      <!-- 学校ビジュアルバナー -->
       <div style="margin-bottom: 12px;">
-        ${renderSchoolPhotoPlaceholder(school, '150px')}
+        ${renderSchoolPhotoPlaceholder(school, '145px', { showFloatingHeart: true })}
       </div>
 
-      <!-- 学校名 ＆ ❤️（いいねボタン） -->
+      <!-- 学校名 -->
       <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:10px; margin-bottom: 8px;">
         <div style="flex:1;">
-          <span style="font-size:11px; color:#64748B; font-weight:700; display:block;">${school.name_ruby || ''}</span>
-          <h3 style="margin:2px 0 0; font-size:20px; font-weight:800; color:var(--text-main); line-height:1.3;">${school.name}</h3>
+          <span style="font-size:12px; color:#64748B; font-weight:700; display:block;">${school.name_ruby || ''}</span>
+          <h3 style="margin:2px 0 0; font-size:21px; font-weight:800; color:var(--text-main); line-height:1.3;">${school.name}</h3>
         </div>
-        <button type="button" class="btn-heart-favorite ${heartActive}" onclick="toggleSchoolFavorite('${school.school_id}', this); this.classList.toggle('active');" title="お気に入り" style="flex-shrink:0;">
-          ${getHeartSvg(school.is_favorite)}
-        </button>
       </div>
 
       <!-- 私立/男子校/女子校/共学 ＆ 偏差値（保護者画面のみ） -->
-      <div style="display:flex; flex-wrap:wrap; gap:6px; align-items:center; margin-bottom: 10px;">
-        <span style="font-size:11px; font-weight:800; background:#E0F2FE; color:#0369A1; padding:3px 8px; border-radius:6px;">
-          ${categoryText}
+      <div style="display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin-bottom: 10px;">
+        <span class="pastel-pill-category">${categoryText}</span>
+        <span class="pastel-pill-gender">${genderText}</span>
+        <span style="font-size:13px; font-weight:800; background:#FEF3C7; color:#92400E; padding:4px 12px; border-radius:999px; border:1px solid #FDE68A;">
+          偏差値 ${school.deviation_score}
         </span>
-        <span style="font-size:11px; font-weight:800; background:#F1F5F9; color:#334155; padding:3px 8px; border-radius:6px;">
-          ${genderText}
-        </span>
-        ${isParent ? `
-          <span style="font-size:11px; font-weight:800; background:#FEF3C7; color:#92400E; padding:3px 8px; border-radius:6px; border:1px solid #FDE68A;">
-            偏差値 ${school.deviation_score}
-          </span>
-        ` : ''}
       </div>
 
-      <!-- ＃ハッシュタグ表記（例: ＃自主性 ＃部活が盛ん） -->
+      <!-- ＃ハッシュタグ表記 -->
       <div style="display:flex; flex-wrap:wrap; gap:6px; margin-bottom: 14px;">
         ${hashtags.map(tag => `
-          <span style="font-size:12px; font-weight:700; color:var(--koko-blue-main); background:#EFF6FF; border:1px solid #BFDBFE; padding:3px 10px; border-radius:14px;">
+          <span style="font-size:13px; font-weight:700; color:var(--koko-blue-main); background:#EFF6FF; border:1px solid #BFDBFE; padding:4px 11px; border-radius:14px;">
             ${tag}
           </span>
         `).join('')}
@@ -932,8 +1183,9 @@ function renderStandardSchoolCardHtml(school, options = {}) {
 
       <!-- 学校を詳しくみるボタン -->
       <div style="margin-top: 8px;">
-        <button type="button" class="${isChild ? 'btn-solid-child' : 'btn-solid-parent'} full-width" onclick="openSchoolDetailScreen('${school.school_id}')" style="display:flex; align-items:center; justify-content:center; gap:6px; padding:12px; font-size:14px; font-weight:800; border-radius:10px;">
-          ✦ 学校を詳しくみる
+        <button type="button" class="btn-child-navy-detail" onclick="openSchoolDetailScreen('${school.school_id}')">
+          <span>学校をくわしくみる</span>
+          <span class="arrow-ne">↗</span>
         </button>
       </div>
     </div>
@@ -1430,12 +1682,100 @@ function renderParentSummaryReviews() {
 }
 
 // ==========================================
-// 子ども画面ホーム：あなたへのおすすめの学校
+// 子ども向け「AI ADVISOR おすすめのポイント」カード生成（画像4枚目準拠）
 // ==========================================
+function getChildAiAdvisorPointsHtml() {
+  const prof = AppSchema.child_profile || {};
+  const interests = prof.interests || [];
+
+  let point1 = { icon: 'flask_pink', text: '実験やものづくりができる' };
+  let point2 = { icon: 'friends_blue', text: 'いろんな友だちと学べる' };
+  let point3 = { icon: 'laptop', text: '探究活動がさかん' };
+
+  if (interests.includes('interest_sports_athletics')) {
+    point1 = { icon: 'sports', text: '広い校庭で部活や運動ができる' };
+  } else if (interests.includes('interest_reading_history')) {
+    point1 = { icon: 'book', text: '大きな図書館でじっくり学べる' };
+  } else if (interests.includes('interest_global_english')) {
+    point1 = { icon: 'globe', text: '英語や世界の文化にふれられる' };
+  } else if (interests.includes('interest_nature_biology')) {
+    point1 = { icon: 'nature', text: '自然や生きものを観察できる' };
+  }
+
+  if (prof.lifestyle === 'lifestyle_club_active') {
+    point2 = { icon: 'friends_blue', text: '仲間と部活に打ちこめる' };
+  } else if (prof.relation === 'relation_supportive_care') {
+    point2 = { icon: 'friends_blue', text: '先生がやさしく教えてくれる' };
+  }
+
+  if (prof.study === 'study_hands_on' || prof.study === 'study_experiment') {
+    point3 = { icon: 'flask_pink', text: '体験や実験の授業がいっぱい' };
+  } else if (interests.includes('interest_digital_tech')) {
+    point3 = { icon: 'laptop', text: 'パソコンやプログラミングができる' };
+  }
+
+  return `
+    <div class="child-ai-advisor-card">
+      <div class="child-ai-robot-header">
+        <div class="child-ai-robot-illust" aria-hidden="true">
+          <svg width="88" height="72" viewBox="0 0 88 72" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- キラキラ線 -->
+            <path d="M62 10L68 4M70 17L78 14M68 24L75 25" stroke="#FBBF24" stroke-width="3" stroke-linecap="round"/>
+            <!-- アンテナ -->
+            <path d="M36 18V10" stroke="#1E293B" stroke-width="2.8" stroke-linecap="round"/>
+            <circle cx="36" cy="8" r="4" fill="#FFFFFF" stroke="#1E293B" stroke-width="2.5"/>
+            <!-- 耳 -->
+            <ellipse cx="11" cy="40" rx="4" ry="8" fill="#E2E8F0" stroke="#1E293B" stroke-width="2.5"/>
+            <ellipse cx="63" cy="40" rx="4" ry="8" fill="#E2E8F0" stroke="#1E293B" stroke-width="2.5"/>
+            <!-- ロボット顔ボディ -->
+            <rect x="14" y="18" width="46" height="38" rx="18" fill="#FFFFFF" stroke="#1E293B" stroke-width="2.8"/>
+            <!-- フェイススクリーン -->
+            <rect x="20" y="26" width="34" height="22" rx="11" fill="#1E2440"/>
+            <!-- 目 -->
+            <circle cx="30" cy="37" r="4" fill="#FFFFFF"/>
+            <circle cx="31" cy="36" r="1.5" fill="#1E2440"/>
+            <circle cx="44" cy="37" r="4" fill="#FFFFFF"/>
+            <circle cx="45" cy="36" r="1.5" fill="#1E2440"/>
+            <!-- ほっぺ -->
+            <ellipse cx="24" cy="41" rx="2.5" ry="1.4" fill="#F472B6" opacity="0.8"/>
+            <ellipse cx="50" cy="41" rx="2.5" ry="1.4" fill="#F472B6" opacity="0.8"/>
+          </svg>
+        </div>
+        <div class="child-ai-robot-speech">
+          こんな学校が<br>おすすめです！
+        </div>
+      </div>
+
+      <div class="child-ai-points-stack">
+        <div class="child-ai-point-row-card">
+          <div class="child-ai-point-icon">${getChildVisualIconSvg(point1.icon, 36)}</div>
+          <div class="child-ai-point-text">${point1.text}</div>
+        </div>
+        <div class="child-ai-point-row-card">
+          <div class="child-ai-point-icon">${getChildVisualIconSvg(point2.icon, 36)}</div>
+          <div class="child-ai-point-text">${point2.text}</div>
+        </div>
+        <div class="child-ai-point-row-card">
+          <div class="child-ai-point-icon">${getChildVisualIconSvg(point3.icon, 36)}</div>
+          <div class="child-ai-point-text">${point3.text}</div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function renderChildHomeAiAdvisorPoints() {
+  const aiBox = document.getElementById('childHomeAiPointsContainer');
+  if (aiBox) {
+    aiBox.innerHTML = getChildAiAdvisorPointsHtml();
+  }
+}
+
 // ==========================================
 // 子ども画面ホーム：あなたへのおすすめの学校（写真・特色付き）
 // ==========================================
 function renderHomeRecommendedSchools() {
+  renderChildHomeAiAdvisorPoints();
   const container = document.getElementById('homeRecommendedSchoolsContainer');
   if (!container) return;
   container.innerHTML = '';
@@ -1443,28 +1783,28 @@ function renderHomeRecommendedSchools() {
   const parentReady = isParentConfigured();
   const childReady = isChildConfigured();
 
-  // 保護者または子どもの質問回答が完了していない場合は学校を提案せず案内ガイダンスを表示
+  // 保護者または子どもの質問回答が完了していない場合はわかりやすい大きなボタンで案内
   if (!parentReady || !childReady) {
     container.innerHTML = `
-      <div style="padding: 28px 16px; background: #F8FAFC; border: 2px dashed #CBD5E1; border-radius: 16px; text-align: center; width: 100%;">
-        <span style="font-size: 36px; display: block; margin-bottom: 8px;">🎒✦</span>
-        <h4 style="font-size: 16px; font-weight: 800; color: #1E293B; margin-bottom: 6px;">
-          質問に回答すると、あなたにぴったりの学校が提案されます！
+      <div class="child-empty-friendly-card">
+        <div style="font-size: 42px; margin-bottom: 10px;">🎒✨</div>
+        <h4 class="child-empty-friendly-title">
+          ${!childReady ? "じぶんの「すき」を教えてね！" : "おうちの人の設定を待っているよ"}
         </h4>
-        <p style="font-size: 13px; color: #64748B; margin-bottom: 14px; line-height: 1.6; max-width: 440px; margin-left: auto; margin-right: auto;">
-          ${!childReady ? "「すきなことを見つけるワーク（全7問）」に答えると、あなたにぴったりの学校が見つかります。" : "おうちの方の条件設定が完了すると、通学圏に合った学校が提案されます。"}
+        <p class="child-empty-friendly-desc">
+          ${!childReady ? "かんたんな質問に答えると、キミにぴったりの学校が見つかるよ！" : "すぐにお試ししたいときは「デモデータで体験する」を押してね。"}
         </p>
-        <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
+        <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-top: 14px;">
           ${!childReady ? `
-            <button type="button" class="btn-solid-child" onclick="startChildQuestionEdit()" style="display:inline-block; padding:10px 20px; font-weight:800;">
-              ✦ 質問に答えてみる
+            <button type="button" class="btn-child-find-like-pill" onclick="startChildQuestionEdit()" style="background:#EC4899; color:#fff; border:none;">
+              <span>★ じぶんの「すき」を見つける</span>
             </button>
           ` : `
-            <button type="button" class="btn-solid-parent" onclick="switchUserMode('parent'); startParentConditionEdit();" style="display:inline-block; padding:10px 20px; font-weight:800;">
-              📋 おうちの方の条件を設定する
+            <button type="button" class="btn-child-navy-detail" onclick="switchUserMode('parent'); startParentConditionEdit();" style="width:auto; padding:12px 22px;">
+              <span>おうちの人の条件を設定する</span>
             </button>
           `}
-          <button type="button" class="btn-outline btn-sm" onclick="loadDemoData()" style="color:#4F46E5; border-color:#818CF8; background:#EEF2FF; font-weight:700; padding:10px 18px; border-radius:12px;">
+          <button type="button" class="btn-outline" onclick="loadDemoData()" style="color:#4F46E5; border:2px solid #818CF8; background:#EEF2FF; font-weight:800; padding:12px 20px; border-radius:999px; font-size:15px;">
             💡 デモデータで体験する
           </button>
         </div>
@@ -2677,181 +3017,120 @@ function getChildSchoolOverview(school) {
 
 /**
  * 子ども画面専用の学校詳細HTML生成関数
- * （交通手段完全除外、具体的でワクワクする授業＆4大強みをリッチカード展開）
+ * （画像2枚目＆4枚目準拠：文字が大きく、ひとめで強みがわかるやさしいビジュアルUI）
  */
 function generateChildSchoolDetailHtml(school) {
   const overview = getChildSchoolOverview(school);
   const specialClasses = getChildSpecialClassesDetailed(school);
   const strengths = getChildStrengthsDetailed(school);
   const events = school.events || [];
+  const genderText = school.gender_type === 'girls' ? '女子校' : school.gender_type === 'boys' ? '男子校' : '共学';
+  const categoryText = school.category === 'private' ? '私立' : school.category === 'public' ? '公立' : '国立';
+
+  // 子ども向けに短くわかりやすい3つの特徴行を生成
+  const easyPoints = [
+    {
+      icon: 'flask_pink',
+      title: specialClasses[0] ? specialClasses[0].title : 'ワクワクする実験や体験の授業',
+      sub: strengths[0] ? strengths[0].highlight.replace(/^★\s*/, '') : '自分の手で確かめながら楽しく学べるよ！'
+    },
+    {
+      icon: 'friends_blue',
+      title: overview.vibeStyle || 'いろんな友だちと楽しく学べる',
+      sub: strengths[3] ? strengths[3].highlight.replace(/^★\s*/, '') : '先生や先輩がやさしく応援してくれるよ！'
+    },
+    {
+      icon: 'laptop',
+      title: strengths[1] ? strengths[1].title : 'きれいな図書室や実験室がいっぱい',
+      sub: strengths[2] ? strengths[2].highlight.replace(/^★\s*/, '') : '部活や行事もみんなで盛り上がれるよ！'
+    }
+  ];
 
   return `
-    <!-- 1. この学校ってどんな学校？（ひとめでわかる校風と学校生活） -->
-    <section class="modal-section-card child-overview-section" style="margin-bottom: 18px;">
-      <div class="modal-section-title-wrap">
-        <span class="section-star">✦</span>
-        <h3 class="modal-section-title">この学校ってどんな学校？</h3>
-      </div>
-      <p class="section-sub-tip">どんな雰囲気で、どんな仲間や先生がいるのかひとめで分かるよ！</p>
+    <!-- 画像2枚目準拠：メイン詳細ヒーローカード -->
+    <div class="child-detail-hero-sheet">
+      <!-- 大きな校舎ビジュアルバナー -->
+      ${renderSchoolPhotoPlaceholder(school, '195px', { showFloatingHeart: false })}
 
-      <div class="child-overview-card">
-        <!-- モットー・大切にしていること -->
-        <div class="child-motto-box">
-          <span class="child-motto-label">大切にしているモットー</span>
-          <strong class="child-motto-text">${overview.motto}</strong>
-        </div>
-
-        <!-- 学校生活のリアルな情景（交通手段抜き） -->
-        <p class="child-overview-desc">${overview.overviewDesc}</p>
-
-        <!-- 3つのスタイルバッジ -->
-        <div class="child-style-badges-row">
-          <div class="child-style-badge-item">
-            <span class="child-badge-icon">✨</span>
-            <div>
-              <div class="child-badge-title">校風スタイル</div>
-              <div class="child-badge-val">${overview.vibeStyle}</div>
-            </div>
-          </div>
-          <div class="child-style-badge-item">
-            <span class="child-badge-icon">👥</span>
-            <div>
-              <div class="child-badge-title">集まる仲間たち</div>
-              <div class="child-badge-val">${overview.peersStyle}</div>
-            </div>
-          </div>
-          <div class="child-style-badge-item">
-            <span class="child-badge-icon">👨‍🏫</span>
-            <div>
-              <div class="child-badge-title">先生の雰囲気</div>
-              <div class="child-badge-val">${overview.teacherStyle}</div>
-            </div>
-          </div>
-        </div>
-
-        <!-- こんなキミにぴったり！ -->
-        <div class="child-fit-tip-box">
-          <span class="child-fit-tip-title">🎯 こんなキミにぴったり！</span>
-          <p class="child-fit-tip-text">${overview.fitReason}</p>
+      <!-- ふりがな ＆ 大きな学校名 ＆ 私立/共学バッジ -->
+      <div class="child-detail-title-area">
+        <span class="child-detail-ruby">${school.name_ruby || ''}</span>
+        <h1 class="child-detail-school-name" id="schoolDetailModalTitle">${school.name}</h1>
+        <div class="child-card-pastel-pills">
+          <span class="pastel-pill-category">${categoryText}</span>
+          <span class="pastel-pill-gender">${genderText}</span>
         </div>
       </div>
-    </section>
 
-    <!-- 2. こんな授業が特徴！ワクワクする体験（具体的で奥深い授業案内） -->
-    <section class="modal-section-card child-classes-section" style="margin-bottom: 18px;">
-      <div class="modal-section-title-wrap">
-        <span class="section-star">✦</span>
-        <h3 class="modal-section-title">こんな授業が特徴！ワクワクする体験</h3>
+      <!-- ✦ この学校のすごいところ（3列の大きなイラストタイル） -->
+      ${renderChildThreeStrengthsBoxHtml(school)}
+
+      <!-- 学校をくわしくみる（公式HPまたは詳細セクションへ） -->
+      ${school.official_url ? `
+        <a href="${school.official_url}" target="_blank" rel="noopener noreferrer" class="btn-child-navy-detail detail-main-cta" style="text-decoration:none; margin-top: 18px;">
+          <span>学校をくわしくみる</span>
+          <span class="arrow-ne">↗</span>
+        </a>
+      ` : `
+        <button type="button" class="btn-child-navy-detail detail-main-cta" style="margin-top: 18px;" onclick="document.getElementById('childEasyPointsSection')?.scrollIntoView({behavior:'smooth'})">
+          <span>学校をくわしくみる</span>
+          <span class="arrow-ne">↓</span>
+        </button>
+      `}
+    </div>
+
+    <!-- 子ども向けに文字を大きく・短く整理したおすすめポイント -->
+    <section class="child-detail-easy-section" id="childEasyPointsSection">
+      <div class="child-ai-section-head" style="margin-bottom: 12px;">
+        <span class="child-ai-advisor-pill">POINT</span>
+        <h3 class="child-clean-section-title" style="margin: 6px 0 0;">どんなことができる学校？</h3>
       </div>
-      <p class="section-sub-tip">教科書を読むだけじゃない！実際にやってみて、驚きや発見がいっぱいの特別な授業だよ。</p>
 
-      <div class="child-special-classes-container">
-        ${specialClasses.map((cls, idx) => `
-          <div class="child-special-class-rich-card">
-            <div class="child-class-card-header">
-              <div class="child-class-badges-wrap">
-                <span class="child-class-num-badge">特色授業 ${idx + 1}</span>
-                <span class="child-class-cat-badge">${cls.badge}</span>
+      <div class="child-ai-advisor-card">
+        <div class="child-ai-points-stack">
+          ${easyPoints.map(pt => `
+            <div class="child-ai-point-row-card">
+              <div class="child-ai-point-icon">${getChildVisualIconSvg(pt.icon, 40)}</div>
+              <div style="flex:1;">
+                <div class="child-ai-point-text">${pt.title}</div>
+                <div class="child-ai-point-sub">${pt.sub}</div>
               </div>
-              <h4 class="child-class-title">${cls.title}</h4>
             </div>
-
-            <!-- 活動のリアルな様子 -->
-            <div class="child-class-detail-block">
-              <span class="child-class-block-label">
-                <span>🔍</span> どんなことをする授業？（体験内容）
-              </span>
-              <p class="child-class-block-desc">${cls.activity}</p>
-            </div>
-
-            <!-- ワクワクPoint -->
-            <div class="child-class-points-box">
-              <span class="child-class-points-label">🌟 ここが面白い！ワクワクPoint</span>
-              <ul class="child-class-points-list">
-                ${cls.points.map(pt => `
-                  <li class="child-class-point-item">
-                    <span class="child-class-point-icon">✦</span>
-                    <span>${pt.replace(/^✦\s*/, '')}</span>
-                  </li>
-                `).join('')}
-              </ul>
-            </div>
-
-            <!-- 身につくキミのスーパーパワー -->
-            <div class="child-class-power-badge-wrap">
-              <span class="child-class-power-label">⚡️ 身につくキミのスーパーパワー：</span>
-              <strong class="child-class-power-text">${cls.power}</strong>
-            </div>
-          </div>
-        `).join('')}
-      </div>
-    </section>
-
-    <!-- 3. この学校のここがすごい！強み＆自慢ポイント（交通なし！4大自慢） -->
-    <section class="modal-section-card child-strengths-section" style="margin-bottom: 18px;">
-      <div class="modal-section-title-wrap">
-        <span class="section-star">✦</span>
-        <h3 class="modal-section-title">この学校のここがすごい！強み＆自慢ポイント</h3>
-      </div>
-      <p class="section-sub-tip">学校が誇る本当の魅力を4つのテーマで紹介！キミのやりたいことが見つかるかも！</p>
-
-      <div class="child-strengths-grid">
-        ${strengths.map(st => `
-          <div class="child-strength-rich-card">
-            <div class="child-strength-card-top">
-              <span class="child-strength-cat-badge" style="background:${st.badgeColor}; color:${st.textColor}; border:1px solid ${st.textColor}40;">
-                <span>${st.icon}</span>
-                <span>${st.cat}</span>
-              </span>
-              <h4 class="child-strength-card-title">${st.title}</h4>
-              <p class="child-strength-card-desc">${st.desc}</p>
-            </div>
-            <div class="child-strength-star-badge">
-              <span>${st.highlight}</span>
-            </div>
-          </div>
-        `).join('')}
-      </div>
-    </section>
-
-    <!-- 4. 学校・先輩からのメッセージ -->
-    <section class="modal-section-card child-message-section" style="margin-bottom: 18px;">
-      <div class="modal-section-title-wrap">
-        <span class="section-star">✦</span>
-        <h3 class="modal-section-title">学校・先輩からのメッセージ</h3>
-      </div>
-      <div class="child-message-box">
-        <div class="child-message-avatar">🏫</div>
-        <div class="child-message-content">
-          <p class="child-message-text">${school.child_summary || 'キミの「好き」や「やってみたい！」を全力で応援する素敵な学校だよ！ぜひ一度見学に来てね！'}</p>
+          `).join('')}
         </div>
       </div>
     </section>
 
-    <!-- 5. 開催予定のイベント・見学情報 -->
-    <section class="modal-section-card events-section" style="margin-bottom: 18px;">
-      <div class="modal-section-title-wrap">
-        <span class="section-star">✦</span>
-        <h3 class="modal-section-title">開催予定のイベント・見学情報</h3>
+    <!-- 先輩・先生からのメッセージ（大きな文字で読みやすく） -->
+    <section class="child-detail-easy-section">
+      <h3 class="child-clean-section-title" style="margin-bottom: 12px;">🏫 学校からのメッセージ</h3>
+      <div class="child-friendly-message-card">
+        <div class="child-friendly-msg-icon">😊</div>
+        <p class="child-friendly-msg-text">
+          ${school.child_summary || 'キミの「すき」や「やってみたい！」を全力で応援する学校だよ！ぜひ一度あそびに来てね！'}
+        </p>
       </div>
-      <p class="section-sub-tip">「行ってみる」を押すと、見学記録の「行く前」に自動でメモされます！</p>
-      <div class="modal-events-list">
+    </section>
+
+    <!-- 見学・イベント情報（大きなボタンで予約メモ） -->
+    <section class="child-detail-easy-section">
+      <h3 class="child-clean-section-title" style="margin-bottom: 12px;">📅 学校を見にいってみよう！</h3>
+      <div class="child-friendly-events-list">
         ${events.length > 0 ? events.map(ev => `
-          <div class="modal-event-item-card">
-            <div class="m-event-top-row">
-              <span class="m-event-type-badge">${ev.type}</span>
-              <strong class="m-event-date">${ev.date}</strong>
+          <div class="child-friendly-event-card">
+            <div class="child-friendly-event-meta">
+              <span class="pastel-pill-category">${ev.type}</span>
+              <strong class="child-friendly-event-date">${ev.date}</strong>
             </div>
-            <h4 class="m-event-title">${ev.title}</h4>
-            <div class="m-event-action-bar">
-              <button type="button" class="btn-solid-child btn-sm btn-plan-event" onclick="addEventToVisitSchedule('${school.school_id}', '${ev.id}', this)">
-                ✦ 行ってみる（予約メモ）
-              </button>
-            </div>
+            <h4 class="child-friendly-event-title">${ev.title}</h4>
+            <button type="button" class="btn-child-find-like-pill" style="width:100%; justify-content:center; margin-top:10px; background:#FEF3C7;" onclick="addEventToVisitSchedule('${school.school_id}', '${ev.id}', this)">
+              <span class="star-icon-gold">★</span>
+              <span>行ってみる（メモする）</span>
+            </button>
           </div>
         `).join('') : `
-          <div style="background:#F8FAFC; border:1px solid #E2E8F0; border-radius:8px; padding:14px; text-align:center; color:#64748B; font-size:13px;">
-            現在予定されているイベントは準備中です。学校の公式ホームページもチェックしてみてね！
+          <div class="child-friendly-message-card">
+            <p class="child-friendly-msg-text" style="margin:0;">イベントの予定は学校のホームページを見てみてね！</p>
           </div>
         `}
       </div>
@@ -3015,81 +3294,79 @@ function openSchoolDetailScreen(schoolId) {
   const firstYearEst = tuitionMan + 28; // 入学金等の初年度概算
   const commuteMinutes = school.calculated_commute_time || school.commute_time || 30;
 
-  // 上部固定ヘッダーのお気に入りボタン状態を同期
+  // 上部固定ヘッダーのお気に入りピルボタン（♥ いいね中 / ♡ いいね）状態を同期
   const btnTopFav = document.getElementById('btnDetailFavTop');
+  const btnTopFavLabel = document.getElementById('btnDetailFavTopLabel');
   if (btnTopFav) {
-    if (school.is_favorite) {
-      btnTopFav.classList.add('active');
-    } else {
-      btnTopFav.classList.remove('active');
-    }
+    btnTopFav.classList.toggle('active', !!school.is_favorite);
+  }
+  if (btnTopFavLabel) {
+    btnTopFavLabel.textContent = school.is_favorite ? 'いいね中' : 'いいね';
   }
 
-  const detailHtml = `
-    <!-- 学校写真プレースホルダー（枠のみ表示） -->
-    ${renderSchoolPhotoPlaceholder(school, '200px')}
-
-    <!-- 学校ヘッダー情報カード -->
-    <div class="card-surface" style="margin-top: 14px; padding: 18px 20px;">
-      <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:12px;">
-        <div style="flex:1;">
-          <span style="font-size:12px; color:#64748B; font-weight:700; display:block;">${school.name_ruby || ''}</span>
-          <h1 id="schoolDetailModalTitle" style="margin: 4px 0 10px; font-size:24px; font-weight:800; color:var(--text-main); line-height:1.3;">${school.name}</h1>
-          
-          <div style="display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin: 8px 0 12px;">
-            <span style="font-size:12px; background:#F8FAFC; color:#334155; border:1px solid #CBD5E1; padding:4px 10px; border-radius:8px; font-weight:700;">
-              📍 所在地：${school.prefecture} ${school.district || ''}${!isChild ? `（最寄：${school.station_name}駅）` : ''}
-            </span>
-            <span style="font-size:12px; background:#FEF3C7; color:#B45309; border:1px solid #FDE68A; padding:4px 10px; border-radius:8px; font-weight:700;">
-              ${genderText}
-            </span>
-            <span style="font-size:12px; background:#F1F5F9; color:#475569; border:1px solid #E2E8F0; padding:4px 10px; border-radius:8px; font-weight:700;">
-              ${school.category === 'private' ? '私立' : school.category === 'public' ? '公立一貫' : '国立附属'}
-            </span>
-            ${school.vibe_label ? `
-              <span style="font-size:12px; background:#EFF6FF; color:#1D4ED8; border:1px solid #BFDBFE; padding:4px 10px; border-radius:8px; font-weight:700;">
-                ✦ ${school.vibe_label}
-              </span>
-            ` : ''}
-          </div>
-        </div>
-
-        <button type="button" class="btn-modal-favorite ${heartActive}" onclick="toggleDetailFavFromTop(this)" style="flex-shrink:0;">
-          ${getHeartSvg(school.is_favorite)}
-          <span class="btn-fav-txt">${school.is_favorite ? 'いいね中' : 'いいね'}</span>
+  let detailHtml = '';
+  if (isChild) {
+    detailHtml = `
+      ${generateChildSchoolDetailHtml(school)}
+      <div style="margin-top: 24px; text-align: center;">
+        <button type="button" class="btn-child-navy-detail" onclick="goBackFromSchoolDetail()">
+          <span>← もどる</span>
         </button>
       </div>
+    `;
+  } else {
+    detailHtml = `
+      <!-- 学校ビジュアルバナー -->
+      ${renderSchoolPhotoPlaceholder(school, '200px')}
 
-      <!-- アクションボタン群（公式HP ＆ Googleマップ通学経路表示：子ども画面では交通手段は非表示） -->
-      <div style="margin-top: 10px; padding-top: 12px; border-top: 1px dashed #E2E8F0; display:flex; flex-wrap:wrap; gap:10px;">
-        ${school.official_url ? `
-          <a href="${school.official_url}" target="_blank" rel="noopener noreferrer" class="btn-official-detail-link" style="display:inline-flex; align-items:center; gap:6px; background:#EEF4FF; color:var(--koko-blue-main); border:2px solid var(--koko-blue-main); border-radius:20px; padding:8px 16px; font-size:13px; font-weight:800; text-decoration:none; box-shadow:2px 2px 0px var(--koko-blue-main);">
-            🌐 ${isChild ? '学校の公式ホームページを見てみる ↗' : '公式ホームページを見る（外部サイト） ↗'}
-          </a>
-        ` : ''}
-        ${!isChild ? `
+      <!-- 学校ヘッダー情報カード -->
+      <div class="card-surface" style="margin-top: 14px; padding: 18px 20px;">
+        <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:12px;">
+          <div style="flex:1;">
+            <span style="font-size:12px; color:#64748B; font-weight:700; display:block;">${school.name_ruby || ''}</span>
+            <h1 id="schoolDetailModalTitle" style="margin: 4px 0 10px; font-size:24px; font-weight:800; color:var(--text-main); line-height:1.3;">${school.name}</h1>
+            
+            <div style="display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin: 8px 0 12px;">
+              <span style="font-size:12px; background:#F8FAFC; color:#334155; border:1px solid #CBD5E1; padding:4px 10px; border-radius:8px; font-weight:700;">
+                📍 所在地：${school.prefecture} ${school.district || ''}（最寄：${school.station_name}駅）
+              </span>
+              <span class="pastel-pill-gender">${genderText}</span>
+              <span class="pastel-pill-category">${school.category === 'private' ? '私立' : school.category === 'public' ? '公立一貫' : '国立附属'}</span>
+            </div>
+          </div>
+
+          <button type="button" class="btn-modal-favorite ${heartActive}" onclick="toggleDetailFavFromTop(this)" style="flex-shrink:0;">
+            ${getHeartSvg(school.is_favorite)}
+            <span class="btn-fav-txt">${school.is_favorite ? 'いいね中' : 'いいね'}</span>
+          </button>
+        </div>
+
+        <!-- アクションボタン群（公式HP ＆ Googleマップ通学経路表示） -->
+        <div style="margin-top: 10px; padding-top: 12px; border-top: 1px dashed #E2E8F0; display:flex; flex-wrap:wrap; gap:10px;">
+          ${school.official_url ? `
+            <a href="${school.official_url}" target="_blank" rel="noopener noreferrer" class="btn-official-detail-link" style="display:inline-flex; align-items:center; gap:6px; background:#EEF4FF; color:var(--koko-blue-main); border:2px solid var(--koko-blue-main); border-radius:20px; padding:8px 16px; font-size:13px; font-weight:800; text-decoration:none; box-shadow:2px 2px 0px var(--koko-blue-main);">
+              🌐 公式ホームページを見る（外部サイト） ↗
+            </a>
+          ` : ''}
           <a href="${mapRouteUrl}" target="_blank" rel="noopener noreferrer" onclick="handleMapLinkClick(event, '${mapRouteUrl}')" class="btn-map-transit-link" style="display:inline-flex; align-items:center; gap:6px; background:#F0FDF4; color:#15803D; border:2px solid #86EFAC; border-radius:20px; padding:8px 16px; font-size:13px; font-weight:800; text-decoration:none; box-shadow:2px 2px 0px var(--koko-blue-main);">
             🗺️ Googleマップで通学ルートを見る（公共交通機関） ↗
           </a>
-        ` : ''}
+        </div>
       </div>
-    </div>
 
-    <!-- コンテンツボディ各セクション（子ども画面と保護者画面で完全分岐） -->
-    <div class="modal-school-sections-container" style="margin-top: 16px;">
-      ${isChild
-      ? generateChildSchoolDetailHtml(school)
-      : generateParentSchoolDetailBodyHtml(school, commuteMinutes, isCommuteAny, commuteLimit, userAddr, userStn, tuitionMan, firstYearEst, genderText, categoryLabel, univPathLabel, religionLabel, events)
-    }
-    </div>
+      <!-- 保護者向け詳細ボディ -->
+      <div class="modal-school-sections-container" style="margin-top: 16px;">
+        ${generateParentSchoolDetailBodyHtml(school, commuteMinutes, isCommuteAny, commuteLimit, userAddr, userStn, tuitionMan, firstYearEst, genderText, categoryLabel, univPathLabel, religionLabel, events)}
+      </div>
 
-    <!-- 画面下部の一覧に戻るボタン -->
-    <div style="margin-top: 28px; text-align: center;">
-      <button type="button" class="${isChild ? 'btn-solid-child' : 'btn-solid-parent'} full-width" onclick="goBackFromSchoolDetail()" style="display:flex; align-items:center; justify-content:center; gap:8px; font-size:15px; padding:14px;">
-        <span>← 一覧にもどる</span>
-      </button>
-    </div>
-  `;
+      <!-- 画面下部の一覧に戻るボタン -->
+      <div style="margin-top: 28px; text-align: center;">
+        <button type="button" class="btn-solid-parent full-width" onclick="goBackFromSchoolDetail()" style="display:flex; align-items:center; justify-content:center; gap:8px; font-size:15px; padding:14px;">
+          <span>← 一覧にもどる</span>
+        </button>
+      </div>
+    `;
+  }
 
   // モーダルオーバーレイは非表示
   const modalOverlay = document.getElementById('schoolDetailModalOverlay');
@@ -3147,6 +3424,7 @@ function toggleDetailFavFromTop(btnEl) {
   // 上部ボタンの表示更新
   const btnTopFav = document.getElementById('btnDetailFavTop');
   const btnTopFavModal = document.getElementById('btnDetailFavTopModal');
+  const btnTopFavLabel = document.getElementById('btnDetailFavTopLabel');
   [btnTopFav, btnTopFavModal].forEach(b => {
     if (b) {
       if (school.is_favorite) {
@@ -3156,6 +3434,9 @@ function toggleDetailFavFromTop(btnEl) {
       }
     }
   });
+  if (btnTopFavLabel) {
+    btnTopFavLabel.textContent = school.is_favorite ? 'いいね中' : 'いいね';
+  }
 
   // 画面内のいいねボタンも更新
   document.querySelectorAll('.btn-modal-favorite').forEach(b => {
@@ -4886,68 +5167,17 @@ function executeSchoolMatching() {
   AppSchema.recommended_schools = scored.slice(0, 3);
 }
 
-// その子に合っているポイントをどどんと表示するバナー
+// その子に合っているポイントをどどんと表示するバナー（AI ADVISOR おすすめのポイント）
 function renderChildMatchingFitBanner() {
   const container = document.getElementById('childMatchingFitBanner');
   if (!container) return;
 
-  const prof = AppSchema.child_profile || {};
-  const interests = prof.interests || [];
-
-  let typeTitle = "好奇心と創造力を形にする！アクティブ探究タイプ";
-  let point1Title = "本格的な設備が充実！";
-  let point1Desc = "3Dプリンタや実験室など、じぶんの手を動かして没頭できる環境";
-  let point2Title = "個性を尊重するのびのび校風！";
-  let point2Desc = "「やってみたい！」という自由な発想を先生や先輩たちが全力で応援してくれる雰囲気";
-  let point3Title = "探究型のワクワクする授業！";
-  let point3Desc = "教科書を覚えるだけでなく、実験や体験、みんなで意見を出し合う探究学習が充実";
-
-  if (interests.includes("interest_sports_athletics")) {
-    typeTitle = "全力で挑戦して仲間と成長する！文武両道アクティブタイプ";
-    point1Title = "広大なグラウンド＆充実設備！";
-    point1Desc = "思いっきり身体を動かして部活やスポーツに打ち込める恵まれた施設環境";
-  } else if (interests.includes("interest_nature_biology")) {
-    typeTitle = "身近な不思議をとことん探る！自然・サイエンス探究タイプ";
-    point1Title = "自然豊かでフィールドワークが盛ん！";
-    point1Desc = "キャンパス内の豊かな自然や実験室で、生き物や科学のふしぎを体感できる環境";
-  } else if (interests.includes("interest_arts_music")) {
-    typeTitle = "自分らしさを作品で表現する！アート・クリエイティブタイプ";
-    point1Title = "創作に没頭できるアトリエ＆ホール！";
-    point1Desc = "美術室や音楽室、発表ホールなど感性を磨いて作品づくりに没頭できる場所";
-  }
-
   container.innerHTML = `
-    <div class="matching-fit-hero-card">
-      <div class="fit-hero-top-badge">✦ あなたのぴったり診断結果 ✦</div>
-      <h3 class="fit-hero-title">「${typeTitle}」</h3>
-      <p class="fit-hero-subtitle">
-        あなたが教えてくれた「すきなこと」や「ワクワクする瞬間」から、ぴったりの中学校の特徴が見つかりました！
-      </p>
-      
-      <div class="fit-points-list">
-        <div class="fit-point-row">
-          <div class="fit-point-badge">ぴったり ①</div>
-          <div class="fit-point-content">
-            <h4 class="fit-point-heading">${point1Title}</h4>
-            <p class="fit-point-detail">${point1Desc}</p>
-          </div>
-        </div>
-        <div class="fit-point-row">
-          <div class="fit-point-badge">ぴったり ②</div>
-          <div class="fit-point-content">
-            <h4 class="fit-point-heading">${point2Title}</h4>
-            <p class="fit-point-detail">${point2Desc}</p>
-          </div>
-        </div>
-        <div class="fit-point-row">
-          <div class="fit-point-badge">ぴったり ③</div>
-          <div class="fit-point-content">
-            <h4 class="fit-point-heading">${point3Title}</h4>
-            <p class="fit-point-detail">${point3Desc}</p>
-          </div>
-        </div>
-      </div>
+    <div class="child-ai-section-head" style="margin-bottom: 12px;">
+      <span class="child-ai-advisor-pill">AI ADVISOR</span>
+      <h3 class="child-clean-section-title" style="margin: 6px 0 0;">おすすめのポイント</h3>
     </div>
+    ${getChildAiAdvisorPointsHtml()}
   `;
 }
 
@@ -6138,12 +6368,70 @@ function setupReviewWizardUI(mode, targetPlan = null) {
             ? strictFilters.map(k => `<span class="ans-chip-tag ans-chip-strict">🛡 ${strictKeyMap[k] || k}</span>`).join(' ')
             : '<span style="font-size:12px; color:#64748B;">（設定なし：全条件を参考値としてマッチング）</span>';
 
+          const shortTuitionText = tuitionVal === 0 ? 'こだわらない' : `${tuitionVal}万円未満`;
+          const shortCommuteText = commuteTimeVal === 0 ? 'こだわらない' : `片道 ${commuteTimeVal}分以内`;
+          const shortGenderText = genderVal === 'coed' ? '共学校のみ' : (genderVal === 'boys' ? '男子校のみ' : (genderVal === 'girls' ? '女子校のみ' : 'こだわらない'));
+
           mypageEl.innerHTML = `
-    <div class="mypage-ans-status-badge">
-      <span class="badge-phase" style="background:#E0E7FF; border-color:#000; color:#1E3A8A;">条件設定済み（全10問）</span>
-      <span style="font-size:12px; color:#555;">右上の「✎ 条件を編集する」からいつでも再設定できます</span>
+    <!-- 画像3枚目準拠：ひとめでわかる保護者設定カード -->
+    <div class="parent-visual-settings-card">
+      <h4 class="parent-visual-settings-heading">どんな学校をさがしますか？</h4>
+
+      <div class="parent-visual-settings-stack">
+        <button type="button" class="parent-visual-setting-row" onclick="startParentConditionEdit()">
+          <div class="p-setting-icon-wrap">
+            <svg width="34" height="34" viewBox="0 0 40 40" fill="none">
+              <path d="M20 5C13.4 5 8 10.2 8 16.6C8 25.3 20 35 20 35C20 35 32 25.3 32 16.6C32 10.2 26.6 5 20 5Z" fill="#EC4899"/>
+              <circle cx="20" cy="16.5" r="4.5" fill="#FFFFFF"/>
+            </svg>
+          </div>
+          <div class="p-setting-main-text">
+            <div class="p-setting-title">通学時間</div>
+            <div class="p-setting-value">${shortCommuteText}</div>
+          </div>
+          <span class="p-setting-chevron">&gt;</span>
+        </button>
+
+        <button type="button" class="parent-visual-setting-row" onclick="startParentConditionEdit()">
+          <div class="p-setting-icon-wrap">
+            <svg width="34" height="34" viewBox="0 0 40 40" fill="none">
+              <ellipse cx="17" cy="14" rx="9" ry="4" fill="#FBBF24"/>
+              <path d="M8 14V20C8 22.2 12 24 17 24C22 24 26 22.2 26 20V14" fill="#F59E0B"/>
+              <ellipse cx="17" cy="20" rx="9" ry="4" fill="#FDE68A"/>
+              <ellipse cx="24" cy="23" rx="8.5" ry="3.8" fill="#FBBF24"/>
+              <path d="M15.5 23V29C15.5 31 19.3 32.8 24 32.8C28.7 32.8 32.5 31 32.5 29V23" fill="#D97706"/>
+              <ellipse cx="24" cy="23" rx="8.5" ry="3.8" fill="#FCD34D"/>
+            </svg>
+          </div>
+          <div class="p-setting-main-text">
+            <div class="p-setting-title">学費</div>
+            <div class="p-setting-value">${shortTuitionText}</div>
+          </div>
+          <span class="p-setting-chevron">&gt;</span>
+        </button>
+
+        <button type="button" class="parent-visual-setting-row" onclick="startParentConditionEdit()">
+          <div class="p-setting-icon-wrap">
+            <svg width="34" height="34" viewBox="0 0 40 40" fill="none">
+              <polygon points="20,8 4,16 20,24 36,16" fill="#475569"/>
+              <path d="M10 19.5V27.5C10 30.2 14.5 32.5 20 32.5C25.5 32.5 30 30.2 30 27.5V19.5L20 24.5L10 19.5Z" fill="#64748B"/>
+              <path d="M33 17.5V27" stroke="#475569" stroke-width="2.5" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div class="p-setting-main-text">
+            <div class="p-setting-title">学校の形</div>
+            <div class="p-setting-value">${shortGenderText}</div>
+          </div>
+          <span class="p-setting-chevron">&gt;</span>
+        </button>
+      </div>
+
+      <button type="button" class="btn-child-navy-detail" style="margin-top: 18px;" onclick="switchUserMode('child'); switchAppView('home');">
+        <span>この条件でおすすめを見る</span>
+      </button>
     </div>
-    <div class="mypage-ans-grid">
+
+    <div class="mypage-ans-grid" style="margin-top: 16px;">
       <div class="mypage-ans-item">
         <span class="mypage-ans-label">🏠 ご自宅住所・最寄り駅</span>
         <div class="mypage-ans-value">${addressText}</div>
