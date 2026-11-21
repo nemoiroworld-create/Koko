@@ -30,16 +30,16 @@
         </div>
         <div class="header-right-badges"></div>
       </div>
-      <!-- 保護者 ⇄ 子ども ⇄ 親子 切り替えピルバー -->
+      <!-- 保護者画面 ⇄ 子ども画面 ⇄ 親子画面 切り替えピルバー -->
       <div class="user-mode-switcher-bar">
         <button type="button" class="mode-pill-toggle active" id="btnModeParent" onclick="switchUserMode('parent')">
-          保護者
+          <span class="mode-bullet">✦</span> 保護者画面
         </button>
         <button type="button" class="mode-pill-toggle" id="btnModeChild" onclick="switchUserMode('child')">
-          子ども
+          <span class="mode-bullet">✦</span> 子ども画面
         </button>
         <button type="button" class="mode-pill-toggle" id="btnModeFamily" onclick="switchUserMode('family')">
-          親子
+          <span class="mode-bullet">✦</span> 親子画面
         </button>
       </div>
     </header>
@@ -142,7 +142,7 @@
         <!-- ==========================================
              B. 子ども画面のホーム（画像準拠：大きくわかりやすいビジュアルUI）
              ========================================== -->
-        <div id="homeChildViewBlock" class="home-mode-block child-friendly-home">
+        <div id="homeChildViewBlock" class="home-mode-block child-friendly-home" style="display: none;">
           <!-- 子ども向けイラスト付きヒーローバナー -->
           <div class="child-visual-hero-card">
             <div class="child-hero-illust-stage" aria-hidden="true">
@@ -1902,21 +1902,22 @@
            0-4. 学校詳細画面（独立した本物の画面：背景に他画面を表示しない）
            ======================================================== -->
       <section id="roleSchoolDetailView" class="role-view">
-        <!-- 上部固定ナビゲーションバー（戻るボタン ＆ いいねピルボタン） -->
+        <!-- 上部固定ナビゲーションバー（保護者画面は従来デザイン、子ども画面はシンプルピル表示） -->
         <div class="school-detail-screen-header">
           <button type="button" class="btn-screen-back" onclick="goBackFromSchoolDetail()" aria-label="もどる">
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
               <polyline points="15 18 9 12 15 6" />
             </svg>
+            <span class="back-btn-parent-text">一覧にもどる</span>
           </button>
-          <span class="school-detail-screen-title" id="schoolDetailTopBarTitle"></span>
-          <button type="button" class="btn-screen-fav-top-pill" id="btnDetailFavTop" onclick="toggleDetailFavFromTop(this)"
+          <span class="school-detail-screen-title" id="schoolDetailTopBarTitle">学校の詳しい案内</span>
+          <button type="button" class="btn-screen-fav-top" id="btnDetailFavTop" onclick="toggleDetailFavFromTop(this)"
             title="お気に入り">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" stroke-width="2">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path
                 d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
             </svg>
-            <span id="btnDetailFavTopLabel">いいね</span>
+            <span id="btnDetailFavTopLabel" class="fav-top-child-label">いいね</span>
           </button>
         </div>
 

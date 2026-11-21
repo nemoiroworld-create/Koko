@@ -586,9 +586,23 @@ function slideQuestionStep(currentSlideId, nextSlideId, direction = 'next', onCo
 
 // ==========================================
 // 4. ユーザーモード（保護者画面 ⇄ 子ども画面 ⇄ 親子画面）の切り替え
+// 各画面（parent / child / family）が完全に独立した画面状態を持つ設計
 // ==========================================
 let currentUserMode = 'parent'; // デフォルトは保護者画面
 let familyActiveActor = 'parent'; // 親子画面で現在操作中のロール ('parent' | 'child')
+
+// 各モードごとの独立した画面状態（子どもの「学校を詳しくみる」が保護者や親子に連動しないように分離）
+const modeScreenState = {
+  parent: { role: 'home', detailSchoolId: null, prevRoleBeforeDetail: 'home', scroll: 0 },
+  child: { role: 'home', detailSchoolId: null, prevRoleBeforeDetail: 'home', scroll: 0 },
+  family: { role: 'home', detailSchoolId: null, prevRoleBeforeDetail: 'home', scroll: 0 }
+};
+
+function syncChildModeBodyClass(mode) {
+  if (document && document.body && document.body.classList) {
+    document.body.classList.toggle('child-mode-active', mode === 'child');
+  }
+}
 
 function getCurrentActorRole() {
   if (currentUserMode === 'child') return 'child';
@@ -597,62 +611,52 @@ function getCurrentActorRole() {
 }
 
 function switchUserMode(mode) {
+  const prevMode = currentUserMode;
+
+  // 切り替え前のモードの現在画面状態を保存（他のモードと混ざらないように独立保存）
+  if (prevMode && modeScreenState[prevMode] && currentRole && currentRole !== 'welcome') {
+    const savedRole = (currentRole === 'parent' || currentRole === 'child') ? 'home' : currentRole;
+    modeScreenState[prevMode] = {
+      role: savedRole,
+      detailSchoolId: currentDetailSchoolId,
+      prevRoleBeforeDetail: previousRoleBeforeDetail || 'home',
+      scroll: window.scrollY || (document.documentElement ? document.documentElement.scrollTop : 0) || 0
+    };
+  }
+
+  // すでに同じモードボタンを押した場合は、そのモードのホーム画面へ戻す
+  if (prevMode === mode && modeScreenState[mode]) {
+    modeScreenState[mode].role = 'home';
+    modeScreenState[mode].detailSchoolId = null;
+  }
+
   if (mode === 'parent' || mode === 'child') {
     familyActiveActor = mode;
   }
   currentUserMode = mode;
+  syncChildModeBodyClass(mode);
 
   // ピルボタンのactive状態更新
   updateHeaderModePills(mode);
+  exitOnboardingMode();
 
-  // 親子画面が押されたとき、またはオンボーディング中にモード切替された場合はホーム画面を表示
-  if (mode === 'family' || document.body.classList.contains('onboarding-active') || currentRole === 'parent' || currentRole === 'child') {
-    exitOnboardingMode();
+  // 親子画面は常に独立した親子ホーム画面を表示
+  if (mode === 'family') {
+    currentDetailSchoolId = null;
+    previousRoleBeforeDetail = 'home';
     switchAppView('home');
     return;
   }
 
-  // ホーム画面が表示されている場合は表示ブロックを切り替え
-  const homeParent = document.getElementById('homeParentViewBlock');
-  const homeChild = document.getElementById('homeChildViewBlock');
-  const homeFamily = document.getElementById('homeFamilyViewBlock');
-  if (homeParent && homeChild) {
-    if (mode === 'parent') {
-      homeParent.style.display = 'block';
-      homeChild.style.display = 'none';
-      if (homeFamily) homeFamily.style.display = 'none';
-      renderParentHomeDashboard();
-    } else if (mode === 'child') {
-      homeParent.style.display = 'none';
-      homeChild.style.display = 'block';
-      if (homeFamily) homeFamily.style.display = 'none';
-      renderHomeRecommendedSchools();
-      renderHomeInterestAlternativeSchools();
-    } else if (mode === 'family') {
-      homeParent.style.display = 'none';
-      homeChild.style.display = 'none';
-      if (homeFamily) homeFamily.style.display = 'block';
-      renderFamilyScreen();
-    }
-  }
+  // 切り替え先モード（保護者 または 子ども）自身の保存済み画面状態を復元
+  const targetState = modeScreenState[mode] || { role: 'home', detailSchoolId: null, prevRoleBeforeDetail: 'home', scroll: 0 };
+  previousRoleBeforeDetail = targetState.prevRoleBeforeDetail || 'home';
+  currentDetailSchoolId = targetState.detailSchoolId || null;
 
-  // 「探す」画面が表示中の場合は学校リストを再描画（親向け／子ども向け文章が切り替わる）
-  const searchView = document.getElementById('roleSchoolSearchView');
-  if (searchView && searchView.classList.contains('active')) {
-    renderSchoolSearchList(currentQuickTag || 'all');
-  }
-
-  // 「記録」画面が表示中の場合も再描画
-  const reviewView = document.getElementById('roleReviewView');
-  if (reviewView && reviewView.classList.contains('active')) {
-    renderReviewView();
-  }
-
-  // マイページが表示中の場合はお子さま回答データの表示・編集権限を再描画
-  const mypageView = document.getElementById('roleMypageView');
-  if (mypageView && mypageView.classList.contains('active')) {
-    initMypageProfile();
-    renderMypageFavorites();
+  if (targetState.role === 'school-detail' && targetState.detailSchoolId) {
+    openSchoolDetailScreen(targetState.detailSchoolId, { skipFootprint: true });
+  } else {
+    switchAppView(targetState.role || 'home');
   }
 }
 
@@ -686,7 +690,18 @@ function switchAppView(viewName) {
 
   // 通常ビューへの遷移時はウェルカムモードを解除
   document.body.classList.remove('welcome-active');
+  syncChildModeBodyClass(currentUserMode);
   currentRole = viewName;
+
+  // 現在のモードの画面状態を更新（他モードには影響しない）
+  if (currentUserMode && modeScreenState[currentUserMode]) {
+    if (viewName !== 'parent' && viewName !== 'child') {
+      modeScreenState[currentUserMode].role = viewName;
+      if (viewName !== 'school-detail') {
+        modeScreenState[currentUserMode].detailSchoolId = null;
+      }
+    }
+  }
 
   // すべてのアクティブ状態を一旦リセット
   document.querySelectorAll('.bottom-nav-item').forEach(btn => btn.classList.remove('active'));
@@ -982,14 +997,13 @@ function renderChildThreeStrengthsBoxHtml(school) {
 }
 
 // ==========================================
-// 学校キャンパスビジュアルバナー（明るく親しみやすい校舎イラスト＋右上ハートボタン）
+// 子ども画面専用：学校キャンパスビジュアルバナー（明るく親しみやすい校舎イラスト＋右上ハートボタン）
 // ==========================================
-function renderSchoolPhotoPlaceholder(school, height = '140px', options = {}) {
+function renderChildCampusVisualBanner(school, height = '148px', options = {}) {
   if (!school) return '';
   const heartActive = school.is_favorite ? 'active' : '';
   const showFloatingHeart = !!options.showFloatingHeart;
 
-  // 学校IDから少しずつ空や校舎のアクセントカラーを変える
   const idStr = school.school_id || school.name || 'koko';
   let hash = 0;
   for (let i = 0; i < idStr.length; i++) hash = (hash * 31 + idStr.charCodeAt(i)) % 360;
@@ -1009,7 +1023,7 @@ function renderSchoolPhotoPlaceholder(school, height = '140px', options = {}) {
         <!-- 遠くの木々 -->
         <ellipse cx="45" cy="152" rx="55" ry="26" fill="#86EFAC" />
         <ellipse cx="355" cy="148" rx="65" ry="30" fill="#4ADE80" />
-        <!-- 校舎メイン棟（斜めパース風の明るい近代校舎） -->
+        <!-- 校舎メイン棟 -->
         <polygon points="75,155 75,82 215,52 215,155" fill="#F8FAFC" stroke="#CBD5E1" stroke-width="1.5" />
         <polygon points="215,155 215,52 325,78 325,155" fill="#E2E8F0" stroke="#CBD5E1" stroke-width="1.5" />
         <!-- 屋根ライン -->
@@ -1047,6 +1061,24 @@ function renderSchoolPhotoPlaceholder(school, height = '140px', options = {}) {
           ${getHeartSvg(school.is_favorite)}
         </button>
       ` : ''}
+    </div>
+  `;
+}
+
+// ==========================================
+// 保護者画面用：学校写真プレースホルダー（元のデザインを維持）
+// ==========================================
+function renderSchoolPhotoPlaceholder(school, height = '140px') {
+  if (!school) return '';
+  const schoolName = school.name || '学校';
+
+  return `
+    <div class="school-card-photo-wrap placeholder-only" style="height:${height}; background:#F8FAFC; border:2px dashed #CBD5E1; border-radius:12px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:6px; color:#64748B; margin:8px 0 12px; box-sizing:border-box;">
+      <div class="photo-placeholder-fallback" style="display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; text-align:center; padding:10px;">
+        <span class="photo-placeholder-icon" style="font-size:26px; line-height:1;">📷</span>
+        <span class="photo-placeholder-text" style="font-size:12px; font-weight:700; color:#334155;">【${schoolName}】写真枠</span>
+        <span class="photo-placeholder-sub" style="font-size:10px; color:#64748B;">※学校の公式ホームページで実際の校舎・キャンパス写真をご確認いただけます</span>
+      </div>
     </div>
   `;
 }
@@ -1098,18 +1130,19 @@ function getSchoolHashtags(school) {
 }
 
 // ==========================================
-// 標準学校カードHTML生成（子ども画面では画像準拠の大きな文字・ビジュアル強み付きカード）
+// 標準学校カードHTML生成（子ども画面のみ新ビジュアルUI、保護者画面は従来のUIを維持）
 // ==========================================
 function renderStandardSchoolCardHtml(school, options = {}) {
   if (!school) return '';
-  const isParent = currentUserMode === 'parent';
-  const isChild = !isParent;
+  const isChild = currentUserMode === 'child';
+  const isParent = !isChild;
   const genderText = school.gender_type === 'girls' ? '女子校' : school.gender_type === 'boys' ? '男子校' : '共学';
-  const categoryText = school.category === 'private' ? '私立' : school.category === 'public' ? '公立' : '国立';
+  const categoryText = school.category === 'private' ? '私立' : school.category === 'public' ? '公立一貫' : '国立附属';
+  const childCategoryText = school.category === 'private' ? '私立' : school.category === 'public' ? '公立' : '国立';
   const hashtags = getSchoolHashtags(school);
   const heartActive = school.is_favorite ? 'active' : '';
 
-  // ★ 子ども画面・親子画面：アップロード画像準拠の大きく見やすいビジュアルカード
+  // ★ 子ども画面（currentUserMode === 'child'）のみ：大きく見やすいビジュアルカード
   if (isChild) {
     return `
       <div class="child-visual-school-card" onclick="openSchoolDetailScreen('${school.school_id}')">
@@ -1121,7 +1154,7 @@ function renderStandardSchoolCardHtml(school, options = {}) {
         ` : ''}
 
         <!-- 校舎ビジュアルバナー（右上に丸いハートボタン） -->
-        ${renderSchoolPhotoPlaceholder(school, '148px', { showFloatingHeart: true })}
+        ${renderChildCampusVisualBanner(school, '148px', { showFloatingHeart: true })}
 
         <!-- ふりがな ＆ 大きな学校名 -->
         <div class="child-card-body">
@@ -1130,7 +1163,7 @@ function renderStandardSchoolCardHtml(school, options = {}) {
 
           <!-- 私立 / 共学 のパステルピルバッジ -->
           <div class="child-card-pastel-pills">
-            <span class="pastel-pill-category">${categoryText}</span>
+            <span class="pastel-pill-category">${childCategoryText}</span>
             <span class="pastel-pill-gender">${genderText}</span>
           </div>
 
@@ -1147,35 +1180,55 @@ function renderStandardSchoolCardHtml(school, options = {}) {
     `;
   }
 
-  // ★ 保護者画面：偏差値・ハッシュタグ付きのカード
+  // ★ 保護者画面：従来のUIデザインをそのまま維持
   return `
-    <div class="school-card-compact-item card-surface" style="padding: 16px; border-radius: 20px; border: 1.5px solid #E2E8F0; box-shadow: 0 4px 14px rgba(15, 23, 42, 0.06); background: #FFFFFF; margin-bottom: 16px;">
-      <!-- 学校ビジュアルバナー -->
+    <div class="school-card-compact-item card-surface" style="padding: 16px; border-radius: var(--radius-card); border: 2px solid var(--koko-blue-main); box-shadow: 4px 4px 0px var(--koko-blue-main); background: #FFFFFF; margin-bottom: 16px;">
+      ${options.rankInfo ? `
+        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; padding-bottom:10px; border-bottom:1px dashed #E2E8F0;">
+          <span style="background:${options.rankInfo.bg}; box-shadow:${options.rankInfo.glow}; font-size:12px; padding:4px 10px; border-radius:12px; color:#fff; font-weight:800;">
+            ${options.rankInfo.label}
+          </span>
+          <span style="font-size:12px; font-weight:800; color:var(--koko-blue-main); background:#EFF6FF; padding:4px 10px; border-radius:12px; border:1px solid #BFDBFE;">
+            ★ ぴったり度: ${options.matchScore || 95}%
+          </span>
+        </div>
+      ` : ''}
+
+      <!-- 学校写真（枠） -->
       <div style="margin-bottom: 12px;">
-        ${renderSchoolPhotoPlaceholder(school, '145px', { showFloatingHeart: true })}
+        ${renderSchoolPhotoPlaceholder(school, '150px')}
       </div>
 
-      <!-- 学校名 -->
+      <!-- 学校名 ＆ ❤️（いいねボタン） -->
       <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:10px; margin-bottom: 8px;">
         <div style="flex:1;">
-          <span style="font-size:12px; color:#64748B; font-weight:700; display:block;">${school.name_ruby || ''}</span>
-          <h3 style="margin:2px 0 0; font-size:21px; font-weight:800; color:var(--text-main); line-height:1.3;">${school.name}</h3>
+          <span style="font-size:11px; color:#64748B; font-weight:700; display:block;">${school.name_ruby || ''}</span>
+          <h3 style="margin:2px 0 0; font-size:20px; font-weight:800; color:var(--text-main); line-height:1.3;">${school.name}</h3>
         </div>
+        <button type="button" class="btn-heart-favorite ${heartActive}" onclick="toggleSchoolFavorite('${school.school_id}', this); this.classList.toggle('active');" title="お気に入り" style="flex-shrink:0;">
+          ${getHeartSvg(school.is_favorite)}
+        </button>
       </div>
 
       <!-- 私立/男子校/女子校/共学 ＆ 偏差値（保護者画面のみ） -->
-      <div style="display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin-bottom: 10px;">
-        <span class="pastel-pill-category">${categoryText}</span>
-        <span class="pastel-pill-gender">${genderText}</span>
-        <span style="font-size:13px; font-weight:800; background:#FEF3C7; color:#92400E; padding:4px 12px; border-radius:999px; border:1px solid #FDE68A;">
-          偏差値 ${school.deviation_score}
+      <div style="display:flex; flex-wrap:wrap; gap:6px; align-items:center; margin-bottom: 10px;">
+        <span style="font-size:11px; font-weight:800; background:#E0F2FE; color:#0369A1; padding:3px 8px; border-radius:6px;">
+          ${categoryText}
         </span>
+        <span style="font-size:11px; font-weight:800; background:#F1F5F9; color:#334155; padding:3px 8px; border-radius:6px;">
+          ${genderText}
+        </span>
+        ${isParent ? `
+          <span style="font-size:11px; font-weight:800; background:#FEF3C7; color:#92400E; padding:3px 8px; border-radius:6px; border:1px solid #FDE68A;">
+            偏差値 ${school.deviation_score}
+          </span>
+        ` : ''}
       </div>
 
-      <!-- ＃ハッシュタグ表記 -->
+      <!-- ＃ハッシュタグ表記（例: ＃自主性 ＃部活が盛ん） -->
       <div style="display:flex; flex-wrap:wrap; gap:6px; margin-bottom: 14px;">
         ${hashtags.map(tag => `
-          <span style="font-size:13px; font-weight:700; color:var(--koko-blue-main); background:#EFF6FF; border:1px solid #BFDBFE; padding:4px 11px; border-radius:14px;">
+          <span style="font-size:12px; font-weight:700; color:var(--koko-blue-main); background:#EFF6FF; border:1px solid #BFDBFE; padding:3px 10px; border-radius:14px;">
             ${tag}
           </span>
         `).join('')}
@@ -1183,9 +1236,8 @@ function renderStandardSchoolCardHtml(school, options = {}) {
 
       <!-- 学校を詳しくみるボタン -->
       <div style="margin-top: 8px;">
-        <button type="button" class="btn-child-navy-detail" onclick="openSchoolDetailScreen('${school.school_id}')">
-          <span>学校をくわしくみる</span>
-          <span class="arrow-ne">↗</span>
+        <button type="button" class="btn-solid-parent full-width" onclick="openSchoolDetailScreen('${school.school_id}')" style="display:flex; align-items:center; justify-content:center; gap:6px; padding:12px; font-size:14px; font-weight:800; border-radius:10px;">
+          ✦ 学校を詳しくみる
         </button>
       </div>
     </div>
@@ -3050,7 +3102,7 @@ function generateChildSchoolDetailHtml(school) {
     <!-- 画像2枚目準拠：メイン詳細ヒーローカード -->
     <div class="child-detail-hero-sheet">
       <!-- 大きな校舎ビジュアルバナー -->
-      ${renderSchoolPhotoPlaceholder(school, '195px', { showFloatingHeart: false })}
+      ${renderChildCampusVisualBanner(school, '195px', { showFloatingHeart: false })}
 
       <!-- ふりがな ＆ 大きな学校名 ＆ 私立/共学バッジ -->
       <div class="child-detail-title-area">
@@ -3258,12 +3310,14 @@ function generateParentSchoolDetailBodyHtml(school, commuteMinutes, isCommuteAny
 // ==========================================
 // 学校詳細画面（背景に他画面を表示しない独立した専用画面への切り替え）
 // ==========================================
-function openSchoolDetailScreen(schoolId) {
+function openSchoolDetailScreen(schoolId, options = {}) {
   const school = SCHOOL_DATABASE.find(s => s.school_id === schoolId);
   if (!school) return;
 
-  // 足跡を記録：「学校の詳細画面を確認した」
-  recordFamilyFootprint('view_school', school.name, { school_id: school.school_id });
+  // 足跡を記録：「学校の詳細画面を確認した」（モード復元時は重複記録しない）
+  if (!options.skipFootprint) {
+    recordFamilyFootprint('view_school', school.name, { school_id: school.school_id });
+  }
 
   // 直前の画面とスクロール位置を記憶（戻るボタンで使用）
   if (currentRole !== 'school-detail') {
@@ -3272,6 +3326,13 @@ function openSchoolDetailScreen(schoolId) {
   }
   currentDetailSchoolId = schoolId;
   currentRole = 'school-detail';
+
+  // 現在のモード自身の画面状態のみ更新（他のモードには連動させない）
+  if (currentUserMode && modeScreenState[currentUserMode]) {
+    modeScreenState[currentUserMode].role = 'school-detail';
+    modeScreenState[currentUserMode].detailSchoolId = schoolId;
+    modeScreenState[currentUserMode].prevRoleBeforeDetail = previousRoleBeforeDetail;
+  }
 
   const isChild = currentUserMode === 'child';
   const heartActive = school.is_favorite ? 'active' : '';
@@ -3294,7 +3355,7 @@ function openSchoolDetailScreen(schoolId) {
   const firstYearEst = tuitionMan + 28; // 入学金等の初年度概算
   const commuteMinutes = school.calculated_commute_time || school.commute_time || 30;
 
-  // 上部固定ヘッダーのお気に入りピルボタン（♥ いいね中 / ♡ いいね）状態を同期
+  // 上部固定ヘッダーのお気に入りボタン状態を同期
   const btnTopFav = document.getElementById('btnDetailFavTop');
   const btnTopFavLabel = document.getElementById('btnDetailFavTopLabel');
   if (btnTopFav) {
@@ -3316,7 +3377,7 @@ function openSchoolDetailScreen(schoolId) {
     `;
   } else {
     detailHtml = `
-      <!-- 学校ビジュアルバナー -->
+      <!-- 学校写真プレースホルダー（枠のみ表示） -->
       ${renderSchoolPhotoPlaceholder(school, '200px')}
 
       <!-- 学校ヘッダー情報カード -->
@@ -3330,8 +3391,17 @@ function openSchoolDetailScreen(schoolId) {
               <span style="font-size:12px; background:#F8FAFC; color:#334155; border:1px solid #CBD5E1; padding:4px 10px; border-radius:8px; font-weight:700;">
                 📍 所在地：${school.prefecture} ${school.district || ''}（最寄：${school.station_name}駅）
               </span>
-              <span class="pastel-pill-gender">${genderText}</span>
-              <span class="pastel-pill-category">${school.category === 'private' ? '私立' : school.category === 'public' ? '公立一貫' : '国立附属'}</span>
+              <span style="font-size:12px; background:#FEF3C7; color:#B45309; border:1px solid #FDE68A; padding:4px 10px; border-radius:8px; font-weight:700;">
+                ${genderText}
+              </span>
+              <span style="font-size:12px; background:#F1F5F9; color:#475569; border:1px solid #E2E8F0; padding:4px 10px; border-radius:8px; font-weight:700;">
+                ${school.category === 'private' ? '私立' : school.category === 'public' ? '公立一貫' : '国立附属'}
+              </span>
+              ${school.vibe_label ? `
+                <span style="font-size:12px; background:#EFF6FF; color:#1D4ED8; border:1px solid #BFDBFE; padding:4px 10px; border-radius:8px; font-weight:700;">
+                  ✦ ${school.vibe_label}
+                </span>
+              ` : ''}
             </div>
           </div>
 
@@ -3389,7 +3459,15 @@ function openSchoolDetailScreen(schoolId) {
 const openSchoolDetailModal = openSchoolDetailScreen;
 
 function goBackFromSchoolDetail() {
-  switchAppView(previousRoleBeforeDetail || 'home');
+  const targetRole = (currentUserMode && modeScreenState[currentUserMode] && modeScreenState[currentUserMode].prevRoleBeforeDetail)
+    ? modeScreenState[currentUserMode].prevRoleBeforeDetail
+    : (previousRoleBeforeDetail || 'home');
+  currentDetailSchoolId = null;
+  if (currentUserMode && modeScreenState[currentUserMode]) {
+    modeScreenState[currentUserMode].role = targetRole;
+    modeScreenState[currentUserMode].detailSchoolId = null;
+  }
+  switchAppView(targetRole);
   // スクロール位置の復帰
   setTimeout(() => {
     window.scrollTo({ top: previousScrollBeforeDetail, behavior: 'auto' });
@@ -6368,70 +6446,12 @@ function setupReviewWizardUI(mode, targetPlan = null) {
             ? strictFilters.map(k => `<span class="ans-chip-tag ans-chip-strict">🛡 ${strictKeyMap[k] || k}</span>`).join(' ')
             : '<span style="font-size:12px; color:#64748B;">（設定なし：全条件を参考値としてマッチング）</span>';
 
-          const shortTuitionText = tuitionVal === 0 ? 'こだわらない' : `${tuitionVal}万円未満`;
-          const shortCommuteText = commuteTimeVal === 0 ? 'こだわらない' : `片道 ${commuteTimeVal}分以内`;
-          const shortGenderText = genderVal === 'coed' ? '共学校のみ' : (genderVal === 'boys' ? '男子校のみ' : (genderVal === 'girls' ? '女子校のみ' : 'こだわらない'));
-
           mypageEl.innerHTML = `
-    <!-- 画像3枚目準拠：ひとめでわかる保護者設定カード -->
-    <div class="parent-visual-settings-card">
-      <h4 class="parent-visual-settings-heading">どんな学校をさがしますか？</h4>
-
-      <div class="parent-visual-settings-stack">
-        <button type="button" class="parent-visual-setting-row" onclick="startParentConditionEdit()">
-          <div class="p-setting-icon-wrap">
-            <svg width="34" height="34" viewBox="0 0 40 40" fill="none">
-              <path d="M20 5C13.4 5 8 10.2 8 16.6C8 25.3 20 35 20 35C20 35 32 25.3 32 16.6C32 10.2 26.6 5 20 5Z" fill="#EC4899"/>
-              <circle cx="20" cy="16.5" r="4.5" fill="#FFFFFF"/>
-            </svg>
-          </div>
-          <div class="p-setting-main-text">
-            <div class="p-setting-title">通学時間</div>
-            <div class="p-setting-value">${shortCommuteText}</div>
-          </div>
-          <span class="p-setting-chevron">&gt;</span>
-        </button>
-
-        <button type="button" class="parent-visual-setting-row" onclick="startParentConditionEdit()">
-          <div class="p-setting-icon-wrap">
-            <svg width="34" height="34" viewBox="0 0 40 40" fill="none">
-              <ellipse cx="17" cy="14" rx="9" ry="4" fill="#FBBF24"/>
-              <path d="M8 14V20C8 22.2 12 24 17 24C22 24 26 22.2 26 20V14" fill="#F59E0B"/>
-              <ellipse cx="17" cy="20" rx="9" ry="4" fill="#FDE68A"/>
-              <ellipse cx="24" cy="23" rx="8.5" ry="3.8" fill="#FBBF24"/>
-              <path d="M15.5 23V29C15.5 31 19.3 32.8 24 32.8C28.7 32.8 32.5 31 32.5 29V23" fill="#D97706"/>
-              <ellipse cx="24" cy="23" rx="8.5" ry="3.8" fill="#FCD34D"/>
-            </svg>
-          </div>
-          <div class="p-setting-main-text">
-            <div class="p-setting-title">学費</div>
-            <div class="p-setting-value">${shortTuitionText}</div>
-          </div>
-          <span class="p-setting-chevron">&gt;</span>
-        </button>
-
-        <button type="button" class="parent-visual-setting-row" onclick="startParentConditionEdit()">
-          <div class="p-setting-icon-wrap">
-            <svg width="34" height="34" viewBox="0 0 40 40" fill="none">
-              <polygon points="20,8 4,16 20,24 36,16" fill="#475569"/>
-              <path d="M10 19.5V27.5C10 30.2 14.5 32.5 20 32.5C25.5 32.5 30 30.2 30 27.5V19.5L20 24.5L10 19.5Z" fill="#64748B"/>
-              <path d="M33 17.5V27" stroke="#475569" stroke-width="2.5" stroke-linecap="round"/>
-            </svg>
-          </div>
-          <div class="p-setting-main-text">
-            <div class="p-setting-title">学校の形</div>
-            <div class="p-setting-value">${shortGenderText}</div>
-          </div>
-          <span class="p-setting-chevron">&gt;</span>
-        </button>
-      </div>
-
-      <button type="button" class="btn-child-navy-detail" style="margin-top: 18px;" onclick="switchUserMode('child'); switchAppView('home');">
-        <span>この条件でおすすめを見る</span>
-      </button>
+    <div class="mypage-ans-status-badge">
+      <span class="badge-phase" style="background:#E0E7FF; border-color:#000; color:#1E3A8A;">条件設定済み（全10問）</span>
+      <span style="font-size:12px; color:#555;">右上の「✎ 条件を編集する」からいつでも再設定できます</span>
     </div>
-
-    <div class="mypage-ans-grid" style="margin-top: 16px;">
+    <div class="mypage-ans-grid">
       <div class="mypage-ans-item">
         <span class="mypage-ans-label">🏠 ご自宅住所・最寄り駅</span>
         <div class="mypage-ans-value">${addressText}</div>

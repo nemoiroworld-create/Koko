@@ -6933,55 +6933,19 @@ body.welcome-active .app-container {
 }
 
 /* ========================================================
-   子ども画面 ビジュアルUI刷新（画像1〜4枚目準拠：大きく見やすい・強みがひとめでわかるデザイン）
+   子ども画面専用 ビジュアルUI刷新（保護者画面のUIは一切変更しない）
    ======================================================== */
 
-/* 上部モード切替ピルバー（保護者 / 子ども[ピンク] / 親子） */
-.user-mode-switcher-bar {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #F1F5F9 !important;
-  border-radius: 999px !important;
-  padding: 5px !important;
-  gap: 4px !important;
-  max-width: 340px;
-  margin: 8px auto 4px !important;
-  border: 1px solid #E2E8F0 !important;
-  box-shadow: none !important;
+/* 保護者画面では詳細ヘッダーの子ども用ラベルを非表示にして従来通りにする */
+.fav-top-child-label {
+  display: none;
 }
 
-.user-mode-switcher-bar .mode-pill-toggle {
-  flex: 1;
-  border: none !important;
-  background: transparent !important;
-  color: #475569 !important;
-  font-size: 15px !important;
-  font-weight: 800 !important;
-  padding: 8px 14px !important;
-  border-radius: 999px !important;
-  box-shadow: none !important;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  text-align: center;
-}
-
-.user-mode-switcher-bar #btnModeChild.active {
+/* 子ども画面選択時のみ上部ピルバーの「子ども画面」をピンク強調 */
+body.child-mode-active .user-mode-switcher-bar #btnModeChild.active {
   background: linear-gradient(135deg, #EC4899 0%, #F43F5E 100%) !important;
   color: #FFFFFF !important;
-  box-shadow: 0 3px 10px rgba(236, 72, 153, 0.3) !important;
-}
-
-.user-mode-switcher-bar #btnModeParent.active {
-  background: #1E2440 !important;
-  color: #FFFFFF !important;
-  box-shadow: 0 3px 10px rgba(30, 36, 64, 0.22) !important;
-}
-
-.user-mode-switcher-bar #btnModeFamily.active {
-  background: #8B5CF6 !important;
-  color: #FFFFFF !important;
-  box-shadow: 0 3px 10px rgba(139, 92, 246, 0.28) !important;
+  border-color: #EC4899 !important;
 }
 
 /* 子どもホーム：黄色いイラスト付きヒーローカード */
@@ -7398,8 +7362,8 @@ body.welcome-active .app-container {
   line-height: 1.45;
 }
 
-/* 学校詳細画面の上部バー（画像2枚目準拠：左に＜、右に「♥ いいね中」ピルボタン） */
-.school-detail-screen-header {
+/* 子ども画面のみ：学校詳細画面の上部バー（左に＜、右に「♥ いいね中」ピルボタン） */
+body.child-mode-active .school-detail-screen-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -7408,7 +7372,12 @@ body.welcome-active .app-container {
   border: none !important;
 }
 
-.school-detail-screen-header .btn-screen-back {
+body.child-mode-active .school-detail-screen-header .back-btn-parent-text,
+body.child-mode-active .school-detail-screen-header .school-detail-screen-title {
+  display: none !important;
+}
+
+body.child-mode-active .school-detail-screen-header .btn-screen-back {
   width: 40px;
   height: 40px;
   border-radius: 50% !important;
@@ -7423,36 +7392,36 @@ body.welcome-active .app-container {
   cursor: pointer;
 }
 
-.btn-screen-fav-top-pill {
+body.child-mode-active .school-detail-screen-header .btn-screen-fav-top {
+  width: auto !important;
+  height: auto !important;
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 8px 16px;
-  border-radius: 999px;
-  background-color: #FFFFFF;
-  border: 1.8px solid #CBD5E1;
-  color: #64748B;
+  padding: 8px 16px !important;
+  border-radius: 999px !important;
+  background-color: #FFFFFF !important;
+  border: 1.8px solid #CBD5E1 !important;
+  color: #64748B !important;
   font-family: var(--font-child);
   font-size: 14.5px;
   font-weight: 800;
-  cursor: pointer;
-  transition: all 0.18s ease;
+  box-shadow: none !important;
 }
 
-.btn-screen-fav-top-pill svg {
-  fill: none;
-  stroke: currentColor;
+body.child-mode-active .school-detail-screen-header .btn-screen-fav-top .fav-top-child-label {
+  display: inline !important;
 }
 
-.btn-screen-fav-top-pill.active {
-  background-color: #FDF2F8;
-  border-color: #F472B6;
-  color: #DB2777;
+body.child-mode-active .school-detail-screen-header .btn-screen-fav-top.active {
+  background-color: #FDF2F8 !important;
+  border-color: #F472B6 !important;
+  color: #DB2777 !important;
 }
 
-.btn-screen-fav-top-pill.active svg {
-  fill: #EC4899;
-  stroke: #EC4899;
+body.child-mode-active .school-detail-screen-header .btn-screen-fav-top.active svg {
+  fill: #EC4899 !important;
+  stroke: #EC4899 !important;
 }
 
 /* 子ども詳細画面のメインカードとメッセージ・イベント */
